@@ -260,6 +260,7 @@ ol.steps li::marker{color:var(--accent)}
 .add[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
 .how{font-family:var(--mono);border-radius:999px;padding:1px 7px;font-size:10.5px}
 .star{color:#fbbf24}
+.price{font-family:var(--mono);font-size:10.5px;padding:1px 7px;border-radius:999px;border:1px dashed var(--line-2);color:var(--muted);white-space:nowrap}
 /* section heads */
 section.block{border-top:1px solid var(--line);padding-top:48px;margin-top:72px;gap:24px}
 .blockhead{justify-items:start}
@@ -308,7 +309,7 @@ footer{margin-inline:auto;text-align:center}
   <header class="top">
     <a class="pill" href="#bouwer"><b>Nieuw</b> Stack-bouwer met CLAUDE.md-export →</a>
     <h1>Frontend <em>Ideeënbieb</em></h1>
-    <p class="lede">Tools, repo's en werkwijzen voor bouwen met Claude en frontend. Klik op <b>+</b> bij een tool om hem aan je stack toe te voegen. De stack-bouwer laat zien wat er mist en wat niet samengaat, en maakt er een CLAUDE.md van.</p>
+    <p class="lede">Tools, repo's en werkwijzen voor bouwen met Claude en frontend. Klik op <b>+</b> bij een tool om hem aan je stack toe te voegen. De stack-bouwer laat zien wat er mist en wat niet samengaat, en maakt er een CLAUDE.md van. Alles is gratis; tools met een limiet hebben het label <b>gratis tier</b>.</p>
     <div class="ctas"><a class="btn" href="#bouwer">Bouw je stack</a><a class="btn ghost" href="#musthaves">★ Bekijk must-haves</a></div>
     <div class="stats" id="stats"></div>
     <nav class="jump" aria-label="Secties"><a href="#musthaves">Must-haves</a><a href="#ideeen">Library</a><a href="#projecten">Projectideeën</a><a href="#combinaties">Wat past bij elkaar</a><a href="#installeren">Wie installeert wat?</a><a href="#bouwer">Stack-bouwer</a><a href="#md-gids">.md-starterkit</a></nav>
@@ -480,7 +481,7 @@ const T = {
   fetoolkit:{n:"Claude Code Frontend Design Toolkit",u:"https://github.com/wilwaldon/Claude-Code-Frontend-Design-Toolkit",d:"alles voor mooiere frontends uit Claude Code",r:"learn"},
   skillssh:{n:"skills.sh",u:"https://skills.sh",d:"zoekmachine voor agent skills",r:"learn"},
   // Animation & motion
-  gsap:{n:"GSAP + ScrollTrigger",u:"https://gsap.com",d:"complexe timelines en scroll-animaties",r:"animation",cmd:"npm i gsap"},
+  gsap:{n:"GSAP",u:"https://gsap.com",d:"de standaard voor timelines en scroll; sinds 2025 100% gratis, ook alle plugins",r:"animation",cmd:"npm i gsap"},
   animejs:{n:"Anime.js",u:"https://animejs.com",d:"lichte, flexibele JS-animatie-engine",r:"animation",cmd:"npm i animejs"},
   motion:{n:"Motion",u:"https://motion.dev",d:"animatielibrary voor React, JS en Vue (voorheen Framer Motion)",r:"animation",cmd:"npm i motion"},
   reactspring:{n:"React Spring",u:"https://www.react-spring.dev",d:"natuurlijke physics-animaties",r:"animation",req:[REACT],cmd:"npm i @react-spring/web"},
@@ -494,7 +495,6 @@ const T = {
   theatre:{n:"Theatre.js",u:"https://www.theatrejs.com",d:"timeline-editor voor web- en 3D-animatie",r:"motionx"},
   autoanimate:{n:"AutoAnimate",u:"https://auto-animate.formkit.com",d:"één regel code voor lijst- en layout-animaties",r:"motionx"},
   jitter:{n:"Jitter",u:"https://jitter.video",d:"motion design in de browser",r:"video"},
-  swishy:{n:"Swishy",u:"https://www.swishy.ai",d:"AI motion designer, export naar MP4/MOV",r:"video"},
   ripplix:{n:"Ripplix",u:"https://www.ripplix.com",d:"7.000+ voorbeelden van UI-animaties",r:"inspiration"},
   flow:{n:"Google Flow",u:"https://labs.google/flow",d:"animaties en preloaders maken met AI, zonder code",r:"video"},
   dotmatrix:{n:"Dot Matrix",u:"https://dotmatrix.zzzzshawn.cloud",d:"moderne loading-animaties",r:"motionx"},
@@ -513,7 +513,6 @@ const T = {
   motionprim:{n:"Motion Primitives",u:"https://motion-primitives.com",d:"animatiebouwstenen voor React",r:"uikit",req:[REACT,["tailwind"],["motion"]]},
   animata:{n:"Animata",u:"https://animata.design",d:"handgemaakte animaties en interacties",r:"uikit",req:[REACT,["tailwind"]]},
   cultui:{n:"Cult UI",u:"https://cult-ui.com",d:"opvallende shadcn-componenten",r:"uikit",req:[REACT,["tailwind"],["shadcn"]]},
-  hoverdev:{n:"Hover.dev",u:"https://hover.dev",d:"geanimeerde React-componenten",r:"uikit",req:[REACT,["tailwind"],["motion"]]},
   shadcn:{n:"shadcn/ui",u:"https://ui.shadcn.com",d:"basiscomponenten die je zelf bezit en aanpast",r:"uikit",req:[REACT,["tailwind"]],cmd:"npx shadcn@latest init"},
   tweakcn:{n:"tweakcn",u:"https://tweakcn.com",d:"visuele thema-editor voor shadcn/ui",r:"design",req:[["shadcn"]]},
   daisyui:{n:"daisyUI",u:"https://daisyui.com",d:"componentklassen als Tailwind-plugin, ook zonder React",r:"uikit",req:[["tailwind"]]},
@@ -525,15 +524,12 @@ const T = {
   // Inspiration, color, design tools
   refero:{n:"Refero Styles",u:"https://styles.refero.design",d:"websitestijlen met een DESIGN.md voor Claude",r:"inspiration"},
   randoma11y:{n:"RandomA11y",u:"https://randoma11y.com",d:"toegankelijke kleurcombinaties",r:"color"},
-  rotato:{n:"Rotato",u:"https://rotato.app",d:"3D device-mockups",r:"video"},
   manus:{n:"Manus",u:"https://manus.im",d:"AI-agent die taken en workflows uitvoert",r:"aibuilder"},
-  contentcore:{n:"ContentCore",u:"https://contentcore.xyz",d:"content maken, opslaan als beeld of video",r:"video"},
   v0:{n:"v0",u:"https://v0.app",d:"UI genereren uit een prompt (Vercel)",r:"aibuilder"},
   bolt:{n:"Bolt",u:"https://bolt.new",d:"complete apps genereren in de browser",r:"aibuilder"},
   lovable:{n:"Lovable",u:"https://lovable.dev",d:"apps bouwen met een chat",r:"aibuilder"},
   godly:{n:"Godly",u:"https://godly.website",d:"galerij met opvallend webdesign",r:"inspiration"},
   awwwards:{n:"Awwwards",u:"https://www.awwwards.com",d:"prijswinnende websites",r:"inspiration"},
-  mobbin:{n:"Mobbin",u:"https://mobbin.com",d:"schermen en flows uit echte apps",r:"inspiration"},
   landbook:{n:"Land-book",u:"https://land-book.com",d:"landingspagina-inspiratie",r:"inspiration"},
   siteinspire:{n:"SiteInspire",u:"https://www.siteinspire.com",d:"webdesign op stijl en type",r:"inspiration"},
   minimal:{n:"Minimal Gallery",u:"https://minimal.gallery",d:"minimalistische websites",r:"inspiration"},
@@ -611,11 +607,9 @@ const T = {
   reducedmotion:{n:"prefers-reduced-motion (MDN)",u:"https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion",d:"animaties uitzetten voor wie dat wil",r:"practice"},
   cwv:{n:"Core Web Vitals",u:"https://web.dev/articles/vitals",d:"de drie cijfers die snelheid meten",r:"practice"},
   psi:{n:"PageSpeed Insights",u:"https://pagespeed.web.dev",d:"meet de snelheid van je live site",r:"practice"},
-  everylayout:{n:"Every Layout",u:"https://every-layout.dev",d:"robuuste CSS-layouts zonder breakpoints",r:"practice"},
   utopia:{n:"Utopia",u:"https://utopia.fyi",d:"vloeiende type- en spacing-schalen met clamp()",r:"practice"},
   moderncss:{n:"Modern CSS Solutions",u:"https://moderncss.dev",d:"moderne oplossingen voor oude CSS-problemen",r:"practice"},
   learncss:{n:"Learn CSS (web.dev)",u:"https://web.dev/learn/css",d:"gratis cursus CSS van begin tot eind",r:"practice"},
-  refactoringui:{n:"Refactoring UI",u:"https://www.refactoringui.com",d:"design-tips voor developers",r:"practice"},
   lawsofux:{n:"Laws of UX",u:"https://lawsofux.com",d:"psychologische principes achter goede UX",r:"practice"},
   practypo:{n:"Practical Typography",u:"https://practicaltypography.com",d:"typografie-regels die werken",r:"practice"},
   checklistdesign:{n:"Checklist Design",u:"https://www.checklist.design",d:"checklists per pagina en component",r:"practice"},
@@ -645,7 +639,6 @@ const T = {
   radix:{n:"Radix UI",u:"https://www.radix-ui.com",d:"toegankelijke primitives zonder styling",r:"uikit",req:[REACT]},
   baseui:{n:"Base UI",u:"https://base-ui.com",d:"toegankelijke primitives, de nieuwe basis onder shadcn",r:"uikit",req:[REACT]},
   sentry:{n:"Sentry",u:"https://sentry.io",d:"fouten in productie zien voordat gebruikers klagen",r:"monitor"},
-  plausible:{n:"Plausible",u:"https://plausible.io",d:"privacyvriendelijke bezoekersstatistieken",r:"monitor"},
   // --- mega-uitbreiding ---
   githubmcp:{n:"GitHub MCP",u:"https://github.com/github/github-mcp-server",d:"issues, PR's en Actions vanuit Claude",r:"mcp"},
   magicmcp:{n:"21st MCP (Magic)",u:"https://21st.dev/mcp",d:"zoek 10.000+ React/Tailwind-componenten vanuit Claude",r:"mcp",req:[REACT,["tailwind"]]},
@@ -662,8 +655,6 @@ const T = {
   ark:{n:"Ark UI",u:"https://ark-ui.com",d:"headless componenten voor React, Vue, Svelte",r:"uikit"},
   flowbite:{n:"Flowbite",u:"https://flowbite.com",d:"Tailwind-componenten, ook zonder framework",r:"uikit",req:[["tailwind"]]},
   preline:{n:"Preline",u:"https://preline.co",d:"gratis Tailwind-componenten en secties",r:"uikit",req:[["tailwind"]]},
-  tailwindplus:{n:"Tailwind Plus",u:"https://tailwindcss.com/plus",d:"officiële betaalde UI-blokken van Tailwind",r:"uikit",req:[["tailwind"]]},
-  shadcnblocks:{n:"shadcnblocks",u:"https://www.shadcnblocks.com",d:"kant-en-klare secties voor shadcn",r:"uikit",req:[["shadcn"]]},
   tremor:{n:"Tremor",u:"https://tremor.so",d:"dashboard-componenten en charts",r:"charts",req:[REACT,["tailwind"]]},
   recharts:{n:"Recharts",u:"https://recharts.org",d:"de standaard chartlibrary voor React",r:"charts",req:[REACT],cmd:"npm i recharts"},
   nivo:{n:"nivo",u:"https://nivo.rocks",d:"rijke, geanimeerde datavisualisaties",r:"charts",req:[REACT]},
@@ -692,7 +683,6 @@ const T = {
   framer:{n:"Framer",u:"https://www.framer.com",d:"visuele websitebouwer met animaties en hosting",r:"framework"},
   fontsource:{n:"Fontsource",u:"https://fontsource.org",d:"fonts self-hosten via npm",r:"fonts"},
   collletttivo:{n:"Collletttivo",u:"https://www.collletttivo.it",d:"gratis experimentele open-source fonts",r:"fonts"},
-  pangram:{n:"Pangram Pangram",u:"https://pangrampangram.com",d:"moderne fonts, gratis voor persoonlijk gebruik",r:"fonts"},
   typewolf:{n:"Typewolf",u:"https://www.typewolf.com",d:"welke fonts echte sites gebruiken",r:"inspiration"},
   fontsinuse:{n:"Fonts In Use",u:"https://fontsinuse.com",d:"archief van typografie in de praktijk",r:"inspiration"},
   iconoir:{n:"Iconoir",u:"https://iconoir.com",d:"1.600+ gratis lijn-iconen",r:"icons"},
@@ -719,7 +709,6 @@ const T = {
   landingfolio:{n:"Landingfolio",u:"https://www.landingfolio.com",d:"landingspagina's en componenten",r:"inspiration"},
   darkmode:{n:"Dark Mode Design",u:"https://www.darkmodedesign.com",d:"alleen websites in dark mode",r:"inspiration"},
   collectui:{n:"Collect UI",u:"https://collectui.com",d:"UI-ontwerpen per type scherm",r:"inspiration"},
-  pageflows:{n:"Page Flows",u:"https://pageflows.com",d:"opgenomen user flows van echte apps",r:"inspiration"},
   navbar:{n:"Navbar Gallery",u:"https://www.navbar.gallery",d:"alleen navigatiebalken",r:"inspiration"},
   cssda:{n:"CSS Design Awards",u:"https://www.cssdesignawards.com",d:"prijswinnende webdesigns",r:"inspiration"},
   codrops:{n:"Codrops",u:"https://tympanus.net/codrops",d:"creatieve tutorials en demo's",r:"inspiration"},
@@ -751,7 +740,6 @@ const T = {
   trpc:{n:"tRPC",u:"https://trpc.io",d:"type-veilige API's zonder schema",r:"api"},
   hono:{n:"Hono",u:"https://hono.dev",d:"kleine, snelle API-server voor elke runtime",r:"api",cmd:"npm create hono@latest"},
   cfpages:{n:"Cloudflare Pages",u:"https://pages.cloudflare.com",d:"gratis hosting op het Cloudflare-netwerk",r:"hosting"},
-  railway:{n:"Railway",u:"https://railway.com",d:"apps en databases hosten zonder gedoe",r:"hosting"},
   render:{n:"Render",u:"https://render.com",d:"hosting voor web-apps, API's en databases",r:"hosting"},
   uploadthing:{n:"UploadThing",u:"https://uploadthing.com",d:"bestands-uploads voor TypeScript-apps",r:"storage"},
   cloudinary:{n:"Cloudinary",u:"https://cloudinary.com",d:"afbeeldingen en video automatisch optimaliseren",r:"storage"},
@@ -772,11 +760,51 @@ const T = {
   froggy:{n:"Flexbox Froggy",u:"https://flexboxfroggy.com",d:"flexbox leren met een spel",r:"learn"},
   gridgarden:{n:"Grid Garden",u:"https://cssgridgarden.com",d:"CSS grid leren met een spel",r:"learn"},
   jsinfo:{n:"javascript.info",u:"https://javascript.info",d:"moderne JavaScript-tutorial",r:"learn"},
-  femasters:{n:"Frontend Masters",u:"https://frontendmasters.com",d:"diepgaande cursussen van experts",r:"learn"},
   tshandbook:{n:"TypeScript Handbook",u:"https://www.typescriptlang.org/docs/handbook/",d:"officiële TypeScript-gids",r:"learn"},
   kevinpowell:{n:"Kevin Powell (YouTube)",u:"https://www.youtube.com/@KevinPowell",d:"de beste CSS-uitleg op YouTube",r:"learn"},
+  // --- animatie: volledige set ---
+  gsapst:{n:"ScrollTrigger (GSAP)",u:"https://gsap.com/docs/v3/Plugins/ScrollTrigger/",d:"animaties koppelen aan de scrollpositie",r:"motionx",req:[["gsap"]]},
+  gsapsplit:{n:"SplitText (GSAP)",u:"https://gsap.com/docs/v3/Plugins/SplitText/",d:"tekst per letter, woord of regel animeren",r:"motionx",req:[["gsap"]]},
+  gsapflip:{n:"Flip (GSAP)",u:"https://gsap.com/docs/v3/Plugins/Flip/",d:"vloeiende layout-wissels, bijv. bij filteren",r:"motionx",req:[["gsap"]]},
+  gsapmorph:{n:"MorphSVG (GSAP)",u:"https://gsap.com/docs/v3/Plugins/MorphSVGPlugin/",d:"de ene SVG-vorm in de andere laten overvloeien",r:"motionx",req:[["gsap"]]},
+  gsapdraw:{n:"DrawSVG (GSAP)",u:"https://gsap.com/docs/v3/Plugins/DrawSVGPlugin/",d:"SVG-lijnen laten tekenen",r:"motionx",req:[["gsap"]]},
+  gsapsmoother:{n:"ScrollSmoother (GSAP)",u:"https://gsap.com/docs/v3/Plugins/ScrollSmoother/",d:"smooth scrolling van GSAP zelf",r:"motionx",req:[["gsap"]]},
+  gsapreact:{n:"useGSAP (@gsap/react)",u:"https://gsap.com/resources/React/",d:"GSAP netjes gebruiken in React, met automatische cleanup",r:"motionx",req:[["gsap"],REACT],cmd:"npm i @gsap/react"},
+  mojs:{n:"mo.js",u:"https://mojs.github.io",d:"speelse motion graphics: bursts, vormen, confetti",r:"motionx"},
+  tweenjs:{n:"Tween.js",u:"https://tweenjs.github.io/tween.js/",d:"minimale tween-engine, vaak met Three.js",r:"motionx"},
+  locomotive:{n:"Locomotive Scroll",u:"https://scroll.locomotive.ca",d:"smooth scroll met parallax, gebouwd op Lenis",r:"motionx"},
+  aos:{n:"AOS",u:"https://michalsnik.github.io/aos/",d:"simpele animaties als elementen in beeld scrollen",r:"motionx"},
+  swup:{n:"Swup",u:"https://swup.js.org",d:"paginatransities voor server-gerenderde sites",r:"motionx"},
+  splitting:{n:"Splitting.js",u:"https://splitting.js.org",d:"tekst splitsen voor CSS-animaties",r:"motionx"},
+  typedjs:{n:"Typed.js",u:"https://mattboldt.com/demos/typed-js/",d:"typemachine-effect",r:"motionx"},
+  vivus:{n:"Vivus",u:"https://maxwellito.github.io/vivus/",d:"SVG's die zichzelf tekenen",r:"motionx"},
+  zdog:{n:"Zdog",u:"https://zzz.dog",d:"vrolijke pseudo-3D-illustraties",r:"creative"},
+  remotion:{n:"Remotion",u:"https://www.remotion.dev",d:"video's maken met React-code",r:"video"},
+  motioncanvas:{n:"Motion Canvas",u:"https://motioncanvas.io",d:"uitlegvideo's en animaties met TypeScript",r:"video"},
+  viewtrans:{n:"View Transitions API (MDN)",u:"https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API",d:"native overgangen tussen pagina's en states",r:"practice"},
+  scrolldriven:{n:"Scroll-driven Animations",u:"https://scroll-driven-animations.style",d:"native CSS scroll-animaties, zonder JavaScript",r:"practice"},
+  animatecss:{n:"Animate.css",u:"https://animate.style",d:"kant-en-klare CSS-animaties",r:"motionx"},
+  twmotion:{n:"Tailwind Motion",u:"https://rombo.co/tailwind/",d:"animaties als Tailwind-klassen",r:"motionx",req:[["tailwind"]]},
+  animguide:{n:"Animations guide (web.dev)",u:"https://web.dev/articles/animations-guide",d:"welke CSS-eigenschappen soepel animeren",r:"practice"},
+  animtier:{n:"Animation performance tier list (Motion)",u:"https://motion.dev/magazine/web-animation-performance-tier-list",d:"wat is snel en wat hapert",r:"practice"},
+  animfps:{n:"Animatie en framerate (MDN)",u:"https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/Animation_performance_and_frame_rate",d:"waarom sommige animaties haperen",r:"practice"},
+  reducedsm:{n:"Ontwerpen voor minder beweging (Smashing)",u:"https://www.smashingmagazine.com/2020/09/design-reduced-motion-sensitivities/",d:"animaties voor mensen die gevoelig zijn voor beweging",r:"practice"},
+  sdchrome:{n:"Scroll-driven animations (Chrome)",u:"https://developer.chrome.com/docs/css-ui/scroll-driven-animations",d:"officiële uitleg en demo's",r:"practice"},
+  vtchrome:{n:"View Transitions (Chrome)",u:"https://developer.chrome.com/docs/web-platform/view-transitions",d:"officiële uitleg en demo's",r:"practice"},
+  // --- extra best practices ---
+  ccworkflows:{n:"Veelgebruikte workflows (Claude Code docs)",u:"https://code.claude.com/docs/en/common-workflows",d:"stap-voor-stap recepten voor dagelijks werk",r:"practice"},
+  promptguide:{n:"Prompt engineering (Anthropic)",u:"https://docs.claude.com/en/docs/build-with-claude/prompt-engineering/overview",d:"hoe je Claude duidelijke instructies geeft",r:"practice"},
+  noeffect:{n:"You Might Not Need an Effect",u:"https://react.dev/learn/you-might-not-need-an-effect",d:"de meest gemaakte React-fout voorkomen",r:"practice"},
+  thinkreact:{n:"Thinking in React",u:"https://react.dev/learn/thinking-in-react",d:"een UI opdelen in componenten en state",r:"practice"},
+  supaprod:{n:"Supabase production checklist",u:"https://supabase.com/docs/guides/deployment/going-into-prod",d:"alles checken voordat je live gaat",r:"practice"},
+  vercelprod:{n:"Vercel production checklist",u:"https://vercel.com/docs/production-checklist",d:"prestaties, beveiliging en betrouwbaarheid",r:"practice"},
+  nextlearn:{n:"Next.js Learn",u:"https://nextjs.org/learn",d:"officiële gratis cursus",r:"learn"},
+  mdnlearn:{n:"MDN: leer webdevelopment",u:"https://developer.mozilla.org/en-US/docs/Learn_web_development",d:"complete gratis leerroute",r:"learn"},
+  learnperf:{n:"Learn Performance (web.dev)",u:"https://web.dev/learn/performance",d:"gratis cursus webperformance",r:"practice"},
+  learnforms:{n:"Learn Forms (web.dev)",u:"https://web.dev/learn/forms",d:"gratis cursus goede formulieren",r:"practice"},
+  learnimages:{n:"Learn Images (web.dev)",u:"https://web.dev/learn/images",d:"afbeeldingen snel en scherp laden",r:"practice"},
+  learnhtml:{n:"Learn HTML (web.dev)",u:"https://web.dev/learn/html",d:"semantische HTML vanaf de basis",r:"practice"},
   boring:{n:"Boring Avatars",u:"https://boringavatars.com",d:"gratis open-source avatars voor React",r:"images",req:[REACT]},
-  limora:{n:"Limora AI",u:"https://limora.ai",d:"hero-achtergronden en assets, met MCP",r:"images"}
 };
 const ROLES = {framework:"Basis",styling:"Styling",uikit:"UI-componenten",animation:"Animatie",motionx:"Motion, 3D & effecten",backend:"Backend & data",auth:"Login",email:"E-mail",security:"Beveiliging",hosting:"Hosting",taste:"Design-smaak voor Claude",rules:"Regels & skills voor Claude",plugin:"Claude-plugins",mcp:"MCP-koppelingen",test:"Testen",icons:"Iconen",iconsx:"Iconen (extra)",fonts:"Fonts",color:"Kleur & achtergronden",design:"Design-tools",inspiration:"Inspiratie",images:"Beeld",video:"Video & content",logo:"Logo & branding",aibuilder:"AI-builders",data:"Data & API's",learn:"Leren",quality:"Codekwaliteit",forms:"Formulieren & validatie",datalib:"Data ophalen",monitor:"Monitoring",practice:"Best practices & naslag",payments:"Betalingen",orm:"Database-toegang",api:"API-laag",storage:"Opslag & media",cms:"CMS",charts:"Grafieken & tabellen",maps:"Kaarten",devtool:"Dev-tools",creative:"Creative coding",formsvc:"Formulier-diensten"};
 
@@ -790,10 +818,15 @@ const HOWS = {
   service:{short:"account",label:"Jij maakt een account en zet de API-key in .env"},
   web:{short:"site",label:"Geen installatie: je gebruikt de website"}
 };
-const HOW_OVR = {framer:"service",ccusage:"code",cctemplates:"code",anthskills:"skill",fontsource:"code",collletttivo:"web",pangram:"web",ark:"code",floatingui:"code",headlessui:"code",embla:"code",omniroute:"service",graphify:"skill",karpathy:"file",fedesign:"plugin",pwmcp:"mcp",cdtmcp:"mcp",webflow:"service",rive:"service",spline:"service",unicorn:"service",dotmatrix:"web",lottie:"code",iconify:"web",svgl:"web",boring:"code",limora:"service",places:"service",elevenlabs:"service",pandas:"code",publicapis:"web",figma:"web",tweakcn:"web",uiverse:"web",storybook:"code",rls:"file"};
+const HOW_OVR = {framer:"service",ccusage:"code",cctemplates:"code",anthskills:"skill",fontsource:"code",collletttivo:"web",pangram:"web",ark:"code",floatingui:"code",headlessui:"code",embla:"code",omniroute:"service",graphify:"skill",karpathy:"file",fedesign:"plugin",pwmcp:"mcp",cdtmcp:"mcp",webflow:"service",rive:"service",spline:"service",unicorn:"service",dotmatrix:"web",lottie:"code",iconify:"web",svgl:"web",boring:"code",places:"service",elevenlabs:"service",pandas:"code",publicapis:"web",figma:"web",tweakcn:"web",uiverse:"web",storybook:"code",rls:"file"};
 const HOW_ROLE = {plugin:"plugin",mcp:"mcp",rules:"plugin",taste:"skill",logo:"skill",framework:"code",styling:"code",uikit:"code",animation:"code",motionx:"code",quality:"code",forms:"code",datalib:"code",icons:"code",fonts:"code",test:"code",backend:"service",auth:"service",email:"service",hosting:"service",monitor:"service",aibuilder:"service",payments:"service",storage:"service",cms:"service",formsvc:"service",orm:"code",api:"code",charts:"code",maps:"code",creative:"code",devtool:"web"};
 const SKILL_RULES = ["vercelskills","wig"]; // skills-repos you can copy into .claude/skills
 const how = k => HOW_OVR[k] || (SKILL_RULES.includes(k)?"skill":null) || HOW_ROLE[T[k].r] || "web";
+
+/* ---------- Prijs: alles is gratis; deze hebben een gratis tier met limieten ---------- */
+const TIER = new Set(["webflow","framer","supabase","convex","clerk","resend","vercel","netlify","cfpages","render","neon","turso","upstash","firebase","appwrite","uploadthing","cloudinary","posthog","umami","sentry","formspree","tally","sanity","figma","figmamcp","relume","spline","unicorn","rive","lottie","jitter","v0","bolt","lovable","manus","elevenlabs","places","firecrawl","magicmcp","ripplix","removebg","blush","scrimba","codedex","fementor","coolors","codepen","hugeicons","shots","tinypng","flow","supamcp","vercelmcp","githubmcp","context7","c21st"]);
+const PRICE_NOTE = {stripe:"transactiekosten",lemonsqueezy:"transactiekosten",stripemcp:"transactiekosten",remotion:"gratis voor particulieren"};
+const priceBadge = k => PRICE_NOTE[k] ? `<span class="price" title="Gratis te gebruiken, je betaalt ${PRICE_NOTE[k]==="transactiekosten"?"alleen per transactie":"pas als bedrijf"}">${PRICE_NOTE[k]}</span>` : TIER.has(k) ? `<span class="price" title="Gratis te gebruiken met limieten; betalen kan voor meer">gratis tier</span>` : "";
 
 /* ---------- Library cards ---------- */
 const CATS = {
@@ -814,64 +847,71 @@ const IDEAS = [
   {id:"fe-mcp",cat:"claude",title:"MCP-servers voor frontend",text:"Van ontwerp naar code en weer terug: Claude leest je Figma, haalt actuele docs op, installeert componenten en test het resultaat in de browser.",steps:["Figma MCP: bouw vanuit het echte ontwerp","Context7: gebruik de docs van de juiste versie","shadcn MCP: installeer componenten met een zin","Playwright MCP: laat Claude klikken en controleren"],tools:["figmamcp","context7","shadcnmcp","pwmcp"],tags:["mcp","figma","testen"]},
   {id:"DbVmPeLAuJS",cat:"claude",title:"Eén CLAUDE.md die Claude leert wanneer te stoppen",text:"Slechte output komt vaak door gretigheid: Claude herschrijft bestanden die je niet noemde, gokt in plaats van te vragen, of bouwt een heel systeem voor een one-liner. Dat los je op met grenzen.",steps:["Denk eerst na: benoem aannames en vraag bij twijfel","Eenvoud eerst: niets bouwen waar niet om gevraagd is","Chirurgische wijzigingen: alleen aanpassen wat nodig is","Doelgericht: geef succescriteria en laat Claude het werk zelf controleren"],tools:["karpathy","superpowers"],tags:["claude.md","prompting"]},
   {id:"Ddi5_OkoiDa",cat:"claude",title:"Laat Claude je database niet openzetten",text:"Tabellen die Claude in Supabase aanmaakt, staan soms met Row Level Security uit. Dan kan iedereen met je publieke API-key alle gebruikers ophalen.",steps:["Zet RLS aan op elke tabel","Schrijf policies zodat gebruikers alleen hun eigen rijen zien","Test met de publieke key of je data echt dicht zit","Leg de regels vast in SECURITY.md (zie de gids onderaan)"],tools:["rls","supabase"],tags:["security","supabase"]},
-  {id:"Dc5YDjKI9ta",cat:"claude",title:"Een sign-up pagina met een avatar die meereageert",text:"Een gratis repo als startpunt, Claude Code voor het werk, daarna zelf verfijnen.",steps:["Geef Claude de link van een avatar-library en vraag om een formulier waar de avatar reageert op wat je typt","Verfijn het resultaat: glow op de vorm, avatar volgt de muis","Voeg een premium achtergrond toe via de Limora MCP"],tools:["boring","limora"],tags:["avatar","sign-up"]},
+  {id:"Dc5YDjKI9ta",cat:"claude",title:"Een sign-up pagina met een avatar die meereageert",text:"Een gratis repo als startpunt, Claude Code voor het werk, daarna zelf verfijnen.",steps:["Geef Claude de link van een avatar-library en vraag om een formulier waar de avatar reageert op wat je typt","Verfijn het resultaat: glow op de vorm, avatar volgt de muis","Maak een achtergrond met Unicorn Studio of Haikei"],tools:["boring","unicorn","haikei"],tags:["avatar","sign-up"]},
   {id:"cc-lists",cat:"claude",title:"Lijsten om nieuwe tools te vinden",text:"Hier verschijnen nieuwe skills, plugins en MCP-servers als eerste.",tools:["awesomecc","cctoolkit","fetoolkit","skillssh","gittrend"],tags:["awesome","ontdekken"]},
-  {id:"bp-claude",cat:"best",title:"Werken met Claude Code",text:"De gewoontes die het grootste verschil maken in kwaliteit.",steps:["Laat Claude eerst een plan maken (plan mode) en keur dat goed","Geef één duidelijke taak per keer, met succescriteria","Geef context: screenshots, bestanden, voorbeelden die je mooi vindt","Laat Claude zijn werk verifiëren: tests draaien of in de browser kijken","Begin met /clear aan een nieuwe taak, zo blijft de context schoon","Commit na elke werkende stap, dan kun je altijd terug"],tools:["ccbp","ccdocs","ccmemory"],tags:["workflow","prompting","claude.md"]},
+  {id:"bp-claude",cat:"best",title:"Werken met Claude Code",text:"De gewoontes die het grootste verschil maken in kwaliteit.",steps:["Laat Claude eerst een plan maken (plan mode) en keur dat goed","Geef één duidelijke taak per keer, met succescriteria","Geef context: screenshots, bestanden, voorbeelden die je mooi vindt","Laat Claude zijn werk verifiëren: tests draaien of in de browser kijken","Begin met /clear aan een nieuwe taak, zo blijft de context schoon","Commit na elke werkende stap, dan kun je altijd terug"],tools:["ccbp","ccworkflows","promptguide","ccdocs","ccmemory"],tags:["workflow","prompting","claude.md"]},
   {id:"bp-ext",cat:"best",title:"Skills, plugins en MCP: wat is wat?",text:"Skill = instructies die Claude laadt als ze relevant zijn (een map met SKILL.md). Plugin = een pakket van skills, agents, hooks en/of MCP-servers. MCP-server = een koppeling die Claude nieuwe tools geeft, zoals je database of browser.",steps:["Skills: Claude kan ze zelf in .claude/skills/ zetten","Plugins: jij installeert ze met /plugin in Claude Code","MCP: jij voegt ze één keer toe en keurt ze goed; log in via /mcp"],tools:["ccskills","ccplugins","ccmcp"],tags:["skills","plugins","mcp"]},
   {id:"bp-a11y",cat:"best",title:"Toegankelijkheid",text:"Een toegankelijke site is voor iedereen prettiger en scoort beter in zoekmachines.",steps:["Gebruik echte HTML-elementen: button, nav, main, label","Geef elke afbeelding een beschrijvende alt-tekst","Zorg dat alles met het toetsenbord werkt en de focus zichtbaar is","Houd tekstcontrast minimaal op WCAG AA (4,5:1)","Respecteer prefers-reduced-motion bij animaties"],tools:["wcag","a11yproj","webaim","wave","learna11y","reducedmotion"],tags:["a11y","wcag","contrast"]},
-  {id:"bp-perf",cat:"best",title:"Snelheid",text:"Een trage site verliest bezoekers. Meet eerst, verbeter daarna.",steps:["Comprimeer afbeeldingen en geef ze vaste afmetingen","Maximaal twee fontfamilies, met font-display: swap","Laad zware onderdelen (3D, video) pas als ze in beeld komen","Houd JavaScript klein: niet elke library is nodig","Meet met PageSpeed Insights op je live site"],tools:["cwv","psi","squoosh","webdev"],tags:["performance","core web vitals"]},
-  {id:"bp-css",cat:"best",title:"Responsive en moderne CSS",text:"Layouts die op elk scherm werken zonder tientallen breakpoints.",steps:["Ontwerp mobile first","Gebruik clamp() voor vloeiende tekst en spacing","Gebruik gap in flex en grid in plaats van losse margins","Container queries voor componenten die zich aanpassen aan hun plek"],tools:["everylayout","utopia","moderncss","learncss","josh"],tags:["css","responsive","layout"]},
-  {id:"bp-design",cat:"best",title:"Design-principes",text:"De regels die een pagina er meteen professioneler uit laten zien.",steps:["Maak hiërarchie met grootte, gewicht en kleur, niet alleen met grootte","Gebruik een vaste spacing-schaal (bijv. 4, 8, 16, 24, 32)","Maximaal twee fonts en één accentkleur","Geef elementen ruimte: witruimte is geen verspilling","Ontwerp ook de lege, laad- en foutstatus"],tools:["refactoringui","lawsofux","practypo","typescale","checklistdesign"],tags:["design","typografie","spacing"]},
-  {id:"bp-ux",cat:"best",title:"UX-patronen en formulieren",text:"Kleine details die bepalen of iemand je formulier afmaakt.",steps:["Labels altijd zichtbaar, niet alleen als placeholder","Toon foutmeldingen bij het veld, in gewone taal","Bevestig elke actie (\"Opgeslagen\")","Valideer op de client voor snelheid én op de server voor veiligheid"],tools:["uxpatterns","checklistdesign","wig","zod","rhf"],tags:["ux","formulieren","validatie"]},
-  {id:"bp-sec",cat:"best",title:"Beveiliging voor vibe coders",text:"De meeste lekken in AI-gebouwde apps zijn dezelfde paar fouten.",steps:["Secrets in .env, nooit in client-side code of in git","Valideer alle input op de server","Row Level Security aan op elke tabel","Controleer sessies en rechten op de server","Houd dependencies up-to-date","Check je security headers na het deployen"],tools:["owasp","owaspcs","secheaders","rls"],tags:["security","owasp"]},
+  {id:"bp-perf",cat:"best",title:"Snelheid",text:"Een trage site verliest bezoekers. Meet eerst, verbeter daarna.",steps:["Comprimeer afbeeldingen en geef ze vaste afmetingen","Maximaal twee fontfamilies, met font-display: swap","Laad zware onderdelen (3D, video) pas als ze in beeld komen","Houd JavaScript klein: niet elke library is nodig","Meet met PageSpeed Insights op je live site"],tools:["cwv","psi","learnperf","learnimages","squoosh"],tags:["performance","core web vitals"]},
+  {id:"bp-css",cat:"best",title:"Responsive en moderne CSS",text:"Layouts die op elk scherm werken zonder tientallen breakpoints.",steps:["Ontwerp mobile first","Gebruik clamp() voor vloeiende tekst en spacing","Gebruik gap in flex en grid in plaats van losse margins","Container queries voor componenten die zich aanpassen aan hun plek"],tools:["utopia","moderncss","learncss","learnhtml","josh"],tags:["css","responsive","layout"]},
+  {id:"bp-design",cat:"best",title:"Design-principes",text:"De regels die een pagina er meteen professioneler uit laten zien.",steps:["Maak hiërarchie met grootte, gewicht en kleur, niet alleen met grootte","Gebruik een vaste spacing-schaal (bijv. 4, 8, 16, 24, 32)","Maximaal twee fonts en één accentkleur","Geef elementen ruimte: witruimte is geen verspilling","Ontwerp ook de lege, laad- en foutstatus"],tools:["lawsofux","practypo","typescale","checklistdesign"],tags:["design","typografie","spacing"]},
+  {id:"bp-ux",cat:"best",title:"UX-patronen en formulieren",text:"Kleine details die bepalen of iemand je formulier afmaakt.",steps:["Labels altijd zichtbaar, niet alleen als placeholder","Toon foutmeldingen bij het veld, in gewone taal","Bevestig elke actie (\"Opgeslagen\")","Valideer op de client voor snelheid én op de server voor veiligheid"],tools:["uxpatterns","learnforms","checklistdesign","wig","zod","rhf"],tags:["ux","formulieren","validatie"]},
+  {id:"bp-sec",cat:"best",title:"Beveiliging voor vibe coders",text:"De meeste lekken in AI-gebouwde apps zijn dezelfde paar fouten.",steps:["Secrets in .env, nooit in client-side code of in git","Valideer alle input op de server","Row Level Security aan op elke tabel","Controleer sessies en rechten op de server","Houd dependencies up-to-date","Check je security headers na het deployen"],tools:["owasp","owaspcs","secheaders","rls","supaprod"],tags:["security","owasp"]},
   {id:"bp-quality",cat:"best",title:"Codekwaliteit",text:"Afspraken die je code leesbaar houden, ook voor Claude.",steps:["TypeScript in strict mode","Eén linter + formatter (Biome, of ESLint + Prettier)","Kleine componenten met één taak","Leg naamgeving en structuur vast in CODE_STYLE.md"],tools:["ts","biome","eslint","prettier","patternsdev"],tags:["typescript","lint","format"]},
   {id:"bp-test",cat:"best",title:"Testen",text:"Tests zijn het vangnet waarmee Claude zelf kan controleren of iets werkt.",steps:["Test logica met unit tests","Test belangrijke flows (inloggen, betalen) end-to-end","Laat Claude na elke wijziging de tests draaien"],tools:["vitest","testinglib","playwright","pwmcp"],tags:["testen","e2e"]},
-  {id:"bp-react",cat:"best",title:"Data en state in React",text:"De meeste React-bugs komen van data die op de verkeerde plek staat.",steps:["Server-data via TanStack Query, niet via fetch in useEffect","Formulier-state in React Hook Form, validatie met Zod","Filters en tabs in de URL, zodat je kunt delen en terugkomen","Bouw eerst toegankelijke primitives, style daarna"],tools:["tanstack","zod","rhf","reactdocs","radix","baseui"],tags:["react","state","data"]},
+  {id:"bp-react",cat:"best",title:"Data en state in React",text:"De meeste React-bugs komen van data die op de verkeerde plek staat.",steps:["Server-data via TanStack Query, niet via fetch in useEffect","Formulier-state in React Hook Form, validatie met Zod","Filters en tabs in de URL, zodat je kunt delen en terugkomen","Bouw eerst toegankelijke primitives, style daarna"],tools:["noeffect","thinkreact","tanstack","zod","rhf","reactdocs","radix","baseui"],tags:["react","state","data"]},
   {id:"bp-seo",cat:"best",title:"SEO en delen",text:"Zorg dat je site gevonden wordt en er goed uitziet als hij gedeeld wordt.",steps:["Unieke title en description per pagina","Een Open Graph-afbeelding voor social media","Favicons voor alle apparaten","Eén h1 per pagina, logische koppen daaronder"],tools:["gsearch","ogp","favicon"],tags:["seo","open graph"]},
-  {id:"bp-ship",cat:"best",title:"Git, deployen en monitoren",text:"Van je laptop naar live, zonder stress.",steps:["Kleine commits met duidelijke berichten","Eén branch per feature, preview-deploy per branch","Foutmonitoring aan vanaf dag één","Meet bezoekers zonder cookies"],tools:["convcommits","vercel","sentry","plausible"],tags:["git","deploy","monitoring"]},
+  {id:"bp-ship",cat:"best",title:"Git, deployen en monitoren",text:"Van je laptop naar live, zonder stress.",steps:["Kleine commits met duidelijke berichten","Eén branch per feature, preview-deploy per branch","Foutmonitoring aan vanaf dag één","Meet bezoekers zonder cookies"],tools:["convcommits","vercelprod","vercel","sentry","umami"],tags:["git","deploy","monitoring"]},
   {id:"bp-comp",cat:"best",title:"Componenten bouwen",text:"Bouw een eigen set componenten die je in elk project hergebruikt.",tools:["radix","baseui","shadcn","storybook"],tags:["componenten","design system"]},
   {id:"bp-learn",cat:"best",title:"Bij blijven",text:"Waar frontend-developers hun kennis bijhouden.",tools:["smashing","csstricks","josh","patternsdev","webdev"],tags:["leren","artikelen"]},
   {id:"cc-mcp2",cat:"claude",title:"Nog meer MCP-servers",text:"Koppelingen voor GitHub, componenten, code-navigatie, het web en betalingen.",tools:["githubmcp","magicmcp","serena","firecrawl","stripemcp"],tags:["mcp","github","stripe"]},
   {id:"cc-ext",cat:"claude",title:"Claude Code uitbreiden",text:"Geheugen, kant-en-klare componenten en inzicht in je gebruik.",tools:["claudemem","cctemplates","anthskills","ccusage"],tags:["geheugen","templates","skills"]},
-  {id:"ui-kits",cat:"layout",title:"Complete UI-kits",text:"Liever alles in één pakket? Kies één kit als basis, niet twee.",tools:["heroui","mantine","chakra","ark","flowbite","preline","tailwindplus","shadcnblocks"],tags:["ui-kit","tailwind"]},
+  {id:"ui-kits",cat:"layout",title:"Complete UI-kits",text:"Liever alles in één pakket? Kies één kit als basis, niet twee.",tools:["heroui","mantine","chakra","ark","flowbite","preline"],tags:["ui-kit","tailwind"]},
   {id:"ui-charts",cat:"layout",title:"Grafieken, tabellen en diagrammen",text:"Voor dashboards en data-verhalen.",tools:["tremor","recharts","nivo","chartjs","echarts","tanstacktable","reactflow"],tags:["charts","data","tabellen"]},
   {id:"ui-small",cat:"layout",title:"Kleine bouwstenen met grote impact",text:"Toasts, drawers, command-menu's, tooltips, drag-and-drop en carrousels.",tools:["sonner","vaul","cmdk","headlessui","floatingui","dndkit","swiper","embla"],tags:["react","interactie"]},
   {id:"ui-maps",cat:"layout",title:"Kaarten",text:"Voor alles met locaties. Combineer met de Google Places API voor echte plekken.",tools:["leaflet","maplibre","places"],tags:["kaarten","locatie"]},
-  {id:"mo-creative",cat:"motion",title:"Creative coding, games en physics",text:"Voor speelse sites, games en generatieve kunst.",tools:["r3f","babylon","pixi","p5","matter","tsparticles","vanta"],tags:["3d","games","physics"]},
-  {id:"mo-trans",cat:"motion",title:"Paginatransities en scroll",text:"Vloeiend van pagina naar pagina. Kies één transitie-library.",tools:["barba","taxi","lenis","gsap"],tags:["transities","scroll"]},
-  {id:"as-fonts2",cat:"assets",title:"Meer fonts en typografie-inspiratie",text:"Minder bekende fonts geven je site direct een eigen gezicht.",tools:["fontsource","collletttivo","pangram","typewolf","fontsinuse"],tags:["fonts","typografie"]},
+  {id:"an-engines",cat:"motion",title:"Animatie-engines",text:"De bekendste libraries. Kies er één als hoofd-engine per project. GSAP is sinds 2025 volledig gratis, inclusief alle plugins.",tools:["gsap","motion","animejs","reactspring","mojs","tweenjs"],tags:["gsap","motion","anime.js"]},
+  {id:"DafoIitSbr9",cat:"motion",title:"Welke animatielibrary kies je?",text:"Kies op basis van wat je bouwt, niet wat trending is.",steps:["Scroll- en timeline-animaties op een marketingsite: GSAP","UI-animaties in een React-app: Motion","Iets kleins zonder framework: Anime.js of native CSS","Natuurlijke, verende interacties: React Spring"],tools:["gsap","animejs","motion","reactspring"],tags:["gsap","react","scroll"]},
+  {id:"an-gsap",cat:"motion",title:"GSAP-plugins (allemaal gratis)",text:"Registreer plugins één keer met gsap.registerPlugin(). In React gebruik je useGSAP, dan worden animaties automatisch opgeruimd.",tools:["gsapst","gsapsplit","gsapflip","gsapmorph","gsapdraw","gsapsmoother","gsapreact"],tags:["gsap","scroll","svg","tekst"]},
+  {id:"an-scroll",cat:"motion",title:"Scroll-animaties en smooth scroll",text:"Eén smooth-scroll-library per site. Simpele fade-ins kunnen tegenwoordig met native CSS.",tools:["lenis","locomotive","aos","gsapst","scrolldriven"],tags:["scroll","parallax"]},
+  {id:"an-text",cat:"motion",title:"Tekst- en SVG-animaties",text:"Koppen die letter voor letter binnenkomen, lijnen die zichzelf tekenen.",tools:["gsapsplit","splitting","typedjs","vivus","gsapdraw","gsapmorph"],tags:["tekst","svg"]},
+  {id:"an-trans",cat:"motion",title:"Paginatransities",text:"Vloeiend van pagina naar pagina. Probeer eerst de native View Transitions API; kies anders één library.",tools:["viewtrans","barba","swup","taxi"],tags:["transities","view transitions"]},
+  {id:"an-css",cat:"motion",title:"Animeren met alleen CSS",text:"Geen JavaScript nodig voor veel effecten. Licht en snel.",tools:["scrolldriven","viewtrans","animatecss","twmotion","autoanimate"],tags:["css","tailwind"]},
+  {id:"an-video",cat:"motion",title:"Motion graphics en video",text:"Animaties exporteren als bestand, of video's maken met code.",tools:["lottie","rive","remotion","motioncanvas","theatre","jitter"],tags:["lottie","video"]},
+  {id:"mo-creative",cat:"motion",title:"Creative coding, games en physics",text:"Voor speelse sites, games en generatieve kunst.",tools:["r3f","babylon","pixi","p5","matter","zdog","tsparticles","vanta"],tags:["3d","games","physics"]},
+  {id:"as-fonts2",cat:"assets",title:"Meer fonts en typografie-inspiratie",text:"Minder bekende fonts geven je site direct een eigen gezicht.",tools:["fontsource","collletttivo","typewolf","fontsinuse"],tags:["fonts","typografie"]},
   {id:"as-icons2",cat:"assets",title:"Meer iconen en merk-logo's",text:"Andere stijlen, en logo's van bekende merken.",tools:["iconoir","remixicon","hugeicons","radixicons","simpleicons"],tags:["iconen","logo's"]},
   {id:"as-img2",cat:"assets",title:"Beeld bewerken en mockups",text:"Van foto tot presentatie-klare mockup.",tools:["blush","pexels","icons3d","shots","tinypng","svgomg","removebg"],tags:["beeld","mockups","compressie"]},
   {id:"insp-color2",cat:"sites",title:"Meer kleurtools",text:"Paletten zoeken, genereren en toepassen.",tools:["huemint","colorhunt","adobecolor","oklch","happyhues"],tags:["kleuren","paletten"]},
-  {id:"insp-gal2",cat:"sites",title:"Meer inspiratie per onderdeel",text:"Specifieke galerijen voor landingspagina's, flows, navigatie en creatieve demo's.",tools:["dribbble","behance","onepagelove","saaslp","landingfolio","darkmode","collectui","pageflows","navbar","cssda","codrops","codepen"],tags:["inspiratie","flows"]},
+  {id:"insp-gal2",cat:"sites",title:"Meer inspiratie per onderdeel",text:"Specifieke galerijen voor landingspagina's, flows, navigatie en creatieve demo's.",tools:["dribbble","behance","onepagelove","saaslp","landingfolio","darkmode","collectui","navbar","cssda","codrops","codepen"],tags:["inspiratie","flows"]},
   {id:"insp-tools",cat:"sites",title:"Ontwerp- en schetstools",text:"Van snelle schets tot volledig ontwerp.",tools:["penpot","excalidraw","tldraw","relume","figma"],tags:["wireframes","design"]},
   {id:"base-fw2",cat:"base",title:"Meer frameworks",text:"Andere smaken dan React, en mobiele apps.",tools:["sveltekit","nuxt","reactrouter","tsstart","expo","framer"],tags:["svelte","vue","mobile"]},
   {id:"base-db",cat:"base",title:"Databases en backends",text:"Kies één backend. Neon en Turso zijn alleen een database; combineer ze met een ORM.",tools:["neon","turso","firebase","pocketbase","appwrite","drizzle","prisma","upstash"],tags:["database","orm"]},
   {id:"base-auth",cat:"base",title:"Login, betalingen en API's",text:"Kies één login-oplossing en één betaalprovider.",tools:["authjs","betterauth","stripe","lemonsqueezy","trpc","hono"],tags:["auth","betalingen","api"]},
-  {id:"base-host",cat:"base",title:"Meer hosting, opslag en formulieren",text:"Van statische site tot app met database.",tools:["cfpages","railway","render","uploadthing","cloudinary","formspree","tally"],tags:["hosting","uploads","formulieren"]},
+  {id:"base-host",cat:"base",title:"Meer hosting, opslag en formulieren",text:"Van statische site tot app met database.",tools:["cfpages","render","uploadthing","cloudinary","formspree","tally"],tags:["hosting","uploads","formulieren"]},
   {id:"base-cms",cat:"base",title:"CMS en analytics",text:"Content beheren zonder code, en meten wat bezoekers doen.",tools:["sanity","payload","posthog","umami"],tags:["cms","analytics"]},
   {id:"base-dev",cat:"base",title:"Handige dev-tools",text:"Kleine tools die je dagelijks tijd besparen.",tools:["caniuse","bundlephobia","regex101","transform","responsively","clippy","carbon","rayso"],tags:["tools","browser"]},
-  {id:"learn-more",cat:"learn",title:"Meer leren, met spelletjes",text:"Leer CSS en JavaScript op een manier die blijft hangen.",tools:["odin","scrimba","cssbattle","froggy","gridgarden","jsinfo","femasters","tshandbook","kevinpowell"],tags:["cursussen","games"]},
-  {id:"DafoIitSbr9",cat:"motion",title:"4 animatielibraries",text:"Kies er één per project, op basis van wat je bouwt.",tools:["gsap","animejs","motion","reactspring"],tags:["gsap","react","scroll"]},
+  {id:"learn-more",cat:"learn",title:"Meer leren, met spelletjes",text:"Leer CSS en JavaScript op een manier die blijft hangen.",tools:["odin","scrimba","cssbattle","froggy","gridgarden","jsinfo","tshandbook","kevinpowell"],tags:["cursussen","games"]},
+  {id:"bp-anim",cat:"best",title:"Animatie die goed voelt",text:"Beweging moet helpen, niet afleiden, en mag nooit haperen.",steps:["Animeer alleen transform en opacity; width, height en top laten de pagina haperen","150–300 ms voor UI-feedback, 300–500 ms voor grotere overgangen","Ease-out voor dingen die binnenkomen, ease-in voor dingen die weggaan","Respecteer prefers-reduced-motion: zet grote bewegingen dan uit","Content moet ook zonder animatie zichtbaar zijn","Eén opvallend moment per pagina werkt beter dan overal effecten"],tools:["animguide","animtier","animfps","reducedmotion","reducedsm","sdchrome","vtchrome"],tags:["animatie","performance","a11y"]},
   {id:"DauC8Ddy0t6",cat:"motion",title:"De stack van een filmische website",text:"De stack achter de website van Lando Norris. Geen van deze tools is moeilijk; het zit in de combinatie. Bestaande sites nabouwen is een snelle manier om beter te worden.",tools:["webflow","gsap","lenis","threejs","rive","taxi"],tags:["3d","scroll","transities"]},
   {id:"motion-3d",cat:"motion",title:"3D en effecten zonder veel code",text:"Visueel bouwen en daarna in je site zetten.",tools:["spline","unicorn","lottie","theatre","autoanimate","shaders"],tags:["3d","webgl","lottie"]},
-  {id:"tb-motion",cat:"motion",title:"Motion design en micro-interacties",text:"Tools om animaties te maken, plus inspiratie en timing.",tools:["jitter","swishy","flow","dotmatrix","ripplix","cubic","easings"],tags:["animatie","preloader","easing"]},
+  {id:"tb-motion",cat:"motion",title:"Motion design en micro-interacties",text:"Tools om animaties te maken, plus inspiratie en timing.",tools:["jitter","flow","dotmatrix","ripplix","cubic","easings"],tags:["animatie","preloader","easing"]},
   {id:"DdePLtKAoWw",cat:"layout",title:"5 hero-layouts die niet generiek zijn",text:"De hero is het eerste wat iemand ziet. Vijf richtingen in plaats van \"hi, I'm a designer\":",steps:["Bento box: modulaire kaarten in een strak grid","Brutalist billboard: 90% van het scherm is je naam","Swiss editorial: gridlijnen en gedempte kleuren","Floating node: dark mode, grote type, interactieve tags","Architectural split: asymmetrische kolommen, veel witruimte"],tools:["bentogrids","supahero","figma"],tags:["hero","portfolio"]},
-  {id:"ui-anim",cat:"layout",title:"Geanimeerde componentbibliotheken",text:"Kopieer een component, plak het in je React-project en pas het aan. Bijna allemaal gebouwd op Tailwind en Motion.",tools:["aceternity","magicui","reactbits","c21st","motionprim","animata","cultui","hoverdev","kokonut"],tags:["react","tailwind","motion"]},
+  {id:"ui-anim",cat:"layout",title:"Geanimeerde componentbibliotheken",text:"Kopieer een component, plak het in je React-project en pas het aan. Bijna allemaal gebouwd op Tailwind en Motion.",tools:["aceternity","magicui","reactbits","c21st","motionprim","animata","cultui","kokonut"],tags:["react","tailwind","motion"]},
   {id:"ui-base",cat:"layout",title:"Basiscomponenten en thema's",text:"De fundering onder je UI. shadcn/ui is de standaard waar veel andere bibliotheken op bouwen.",tools:["shadcn","tweakcn","daisyui","uiverse","bklit"],tags:["shadcn","thema","charts"]},
   {id:"Ddf-7oiz126",cat:"layout",title:"Een dashboard met micro-interacties",text:"Recept voor een modern dashboard: interactieve datakaarten, subtiele animaties bij hover en laden, volledig responsive.",tools:["bklit","motion","shaders"],tags:["dashboard","react"]},
   {id:"DcZLVTQR4S5",cat:"logo",title:"Mascottelogo's",text:"Een mascotte geeft je app persoonlijkheid en een premium gevoel. De skill maakt platte, schattige karakterlogo's en heeft een bibliotheek die gratis commercieel te gebruiken is.",tools:["iplogo"],tags:["logo","mascotte"]},
   {id:"Dd1dJi9j-vq",cat:"logo",title:"Logo Design Skill voor Claude",text:"Maakt van Claude een logo-ontwerper: van briefing en concepten tot SVG-bestanden, testsheets, favicon-set en brand guidelines.",tools:["logoskill","svgl"],tags:["logo","svg"]},
-  {id:"insp-gal",cat:"sites",title:"Inspiratiegalerijen",text:"Verzamel drie voorbeelden die je mooi vindt en geef ze als screenshot aan Claude.",tools:["godly","awwwards","mobbin","landbook","siteinspire","minimal","lapa","refero"],tags:["inspiratie","galerij"]},
+  {id:"insp-gal",cat:"sites",title:"Inspiratiegalerijen",text:"Verzamel drie voorbeelden die je mooi vindt en geef ze als screenshot aan Claude.",tools:["godly","awwwards","landbook","siteinspire","minimal","lapa","refero"],tags:["inspiratie","galerij"]},
   {id:"insp-color",cat:"sites",title:"Kleur, achtergronden en schaduw",text:"Kies eerst een toegankelijk palet, maak daarna vormen en patronen in die kleuren.",tools:["randoma11y","realtime","coolors","uicolors","haikei","fffuel","patterncraft","cssgradient","shadows"],tags:["kleuren","svg","gradients"]},
-  {id:"tb-build",cat:"sites",title:"AI-builders en content",text:"Snel een eerste versie of promo-materiaal. Kies één builder als startpunt en werk daarna verder in Claude Code.",tools:["v0","bolt","lovable","manus","contentcore","rotato"],tags:["ai tools","prototype","mockups"]},
+  {id:"tb-build",cat:"sites",title:"AI-builders en content",text:"Snel een eerste versie of promo-materiaal. Kies één builder als startpunt en werk daarna verder in Claude Code.",tools:["v0","bolt","lovable","manus"],tags:["ai tools","prototype","mockups"]},
   {id:"as-icons",cat:"assets",title:"Iconen",text:"Kies één iconenset per project, dan blijft je UI consistent. Iconify en SVGL zijn handig voor losse extra's.",tools:["lucide","phosphor","tabler","heroicons","iconify","svgl"],tags:["iconen","svg"]},
   {id:"as-fonts",cat:"assets",title:"Fonts en typografie",text:"Maximaal twee families: één voor koppen, één voor tekst.",tools:["fontshare","uncut","gfonts","fontpair","typescale"],tags:["fonts","typografie"]},
-  {id:"as-img",cat:"assets",title:"Illustraties en beeld",text:"Gratis beeld, en zorg dat het snel laadt.",tools:["undraw","storyset","unsplash","squoosh","limora"],tags:["illustraties","foto's"]},
+  {id:"as-img",cat:"assets",title:"Illustraties en beeld",text:"Gratis beeld, en zorg dat het snel laadt.",tools:["undraw","storyset","unsplash","squoosh"],tags:["illustraties","foto's"]},
   {id:"base-fw",cat:"base",title:"Frameworks en styling",text:"Kies één basis. Next.js voor apps, Vite voor simpele React-projecten, Astro voor content-sites.",tools:["nextjs","vite","astro","tailwind"],tags:["react","tailwind"]},
   {id:"base-be",cat:"base",title:"Backend, login en hosting",text:"Alles wat je nodig hebt zodra je app gebruikers of data heeft.",tools:["supabase","convex","clerk","resend","vercel","netlify","playwright"],tags:["database","auth","deploy"]},
   {id:"DdtvK1JixOE",cat:"learn",title:"10 GitHub-repos om van te leren",text:"Kies er één en bouw er echt iets mee.",tools:["byox","awesome","publicapis","fcc","fpb","sdp","roadmap","ciu","awesomepy","pbl"],tags:["github","leren"]},
-  {id:"learn-fe",cat:"learn",title:"Frontend leren en oefenen",text:"Uitleg die blijft hangen, en echte designs om na te bouwen.",tools:["josh","mdn","webdev","fementor"],tags:["css","react","oefenen"]},
+  {id:"learn-fe",cat:"learn",title:"Frontend leren en oefenen",text:"Uitleg die blijft hangen, en echte designs om na te bouwen.",tools:["josh","mdn","mdnlearn","nextlearn","webdev","fementor"],tags:["css","react","oefenen"]},
   {id:"DdgOI0NJoP1",cat:"learn",title:"4 oefenprojecten",text:"Café-finder (JavaScript), voice assistant (Python), analyse van Amazon-bestsellers (Python) en een persoonlijke website.",tools:["places","elevenlabs","pandas","codedex"],tags:["projecten","portfolio"]}
 ];
 
@@ -880,12 +920,12 @@ const PROJECTS = [
   {title:"Portfolio met een bento-hero",level:"Starter",time:"1 weekend",text:"Een persoonlijke site waar je werk in modulaire kaarten staat, met subtiele animaties bij hover.",stack:["nextjs","tailwind","shadcn","kokonut","motion","refero","fontshare","lucide","karpathy","fedesign","vercel","vercelmcp","pwmcp"],steps:["Kies een stijl op Refero Styles en geef de DESIGN.md aan Claude","Schets de bento-hero in Figma of op papier","Laat Claude het bouwen met Kokonut UI-componenten","Deploy met de Vercel MCP"]},
   {title:"Claude Code starterkit",level:"Starter",time:"1 avond",text:"Eén template-repo die je voor elk nieuw project kloont, met al je regels en plugins klaar.",stack:["karpathy","ponytail","agentskills","context7","graphify","pwmcp"],steps:["Zet de vier CLAUDE.md-regels in de root","Voeg de /docs-map met SECURITY.md, CODE_STYLE.md, DATABASE.md en API.md toe","Installeer Ponytail en Agent Skills","Draai Graphify zodra het project groeit"]},
   {title:"Merk in een weekend",level:"Starter",time:"1 weekend",text:"Logo, kleuren en een geanimeerde logo-intro voor een fictief (of echt) merk.",stack:["logoskill","randoma11y","fontshare","jitter","refero"],steps:["Laat de logo-skill een briefing en drie concepten maken","Kies een toegankelijk kleurenpaar met RandomA11y","Animeer het logo in Jitter","Leg alles vast in een DESIGN_SYSTEM.md"]},
-  {title:"Launch-video voor je app",level:"Starter",time:"1 middag",text:"Een korte promo zonder code: je app op een 3D-telefoon met strakke motion.",stack:["rotato","swishy","jitter","contentcore"],steps:["Maak screenshots van je app","Zet ze in een 3D-mockup met Rotato","Voeg titels en overgangen toe met Swishy of Jitter","Maak social posts in ContentCore"]},
+  {title:"Launch-video voor je app",level:"Starter",time:"1 middag",text:"Een korte promo: je app in een mooie mockup met strakke motion.",stack:["shots","jitter","remotion","rayso"],steps:["Maak screenshots van je app en zet ze in een mockup met Shots","Voeg titels en overgangen toe in Jitter","Of bouw de hele video met React-code in Remotion","Maak code-afbeeldingen voor social met ray.so"]},
   {title:"Sfeervolle weer-site",level:"Starter",time:"1 dag",text:"De achtergrond verandert mee met het weer: rustig bij zon, onrustig bij storm.",stack:["vite","tailwind","publicapis","shaders","motion","dotmatrix","phosphor","netlify"],steps:["Zoek een gratis weer-API in Public APIs","Koppel het weertype aan shader-instellingen","Gebruik een Dot Matrix-loader tijdens het ophalen","Animeer de temperatuur met Motion"]},
   {title:"Linkpagina met micro-animaties",level:"Starter",time:"1 avond",text:"Je eigen \"link in bio\"-pagina met één opvallend effect en je eigen iconen.",stack:["astro","tailwind","reactbits","svgl","uncut","haikei","netlify"],steps:["Kies één achtergrond-effect uit React Bits","Maak een SVG-achtergrond met Haikei","Gebruik merk-logo's van SVGL voor je socials","Publiceer op Netlify"]},
   {title:"Café-finder met favorieten",level:"Gemiddeld",time:"2 weekenden",text:"Vind cafés in de buurt en sla je favorieten op in je eigen account.",stack:["nextjs","tailwind","shadcn","places","supabase","supamcp","rls","lucide","vercel","pwmcp"],steps:["Haal cafés op met de Places API","Laat Claude een favorieten-tabel maken via de Supabase MCP","Zet RLS aan zodat ieder alleen zijn eigen favorieten ziet","Deploy via Vercel en test met Playwright MCP"]},
   {title:"Persoonlijk habit-dashboard",level:"Gemiddeld",time:"2 weekenden",text:"Houd gewoontes bij (sporten, lezen, water) en zie je voortgang in grafieken.",stack:["nextjs","tailwind","shadcn","bklit","motion","supabase","supamcp","rls","cdtmcp","vercel"],steps:["Ontwerp datakaarten met Bklit UI-charts","Sla check-ins op in Supabase","Voeg micro-animaties toe met Motion","Laat Claude de UI testen via de Chrome DevTools MCP"]},
-  {title:"Sign-up flow met een mascotte",level:"Gemiddeld",time:"1 weekend",text:"Een registratiepagina waar een mascotte meekijkt terwijl je typt en blij wordt als het lukt.",stack:["nextjs","tailwind","iplogo","boring","motion","limora","supabase","rls","resend","vercel"],steps:["Maak een mascotte met de IP-as-logo skill (of start met Boring Avatars)","Laat de mascotte reageren op focus en typen met Motion","Genereer een hero-achtergrond met Limora","Koppel echte auth via Supabase en stuur een welkomstmail met Resend"]},
+  {title:"Sign-up flow met een mascotte",level:"Gemiddeld",time:"1 weekend",text:"Een registratiepagina waar een mascotte meekijkt terwijl je typt en blij wordt als het lukt.",stack:["nextjs","tailwind","iplogo","boring","motion","haikei","supabase","rls","resend","vercel"],steps:["Maak een mascotte met de IP-as-logo skill (of start met Boring Avatars)","Laat de mascotte reageren op focus en typen met Motion","Maak een hero-achtergrond met Haikei","Koppel echte auth via Supabase en stuur een welkomstmail met Resend"]},
   {title:"Scrollverhaal over data",level:"Gemiddeld",time:"2 weekenden",text:"Een data-verhaal dat zich ontvouwt terwijl je scrolt, bijvoorbeeld over bestsellers.",stack:["astro","tailwind","pandas","gsap","lenis","gfonts","netlify"],steps:["Analyseer de dataset met pandas en exporteer JSON","Teken de grafieken als SVG","Laat grafieken in beeld animeren met ScrollTrigger","Maak het scrollen vloeiend met Lenis"]},
   {title:"Landingspagina uit Figma",level:"Gemiddeld",time:"1 weekend",text:"Ontwerp eerst in Figma, laat Claude het daarna pixel-precies bouwen.",stack:["figma","figmamcp","nextjs","tailwind","shadcn","aceternity","motion","context7","pwmcp","vercel"],steps:["Ontwerp de pagina in Figma met auto-layout","Koppel de Figma MCP en laat Claude sectie voor sectie bouwen","Voeg één wow-effect toe uit Aceternity UI","Vergelijk het resultaat in de browser met Playwright MCP"]},
   {title:"Browsergame met leaderboard",level:"Gemiddeld",time:"2–3 weekenden",text:"Een klein 3D-spelletje met een online topscorelijst.",stack:["vite","threejs","animejs","supabase","rls","netlify"],steps:["Bouw een simpele scène met Three.js","Gebruik Anime.js voor UI-animaties en score-pop-ups","Sla scores op in Supabase","Voorkom valsspelen met RLS en server-side checks"]},
@@ -907,6 +947,7 @@ const COMBOS = [
   {tools:["refero","randoma11y"],why:"Eerst een stijlrichting kiezen, dan kleuren die ook toegankelijk zijn."},
   {tools:["logoskill","jitter"],why:"Logo als SVG uit de skill, direct animeren in Jitter voor een intro of social post."},
   {tools:["karpathy","ponytail"],why:"Allebei tegen overbodige code: samen houden ze Claude klein en precies."},
+  {tools:["gsap","gsapst","gsapsplit"],why:"GSAP met ScrollTrigger en SplitText: koppen die per woord binnenkomen terwijl je scrollt. Alles gratis."},
   {avoid:true,tools:["gsap","motion"],why:"Kies één animatie-engine per project. Twee naast elkaar maakt je bundel groot en je code rommelig."},
   {avoid:true,tools:["fedesign","taste"],why:"Allebei sturen ze de visuele smaak van Claude, met eigen regels die elkaar tegenspreken."},
   {avoid:true,tools:["threejs","shaders"],why:"Allebei zwaar op de GPU. Voor één achtergrondeffect is Shaders genoeg; Three.js alleen voor echte 3D."},
@@ -922,13 +963,15 @@ const EXCL = [
   {keys:["stripe","lemonsqueezy"],msg:"Kies één betaalprovider."},
   {keys:["clerk","authjs","betterauth"],msg:"Kies één login-oplossing."},
   {keys:["drizzle","prisma"],msg:"Kies één ORM."},
-  {keys:["barba","taxi"],msg:"Kies één library voor paginatransities."},
+  {keys:["barba","taxi","swup"],msg:"Kies één library voor paginatransities."},
+  {keys:["lenis","locomotive","gsapsmoother"],msg:"Kies één smooth-scroll-library. Twee tegelijk vechten om de scroll."},
+  {keys:["gsapsplit","splitting"],msg:"Twee manieren om tekst te splitsen. Kies er één."},
   {keys:["swiper","embla"],msg:"Kies één carrousel."},
   {keys:["threejs","babylon"],msg:"Kies één 3D-engine."},
   {keys:["figma","penpot"],msg:"Kies één ontwerptool, anders raakt je ontwerp verspreid."},
-  {keys:["plausible","umami"],msg:"Eén analytics-tool is genoeg."},
+  {keys:["umami","posthog"],msg:"Eén analytics-tool is genoeg."},
   {keys:["recharts","nivo","chartjs","echarts","tremor"],msg:"Eén chartlibrary houdt je grafieken consistent en je bundel klein."},
-  {keys:["vercel","netlify","cfpages","railway","render"],msg:"Kies één host."},
+  {keys:["vercel","netlify","cfpages","render"],msg:"Kies één host."},
   {keys:["supabase","convex","firebase","pocketbase","appwrite","neon","turso"],msg:"Kies één backend of database."},
   {keys:["fedesign","taste"],msg:"Twee smaak-skills geven Claude tegenstrijdige designregels. Kies er één."},
   {keys:["lucide","phosphor","tabler","heroicons","iconoir","remixicon","hugeicons","radixicons"],msg:"Eén iconenset houdt je UI consistent."},
@@ -999,7 +1042,7 @@ function buildMd(sel){
   if(!sel.length){L.push("_Voeg tools toe met de + knoppen in de library._");return L.join("\n");}
   L.push("## Stack","");
   Object.keys(ROLES).forEach(r=>{const ks=by(r); if(!ks.length) return;
-    L.push(`### ${ROLES[r]}`); ks.forEach(k=>L.push(`- **${T[k].n}**: ${T[k].d}. ${T[k].u}`)); L.push("");});
+    L.push(`### ${ROLES[r]}`); ks.forEach(k=>L.push(`- **${T[k].n}**: ${T[k].d}. ${T[k].u}${PRICE_NOTE[k]?` _(${PRICE_NOTE[k]})_`:TIER.has(k)?" _(gratis tier)_":""}`)); L.push("");});
   // who installs what
   const H = w => sel.filter(k=>how(k)===w);
   const plugins=H("plugin"), mcps=H("mcp"), svcs=H("service"), codes=H("code"), skills=H("skill"), webs=H("web");
@@ -1039,6 +1082,7 @@ function buildMd(sel){
   if(S.has("tailwind")) L.push("- Style met Tailwind CSS. Geen losse CSS-bestanden tenzij het echt nodig is.");
   const kits=by("uikit"); if(kits.length) L.push(`- Zoek eerst een passend component in ${names(kits)} voordat je zelf iets bouwt.`);
   const an=by("animation"); if(an.length===1) L.push(`- Animeer alleen met ${T[an[0]].n}.`);
+  if(S.has("gsap")) L.push("- Registreer GSAP-plugins één keer met gsap.registerPlugin()."+(S.has("gsapreact")?" Gebruik in React altijd useGSAP() zodat animaties opgeruimd worden.":""));
   if(S.has("lenis")) L.push("- Smooth scroll gaat via Lenis. Kaap het scroll-gedrag niet op een andere manier.");
   const ic=by("icons"); if(ic.length===1) L.push(`- Gebruik alleen iconen uit ${T[ic[0]].n}.`);
   if(by("fonts").length) L.push(`- Fonts komen van ${names(by("fonts"))}. Maximaal twee families.`);
@@ -1068,6 +1112,7 @@ function buildMd(sel){
   L.push("- Elke afbeelding heeft een alt-tekst, vaste afmetingen en is gecomprimeerd.");
   L.push("- Alles werkt met het toetsenbord en de focus is zichtbaar.");
   L.push("- Tekstcontrast minimaal WCAG AA (4,5:1).");
+  L.push("- Animeer alleen transform en opacity. 150–300 ms voor UI-feedback.");
   L.push("- Animaties respecteren prefers-reduced-motion.");
   L.push("- Mobile first; geen horizontale scroll op 360px breed.");
   L.push("- Ontwerp ook de lege, laad- en foutstatus.");
@@ -1096,7 +1141,7 @@ function renderMust(){
   document.getElementById("mustgrid").innerHTML = MUST.map((g,gi)=>{
     const allIn = g.items.every(([k])=>stack.includes(k));
     return `<div class="mustcol"><h3>${esc(g.title)}</h3><p>${esc(g.text)}</p>
-    <ul class="tools">${g.items.map(([k,why])=>`<li><span><a href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a> <span class="desc">— ${esc(why)}</span> <span class="how how-${how(k)}" title="${esc(HOWS[how(k)].label)}">${HOWS[how(k)].short}</span></span>${addBtn(k)}</li>`).join("")}</ul>
+    <ul class="tools">${g.items.map(([k,why])=>`<li><span><a href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a> <span class="desc">— ${esc(why)}</span> <span class="how how-${how(k)}" title="${esc(HOWS[how(k)].label)}">${HOWS[how(k)].short}</span> ${priceBadge(k)}</span>${addBtn(k)}</li>`).join("")}</ul>
     <div><button type="button" class="btn${allIn?" ghost":""}" data-mustall="${gi}">${allIn?"✓ Allemaal in je stack":"Voeg deze "+g.items.length+" toe aan je stack"}</button></div></div>`;}).join("");
 }
 
@@ -1116,7 +1161,7 @@ const addBtn = k => `<button type="button" class="add" data-add="${k}" aria-pres
 const tlink = k => `<a class="tchip${stack.includes(k)?" sel":""}" href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>`;
 function card(i){
   const steps = i.steps ? `<ol class="steps">${i.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>` : "";
-  const tools = `<ul class="tools">${i.tools.map(k=>`<li><span><a href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>${MUSTSET.has(k)?`<span class="star" title="Must-have">★</span>`:""} <span class="desc">— ${esc(T[k].d)}</span> <span class="how how-${how(k)}" title="${esc(HOWS[how(k)].label)}">${HOWS[how(k)].short}</span></span>${addBtn(k)}</li>`).join("")}</ul>`;
+  const tools = `<ul class="tools">${i.tools.map(k=>`<li><span><a href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>${MUSTSET.has(k)?`<span class="star" title="Must-have">★</span>`:""} <span class="desc">— ${esc(T[k].d)}</span> <span class="how how-${how(k)}" title="${esc(HOWS[how(k)].label)}">${HOWS[how(k)].short}</span> ${priceBadge(k)}</span>${addBtn(k)}</li>`).join("")}</ul>`;
   return `<article class="card${done.has(i.id)?" done":""}" data-id="${i.id}">
     <div class="cardhead"><span class="callno">${i.no}</span><span>${esc(CATS[i.cat].label)}</span></div>
     <h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>${steps}${tools}
