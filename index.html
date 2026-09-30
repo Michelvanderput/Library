@@ -3,10 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Library met 340+ gratis tools, repo's en best practices voor bouwen met Claude en frontend, plus UI-patronen met prompts en een stack-bouwer die een CLAUDE.md en doc-bestanden genereert.">
+<meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Frontend Ideeënbieb">
+<meta property="og:description" content="340+ gratis tools, UI-patronen en best practices voor bouwen met Claude. Kies je stack en krijg een CLAUDE.md.">
+<meta property="og:url" content="https://library-beta-ruby.vercel.app/">
+<meta property="og:image" content="https://library-beta-ruby.vercel.app/og.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://library-beta-ruby.vercel.app/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236366f1'/%3E%3Cstop offset='1' stop-color='%2322d3ee'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='%2309090b'/%3E%3Cpath d='M18 46V18h8v28zM30 46V18h8v28zM42 46l6-28 6 1.3-6 28z' fill='url(%23g)'/%3E%3C/svg%3E">
 <title>Frontend Ideeënbieb</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 <style>
 /* Layout: dark-first product site in the vein of shadcn / Magic UI / Vercel: grid + spotlight hero, glass cards with a cursor glow, floating stack bar. */
 :root{
@@ -21,11 +33,11 @@
 }
 @media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
   --paper:#fafafa; --card:#ffffff; --card-2:#f4f4f5; --ink:#09090b; --muted:#71717a; --line:#e4e4e7; --line-2:#d4d4d8;
-  --accent:#4f46e5; --accent-soft:#eef2ff; --stamp:#e11d48; --stamp-soft:#fff1f2; --ok:#059669; --ok-soft:#ecfdf5;
+  --accent:#4f46e5; --accent-soft:#eef2ff; --stamp:#be123c; --stamp-soft:#fff1f2; --ok:#047857; --ok-soft:#ecfdf5;
   --glow1:#818cf8; --glow2:#22d3ee; --glow3:#f0abfc; --grid:rgba(9,9,11,.06); --spot:rgba(79,70,229,.07); --glass:rgba(250,250,250,.88); color-scheme:light}}
 :root[data-theme="light"]{
   --paper:#fafafa; --card:#ffffff; --card-2:#f4f4f5; --ink:#09090b; --muted:#71717a; --line:#e4e4e7; --line-2:#d4d4d8;
-  --accent:#4f46e5; --accent-soft:#eef2ff; --stamp:#e11d48; --stamp-soft:#fff1f2; --ok:#059669; --ok-soft:#ecfdf5;
+  --accent:#4f46e5; --accent-soft:#eef2ff; --stamp:#be123c; --stamp-soft:#fff1f2; --ok:#047857; --ok-soft:#ecfdf5;
   --glow1:#818cf8; --glow2:#22d3ee; --glow3:#f0abfc; --grid:rgba(9,9,11,.06); --spot:rgba(79,70,229,.07); --glass:rgba(250,250,250,.88); color-scheme:light}
 *{box-sizing:border-box}
 body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
@@ -85,7 +97,7 @@ pre.tree .hl{color:var(--stamp);font-weight:600}
 .files{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 @media (max-width:520px){.files{grid-template-columns:1fr}}
 .file{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:14px 16px}
-.file h4{font-family:var(--mono);font-size:14px;margin:0 0 4px;color:var(--stamp)}
+.file h3{font-family:var(--mono);font-size:14px;margin:0 0 4px;color:var(--stamp)}
 .file p{margin:0 0 8px;font-size:14px;color:var(--muted)}
 .file ol{margin:0;padding-left:20px;font-size:14px}
 .rules{margin-top:12px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--stamp);padding:12px 16px;font-size:14.5px}
@@ -203,7 +215,7 @@ header.top::after{content:"";position:absolute;left:50%;top:-40px;width:min(900p
 .pill b{font-weight:500;color:var(--ink);background:var(--card-2);border:1px solid var(--line);border-radius:999px;padding:1px 8px;font-size:12px}
 .pill:hover{border-color:var(--line-2);color:var(--ink)}
 h1{font-family:var(--display);font-weight:600;font-size:clamp(2.6rem,7.5vw,5rem);line-height:.98;letter-spacing:-.045em;max-width:14ch}
-h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em;padding-right:.06em;
+h1 em{font-family:var(--display);font-style:normal;font-weight:600;letter-spacing:-.045em;padding-right:.02em;
   background:linear-gradient(100deg,var(--glow1),var(--glow2) 45%,var(--glow3));-webkit-background-clip:text;background-clip:text;color:transparent}
 .lede{max-width:58ch;font-size:17px;color:var(--muted);line-height:1.6}
 .lede b{color:var(--ink);font-weight:500}
@@ -290,7 +302,7 @@ pre.md{border-radius:10px;background:var(--paper);font-size:12.5px}
 .mdbar .fname::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--stamp);box-shadow:16px 0 0 #fbbf24,32px 0 0 var(--ok);margin-right:40px}
 /* guide */
 section.guide{border-top:1px solid var(--line);padding-top:48px;margin-top:72px}
-.file h4{color:var(--accent)}
+.file h3{color:var(--accent)}
 .rules{border-left:1px solid var(--line);box-shadow:inset 3px 0 0 var(--accent)}
 pre.tree .hl{color:var(--accent)}
 /* floating stack bar */
@@ -301,10 +313,64 @@ pre.tree .hl{color:var(--accent)}
 .tray .warn{color:var(--stamp)}
 footer{margin-inline:auto;text-align:center}
 @media (max-width:520px){header.top{padding-block:36px 24px}.tray{border-radius:18px}}
+/* ===== usability layer ===== */
+.tips summary{cursor:pointer;font-size:13.5px;color:var(--muted);padding:6px 0}
+.tips[open] summary{margin-bottom:8px}
+.skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:8px;text-decoration:none}
+.skip:focus{top:12px}
+.legend{margin:-8px 0 20px;font-size:13px;color:var(--muted)}
+.legend summary{cursor:pointer;width:max-content;list-style:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px}
+.legend summary::-webkit-details-marker{display:none}
+.legend summary::before{content:"ⓘ ";color:var(--accent)}
+.legendrow{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.legendrow>span{display:inline-flex;gap:6px;align-items:center}
+.more{display:flex;justify-content:center;margin-top:20px}
+.more .btn{min-width:240px;justify-content:center}
+ul.tools li.hit{background:var(--accent-soft);border-radius:8px;margin-inline:-6px;padding:4px 6px}
+.linkbtn{background:none;border:0;padding:4px 0;color:var(--accent);font:inherit;font-size:13.5px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+ul.tools li.moreli{grid-template-columns:1fr}
+ul.tools li.moreli::before{display:none}
+ul.variants{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+ul.variants li{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);font-size:14px}
+ul.variants li div{min-width:0}
+ul.variants b{font-weight:600}
+ul.variants .desc{color:var(--muted);display:block}
+.copyp{flex:none;font-family:var(--mono);font-size:11.5px;padding:5px 10px;border-radius:999px;border:1px solid var(--line-2);background:var(--card-2);color:var(--ink);cursor:pointer}
+.copyp:hover{border-color:var(--accent);color:var(--accent)}
+.prompt{border:1px dashed var(--line-2);border-radius:10px;padding:10px 12px;background:var(--paper)}
+.prompt p{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin:6px 0 0;line-height:1.55}
+.phead{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--accent);font-family:var(--mono)}
+.docs{display:grid;gap:8px}
+.docrow{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer}
+.docrow input{margin-top:3px;width:18px;height:18px;accent-color:var(--accent)}
+.docrow code{font-family:var(--mono);font-size:13px}
+.docrow .desc{color:var(--muted);font-size:13px}
+.fit{font-family:var(--mono);font-size:10.5px;padding:1px 7px;border-radius:999px;margin-left:4px}
+.fit.yes{background:var(--ok-soft);color:var(--ok)} .fit.no{border:1px solid var(--line);color:var(--muted)}
+.filetabs{display:flex;gap:6px;flex-wrap:wrap}
+.ftab{font-family:var(--mono);font-size:12px;padding:5px 10px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.ftab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.undo{font:inherit;font-weight:500;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:6px 12px;cursor:pointer}
+/* mobile: compact sticky bar, scrollable category row */
+@media (max-width:700px){
+  .controls{padding-block:10px;gap:8px}
+  #drawers{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-20px;padding-inline:20px;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+  #drawers::-webkit-scrollbar{display:none}
+  #drawers .drawer{flex:none;white-space:nowrap}
+  .search .toggle{display:none}
+}
+/* touch: comfortable targets */
+@media (pointer:coarse){
+  .add{min-width:40px;height:40px;font-size:16px}
+  .selchip button{min-width:32px;min-height:32px}
+  .drawer,.ftab,.copyp,.tried{min-height:36px}
+  .sugg button{min-height:34px}
+}
 </style>
 </head>
 <body>
 
+<a class="skip" href="#ideeen">Naar de library</a>
 <div class="wrap" id="wrap">
   <header class="top">
     <a class="pill" href="#bouwer"><b>Nieuw</b> Stack-bouwer met CLAUDE.md-export →</a>
@@ -316,6 +382,7 @@ footer{margin-inline:auto;text-align:center}
     <div class="marquee" aria-hidden="true"><div class="track" id="marq"></div></div>
   </header>
 
+  <main id="main">
   <section class="block must" id="musthaves">
     <div class="blockhead">
       <span class="eyebrow">★ Begin hier</span>
@@ -333,7 +400,11 @@ footer{margin-inline:auto;text-align:center}
     <div class="drawers" id="drawers" role="group" aria-label="Categorieën"></div>
   </div>
 
-  <main class="grid" id="grid" aria-live="polite"></main>
+  <details class="legend"><summary>Wat betekenen de labels?</summary>
+    <div class="legendrow"><span><span class="how how-code">npm</span> Claude installeert het</span><span><span class="how how-skill">skill</span> Claude zet het in .claude/skills/</span><span><span class="how how-file">regels</span> komt in je CLAUDE.md</span><span><span class="how how-mcp">MCP</span> jij keurt goed</span><span><span class="how how-plugin">plugin</span> jij installeert met /plugin</span><span><span class="how how-service">account</span> jij maakt een account</span><span><span class="how how-web">site</span> gewoon gebruiken</span><span><span class="price">gratis tier</span> gratis met limieten</span><span><span class="star">★</span> must-have</span></div>
+  </details>
+  <div class="grid" id="grid" aria-live="polite"></div>
+  <div class="more"><button type="button" class="btn ghost" id="moreCards" hidden></button></div>
   <p class="empty" id="empty" hidden>Niets gevonden. Probeer een andere zoekterm of lade.</p>
 
   <section class="block" id="projecten">
@@ -386,15 +457,21 @@ footer{margin-inline:auto;text-align:center}
           <div class="selected" id="selected" style="margin-top:10px"></div>
         </div>
         <div>
+          <h3>Doc-bestanden</h3>
+          <p class="hint" style="margin-top:4px">Uit de .md-starterkit. Alleen de bestanden die bij je stack horen staan aan; je kunt ze zelf aan- of uitzetten.</p>
+          <div class="docs" id="docs" style="margin-top:10px"></div>
+        </div>
+        <div>
           <h3>Controle</h3>
           <div class="checks" id="checks" style="margin-top:10px"></div>
         </div>
         <div class="acts" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn ghost" id="clearStack">Stack leegmaken</button></div>
       </div>
       <div class="bpanel">
-        <div class="mdbar"><span class="fname">CLAUDE.md</span><span class="acts"><span class="toast" id="toast" aria-live="polite"></span><button type="button" class="btn" id="copyMd">Kopieer</button><button type="button" class="btn ghost" id="dlMd" hidden>Download</button></span></div>
+        <div class="filetabs" id="filetabs" role="tablist" aria-label="Bestanden"></div>
+        <div class="mdbar"><span class="fname" id="fname">CLAUDE.md</span><span class="acts"><span class="toast" id="toast" aria-live="polite"></span><button type="button" class="btn" id="copyMd">Kopieer</button><button type="button" class="btn ghost" id="dlMd" hidden>Download</button><button type="button" class="btn ghost" id="dlZip" hidden>Download alles (.zip)</button></span></div>
         <pre class="md" id="md" tabindex="0"></pre>
-        <p class="hint">Tip: begin je eerste prompt met "Lees CLAUDE.md en stel eerst vragen als iets onduidelijk is." Werk het bestand bij als je stack verandert.</p>
+        <p class="hint">Zet CLAUDE.md in de root en de doc-bestanden in een map <code>docs/</code>. Tip: begin je eerste prompt met "Lees CLAUDE.md en stel eerst vragen als iets onduidelijk is." Werk het bestand bij als je stack verandert.</p>
       </div>
     </div>
   </section>
@@ -428,13 +505,13 @@ footer{margin-inline:auto;text-align:center}
       <p style="margin-top:14px"><a href="https://docs.google.com/document/d/1uR8FYsZGyrWvJvz7h0G4J4zVphGXQQbK/edit" target="_blank" rel="noopener">Open het volledige document →</a></p>
     </div>
     <div class="files">
-      <div class="file"><h4>SECURITY.md</h4><p>Hoe het project gebruikers, data en secrets beschermt.</p>
+      <div class="file"><h3>SECURITY.md</h3><p>Hoe het project gebruikers, data en secrets beschermt.</p>
         <ol><li>Auth &amp; autorisatie (sessie op de server checken)</li><li>Secrets &amp; env-variabelen</li><li>Input-validatie</li><li>API-beveiliging</li><li>Dataprotectie</li><li>Error handling &amp; logging</li><li>Regels voor de AI-agent</li></ol></div>
-      <div class="file"><h4>CODE_STYLE.md</h4><p>Conventies zodat alle code als één geheel leest.</p>
+      <div class="file"><h3>CODE_STYLE.md</h3><p>Conventies zodat alle code als één geheel leest.</p>
         <ol><li>Stack</li><li>Algemene principes</li><li>Naamgeving</li><li>Componenten</li><li>Formatting</li><li>Comments</li><li>Checklist "voor je klaar bent"</li></ol></div>
-      <div class="file"><h4>DATABASE.md</h4><p>Welke data er is en hoe je er veilig mee omgaat.</p>
+      <div class="file"><h3>DATABASE.md</h3><p>Welke data er is en hoe je er veilig mee omgaat.</p>
         <ol><li>Database-stack &amp; omgevingen</li><li>Kernmodellen</li><li>Schema-regels</li><li>Migraties</li><li>Seed data</li><li>Productieveiligheid</li></ol></div>
-      <div class="file"><h4>API.md</h4><p>Hoe endpoints eruitzien en zich gedragen.</p>
+      <div class="file"><h3>API.md</h3><p>Hoe endpoints eruitzien en zich gedragen.</p>
         <ol><li>Base config &amp; authenticatie</li><li>Endpoint-conventies</li><li>Voorbeeld-endpoint</li><li>Statuscodes</li><li>Foutafhandeling</li><li>Rate limiting</li></ol></div>
       <div class="rules" style="grid-column:1/-1;margin-top:0"><strong>AI-agent regels (uit SECURITY.md)</strong>
         <ul>
@@ -448,9 +525,11 @@ footer{margin-inline:auto;text-align:center}
     </div>
   </section>
 
-  <footer>Links gaan naar de officiële site of GitHub-repo. Je stack, projectnaam en "geprobeerd"-vinkjes worden alleen in deze browser bewaard.</footer>
+  </main>
+
+  <footer>Links gaan naar de officiële site of GitHub-repo. Je stack, projectnaam en "geprobeerd"-vinkjes worden alleen in deze browser bewaard.<br><br>Deze site volgt zijn eigen best practices. Laatste test (30 september 2026): Lighthouse mobiel 92 snelheid · 100 toegankelijkheid · 100 SEO, desktop 100 snelheid; axe: 0 toegankelijkheidsfouten in licht en donker thema. Security headers, Open Graph en favicon staan aan.</footer>
 </div>
-<div class="tray" id="tray" hidden><div class="in"></div></div>
+<aside class="tray" id="tray" aria-label="Mijn stack" hidden><div class="in" aria-live="polite"></div></aside>
 
 <script>
 /* ---------- Tool registry: one entry per tool, used by cards, projects, combos and the builder ---------- */
@@ -804,6 +883,7 @@ const T = {
   learnforms:{n:"Learn Forms (web.dev)",u:"https://web.dev/learn/forms",d:"gratis cursus goede formulieren",r:"practice"},
   learnimages:{n:"Learn Images (web.dev)",u:"https://web.dev/learn/images",d:"afbeeldingen snel en scherp laden",r:"practice"},
   learnhtml:{n:"Learn HTML (web.dev)",u:"https://web.dev/learn/html",d:"semantische HTML vanaf de basis",r:"practice"},
+  nuqs:{n:"nuqs",u:"https://nuqs.dev",d:"filters en zoekopdrachten in de URL bewaren",r:"datalib",req:[REACT],cmd:"npm i nuqs"},
   boring:{n:"Boring Avatars",u:"https://boringavatars.com",d:"gratis open-source avatars voor React",r:"images",req:[REACT]},
 };
 const ROLES = {framework:"Basis",styling:"Styling",uikit:"UI-componenten",animation:"Animatie",motionx:"Motion, 3D & effecten",backend:"Backend & data",auth:"Login",email:"E-mail",security:"Beveiliging",hosting:"Hosting",taste:"Design-smaak voor Claude",rules:"Regels & skills voor Claude",plugin:"Claude-plugins",mcp:"MCP-koppelingen",test:"Testen",icons:"Iconen",iconsx:"Iconen (extra)",fonts:"Fonts",color:"Kleur & achtergronden",design:"Design-tools",inspiration:"Inspiratie",images:"Beeld",video:"Video & content",logo:"Logo & branding",aibuilder:"AI-builders",data:"Data & API's",learn:"Leren",quality:"Codekwaliteit",forms:"Formulieren & validatie",datalib:"Data ophalen",monitor:"Monitoring",practice:"Best practices & naslag",payments:"Betalingen",orm:"Database-toegang",api:"API-laag",storage:"Opslag & media",cms:"CMS",charts:"Grafieken & tabellen",maps:"Kaarten",devtool:"Dev-tools",creative:"Creative coding",formsvc:"Formulier-diensten"};
@@ -833,6 +913,7 @@ const CATS = {
   claude:{code:"CLA",label:"Claude Code & AI"},
   motion:{code:"ANI",label:"Animatie & motion"},
   layout:{code:"UI",label:"UI & componenten"},
+  patterns:{code:"PAT",label:"UI-patronen"},
   logo:{code:"LOG",label:"Logo's & branding"},
   sites:{code:"INS",label:"Inspiratie & design"},
   assets:{code:"AST",label:"Iconen, fonts & beeld"},
@@ -896,7 +977,78 @@ const IDEAS = [
   {id:"DauC8Ddy0t6",cat:"motion",title:"De stack van een filmische website",text:"De stack achter de website van Lando Norris. Geen van deze tools is moeilijk; het zit in de combinatie. Bestaande sites nabouwen is een snelle manier om beter te worden.",tools:["webflow","gsap","lenis","threejs","rive","taxi"],tags:["3d","scroll","transities"]},
   {id:"motion-3d",cat:"motion",title:"3D en effecten zonder veel code",text:"Visueel bouwen en daarna in je site zetten.",tools:["spline","unicorn","lottie","theatre","autoanimate","shaders"],tags:["3d","webgl","lottie"]},
   {id:"tb-motion",cat:"motion",title:"Motion design en micro-interacties",text:"Tools om animaties te maken, plus inspiratie en timing.",tools:["jitter","flow","dotmatrix","ripplix","cubic","easings"],tags:["animatie","preloader","easing"]},
-  {id:"DdePLtKAoWw",cat:"layout",title:"5 hero-layouts die niet generiek zijn",text:"De hero is het eerste wat iemand ziet. Vijf richtingen in plaats van \"hi, I'm a designer\":",steps:["Bento box: modulaire kaarten in een strak grid","Brutalist billboard: 90% van het scherm is je naam","Swiss editorial: gridlijnen en gedempte kleuren","Floating node: dark mode, grote type, interactieve tags","Architectural split: asymmetrische kolommen, veel witruimte"],tools:["bentogrids","supahero","figma"],tags:["hero","portfolio"]},
+  {id:"DdePLtKAoWw",cat:"patterns",title:"Hero-basis: zo bouw je een sterke hero",text:"Geen fancy effecten nodig: een simpele structuur, een heldere boodschap en een layout die meteen indruk maakt. Schets hem eerst in Figma.",steps:["Kop: zeg in max. 8 woorden wat je doet","Subregel: voor wie en waarom het werkt","Eén primaire knop, eventueel één secundaire","Een visual die het product of werk echt laat zien","Vertrouwen: logo's, reviews of een getal","Maak hem zo hoog als de inhoud, niet standaard 100vh"],tools:["figma","supahero","landbook","godly"],tags:["hero","figma","structuur"]},
+  {id:"hero-bento",cat:"patterns",title:"Hero-variant: Bento box",text:"Modulaire kaarten in een strak grid. Organiseert veel informatie zonder te overweldigen. Sterk voor portfolio's en SaaS met meerdere features.",tools:["magicui","aceternity","bentogrids","motion"],tags:["hero","bento","grid"],prompt:"Bouw een hero in bento-stijl: één grote kaart met naam en kernboodschap, daaromheen 4 à 5 kleinere kaarten (werk, skills, contact, een getal). Strak CSS-grid, gelijke gaps, afgeronde hoeken, subtiele hover. Op mobiel stapelen de kaarten in één kolom. Gebruik de Bento Grid van Magic UI als basis."},
+  {id:"hero-brutal",cat:"patterns",title:"Hero-variant: Brutalist billboard",text:"90% van het scherm is je naam. Pure dominantie en direct herkenbaar. Werkt met een opvallend display-font en bijna geen andere elementen.",tools:["fontshare","uncut","gsapsplit","typescale"],tags:["hero","typografie","brutalist"],prompt:"Bouw een brutalist billboard-hero: de naam vult ~90% van de viewport-breedte in een zwaar display-font van Fontshare, strak links uitgelijnd, zwart op wit. Eén kleine regel eronder met wat ik doe en een link. Laat de letters bij laden per regel binnenkomen met GSAP SplitText, en respecteer prefers-reduced-motion."},
+  {id:"hero-swiss",cat:"patterns",title:"Hero-variant: Swiss editorial",text:"Strakke gridlijnen, gedempte kleuren, veel orde. Leest premium en intellectueel. Ideaal voor designers en schrijvers.",tools:["gfonts","utopia","minimal","typewolf"],tags:["hero","editorial","grid"],prompt:"Bouw een Swiss editorial hero: zichtbaar 12-koloms grid met dunne lijnen, gedempte kleuren (gebroken wit, grafiet, één accent), een grote maar rustige kop in een neo-grotesk font, kleine metadata in kolommen (rol, locatie, jaar). Vloeiende typeschaal met clamp() volgens Utopia. Geen animaties behalve een subtiele fade."},
+  {id:"hero-node",cat:"patterns",title:"Hero-variant: Floating node",text:"Dark mode, enorme type en interactieve tags die rondzweven. Straalt technische kennis uit.",tools:["motion","matter","reactbits","gsap"],tags:["hero","dark mode","interactief"],prompt:"Bouw een floating node hero in dark mode: een enorme kop, daaromheen 8 tags (skills) die langzaam zweven en die je kunt slepen, met physics via Matter.js of drag via Motion. Tags botsen zacht en keren terug. Lijnen verbinden de tags met de kop. Zet de beweging uit bij prefers-reduced-motion."},
+  {id:"hero-split",cat:"patterns",title:"Hero-variant: Architectural split",text:"Asymmetrische kolommen en blueprint-achtige spacing. Laat zien dat je negatieve ruimte begrijpt, zonder animatie.",tools:["moderncss","relume","siteinspire","utopia"],tags:["hero","asymmetrisch","layout"],prompt:"Bouw een architectural split hero: twee asymmetrische kolommen (ca. 5/7), links de kop en tekst met veel witruimte, rechts een beeld of maatvoering-achtige lijnen zoals een bouwtekening. Kleine labels met maten of nummers als details. Geen animatie. Op mobiel eerst de tekst, dan het beeld."},
+  {id:"pat-nav",cat:"patterns",title:"Navigatie",text:"De eerste plek waar mensen zoeken. Maximaal 5–7 items, de huidige pagina duidelijk gemarkeerd.",variants:[
+    ["Sticky topbar met blur","blijft bovenin staan, glazen achtergrond met backdrop-filter"],["Zwevende pill-nav","compacte afgeronde balk die los van de rand zweeft, zoals bij Vercel"],["Mega menu","grote dropdown met kolommen, iconen en uitleg; voor sites met veel pagina's"],["Sidebar-navigatie","vaste linkerkolom voor apps en dashboards, inklapbaar"],["Bottom tab bar","3–5 iconen onderaan op mobiel, bereikbaar met je duim"],["Command menu (⌘K)","zoek en spring overal heen met het toetsenbord"]],
+    tools:["navbar","shadcn","cmdk","motion","headlessui"],tags:["navbar","menu","mobiel"]},
+  {id:"pat-footer",cat:"patterns",title:"Footer",text:"Het vangnet onderaan: links, contact en een laatste kans om actie te nemen.",variants:[
+    ["Minimal","één regel met copyright, 3 links en socials"],["Mega footer","kolommen met alle belangrijke links, gegroepeerd per onderwerp"],["Big type footer","je naam of logo enorm groot als afsluiter"],["CTA-footer","eerst een laatste oproep of nieuwsbrief, daaronder de links"]],
+    tools:["landbook","shadcn","uncut","simpleicons"],tags:["footer"]},
+  {id:"pat-features",cat:"patterns",title:"Features-sectie",text:"Laat zien wat het product doet. Toon, vertel niet alleen.",variants:[
+    ["Bento grid","features als kaarten van verschillende grootte in één grid"],["Zigzag","afwisselend beeld links en rechts met tekst ernaast"],["Icon grid","3×2 raster met icoon, korte titel en één zin"],["Tabs met screenshot","tabs wisselen een grote productafbeelding"],["Sticky scroll","tekst scrollt, het beeld ernaast blijft staan en wisselt mee"]],
+    tools:["magicui","aceternity","lucide","gsapst","motion"],tags:["features","bento","scroll"]},
+  {id:"pat-proof",cat:"patterns",title:"Social proof & testimonials",text:"Vertrouwen wint conversies. Echte namen en gezichten werken het best.",variants:[
+    ["Logo marquee","een rij klantlogo's die rustig doorschuift"],["Testimonial wall","masonry-grid met korte quotes, foto en naam"],["Eén grote quote","één sterke uitspraak groot in beeld"],["Cijfers","3–4 grote getallen met korte uitleg"],["Case-kaartjes","kaarten met resultaat, klant en link naar het verhaal"]],
+    tools:["magicui","reactbits","simpleicons","motion"],tags:["testimonials","logo's","vertrouwen"]},
+  {id:"pat-pricing",cat:"patterns",title:"Pricing",text:"Maak de keuze makkelijk: markeer het aanbevolen plan en vermijd kleine lettertjes.",variants:[
+    ["Drie kolommen","basis, pro, team, met het middelste plan gemarkeerd"],["Maand/jaar-toggle","schakelaar met zichtbare korting voor jaarlijks"],["Vergelijkingstabel","alle features per plan met vinkjes"],["Usage-slider","prijs verandert mee met een schuifje voor gebruik"]],
+    tools:["shadcn","tanstacktable","motion","stripe"],tags:["pricing","plannen"]},
+  {id:"pat-faq",cat:"patterns",title:"FAQ",text:"Beantwoord bezwaren voordat ze ontstaan.",variants:[
+    ["Accordion","vragen klappen open, één tegelijk of meerdere"],["Twee kolommen","links de categorie, rechts de vragen"],["Zoekbare FAQ","zoekveld filtert de vragen live"],["Chat-stijl","vragen en antwoorden als chatbubbels"]],
+    tools:["shadcn","radix","headlessui"],tags:["faq","accordion"]},
+  {id:"pat-cta",cat:"patterns",title:"CTA-sectie",text:"Eén duidelijke actie per sectie. Herhaal de belangrijkste CTA onderaan de pagina.",variants:[
+    ["Gradient banner","brede kaart met zachte gloed, kop en één knop"],["Split met beeld","tekst en knop links, beeld of demo rechts"],["Nieuwsbrief inline","e-mailveld en knop op één regel"],["Sticky CTA-balk","kleine balk onderaan op mobiel die meescrolt"]],
+    tools:["magicui","resend","tally"],tags:["cta","conversie"]},
+  {id:"pat-auth",cat:"patterns",title:"Login & sign-up",text:"Zo min mogelijk velden. Laat zien wat er gebeurt en waarom je iets vraagt.",variants:[
+    ["Gecentreerde kaart","simpel formulier midden op het scherm"],["Split screen","formulier links, visual of quote rechts"],["Magic link","alleen e-mail, inloggen via een link in je mail"],["Social login eerst","Google/GitHub-knoppen bovenaan, e-mail als alternatief"],["Multi-step sign-up","account, profiel en voorkeuren in stappen"]],
+    tools:["supabase","clerk","betterauth","zod","rhf"],tags:["login","sign-up","auth"]},
+  {id:"pat-forms",cat:"patterns",title:"Formulieren",text:"Labels boven het veld, foutmeldingen bij het veld, in gewone taal.",variants:[
+    ["Eén kolom","alle velden onder elkaar, labels erboven"],["Multi-step met voortgang","lange formulieren in stappen met een voortgangsbalk"],["Inline validatie","feedback zodra je een veld verlaat"],["Conversational","één vraag per scherm, zoals Typeform"]],
+    tools:["rhf","zod","tally","learnforms"],tags:["formulieren","validatie"]},
+  {id:"pat-cards",cat:"patterns",title:"Kaarten",text:"Eén kaart, één onderwerp. Houd padding, hoeken en schaduwen overal gelijk.",variants:[
+    ["Product card","beeld, naam, prijs en één actie"],["Profile card","avatar, naam, rol en links"],["Stat card","groot getal, label en trend"],["Spotlight card","een lichtvlek die je muis volgt"],["3D tilt card","kantelt licht mee met je muis"]],
+    tools:["aceternity","magicui","shadcn","reactbits"],tags:["cards","hover"]},
+  {id:"pat-dash",cat:"patterns",title:"Dashboard-layout",text:"Samenvatting bovenaan, details daaronder. Wat aandacht nodig heeft, valt meteen op.",variants:[
+    ["Sidebar + content","navigatie links, content rechts, inklapbaar op mobiel"],["Top nav + tabs","horizontale navigatie met tabs per onderdeel"],["Bento dashboard","widgets van verschillende grootte in een grid"],["List-detail","lijst links, details van het gekozen item rechts"]],
+    tools:["shadcn","tremor","bklit","tanstacktable"],tags:["dashboard","layout"]},
+  {id:"pat-tables",cat:"patterns",title:"Tabellen & lijsten",text:"Maak data scanbaar: uitgelijnde cijfers, sorteren en filteren.",variants:[
+    ["Datatabel","sorteren, filteren en pagineren, cijfers rechts uitgelijnd"],["Kaarten op mobiel","tabelrijen worden kaarten op kleine schermen"],["Kanban","kolommen met kaartjes die je sleept"],["Virtuele lijst","duizenden rijen zonder te haperen"]],
+    tools:["tanstacktable","dndkit","shadcn"],tags:["tabellen","data"]},
+  {id:"pat-overlay",cat:"patterns",title:"Modals, drawers & popovers",text:"Gebruik ze spaarzaam. Focus moet erin blijven en Escape sluit altijd.",variants:[
+    ["Dialog","gecentreerd venster voor één beslissing"],["Sheet","paneel dat van de zijkant inschuift"],["Bottom drawer","sleepbaar paneel van onderen op mobiel"],["Popover","klein venster bij een knop, voor snelle acties"],["Bevestigen op de plek","de knop zelf vraagt 'Zeker?' in plaats van een popup"]],
+    tools:["radix","vaul","shadcn","floatingui"],tags:["modal","drawer","popover"]},
+  {id:"pat-feedback",cat:"patterns",title:"Feedback & meldingen",text:"Laat altijd zien wat er gebeurde: gelukt, bezig of fout, en wat je nu kunt doen.",variants:[
+    ["Toast","korte melding rechtsonder die vanzelf verdwijnt"],["Inline alert","melding in de pagina bij het onderdeel waar het over gaat"],["Banner","brede melding bovenaan voor iets dat iedereen raakt"],["Skeleton loader","grijze vormen op de plek waar content komt"],["Progress","voortgangsbalk of stappen bij langere acties"]],
+    tools:["sonner","shadcn","dotmatrix"],tags:["toast","loading","alerts"]},
+  {id:"pat-empty",cat:"patterns",title:"Empty states & 404",text:"Een lege pagina is een kans: leg uit wat hier komt en geef één actie.",variants:[
+    ["Illustratie + actie","vriendelijke illustratie, één zin en een knop"],["Voorbeelddata","laat zien hoe het eruitziet met gemarkeerde voorbeelden"],["Speelse 404","grappige tekst met zoekveld en links terug"],["Onboarding-checklist","3–5 stappen om te beginnen, met vinkjes"]],
+    tools:["undraw","storyset","icons3d","lottie"],tags:["empty state","404"]},
+  {id:"pat-onboard",cat:"patterns",title:"Onboarding",text:"Laat mensen zo snel mogelijk iets bereiken. Vraag alleen wat je echt nodig hebt.",variants:[
+    ["Product tour","korte highlights die de belangrijkste knoppen aanwijzen"],["Checklist","taken om te beginnen, met voortgang"],["Welkomst-modal","één scherm met uitleg en een startknop"],["Progressive disclosure","geavanceerde opties pas tonen als ze nodig zijn"]],
+    tools:["motion","shadcn","lottie"],tags:["onboarding","ux"]},
+  {id:"pat-search",cat:"patterns",title:"Zoeken & filteren",text:"Toon resultaten terwijl iemand typt, en maak filters zichtbaar en makkelijk te wissen.",variants:[
+    ["Command palette","⌘K opent zoeken over alles"],["Instant search","resultaten verschijnen onder het veld tijdens het typen"],["Filter-sidebar","filters links, resultaten rechts, met actieve filters als chips"],["Zoeken met suggesties","populaire en recente zoekopdrachten als startpunt"]],
+    tools:["cmdk","shadcn","nuqs"],tags:["zoeken","filters"]},
+  {id:"pat-gallery",cat:"patterns",title:"Galerij & carrousel",text:"Laat beeld groot zien en zorg dat het ook met toetsenbord en swipe werkt.",variants:[
+    ["Masonry","foto's van verschillende hoogte in een strak raster"],["Carrousel met snap","vegen op mobiel, pijlen op desktop"],["Lightbox","klik op een foto voor een grote weergave"],["Horizontale scroll-sectie","verticaal scrollen schuift een rij horizontaal"]],
+    tools:["embla","swiper","gsapst"],tags:["galerij","carrousel"]},
+  {id:"pat-contact",cat:"patterns",title:"Contact",text:"Maak contact opnemen zo makkelijk mogelijk en zeg hoe snel je reageert.",variants:[
+    ["Formulier + kaart","kort formulier naast een kaart met je locatie"],["E-mail met kopieerknop","je e-mailadres als tekst met een kopieerknop"],["Kanalen-kaarten","mail, telefoon en socials als losse kaarten"]],
+    tools:["formspree","tally","leaflet"],tags:["contact","formulier"]},
+  {id:"pat-article",cat:"patterns",title:"Blog & artikel",text:"Lezen moet prettig zijn: rustige typografie en niets dat afleidt.",variants:[
+    ["Leeskolom","tekst op ca. 65 tekens breed, ruime regelafstand"],["Sticky inhoudsopgave","inhoud aan de zijkant die meeloopt en de huidige kop markeert"],["Leesvoortgang","dunne balk bovenin die laat zien hoe ver je bent"]],
+    tools:["practypo","utopia","typescale","gfonts"],tags:["blog","typografie"]},
+  {id:"pat-loading",cat:"patterns",title:"Laden & preloaders",text:"Laat zien dat er iets gebeurt, maar laat mensen nooit onnodig wachten.",variants:[
+    ["Skeleton","vormen op de plek van de content"],["Dot matrix loader","een kleine, stijlvolle loading-animatie"],["Page preloader","korte intro-animatie bij het eerste bezoek"],["Topbar-progress","dunne balk bovenaan bij paginawissels"]],
+    tools:["dotmatrix","flow","lottie"],tags:["loading","preloader"]},
+  {id:"pat-buttons",cat:"patterns",title:"Knoppen & micro-interacties",text:"Een knop moet eruitzien als een knop en direct reageren.",variants:[
+    ["Primair / secundair / ghost","drie duidelijke niveaus, overal hetzelfde"],["Magnetische knop","trekt licht naar je cursor toe"],["Shimmer border","een lichtje dat langs de rand loopt"],["Laadstatus in de knop","spinner en tekst 'Bezig…' zodat niemand twee keer klikt"]],
+    tools:["magicui","uiverse","motion","reactbits"],tags:["buttons","hover"]},
   {id:"ui-anim",cat:"layout",title:"Geanimeerde componentbibliotheken",text:"Kopieer een component, plak het in je React-project en pas het aan. Bijna allemaal gebouwd op Tailwind en Motion.",tools:["aceternity","magicui","reactbits","c21st","motionprim","animata","cultui","kokonut"],tags:["react","tailwind","motion"]},
   {id:"ui-base",cat:"layout",title:"Basiscomponenten en thema's",text:"De fundering onder je UI. shadcn/ui is de standaard waar veel andere bibliotheken op bouwen.",tools:["shadcn","tweakcn","daisyui","uiverse","bklit"],tags:["shadcn","thema","charts"]},
   {id:"Ddf-7oiz126",cat:"layout",title:"Een dashboard met micro-interacties",text:"Recept voor een modern dashboard: interactieve datakaarten, subtiele animaties bij hover en laden, volledig responsive.",tools:["bklit","motion","shaders"],tags:["dashboard","react"]},
@@ -1120,11 +1272,107 @@ function buildMd(sel){
   const a = analyse(sel);
   if(a.conf.length){L.push("## Let op: botst met elkaar",""); a.conf.forEach(c=>L.push(`- ${c.msg} (${names(c.tools)})`)); L.push("");}
   if(a.miss.length){L.push("## Nog te beslissen",""); a.miss.forEach(m=>L.push(`- [ ] ${m.msg} Opties: ${names(m.add)}.`)); L.push("");}
-  L.push("## Documentatie","","Zet projectregels in `/docs` en laat Claude het relevante bestand lezen voor een feature:","");
-  L.push("- `docs/CODE_STYLE.md`: naamgeving, componenten, formatting");
-  if(by("backend").length||by("auth").length){L.push("- `docs/SECURITY.md`: auth, secrets, validatie, regels voor de agent");L.push("- `docs/DATABASE.md`: modellen, migraties, productieveiligheid");L.push("- `docs/API.md`: endpoints, statuscodes, rate limiting");}
+  const dl = docsOn(S);
+  if(dl.length){L.push("## Documentatie","","Lees het relevante bestand voordat je een feature bouwt:","");
+    dl.forEach(d=>L.push(`- \`${d.f}\`: ${d.why.split(".")[0].toLowerCase()}`));
+    L.push("","Bouw volgens de bestaande conventies. Verzin geen nieuwe databasemodellen, API-patronen, dependencies of beveiligingsregels tenzij het echt nodig is. Botst de documentatie met de code? Meld dat eerst.");
+    if(dl.some(d=>d.f==="docs/DATABASE.md")) L.push("","Bij een databasewijziging: lees DATABASE.md en SECURITY.md, benoem welke tabellen veranderen, of er een migratie nodig is en of het autorisatie raakt. Bouw pas daarna.");
+    if(dl.some(d=>d.f==="docs/API.md")) L.push("","Bij een nieuw endpoint: volg de response- en foutvorm uit API.md, valideer alle input en pas authenticatie toe waar nodig.");
+    L.push("");}
   return L.join("\n");
 }
+
+
+/* ---------- Doc-bestanden uit de .md-starterkit: alleen als ze bij de stack horen ---------- */
+const roleIn=(S,r)=>[...S].some(k=>T[k].r===r);
+const hasAny=(S,rs)=>rs.some(r=>roleIn(S,r));
+function codeProject(S){const fw=[...S].filter(k=>T[k].r==="framework"); const builderOnly=fw.length&&fw.every(k=>["webflow","framer"].includes(k));
+  return !builderOnly && hasAny(S,["framework","uikit","animation","motionx","styling","quality","forms","datalib","charts","creative","maps","orm","api"]);}
+const DOCS=[
+  {f:"docs/CODE_STYLE.md",why:"Hoe code in dit project eruitziet. Nuttig bij elk code-project.",when:codeProject},
+  {f:"docs/SECURITY.md",why:"Login, secrets en validatie. Nodig zodra je gebruikers, data, betalingen of formulieren hebt.",when:S=>hasAny(S,["backend","auth","payments","api","formsvc"])},
+  {f:"docs/DATABASE.md",why:"Datamodel en migraties. Nodig zodra je een database hebt.",when:S=>hasAny(S,["backend","orm"])},
+  {f:"docs/API.md",why:"Endpoints en foutafhandeling. Nodig bij een API-laag, backend of betalingen.",when:S=>hasAny(S,["api","payments","backend"])}
+];
+const docsOn = S => DOCS.filter(d=> d.f in docOverride ? docOverride[d.f] : d.when(S));
+const first = (S,map,dflt) => {for(const [k,v] of map) if(S.has(k)) return v; return dflt;};
+function stackFacts(S){
+  const fw=[...S].filter(k=>T[k].r==="framework").map(k=>T[k].n);
+  return {
+    lang:S.has("ts")?"TypeScript":"JavaScript",
+    fw:fw.length?fw.join(", "):"[kies een framework]",
+    react:[...S].some(k=>REACT.includes(k)),
+    styling:S.has("tailwind")?"Tailwind CSS":"[styling]",
+    kits:[...S].filter(k=>T[k].r==="uikit").map(k=>T[k].n),
+    lint:S.has("biome")?"Biome (lint + format)":[S.has("eslint")&&"ESLint",S.has("prettier")&&"Prettier"].filter(Boolean).join(" + ")||"[linter/formatter]",
+    tests:[...S].filter(k=>["vitest","testinglib","playwright","pwmcp","cdtmcp"].includes(k)).map(k=>T[k].n),
+    auth:first(S,[["clerk","Clerk"],["betterauth","Better Auth"],["authjs","Auth.js"],["supabase","Supabase Auth"],["firebase","Firebase Auth"],["appwrite","Appwrite Auth"],["pocketbase","PocketBase auth"],["convex","Convex Auth"]],"[kies een login-oplossing]"),
+    db:first(S,[["supabase","PostgreSQL via Supabase"],["neon","PostgreSQL via Neon"],["turso","SQLite via Turso"],["firebase","Firestore (Firebase)"],["pocketbase","SQLite via PocketBase"],["appwrite","Appwrite Databases"],["convex","Convex"]],"[kies een database]"),
+    orm:first(S,[["drizzle","Drizzle ORM"],["prisma","Prisma"],["supabase","supabase-js client"]],"[ORM of client]"),
+    migr:first(S,[["drizzle","drizzle-kit"],["prisma","Prisma Migrate"],["supabase","Supabase CLI migrations"],["convex","Convex schema"]],"[migratietool]"),
+    valid:S.has("zod")?"Zod":"een validatieschema",
+    api:first(S,[["trpc","tRPC-procedures"],["hono","Hono-routes"],["nextjs","Next.js Route Handlers in app/api"],["sveltekit","SvelteKit +server.ts endpoints"],["nuxt","Nuxt server routes"]],"REST-endpoints"),
+    pay:first(S,[["stripe","Stripe"],["lemonsqueezy","Lemon Squeezy"]],null),
+    mail:S.has("resend")?"Resend":null,
+    rls:S.has("supabase"),
+    monitor:first(S,[["sentry","Sentry"]],null)
+  };
+}
+function docCodeStyle(S,x){return [
+`# CODE_STYLE.md`,``,`Deze regels houden de code leesbaar en consistent. Volg bestaande patronen, tenzij dit bestand iets anders zegt.`,``,
+`## Stack`,`- Taal: ${x.lang}`,`- Framework: ${x.fw}`,`- Styling: ${x.styling}`,...(x.kits.length?[`- UI-componenten: ${x.kits.join(", ")}`]:[]),`- Lint/format: ${x.lint}`,...(x.tests.length?[`- Testen: ${x.tests.join(", ")}`]:[]),``,
+`## Principes`,`- Leesbaar gaat voor slim.`,`- Houd functies en componenten klein, met één taak.`,`- Hergebruik bestaande componenten voordat je nieuwe maakt.`,`- Geen abstracties waar niet om gevraagd is.`,`- Dupliceer geen logica die al in een gedeelde utility staat.`,``,
+`## Naamgeving`,`- Componenten: PascalCase (UserCard${x.lang==="TypeScript"?".tsx":".jsx"})`,`- Functies en variabelen: camelCase (getUserData)`,`- Constanten: UPPER_SNAKE_CASE (MAX_RETRY_COUNT)`,`- Booleans lezen als een vraag: isLoading, hasAccess, canEdit`,``,
+`## Componenten`,...(x.react?[`- Functionele React-componenten.`,`- Houd UI, logica en data ophalen gescheiden waar het kan; complexe logica gaat in hooks of utilities.`]:[`- Houd UI, logica en data ophalen gescheiden waar het kan.`]),
+...(x.lang==="TypeScript"?[`- Geef props duidelijke types. Geen \`any\`.`]:[]),`- Ontwerp altijd de laad-, fout- en lege status.`,``,
+`## Opmaak`,`- Gebruik de configuratie van ${x.lint}.`,`- Formatteer geen bestanden die je niet aanraakt.`,`- Verwijder ongebruikte imports en variabelen.`,``,
+`## Comments`,`Leg uit WAAROM, niet WAT.`,`- Goed: \`// Eén keer opnieuw proberen: de provider geeft soms een tijdelijke 503.\``,`- Vermijd: \`// Verhoog count\``,``,
+`## Voordat je klaar bent`,`- Draai lint${x.lang==="TypeScript"?" en type-check":""}.`,...(x.tests.length?[`- Draai de relevante tests (${x.tests.join(", ")}).`]:[]),`- Check responsive layouts als je UI hebt aangepast.`,`- Verwijder debug-logs en dode code.`].join("\n");}
+function docSecurity(S,x){return [
+`# SECURITY.md`,``,`Beveiligingsregels voor dit project. Alle developers en AI-agents volgen deze regels.`,``,
+`## Authenticatie & autorisatie`,`- Login via ${x.auth}.`,`- Beschermde routes controleren de sessie op de server.`,`- Vertrouw nooit een user-ID of rol die alleen van de client komt.`,`- Controleer rechten voordat je beschermde data leest of wijzigt.`,
+...(x.rls?[`- Row Level Security staat aan op elke Supabase-tabel, met policies per gebruiker.`]:[]),``,
+`## Secrets & environment-variabelen`,`- Secrets staan in \`.env.local\` en nooit in git.`,`- Server-only keys krijgen nooit een publieke prefix (zoals \`NEXT_PUBLIC_\`).`,`- Zet nooit API-keys, wachtwoorden of connection strings in Markdown-bestanden.`,``,
+`## Input-validatie`,`- Valideer alle input op de server met ${x.valid}, ook als de client al valideert.`,`- Beperk lengte en type van elk veld.`,``,
+`## API-beveiliging`,`- Rate limits op login, wachtwoord-reset, formulieren en dure acties.`,`- Geef geen interne foutmeldingen of stack traces terug.`,
+...(x.pay?[`- Betalingen via ${x.pay}: bedragen berekenen en bevestigen alleen op de server, via webhooks met signature-check.`]:[]),``,
+`## Dataprotectie`,`- Verzamel alleen data die je echt nodig hebt.`,`- Log nooit wachtwoorden, tokens of persoonsgegevens${x.monitor?` (ook niet in ${x.monitor})`:""}.`,``,
+`## Regels voor de AI-agent`,`- Verzin of hardcode nooit productie-credentials.`,`- Zet authenticatie nooit uit om iets werkend te krijgen.`,`- Omzeil nooit autorisatiechecks.`,`- Zet nooit secrets in client-side code.`,`- Vraag om verduidelijking als een wijziging botst met dit bestand.`].join("\n");}
+function docDatabase(S,x){return [
+`# DATABASE.md`,``,`Hoe data in dit project is opgebouwd en veilig wordt aangepast.`,``,
+`## Database-stack`,`- Database: ${x.db}`,`- Toegang: ${x.orm}`,`- Migraties: ${x.migr}`,``,
+`## Omgevingen`,`- De connection string komt uit environment-variabelen. Nooit hardcoden.`,`- Development, staging en productie gebruiken aparte databases.`,``,
+`## Kernmodellen`,`_Vervang dit voorbeeld door de echte modellen van je product._`,``,`### User`,`- id, email (uniek), name (optioneel), createdAt, updatedAt`,``,`### Project`,`- id, name, ownerId → User.id, createdAt, updatedAt`,`- Eén User heeft veel Projects; elk Project hoort bij één User.`,``,
+`## Schema-regels`,`- Elk record heeft een stabiele ID en timestamps.`,`- Relaties via foreign keys; unieke waarden via unique constraints.`,`- Indexen op velden waar vaak op gezocht wordt.`,`- Sla hetzelfde feit niet op meerdere plekken op.`,
+...(x.rls?[`- Elke nieuwe tabel krijgt direct RLS aan, met een policy.`]:[]),``,
+`## Migraties`,`1. Pas het schema aan.`,`2. Maak een migratie met ${x.migr}.`,`3. Review de gegenereerde migratie.`,`4. Test lokaal of op staging.`,`5. Pas toe via het deployproces.`,`Wijzig de productiedatabase nooit met de hand om een migratie over te slaan.`,``,
+`## Seed-data`,`- Alleen testdata. Nooit echte gebruikersdata of secrets.`,``,
+`## Productieveiligheid`,`- Maak backups van belangrijke data.`,`- Geen destructieve schemawijzigingen zonder migratieplan.`,`- Draai nooit reset-commando's op productie.`,`- Gebruik transacties voor acties die samen moeten slagen of falen.`,`- Volg SECURITY.md voor toegang en gevoelige data.`].join("\n");}
+function docApi(S,x){const tp=[...(x.pay?[x.pay]:[]),...(x.mail?[x.mail]:[]),...[...S].filter(k=>["places","elevenlabs","firecrawl","cloudinary","uploadthing"].includes(k)).map(k=>T[k].n)];
+return [
+`# API.md`,``,`Hoe frontend, backend en externe diensten met elkaar praten.`,``,
+`## Basis`,`- Stijl: ${x.api}`,`- Antwoorden: JSON`,``,
+`## Authenticatie`,`- Beschermde endpoints vereisen een geldige sessie (${x.auth}).`,`- Server-only credentials komen nooit in de browser.`,``,
+`## Conventies`,`Gebruik zelfstandige naamwoorden voor resources:`,"```","GET    /api/projects","GET    /api/projects/:id","POST   /api/projects","PATCH  /api/projects/:id","DELETE /api/projects/:id","```",``,
+`## Vaste response-vorm`,"```json",`{ "success": true, "data": { "id": "project_123", "name": "Mijn project" } }`,`{ "success": false, "error": { "code": "INVALID_INPUT", "message": "Projectnaam is verplicht." } }`,"```",``,
+`## Statuscodes`,`200 OK · 201 aangemaakt · 400 ongeldige input · 401 niet ingelogd · 403 geen toegang · 404 niet gevonden · 409 conflict · 429 te veel verzoeken · 500 onverwachte fout`,``,
+`## Foutregels`,`- Altijd dezelfde foutvorm.`,`- Geen stack traces naar de client.`,`- Log genoeg context op de server, maar nooit secrets of gevoelige data.`,``,
+`## Rate limiting`,`Beperk endpoints die misbruikt kunnen worden: login, wachtwoord-reset, AI-generatie, publieke formulieren en dure zoekopdrachten.`,
+...(tp.length?[``,`## Externe diensten`,...tp.map(n=>`- **${n}**: doel, benodigde env-variabelen (server-only?), webhook-endpoint, wat er gebeurt als het faalt.`)]:[]),
+...(x.pay?[``,`## Webhooks`,`- ${x.pay}-webhook op \`/api/webhooks/${x.pay.toLowerCase().replace(/\s/g,"")}\`: controleer altijd de signature voordat je iets verwerkt.`]:[])].join("\n");}
+const DOC_GEN = {"docs/CODE_STYLE.md":docCodeStyle,"docs/SECURITY.md":docSecurity,"docs/DATABASE.md":docDatabase,"docs/API.md":docApi};
+function allFiles(){const S=new Set(stack), x=stackFacts(S); return [{f:"CLAUDE.md",c:buildMd(stack)},...(stack.length?docsOn(S):[]).map(d=>({f:d.f,c:DOC_GEN[d.f](S,x)}))];}
+/* Minimal store-only ZIP so all files download at once */
+const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
+const crc32=d=>{let c=0xFFFFFFFF;for(let i=0;i<d.length;i++)c=CRC[(c^d[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0;};
+function makeZip(files){const enc=new TextEncoder(),parts=[],central=[];let off=0;
+  files.forEach(({f,c})=>{const name=enc.encode(f),data=enc.encode(c),crc=crc32(data);
+    const lh=new DataView(new ArrayBuffer(30));[[0,0x04034b50,4],[4,20,2],[6,0x0800,2],[8,0,2],[10,0,2],[12,0x21,2],[14,crc,4],[18,data.length,4],[22,data.length,4],[26,name.length,2],[28,0,2]].forEach(([o,v,s])=>s===4?lh.setUint32(o,v,true):lh.setUint16(o,v,true));
+    parts.push(new Uint8Array(lh.buffer),name,data);
+    const ch=new DataView(new ArrayBuffer(46));[[0,0x02014b50,4],[4,20,2],[6,20,2],[8,0x0800,2],[10,0,2],[12,0,2],[14,0x21,2],[16,crc,4],[20,data.length,4],[24,data.length,4],[28,name.length,2],[30,0,2],[32,0,2],[34,0,2],[36,0,2],[38,0,4],[42,off,4]].forEach(([o,v,s])=>s===4?ch.setUint32(o,v,true):ch.setUint16(o,v,true));
+    central.push(new Uint8Array(ch.buffer),name); off+=30+name.length+data.length;});
+  const cs=central.reduce((n,a)=>n+a.length,0),end=new DataView(new ArrayBuffer(22));end.setUint32(0,0x06054b50,true);end.setUint16(8,files.length,true);end.setUint16(10,files.length,true);end.setUint32(12,cs,true);end.setUint32(16,off,true);
+  const all=[...parts,...central,new Uint8Array(end.buffer)],out=new Uint8Array(all.reduce((n,a)=>n+a.length,0));let p=0;all.forEach(a=>{out.set(a,p);p+=a.length;});return out;}
 
 /* ---------- Must-haves ---------- */
 const MUST = [
@@ -1149,7 +1397,9 @@ function renderMust(){
 const ls = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 let done = new Set(ls.get("bieb-done",[]));
 let stack = ls.get("bieb-stack",[]).filter(k=>T[k]);
-let active = "all", level = "Alles";
+let active = "all", level = "Alles", shown = 12, curFile = "CLAUDE.md", undo = null;
+let docOverride = ls.get("bieb-docs",{});
+const expanded = new Set();
 const val = id => document.getElementById(id).value;
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const counters = {};
@@ -1159,23 +1409,31 @@ function toggleTool(k,on){const has=stack.includes(k); if(on===undefined) on=!ha
 /* ---------- Rendering ---------- */
 const addBtn = k => `<button type="button" class="add" data-add="${k}" aria-pressed="${stack.includes(k)}" aria-label="${stack.includes(k)?"Verwijder":"Voeg"} ${esc(T[k].n)} ${stack.includes(k)?"uit":"toe aan"} je stack" title="${stack.includes(k)?"In je stack":"Voeg toe aan stack"}">${stack.includes(k)?"✓":"+"}</button>`;
 const tlink = k => `<a class="tchip${stack.includes(k)?" sel":""}" href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>`;
-function card(i){
+const toolRow = (k,q) => `<li${q&&(T[k].n+" "+T[k].d).toLowerCase().includes(q)?' class="hit"':""}><span><a href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>${MUSTSET.has(k)?`<span class="star" title="Must-have">★</span>`:""} <span class="desc">— ${esc(T[k].d)}</span> <span class="how how-${how(k)}" title="${esc(HOWS[how(k)].label)}">${HOWS[how(k)].short}</span> ${priceBadge(k)}</span>${addBtn(k)}</li>`;
+const variantPrompt = (i,v) => `Bouw het UI-onderdeel "${i.title}" in de variant "${v[0]}": ${v[1]}. Maak het responsive (mobile first), toegankelijk (semantische HTML, toetsenbord, zichtbare focus, contrast AA) en respecteer prefers-reduced-motion. Gebruik waar het past: ${names(i.tools)}.`;
+function card(i,q){
   const steps = i.steps ? `<ol class="steps">${i.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>` : "";
-  const tools = `<ul class="tools">${i.tools.map(k=>`<li><span><a href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>${MUSTSET.has(k)?`<span class="star" title="Must-have">★</span>`:""} <span class="desc">— ${esc(T[k].d)}</span> <span class="how how-${how(k)}" title="${esc(HOWS[how(k)].label)}">${HOWS[how(k)].short}</span> ${priceBadge(k)}</span>${addBtn(k)}</li>`).join("")}</ul>`;
+  const vars = i.variants ? `<ul class="variants">${i.variants.map((v,vi)=>`<li><div><b>${esc(v[0])}</b> <span class="desc">${esc(v[1])}</span></div><button type="button" class="copyp" data-vp="${i.id}|${vi}" aria-label="Kopieer prompt voor ${esc(v[0])}">Prompt</button></li>`).join("")}</ul>` : "";
+  const prompt = i.prompt ? `<div class="prompt"><div class="phead"><span>Prompt voor Claude</span><button type="button" class="copyp" data-p="${i.id}">Kopieer</button></div><p>${esc(i.prompt)}</p></div>` : "";
+  const LIMIT=5, open=q||expanded.has(i.id)||i.tools.length<=LIMIT+1, list=open?i.tools:i.tools.slice(0,LIMIT);
+  const more = open ? "" : `<li class="moreli"><button type="button" class="linkbtn" data-expand="${i.id}">+ ${i.tools.length-LIMIT} meer tools</button></li>`;
+  const tools = `<ul class="tools">${list.map(k=>toolRow(k,q)).join("")}${more}</ul>`;
   return `<article class="card${done.has(i.id)?" done":""}" data-id="${i.id}">
     <div class="cardhead"><span class="callno">${i.no}</span><span>${esc(CATS[i.cat].label)}</span></div>
-    <h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>${steps}${tools}
+    <h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>${steps}${vars}${prompt}${tools}
     <div class="chips">${i.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>
-    <div class="foot"><span class="linkcount">${i.tools.length} link${i.tools.length>1?"s":""}</span>
+    <div class="foot"><span class="linkcount">${i.tools.length} link${i.tools.length>1?"s":""}${i.variants?` · ${i.variants.length} varianten`:""}</span>
       <button class="tried" type="button" aria-pressed="${done.has(i.id)}">${done.has(i.id)?"✓ geprobeerd":"markeer als geprobeerd"}</button></div>
   </article>`;
 }
 function renderLibrary(){
   const q = val("q").trim().toLowerCase(), hide = document.getElementById("hideDone").checked;
   const list = IDEAS.filter(i=>(active==="all"||i.cat===active)&&(!hide||!done.has(i.id))&&
-    (!q||[i.title,i.text,i.no,...i.tags,...(i.steps||[]),...i.tools.flatMap(k=>[T[k].n,T[k].d])].join(" ").toLowerCase().includes(q)));
-  document.getElementById("grid").innerHTML = list.map(card).join("");
+    (!q||[i.title,i.text,i.no,...i.tags,...(i.steps||[]),...(i.variants||[]).flat(),...i.tools.flatMap(k=>[T[k].n,T[k].d])].join(" ").toLowerCase().includes(q)));
+  document.getElementById("grid").innerHTML = list.slice(0,q?list.length:shown).map(i=>card(i,q)).join("");
   document.getElementById("empty").hidden = list.length>0;
+  const mb=document.getElementById("moreCards"), rest=list.length-shown;
+  mb.hidden = !!q || rest<=0; if(rest>0) mb.textContent=`Toon meer kaarten (${rest})`;
   const all = [["all","Alles",IDEAS.length],...Object.entries(CATS).map(([k,c])=>[k,c.label,counters[k]||0])];
   document.getElementById("drawers").innerHTML = all.map(([k,l,n])=>`<button type="button" class="drawer" data-cat="${k}" aria-pressed="${k===active}">${esc(l)}<span class="n">${n}</span></button>`).join("");
   document.getElementById("stats").innerHTML = `<span><b>${Object.keys(T).length}</b> tools &amp; links</span><span><b>${IDEAS.length}</b> kaarten</span><span><b>${PROJECTS.length}</b> projectideeën</span><span><b>${done.size}</b> geprobeerd</span>`;
@@ -1202,57 +1460,77 @@ function renderBuilder(){
   let h = "";
   a.conf.forEach(c=>h+=`<div class="check conf"><span class="lbl">Botst</span><span>${esc(c.msg)} <b>${esc(names(c.tools))}</b></span></div>`);
   a.miss.forEach(m=>h+=`<div class="check miss"><span class="lbl">Mist</span><span>${esc(m.msg)}</span>${sugg(m.add)}</div>`);
-  a.tip.forEach(t=>h+=`<div class="check tip"><span class="lbl">Aanrader</span><span>${esc(t.msg)}</span>${sugg(t.add||t.tools||[])}</div>`);
+  if(a.tip.length) h+=`<details class="tips"${stack.length<3?" open":""}><summary>${a.tip.length} aanrader${a.tip.length>1?"s":""}</summary><div class="checks">${a.tip.map(t=>`<div class="check tip"><span class="lbl">Aanrader</span><span>${esc(t.msg)}</span>${sugg(t.add||t.tools||[])}</div>`).join("")}</div></details>`;
   if(stack.length && !a.conf.length && !a.miss.length) h = `<div class="check ok"><span class="lbl">Klopt</span><span>Niets botst en er mist niets essentieels.</span></div>` + h;
   if(!stack.length) h = `<p class="bempty">Zodra je tools kiest, zie je hier wat er mist en wat niet samengaat.</p>`;
   document.getElementById("checks").innerHTML = h;
-  document.getElementById("md").textContent = buildMd(stack);
+  const S=new Set(stack);
+  document.getElementById("docs").innerHTML = DOCS.map((d,di)=>{const on=stack.length&&docsOn(S).includes(d), fits=d.when(S);
+    return `<label class="docrow"><input type="checkbox" id="doc-${di}" data-doc="${d.f}" ${on?"checked":""} ${stack.length?"":"disabled"}><span><code>${d.f.replace("docs/","")}</code> <span class="fit ${fits?"yes":"no"}">${fits?"past bij je stack":"niet nodig voor deze stack"}</span><br><span class="desc">${esc(d.why)}</span></span></label>`;}).join("");
+  renderFiles();
   const tray = document.getElementById("tray");
-  tray.hidden = !stack.length; document.getElementById("wrap").classList.toggle("hastray",!!stack.length);
-  if(stack.length) tray.querySelector(".in").innerHTML = `<span>Mijn stack: <b>${stack.length}</b> tool${stack.length>1?"s":""}${a.conf.length?` · <span class="warn">${a.conf.length} botst</span>`:""}${a.miss.length?` · ${a.miss.length} mist`:""}</span><a href="#bouwer">Naar stack-bouwer ↓</a>`;
+  tray.hidden = !stack.length && !undo; document.getElementById("wrap").classList.toggle("hastray",!tray.hidden);
+  if(undo) tray.querySelector(".in").innerHTML = `<span>${esc(undo.label)}</span><button type="button" class="undo" data-undo="1">Ongedaan maken</button>`;
+  else if(stack.length) tray.querySelector(".in").innerHTML = `<span>Mijn stack: <b>${stack.length}</b> tool${stack.length>1?"s":""}${a.conf.length?` · <span class="warn">${a.conf.length} botst</span>`:""}${a.miss.length?` · ${a.miss.length} mist`:""}</span><a href="#bouwer">Naar stack-bouwer ↓</a>`;
+}
+function renderFiles(){
+  const files=allFiles(); if(!files.some(f=>f.f===curFile)) curFile="CLAUDE.md";
+  document.getElementById("filetabs").innerHTML = files.length>1 ? files.map(f=>`<button type="button" role="tab" class="ftab" data-file="${f.f}" aria-selected="${f.f===curFile}">${f.f.replace("docs/","")}</button>`).join("") : "";
+  document.getElementById("fname").textContent = curFile;
+  document.getElementById("md").textContent = files.find(f=>f.f===curFile).c;
+  document.getElementById("dlZip").hidden = files.length<2 || !dlReady;
 }
 function renderAll(){renderMust();renderLibrary();renderProjects();renderBuilder();}
 
 /* ---------- Events ---------- */
 document.addEventListener("click",e=>{
   const t=e.target.closest("button"); if(!t) return;
-  if(t.dataset.cat){active=t.dataset.cat;renderLibrary();return;}
+  if(t.dataset.cat){active=t.dataset.cat;shown=12;renderLibrary();return;}
   if(t.dataset.level){level=t.dataset.level;renderProjects();return;}
   if(t.dataset.add){toggleTool(t.dataset.add);return;}
   if(t.dataset.addsugg){toggleTool(t.dataset.addsugg,true);return;}
   if(t.dataset.mustall){const g=MUST[+t.dataset.mustall]; const allIn=g.items.every(([k])=>stack.includes(k)); g.items.forEach(([k])=>{if(!allIn&&!stack.includes(k)) stack.push(k);}); ls.set("bieb-stack",stack); renderAll(); return;}
   if(t.dataset.remove){toggleTool(t.dataset.remove,false);return;}
-  if(t.dataset.load){const p=PROJECTS[+t.dataset.load]; stack=[...p.stack]; ls.set("bieb-stack",stack);
+  if(t.dataset.expand){expanded.add(t.dataset.expand);renderLibrary();return;}
+  if(t.dataset.file){curFile=t.dataset.file;renderFiles();return;}
+  if(t.dataset.undo){stack=undo.stack; document.getElementById("pname").value=undo.meta.n; document.getElementById("pdesc").value=undo.meta.d; saveMeta(); ls.set("bieb-stack",stack); undo=null; renderAll(); return;}
+  if(t.dataset.vp||t.dataset.p){const [id,vi]=(t.dataset.vp||t.dataset.p).split("|"); const i=IDEAS.find(x=>x.id===id); const txt=t.dataset.vp?variantPrompt(i,i.variants[+vi]):i.prompt;
+    const old=t.textContent; const ok=()=>{t.textContent="✓ Gekopieerd";setTimeout(()=>t.textContent=old,1600);};
+    try{navigator.clipboard.writeText(txt).then(ok,()=>{t.textContent="Kopiëren lukt niet";});}catch(e){t.textContent="Kopiëren lukt niet";} return;}
+  if(t.dataset.load){const p=PROJECTS[+t.dataset.load]; setUndo(`Stack vervangen door "${p.title}"`); stack=[...p.stack]; ls.set("bieb-stack",stack);
     document.getElementById("pname").value=p.title; document.getElementById("pdesc").value=p.text; saveMeta(); renderAll();
     document.getElementById("bouwer").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); return;}
   if(t.classList.contains("tried")){const id=t.closest(".card").dataset.id; done.has(id)?done.delete(id):done.add(id); ls.set("bieb-done",[...done]); renderLibrary(); return;}
 });
-document.getElementById("q").addEventListener("input",renderLibrary);
+document.getElementById("q").addEventListener("input",()=>{shown=12;renderLibrary();});
 document.getElementById("hideDone").addEventListener("change",renderLibrary);
 function saveMeta(){ls.set("bieb-meta",{n:val("pname"),d:val("pdesc")});}
-["pname","pdesc"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{saveMeta();document.getElementById("md").textContent=buildMd(stack);}));
-document.getElementById("clearStack").addEventListener("click",()=>{stack=[];ls.set("bieb-stack",stack);renderAll();});
+["pname","pdesc"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{saveMeta();renderFiles();}));
+function setUndo(label){if(!stack.length){undo=null;return;} undo={stack:[...stack],meta:{n:val("pname"),d:val("pdesc")},label}; clearTimeout(setUndo.t); setUndo.t=setTimeout(()=>{undo=null;renderBuilder();},10000);}
+document.getElementById("clearStack").addEventListener("click",()=>{setUndo("Stack leeggemaakt");stack=[];ls.set("bieb-stack",stack);renderAll();});
+document.getElementById("moreCards").addEventListener("click",()=>{shown+=12;renderLibrary();});
+document.getElementById("docs").addEventListener("change",e=>{const f=e.target.dataset.doc; if(!f) return; docOverride[f]=e.target.checked; ls.set("bieb-docs",docOverride); renderFiles();});
 const toast = m => {const el=document.getElementById("toast"); el.textContent=m; clearTimeout(toast.t); toast.t=setTimeout(()=>el.textContent="",2500);};
 document.getElementById("copyMd").addEventListener("click",()=>{
   const txt=document.getElementById("md").textContent;
   const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("md"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Geselecteerd, druk Ctrl/Cmd+C");};
-  try{navigator.clipboard.writeText(txt).then(()=>toast("Gekopieerd"),fallback);}catch(e){fallback();}
+  try{navigator.clipboard.writeText(txt).then(()=>toast(`${curFile.replace("docs/","")} gekopieerd`),fallback);}catch(e){fallback();}
 });
 // Download: via the viewer's downloads capability inside claude.ai, via a plain blob link when the file is opened directly.
+let dlReady=false;
 (async()=>{
-  const b=document.getElementById("dlMd"), mdText=()=>document.getElementById("md").textContent;
-  const fname=()=>((val("pname")||"").trim()?"CLAUDE.md":"CLAUDE.md");
+  const b=document.getElementById("dlMd"), z=document.getElementById("dlZip");
+  const cur=()=>({name:curFile.replace("docs/",""),data:document.getElementById("md").textContent});
+  const zip=()=>({name:((val("pname")||"project").trim().toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"project")+"-claude-docs.zip",data:makeZip(allFiles())});
   let top=false; try{top=window.self===window.top;}catch(e){}
-  if(top){b.hidden=false; b.addEventListener("click",()=>{const blob=new Blob([mdText()],{type:"text/markdown"});const a=document.createElement("a");
-    a.href=URL.createObjectURL(blob);a.download=fname();a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}); return;}
-  const dl = window.claude?.use ? await window.claude.use("downloads").catch(()=>null) : null;
-  if(!dl) return;
-  b.hidden=false;
-  b.addEventListener("click",async()=>{
-    try{await dl.save({filename:fname(),data:mdText()}); toast("Gedownload");}
-    catch(e){ if(e&&e.code==="declined") return; if(e&&e.code==="rate_limited"){toast("Even wachten en opnieuw proberen");return;}
-      if(e&&["unavailable","not_granted","capability_disabled","capability_removed"].includes(e.code)){b.hidden=true;} toast("Download lukt hier niet, gebruik Kopieer"); }
-  });
+  let save;
+  if(top){ save=({name,data})=>{const blob=new Blob([data],{type:name.endsWith(".zip")?"application/zip":"text/markdown"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);return Promise.resolve();}; }
+  else { const dl = window.claude?.use ? await window.claude.use("downloads").catch(()=>null) : null; if(!dl) return;
+    save=({name,data})=>dl.save({filename:name,data}); }
+  dlReady=true; b.hidden=false; renderFiles();
+  const run=async f=>{try{await save(f()); toast("Gedownload");}catch(e){ if(e&&e.code==="declined") return; if(e&&e.code==="rate_limited"){toast("Even wachten en opnieuw proberen");return;}
+      if(e&&["unavailable","not_granted","capability_disabled","capability_removed"].includes(e.code)){b.hidden=true;z.hidden=true;dlReady=false;} toast("Download lukt hier niet, gebruik Kopieer"); }};
+  b.addEventListener("click",()=>run(cur)); z.addEventListener("click",()=>run(zip));
 })();
 const meta = ls.get("bieb-meta",{n:"",d:""}); document.getElementById("pname").value=meta.n||""; document.getElementById("pdesc").value=meta.d||"";
 renderAll();
