@@ -1072,10 +1072,22 @@ document.getElementById("copyMd").addEventListener("click",()=>{
   const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("md"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Geselecteerd, druk Ctrl/Cmd+C");};
   try{navigator.clipboard.writeText(txt).then(()=>toast("Gekopieerd"),fallback);}catch(e){fallback();}
 });
-// Downloads only work outside the embedded artifact viewer (e.g. the repo's index.html opened directly).
-try{ if(window.self===window.top){const b=document.getElementById("dlMd"); b.hidden=false; b.addEventListener("click",()=>{
-  const blob=new Blob([document.getElementById("md").textContent],{type:"text/markdown"}); const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob); a.download="CLAUDE.md"; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);});} }catch(e){}
+// Download: via the viewer's downloads capability inside claude.ai, via a plain blob link when the file is opened directly.
+(async()=>{
+  const b=document.getElementById("dlMd"), mdText=()=>document.getElementById("md").textContent;
+  const fname=()=>((val("pname")||"").trim()?"CLAUDE.md":"CLAUDE.md");
+  let top=false; try{top=window.self===window.top;}catch(e){}
+  if(top){b.hidden=false; b.addEventListener("click",()=>{const blob=new Blob([mdText()],{type:"text/markdown"});const a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);a.download=fname();a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}); return;}
+  const dl = window.claude?.use ? await window.claude.use("downloads").catch(()=>null) : null;
+  if(!dl) return;
+  b.hidden=false;
+  b.addEventListener("click",async()=>{
+    try{await dl.save({filename:fname(),data:mdText()}); toast("Gedownload");}
+    catch(e){ if(e&&e.code==="declined") return; if(e&&e.code==="rate_limited"){toast("Even wachten en opnieuw proberen");return;}
+      if(e&&["unavailable","not_granted","capability_disabled","capability_removed"].includes(e.code)){b.hidden=true;} toast("Download lukt hier niet, gebruik Kopieer"); }
+  });
+})();
 const meta = ls.get("bieb-meta",{n:"",d:""}); document.getElementById("pname").value=meta.n||""; document.getElementById("pdesc").value=meta.d||"";
 renderAll();
 </script>
