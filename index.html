@@ -36,7 +36,9 @@ h1 em{font-style:normal;color:var(--accent)}
 .stats b{color:var(--ink);font-weight:600}
 
 .controls{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);padding-block:12px;border-bottom:1px solid var(--line);margin-bottom:24px;display:grid;gap:12px}
-.search{display:flex;gap:10px;align-items:center}
+.search{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.controls>*{min-width:0}
+.search input{flex:1 1 220px}
 .search input{flex:1;min-width:0;font:inherit;padding:10px 14px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
 .drawers{display:flex;flex-wrap:wrap;gap:6px}
 .drawer{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-radius:6px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
@@ -57,8 +59,9 @@ h1 em{font-style:normal;color:var(--accent)}
 .card p{margin:0;font-size:15px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{font-family:var(--mono);font-size:11.5px;padding:3px 8px;border-radius:4px;background:var(--accent-soft);color:var(--ink)}
-.chip.video{background:var(--stamp-soft);color:var(--stamp)}
-.chip.dm{background:var(--ok-soft);color:var(--ok)}
+ol.steps{margin:0;padding-left:20px;font-size:14.5px;display:grid;gap:3px}
+ol.steps li::marker{font-family:var(--mono);color:var(--stamp);font-size:12px}
+.linkcount{font-family:var(--mono);font-size:12px;color:var(--muted)}
 ul.tools{margin:0;padding:0;list-style:none;display:grid;gap:5px;font-size:14.5px}
 ul.tools li{display:grid;grid-template-columns:auto 1fr;gap:8px}
 ul.tools li::before{content:"→";color:var(--muted);font-family:var(--mono)}
@@ -82,6 +85,35 @@ pre.tree .hl{color:var(--stamp);font-weight:600}
 .file ol{margin:0;padding-left:20px;font-size:14px}
 .rules{margin-top:12px;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--stamp);padding:12px 16px;font-size:14.5px}
 .rules ul{margin:6px 0 0;padding-left:18px}
+nav.jump{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--mono);font-size:13px}
+nav.jump a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+nav.jump a:hover{border-color:var(--accent);color:var(--accent)}
+section.block{margin-top:56px;border-top:2px solid var(--ink);padding-top:24px;display:grid;gap:20px}
+.blockhead{display:grid;gap:10px}
+.blockhead h2{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.05;margin:0;text-wrap:balance}
+.blockhead p{margin:0;max-width:65ch;color:var(--muted)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:start}
+@media (max-width:420px){.pgrid{grid-template-columns:1fr}}
+.proj{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px;display:grid;gap:10px;min-width:0}
+.proj h3{font-family:var(--display);font-weight:700;font-size:1.2rem;line-height:1.2;margin:0;text-wrap:balance}
+.proj p{margin:0;font-size:15px}
+.projmeta{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.lvl{padding:3px 8px;border-radius:4px;font-weight:600}
+.lvl-Starter{background:var(--ok-soft);color:var(--ok)}
+.lvl-Gemiddeld{background:var(--accent-soft);color:var(--accent)}
+.lvl-Gevorderd{background:var(--stamp-soft);color:var(--stamp)}
+.stack{display:flex;flex-wrap:wrap;gap:6px}
+.tchip{font-family:var(--mono);font-size:12px;padding:3px 8px;border-radius:4px;border:1px solid var(--line);color:var(--ink);text-decoration:none;background:var(--paper)}
+a.tchip:hover{border-color:var(--accent);color:var(--accent)}
+.combos{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+@media (max-width:420px){.combos{grid-template-columns:1fr}}
+.combo{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--ok);border-radius:4px;padding:14px 16px;display:grid;gap:8px;min-width:0}
+.combo.avoid{border-left-color:var(--stamp)}
+.combo p{margin:0;font-size:14.5px}
+.combotools{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.combotools .mark{font-family:var(--mono);font-size:11.5px;color:var(--ok);font-weight:600;margin-right:4px}
+.combo.avoid .mark{color:var(--stamp)}
+.plus{font-family:var(--mono);color:var(--muted)}
 footer{margin-top:48px;font-size:13px;color:var(--muted);max-width:70ch}
 @media (prefers-reduced-motion:no-preference){.card{transition:opacity .2s}}
 </style>
@@ -90,13 +122,14 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);max-width:70ch}
 
 <div class="wrap">
   <header class="top">
-    <span class="eyebrow">Library · Claude &amp; frontend · verzameld van Instagram</span>
+    <span class="eyebrow">Library · Claude &amp; frontend</span>
     <h1>Frontend <em>Ideeënbieb</em></h1>
-    <p class="lede">Alle tips uit de opgeslagen reels op één plek, gesorteerd per lade. Elke kaart vat samen wat er in de caption stond en linkt naar de tools. Kaarten met een rood label hebben de details alleen in de video. De tools uit die video's staan verzameld op aparte kaarten.</p>
+    <p class="lede">Tools, repo's en werkwijzen voor bouwen met Claude en frontend, gesorteerd per lade. Elke kaart zegt wat je ermee doet en linkt direct naar de bron.</p>
     <div class="stats" id="stats"></div>
+    <nav class="jump" aria-label="Secties"><a href="#ideeen">Ideeën</a><a href="#projecten">Projectideeën</a><a href="#combinaties">Wat past bij elkaar</a><a href="#md-gids">.md-starterkit</a></nav>
   </header>
 
-  <div class="controls">
+  <div class="controls" id="ideeen">
     <div class="search">
       <input id="q" type="search" placeholder="Zoek op tool, onderwerp of maker… (bijv. GSAP, MCP, logo)" aria-label="Zoeken">
       <label class="toggle"><input type="checkbox" id="hideDone"> verberg geprobeerd</label>
@@ -106,6 +139,25 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);max-width:70ch}
 
   <main class="grid" id="grid" aria-live="polite"></main>
   <p class="empty" id="empty" hidden>Niets gevonden. Probeer een andere zoekterm of lade.</p>
+
+  <section class="block" id="projecten">
+    <div class="blockhead">
+      <span class="eyebrow">Wat kun je ermee bouwen</span>
+      <h2>Projectideeën</h2>
+      <p>Hobby- en vibecode-projecten die de tools van hierboven combineren. Begin elk project met een CLAUDE.md en een SECURITY.md (zie de gids onderaan), dan houdt Claude zich aan je regels.</p>
+      <div class="drawers" id="levels" role="group" aria-label="Niveau"></div>
+    </div>
+    <div class="pgrid" id="pgrid"></div>
+  </section>
+
+  <section class="block" id="combinaties">
+    <div class="blockhead">
+      <span class="eyebrow">Stacks</span>
+      <h2>Wat past bij elkaar</h2>
+      <p>Tools die elkaar aanvullen, en een paar die je beter niet samen gebruikt.</p>
+    </div>
+    <div class="combos" id="combos"></div>
+  </section>
 
   <section class="guide" id="md-gids">
     <div>
@@ -156,11 +208,10 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);max-width:70ch}
     </div>
   </section>
 
-  <footer>Samengesteld uit de captions van 23 reels en één Google Doc. Video's zelf zijn niet bekeken; waar de lijst alleen in de video staat, is dat aangegeven. Links naar tools gaan naar de officiële site of GitHub-repo. "Geprobeerd"-vinkjes worden alleen in deze browser bewaard.</footer>
+  <footer>Links gaan naar de officiële site of GitHub-repo. "Geprobeerd"-vinkjes worden alleen in deze browser bewaard.</footer>
 </div>
 
 <script>
-const IG = id => `https://www.instagram.com/reel/${id}/`;
 const CATS = {
   claude:{code:"CLA",label:"Claude Code & AI-workflow"},
   motion:{code:"ANI",label:"Animatie & motion"},
@@ -170,96 +221,78 @@ const CATS = {
   learn:{code:"LRN",label:"Leren & oefenen"}
 };
 const IDEAS = [
-  {id:"Dd0gXqBy_dw",cat:"claude",by:"kaiships.ai",title:"4 plugins voor Claude Code",
-   text:"Installeer deze vóór je gaat vibe coden: leanere code, automatische fallback als je limiet op is, een kennisgraaf van je codebase en 25 skills van spec tot ship.",
-   tools:[["Ponytail — ~54% minder code","https://github.com/DietrichGebert/ponytail"],["OmniRoute — valt terug op volgend model","https://github.com/diegosouzapw/OmniRoute"],["Graphify — codebase als knowledge graph","https://github.com/Graphify-Labs/graphify"],["Agent Skills van Addy Osmani","https://github.com/addyosmani/agent-skills"]],
-   tags:["plugins","skills","claude code"],dm:"CODING"},
-  {id:"Dd4LrTSsx0i",cat:"claude",by:"adilet.fndr",title:"4 MCP-koppelingen die Claude Code op volle kracht zetten",
-   text:"Laat Claude direct met je database praten, deployen met één zin, een team van 19 agents draaien en een echte browser inspecteren.",
-   tools:[["Supabase MCP — direct met je database","https://supabase.com/docs/guides/ai-tools/mcp"],["Vercel — \"deploy my app\"","https://vercel.com/docs/mcp/vercel-mcp"],["oh-my-claudecode — 19 agents, /team","https://github.com/Yeachan-Heo/oh-my-claudecode"],["Chrome DevTools MCP","https://github.com/ChromeDevTools/chrome-devtools-mcp"]],
-   tags:["mcp","supabase","vercel","devtools"],dm:"CODING"},
-  {id:"DbVmPeLAuJS",cat:"claude",by:"jackroberts___",title:"Het bestand dat Claude leert wanneer te stoppen",
-   text:"Slechte output komt vaak door gretigheid: bestanden herschrijven die je niet noemde, gokken in plaats van vragen, een systeem bouwen voor een one-liner. De fix is één bestand met vier grenzen: schrijf minder, volg de prompt, check het werk, vraag bij twijfel.",
-   tags:["prompting","claude.md","boundaries"],dm:"SMART"},
-  {id:"Ddi5_OkoiDa",cat:"claude",by:"adilet.fndr",title:"Je vibe-coded app kan je $100.000 kosten",
-   text:"Voorbeeld in de video: Supabase-tabellen die Claude aanmaakte met RLS uit, waardoor iedereen met de publieke API-key alle e-mailadressen kan ophalen. Er is één prompt die vijf van zulke lekken dicht moet zetten.",
-   tags:["security","supabase","rls"],dm:"PROMPT",note:"Zie ook de SECURITY.md-gids onderaan."},
-  {id:"Dc5YDjKI9ta",cat:"claude",by:"adrien.ninet",title:"Sign-up pagina met een avatar die meereageert",
-   text:"Plak een gratis avatar-repo in Claude Code en vraag om een formulier waar de avatar reageert op wat je typt. Daarna zelf verfijnen: glow op de blob, avatar volgt de muis. Voor een premium achtergrond de Limora AI MCP gebruiken.",
-   tools:[["Limora AI (MCP voor hero-achtergronden)","https://limora.ai"]],
-   tags:["claude code","avatar","sign-up","mcp"],dm:"AVATAR"},
-  {id:"DafoIitSbr9",cat:"motion",by:"avi_vashishta29",title:"4 animatielibraries voor moderne websites",
-   text:"Kies op basis van wat je bouwt, niet wat trending is.",
-   tools:[["GSAP — timelines, scroll, productie","https://gsap.com"],["Anime.js — licht en flexibel","https://animejs.com"],["Motion.dev — dé keuze voor React","https://motion.dev"],["React Spring — physics-based","https://www.react-spring.dev"]],
+  {id:"Dd0gXqBy_dw",cat:"claude",title:"4 plugins voor Claude Code",
+   text:"Installeer deze voordat je begint met vibe coden.",
+   tools:[["Ponytail — laat Claude ~54% minder code schrijven","https://github.com/DietrichGebert/ponytail"],["OmniRoute — valt automatisch terug op een ander model als je limiet op is","https://github.com/diegosouzapw/OmniRoute"],["Graphify — maakt een kennisgraaf van je codebase, zodat de agent niet steeds bestanden herleest","https://github.com/Graphify-Labs/graphify"],["Agent Skills (Addy Osmani) — 25 skills van spec tot ship","https://github.com/addyosmani/agent-skills"]],
+   tags:["plugins","skills","claude code"]},
+  {id:"Dd4LrTSsx0i",cat:"claude",title:"4 koppelingen voor Claude Code",
+   text:"Laat Claude direct met je database praten, deployen, met een team van agents werken en een echte browser inspecteren.",
+   tools:[["Supabase MCP — praat direct met je database","https://supabase.com/docs/guides/ai-tools/mcp"],["Vercel MCP — \"deploy my app\" en het staat live","https://vercel.com/docs/mcp/vercel-mcp"],["oh-my-claudecode — 19 agents via één /team-commando","https://github.com/Yeachan-Heo/oh-my-claudecode"],["Chrome DevTools MCP — Claude kijkt mee in een echte browser","https://github.com/ChromeDevTools/chrome-devtools-mcp"]],
+   tags:["mcp","supabase","vercel","devtools"]},
+  {id:"DbVmPeLAuJS",cat:"claude",title:"Eén CLAUDE.md die Claude leert wanneer te stoppen",
+   text:"Slechte output komt vaak door gretigheid: Claude herschrijft bestanden die je niet noemde, gokt in plaats van te vragen, of bouwt een heel systeem voor een one-liner. Dat los je niet op met meer instructies, maar met grenzen.",
+   steps:["Denk eerst na: benoem aannames en vraag bij twijfel","Eenvoud eerst: niets bouwen waar niet om gevraagd is","Chirurgische wijzigingen: alleen aanpassen wat nodig is","Doelgericht: geef succescriteria en laat Claude het werk zelf controleren"],
+   tools:[["andrej-karpathy-skills — de CLAUDE.md met deze vier regels","https://github.com/forrestchang/andrej-karpathy-skills"]],
+   tags:["claude.md","prompting"]},
+  {id:"Ddi5_OkoiDa",cat:"claude",title:"Laat Claude je database niet openzetten",
+   text:"Tabellen die Claude in Supabase aanmaakt, staan soms met Row Level Security uit. Dan kan iedereen met je publieke API-key alle gebruikers en e-mailadressen ophalen.",
+   steps:["Zet RLS aan op elke tabel","Schrijf policies zodat gebruikers alleen hun eigen rijen zien","Test met de publieke key of je data echt dicht zit","Leg de regels vast in SECURITY.md (zie de gids onderaan)"],
+   tools:[["Supabase — Row Level Security","https://supabase.com/docs/guides/database/postgres/row-level-security"]],
+   tags:["security","supabase","rls"]},
+  {id:"Dc5YDjKI9ta",cat:"claude",title:"Een sign-up pagina met een avatar die meereageert",
+   text:"Een gratis repo als startpunt, Claude Code voor het werk, daarna zelf verfijnen.",
+   steps:["Plak de link van een avatar-repo in Claude Code en beschrijf wat je wilt: een formulier waar de avatar reageert op wat je typt","Verfijn het eerste resultaat: glow op de vorm, avatar volgt de muis","Voeg een premium achtergrond toe via de Limora MCP"],
+   tools:[["Boring Avatars — gratis open-source avatars voor React","https://boringavatars.com"],["Limora AI — hero-achtergronden, met MCP","https://limora.ai"]],
+   tags:["claude code","avatar","sign-up","mcp"]},
+  {id:"DafoIitSbr9",cat:"motion",title:"4 animatielibraries voor moderne websites",
+   text:"Kies op basis van wat je bouwt.",
+   tools:[["GSAP — complexe timelines en scroll-animaties","https://gsap.com"],["Anime.js — licht en flexibel","https://animejs.com"],["Motion.dev — dé keuze voor React","https://motion.dev"],["React Spring — natuurlijke physics-animaties","https://www.react-spring.dev"]],
    tags:["gsap","react","scroll"]},
-  {id:"DauC8Ddy0t6",cat:"motion",by:"avi_vashishta29",title:"De stack achter de Lando Norris-site",
-   text:"Smooth scroll, paginatransities en filmische animaties. Geen van de tools is moeilijk op zich; het zit in de combinatie. Websites reverse-engineeren is een snelle manier om beter te worden.",
-   tools:[["Webflow — CMS & content","https://webflow.com"],["GSAP + ScrollTrigger","https://gsap.com/scroll/"],["Lenis — smooth scrolling","https://lenis.darkroom.engineering"],["Three.js — 3D","https://threejs.org"],["Rive — interactieve motion graphics","https://rive.app"],["Taxi.js — paginatransities","https://taxi.js.org"]],
-   tags:["gsap","three.js","lenis","inspiratie"]},
-  {id:"DdOuCEfsZiA",cat:"motion",by:"designbyshiv._",title:"Preloader-animatie met Google Flow",
-   text:"Een vloeiende 3D-achtige preloader voor een website gemaakt met Google Flow en AI, zonder code.",
-   tools:[["Google Flow","https://labs.google/flow"]],tags:["preloader","no-code","ai video"],dm:"PRELOADER"},
-  {id:"DdB2dB5OvwC",cat:"motion",by:"ui.ux.jam",title:"Top animatietools voor UI/UX-designers",
-   text:"Een lijst met animatietools voor designers. De namen staan alleen in de video.",
-   tags:["animatie","design tools"],video:true},
-  {id:"DdePLtKAoWw",cat:"layout",by:"louyi.ux",title:"5 hero-layouts die niet generiek zijn",
-   text:"Je hero is het eerste wat een recruiter ziet. Vijf richtingen in plaats van \"hi, I'm a designer\":",
-   tools:[["Bento box — modulaire kaarten, strak grid",null],["Brutalist billboard — 90% van het scherm is je naam",null],["Swiss editorial — gridlijnen, gedempte tinten",null],["Floating node — dark mode, grote type, interactieve tags",null],["Architectural split — asymmetrische kolommen, veel witruimte",null]],
-   tags:["hero","portfolio","layout"],dm:"HERO"},
-  {id:"Dcr7ykdsO_Z",cat:"layout",by:"arslanm.design",title:"Schone hero-secties ontwerpen in Figma",
-   text:"Niks fancy: simpele structuur, heldere boodschap en een layout die meteen een sterke eerste indruk maakt.",
-   tools:[["Figma","https://www.figma.com"]],tags:["hero","figma","landing page"],dm:"HERO"},
-  {id:"Ddf-7oiz126",cat:"layout",by:"code.xr",title:"Dashboard V2 met micro-interacties",
-   text:"Een modern dashboard-concept: interactieve datakaarten, vloeiende micro-animaties, volledig responsive. Gebouwd met React, CSS en Framer Motion.",
-   tools:[["Motion (voorheen Framer Motion)","https://motion.dev"]],tags:["dashboard","react","framer motion"],dm:"Code"},
-  {id:"DcZLVTQR4S5",cat:"logo",by:"archieauburn",title:"IP-as-logo skill: schattige mascottelogo's",
-   text:"Een skill die platte, subtiel neo-skeuomorfe karakterlogo's genereert, plus een grote bibliotheek met mascottes die gratis commercieel te gebruiken zijn.",
-   tools:[["s1dashu/ip-as-logo-skill","https://github.com/s1dashu/ip-as-logo-skill"]],tags:["logo","mascotte","skill"],dm:"Logo"},
-  {id:"Dd1dJi9j-vq",cat:"logo",by:"gittrend.io",title:"Logo Design Skill voor Claude",
-   text:"Maakt van Claude (of een andere agent met Agent Skills) een logo-ontwerper: van briefing en concepten tot SVG-bestanden, testsheets, favicon-set en brand guidelines.",
-   tools:[["kaankiziltug/logo-design-skill","https://github.com/kaankiziltug/logo-design-skill"],["gittrend.io — meer van dit soort repos","https://gittrend.io"]],
-   tags:["logo","skill","svg","branding"]},
-  {id:"DcznmK4tBZa",cat:"logo",by:"guhmp4",title:"Geef je app een mascotte",
-   text:"Les van een app-maker (CleanPlate): een schattige mascotte geeft je app persoonlijkheid en een premium gevoel. Te laat een mascotte maken kostte downloads.",
-   tags:["mascotte","branding","app"]},
-  {id:"DbYehOptZjm",cat:"sites",by:"jamux.ai",title:"3 gratis websites voor elke designer",
-   text:"Gratis SVG-vormen, toegankelijke kleurenpaletten en moderne loading-animaties. In de video te zien: een verzameling dot-matrix loaders.",
-   tools:[["Dot Matrix loaders","https://dotmatrix.zzzzshawn.cloud"]],tags:["svg","kleuren","loaders"],video:true},
-  {id:"Dc09UoeOz0x",cat:"sites",by:"ui.ux.jam",title:"Geweldige websites voor UI/UX-designers",
-   text:"Een lijst met sites die je als designer moet kennen. Op de thumbnail: rotato.app voor device-mockups. De rest staat in de video.",
-   tools:[["Rotato — 3D device-mockups","https://rotato.app"]],tags:["design tools","mockups"],video:true},
-  {id:"DbHrIucDv38",cat:"sites",by:"eli_buildz_",title:"5 vibecoding-websites die je moet gebruiken",
-   text:"Vijf websites voor vibe coders. De namen staan alleen in de video.",tags:["vibe coding","tools"],video:true},
-  {id:"DdhGaVjktBL",cat:"sites",by:"evanitodev",title:"10 niche websites voor vibe coders",
-   text:"Tien minder bekende tools voor vibe coders. De lijst staat in de video.",tags:["vibe coding","tools"],dm:"site",video:true},
-  {id:"DbqYVjazc5Q",cat:"sites",by:"buildwaleesh",title:"Sites waar je geen spijt van krijgt",
-   text:"AI-websitebuilders en app-design tools. Details in de video.",tags:["ai tools","website builder"],video:true},
-  {id:"tb-motion",src:null,cat:"motion",by:"lijst uit de video's",title:"Motion-tools uit de video's",
-   text:"Tools voor animatie en micro-interacties die in de video-reels langskwamen.",
-   tools:[["Motion.dev — animatielibrary voor React/JS/Vue","https://motion.dev"],["Anime.js — lichte JS-animatie-engine","https://animejs.com"],["Jitter — motion design in de browser","https://jitter.video"],["Swishy — AI motion designer, export naar MP4/MOV","https://www.swishy.ai"],["Ripplix — 7.000+ UI-animaties en micro-interacties","https://www.ripplix.com"]],
-   tags:["animatie","motion design","inspiratie"]},
-  {id:"tb-ui",src:null,cat:"layout",by:"lijst uit de video's",title:"UI-componenten en effecten uit de video's",
-   text:"Kant-en-klare componenten om in je React/Next.js-project te plakken.",
+  {id:"DauC8Ddy0t6",cat:"motion",title:"De stack van een filmische website",
+   text:"De stack achter de website van Lando Norris: smooth scroll, paginatransities en 3D. Geen van deze tools is moeilijk; het zit in de combinatie. Bestaande sites nabouwen is een snelle manier om beter te worden.",
+   tools:[["Webflow — CMS en content","https://webflow.com"],["GSAP + ScrollTrigger — animaties","https://gsap.com/scroll/"],["Lenis — smooth scrolling","https://lenis.darkroom.engineering"],["Three.js — 3D","https://threejs.org"],["Rive — interactieve motion graphics","https://rive.app"],["Taxi.js — paginatransities","https://taxi.js.org"]],
+   tags:["gsap","three.js","lenis"]},
+  {id:"tb-motion",cat:"motion",title:"Motion design en micro-interacties",
+   text:"Tools om animaties te maken of inspiratie op te doen.",
+   tools:[["Jitter — motion design in de browser","https://jitter.video"],["Swishy — AI motion designer, export naar MP4/MOV","https://www.swishy.ai"],["Ripplix — 7.000+ voorbeelden van UI-animaties","https://www.ripplix.com"],["Google Flow — preloader-animaties maken met AI, zonder code","https://labs.google/flow"],["Dot Matrix — moderne loading-animaties","https://dotmatrix.zzzzshawn.cloud"]],
+   tags:["animatie","preloader","inspiratie"]},
+  {id:"DdePLtKAoWw",cat:"layout",title:"5 hero-layouts die niet generiek zijn",
+   text:"De hero is het eerste wat iemand ziet. Vijf richtingen in plaats van \"hi, I'm a designer\":",
+   steps:["Bento box — modulaire kaarten in een strak grid","Brutalist billboard — 90% van het scherm is je naam","Swiss editorial — gridlijnen en gedempte kleuren","Floating node — dark mode, grote type, interactieve tags","Architectural split — asymmetrische kolommen, veel witruimte"],
+   tools:[["Bento Grids — voorbeelden van bento-layouts","https://bentogrids.com"],["Figma — om de hero eerst te schetsen","https://www.figma.com"]],
+   tags:["hero","portfolio","layout"]},
+  {id:"tb-ui",cat:"layout",title:"UI-componenten en effecten",
+   text:"Kant-en-klare componenten voor je React/Next.js-project.",
    tools:[["Kokonut UI — 100+ gratis componenten (React, Tailwind, Motion)","https://kokonutui.com"],["Bklit UI — charts en datavisualisatie op shadcn/ui","https://bklit.com"],["Shaders — WebGPU-shadereffecten voor React, Vue, Svelte","https://shaders.com"]],
    tags:["componenten","tailwind","shadcn","webgpu"]},
-  {id:"tb-insp",src:null,cat:"sites",by:"lijst uit de video's",title:"Inspiratie en kleur uit de video's",
-   text:"Voor als je een stijlrichting of kleurcombinatie zoekt. Refero Styles geeft per site ook een AI-leesbaar DESIGN.md-bestand, handig om aan Claude te geven.",
-   tools:[["Refero Styles — websitestijlen + DESIGN.md","https://styles.refero.design"],["RandomA11y — toegankelijke kleurcombinaties","https://randoma11y.com"],["is.graphics (kon ik niet openen)","https://is.graphics"]],
-   tags:["inspiratie","kleuren","design.md"]},
-  {id:"tb-build",src:null,cat:"sites",by:"lijst uit de video's",title:"AI-builders en content uit de video's",
+  {id:"Ddf-7oiz126",cat:"layout",title:"Een dashboard met micro-interacties",
+   text:"Recept voor een modern dashboard: interactieve datakaarten, subtiele animaties bij hover en laden, volledig responsive. Gebouwd met React, CSS en Motion.",
+   tools:[["Motion — animaties in React","https://motion.dev"],["Bklit UI — charts voor de datakaarten","https://bklit.com"]],
+   tags:["dashboard","react","motion"]},
+  {id:"DcZLVTQR4S5",cat:"logo",title:"Mascottelogo's met de IP-as-logo skill",
+   text:"Een skill die platte, schattige karakterlogo's maakt, plus een grote bibliotheek met mascottes die gratis commercieel te gebruiken zijn. Een mascotte geeft je app persoonlijkheid en een premium gevoel.",
+   tools:[["s1dashu/ip-as-logo-skill","https://github.com/s1dashu/ip-as-logo-skill"]],
+   tags:["logo","mascotte","skill"]},
+  {id:"Dd1dJi9j-vq",cat:"logo",title:"Logo Design Skill voor Claude",
+   text:"Maakt van Claude een logo-ontwerper: van briefing en concepten tot SVG-bestanden, testsheets, favicon-set en brand guidelines.",
+   tools:[["kaankiziltug/logo-design-skill","https://github.com/kaankiziltug/logo-design-skill"],["gittrend.io — meer populaire repos zoals deze","https://gittrend.io"]],
+   tags:["logo","skill","svg","branding"]},
+  {id:"tb-insp",cat:"sites",title:"Stijl, kleur en mockups",
+   text:"Voor als je een stijlrichting zoekt. Refero Styles geeft per site een DESIGN.md-bestand dat je direct aan Claude kunt geven.",
+   tools:[["Refero Styles — websitestijlen + DESIGN.md","https://styles.refero.design"],["RandomA11y — toegankelijke kleurcombinaties","https://randoma11y.com"],["Rotato — 3D device-mockups","https://rotato.app"]],
+   tags:["inspiratie","kleuren","design.md","mockups"]},
+  {id:"tb-build",cat:"sites",title:"AI-builders en content",
    text:"Tools die taken voor je uitvoeren of snel content maken.",
    tools:[["Manus — AI-agent die taken en workflows uitvoert","https://manus.im"],["ContentCore — content maken, opslaan als beeld of video","https://contentcore.xyz"]],
    tags:["ai tools","content","agents"]},
-  {id:"DdtvK1JixOE",cat:"learn",by:"algorithmswithpeter",title:"10 GitHub-repos die elke developer moet kennen",
-   text:"Niet alleen sterren geven: kies er één en bouw er echt iets mee.",
+  {id:"DdtvK1JixOE",cat:"learn",title:"10 GitHub-repos om van te leren",
+   text:"Kies er één en bouw er echt iets mee.",
    tools:[["Build Your Own X","https://github.com/codecrafters-io/build-your-own-x"],["Awesome","https://github.com/sindresorhus/awesome"],["Public APIs","https://github.com/public-apis/public-apis"],["freeCodeCamp","https://github.com/freeCodeCamp/freeCodeCamp"],["Free Programming Books","https://github.com/EbookFoundation/free-programming-books"],["System Design Primer","https://github.com/donnemartin/system-design-primer"],["Developer Roadmap","https://github.com/kamranahmedse/developer-roadmap"],["Coding Interview University","https://github.com/jwasham/coding-interview-university"],["Awesome Python","https://github.com/vinta/awesome-python"],["Project Based Learning","https://github.com/practical-tutorials/project-based-learning"]],
    tags:["github","leren"]},
-  {id:"DdgOI0NJoP1",cat:"learn",by:"cs_gabrielll",title:"4 oefenprojecten om te bouwen",
-   text:"Projecten om je portfolio mee te vullen.",
-   tools:[["Café-finder met Google Maps-data (JavaScript)",null],["Voice assistant met ElevenLabs API (Python)",null],["Analyse van Amazon-bestsellers met pandas (Python)",null],["Persoonlijke website (HTML/CSS/JS, Codédex Builds)","https://www.codedex.io"]],
-   tags:["projecten","portfolio"],dm:"projects"},
-  {id:"DbLogAztbFN",cat:"sites",by:"onbekend",title:"Reel zonder beschrijving",
-   text:"Instagram geeft voor deze reel geen maker, caption of preview terug. Waarschijnlijk is hij verwijderd, staat het account op privé of mag hij niet ingesloten worden. Open de link om te zien of hij nog bestaat.",tags:["nog bekijken"],video:true}
+  {id:"DdgOI0NJoP1",cat:"learn",title:"4 oefenprojecten",
+   text:"Projecten om je portfolio mee te vullen, met de API of tool die je ervoor nodig hebt.",
+   tools:[["Café-finder met echte data (JavaScript) — Google Places API","https://developers.google.com/maps/documentation/places/web-service"],["Voice assistant (Python) — ElevenLabs API","https://elevenlabs.io/docs"],["Analyse van Amazon-bestsellers (Python) — pandas","https://pandas.pydata.org"],["Persoonlijke website (HTML/CSS/JS) — Codédex Builds","https://www.codedex.io"]],
+   tags:["projecten","portfolio"]}
 ];
 
 const store = {get(){try{return JSON.parse(localStorage.getItem("bieb-done")||"[]")}catch(e){return[]}},set(v){try{localStorage.setItem("bieb-done",JSON.stringify(v))}catch(e){}}};
@@ -270,19 +303,14 @@ IDEAS.forEach(i=>{counters[i.cat]=(counters[i.cat]||0)+1; i.no = CATS[i.cat].cod
 
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 function card(i){
-  const tools = i.tools ? `<ul class="tools">${i.tools.map(([n,u])=>`<li><span>${u?`<a href="${u}" target="_blank" rel="noopener">${esc(n)}</a>`:esc(n)}</span></li>`).join("")}</ul>` : "";
-  const chips = [
-    i.video?`<span class="chip video">details in video</span>`:"",
-    i.dm?`<span class="chip dm">comment "${esc(i.dm)}" voor links</span>`:"",
-    ...i.tags.map(t=>`<span class="chip">${esc(t)}</span>`)
-  ].join("");
+  const tools = `<ul class="tools">${i.tools.map(([n,u])=>`<li><span><a href="${u}" target="_blank" rel="noopener">${esc(n)}</a></span></li>`).join("")}</ul>`;
+  const steps = i.steps ? `<ol class="steps">${i.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>` : "";
   return `<article class="card${done.has(i.id)?" done":""}" data-id="${i.id}">
-    <div class="cardhead"><span class="callno">${i.no}</span><span>@${esc(i.by)}</span></div>
+    <div class="cardhead"><span class="callno">${i.no}</span><span>${esc(CATS[i.cat].label)}</span></div>
     <h3>${esc(i.title)}</h3>
-    <p>${esc(i.text)}</p>${tools}
-    ${i.note?`<p style="font-size:14px;color:var(--muted)">${esc(i.note)}</p>`:""}
-    <div class="chips">${chips}</div>
-    <div class="foot">${i.src===null?`<span style="color:var(--muted);font-size:12.5px">verzameld uit meerdere reels</span>`:`<a href="${IG(i.id)}" target="_blank" rel="noopener">Bekijk reel ↗</a>`}
+    <p>${esc(i.text)}</p>${steps}${tools}
+    <div class="chips">${i.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>
+    <div class="foot"><span class="linkcount">${i.tools.length} link${i.tools.length>1?"s":""}</span>
       <button class="tried" type="button" aria-pressed="${done.has(i.id)}">${done.has(i.id)?"✓ geprobeerd":"markeer als geprobeerd"}</button></div>
   </article>`;
 }
@@ -290,11 +318,11 @@ function render(){
   const q = document.getElementById("q").value.trim().toLowerCase();
   const hide = document.getElementById("hideDone").checked;
   const list = IDEAS.filter(i=>(active==="all"||i.cat===active)&&(!hide||!done.has(i.id))&&
-    (!q||[i.title,i.text,i.by,i.no,...i.tags,...(i.tools||[]).map(t=>t[0])].join(" ").toLowerCase().includes(q)));
+    (!q||[i.title,i.text,i.no,...i.tags,...(i.steps||[]),...i.tools.map(t=>t[0])].join(" ").toLowerCase().includes(q)));
   document.getElementById("grid").innerHTML = list.map(card).join("");
   document.getElementById("empty").hidden = list.length>0;
-  const tools = IDEAS.reduce((n,i)=>n+(i.tools?i.tools.filter(t=>t[1]).length:0),0);
-  document.getElementById("stats").innerHTML = `<span><b>${IDEAS.filter(i=>i.src!==null).length}</b> reels</span><span><b>${tools}</b> tool-links</span><span><b>${IDEAS.filter(i=>i.video).length}</b> met details in video</span><span><b>${done.size}</b> geprobeerd</span>`;
+  const tools = IDEAS.reduce((n,i)=>n+i.tools.length,0);
+  document.getElementById("stats").innerHTML = `<span><b>${IDEAS.length}</b> ideeën</span><span><b>${tools}</b> links</span><span><b>${done.size}</b> geprobeerd</span>`;
 }
 function drawers(){
   const all = [["all","Alles",IDEAS.length],...Object.entries(CATS).map(([k,c])=>[k,c.label,counters[k]||0])];
@@ -305,6 +333,90 @@ document.getElementById("grid").addEventListener("click",e=>{const b=e.target.cl
 document.getElementById("q").addEventListener("input",render);
 document.getElementById("hideDone").addEventListener("change",render);
 drawers();render();
+const PROJECTS = [
+  {title:"Portfolio met een bento-hero",level:"Starter",time:"1 weekend",
+   text:"Een persoonlijke site waar je werk in modulaire kaarten staat, met subtiele animaties bij hover.",
+   stack:["Refero Styles","Bento Grids","Figma","Kokonut UI","Motion.dev","Vercel MCP"],
+   steps:["Kies een stijl op Refero Styles en geef de DESIGN.md aan Claude","Schets de bento-hero in Figma","Laat Claude het bouwen met Kokonut UI-componenten","Deploy met de Vercel MCP"]},
+  {title:"Claude Code starterkit",level:"Starter",time:"1 avond",
+   text:"Eén template-repo die je voor elk nieuw project kloont, met al je regels en plugins klaar.",
+   stack:["andrej-karpathy-skills","Ponytail","Agent Skills (Addy Osmani)","Graphify"],
+   steps:["Zet de vier CLAUDE.md-regels in de root","Voeg de /docs-map met SECURITY.md, CODE_STYLE.md, DATABASE.md en API.md toe","Installeer Ponytail en Agent Skills","Draai Graphify zodra het project groeit"]},
+  {title:"Merk in een weekend",level:"Starter",time:"1 weekend",
+   text:"Logo, kleuren en een geanimeerde logo-intro voor een fictief (of echt) merk.",
+   stack:["kaankiziltug/logo-design-skill","RandomA11y","Jitter","Refero Styles"],
+   steps:["Laat de logo-skill een briefing en drie concepten maken","Kies een toegankelijk kleurenpaar met RandomA11y","Animeer het logo in Jitter","Leg alles vast in een DESIGN_SYSTEM.md"]},
+  {title:"Launch-video voor je app",level:"Starter",time:"1 middag",
+   text:"Een korte promo zonder code: je app op een 3D-telefoon met strakke motion.",
+   stack:["Rotato","Swishy","Jitter","ContentCore"],
+   steps:["Maak screenshots van je app","Zet ze in een 3D-mockup met Rotato","Voeg titels en overgangen toe met Swishy of Jitter","Maak social posts in ContentCore"]},
+  {title:"Sfeervolle weer-site met shader-achtergrond",level:"Starter",time:"1 dag",
+   text:"De achtergrond verandert mee met het weer: rustig bij zon, onrustig bij storm.",
+   stack:["Public APIs","Shaders","Motion.dev","Dot Matrix"],
+   steps:["Zoek een gratis weer-API in Public APIs","Koppel het weertype aan shader-instellingen","Gebruik een Dot Matrix-loader tijdens het ophalen","Animeer de temperatuur met Motion"]},
+  {title:"Café-finder met favorieten",level:"Gemiddeld",time:"2 weekenden",
+   text:"Vind cafés in de buurt en sla je favorieten op in je eigen account.",
+   stack:["Google Places API","Supabase MCP","Supabase — Row Level Security","Kokonut UI","Vercel MCP"],
+   steps:["Haal cafés op met de Places API","Laat Claude een favorieten-tabel maken via de Supabase MCP","Zet RLS aan zodat ieder alleen zijn eigen favorieten ziet","Bouw de lijst met Kokonut UI en deploy via Vercel"]},
+  {title:"Persoonlijk habit-dashboard",level:"Gemiddeld",time:"2 weekenden",
+   text:"Houd gewoontes bij (sporten, lezen, water) en zie je voortgang in grafieken.",
+   stack:["Bklit UI","Motion","Supabase MCP","Chrome DevTools MCP"],
+   steps:["Ontwerp datakaarten met Bklit UI-charts","Sla check-ins op in Supabase","Voeg micro-animaties toe met Motion","Laat Claude de UI testen via de Chrome DevTools MCP"]},
+  {title:"Sign-up flow met een mascotte",level:"Gemiddeld",time:"1 weekend",
+   text:"Een registratiepagina waar een mascotte meekijkt terwijl je typt en blij wordt als het lukt.",
+   stack:["s1dashu/ip-as-logo-skill","Boring Avatars","Motion","Limora AI","Supabase MCP"],
+   steps:["Maak een mascotte met de IP-as-logo skill (of start met Boring Avatars)","Laat de mascotte reageren op focus en typen met Motion","Genereer een hero-achtergrond met Limora","Koppel echte auth via Supabase"]},
+  {title:"Scrollverhaal over bestsellers",level:"Gemiddeld",time:"2 weekenden",
+   text:"Een data-verhaal dat zich ontvouwt terwijl je scrolt: welke boeken verkopen het best, en waarom?",
+   stack:["pandas","Bklit UI","GSAP + ScrollTrigger","Lenis"],
+   steps:["Analyseer de dataset met pandas en exporteer JSON","Bouw de grafieken met Bklit UI","Laat grafieken in beeld animeren met ScrollTrigger","Maak het scrollen vloeiend met Lenis"]},
+  {title:"Browsergame met leaderboard",level:"Gemiddeld",time:"2–3 weekenden",
+   text:"Een klein 3D-spelletje met een online topscorelijst.",
+   stack:["Three.js","Anime.js","Supabase MCP","Supabase — Row Level Security"],
+   steps:["Bouw een simpele scène met Three.js","Gebruik Anime.js voor UI-animaties en score-pop-ups","Sla scores op in Supabase","Voorkom valsspelen met RLS en server-side checks"]},
+  {title:"Filmische fanpagina",level:"Gevorderd",time:"3+ weekenden",
+   text:"Een landingspagina voor je favoriete sporter, band of film, in de stijl van de Lando Norris-site.",
+   stack:["GSAP + ScrollTrigger","Lenis","Three.js","Rive","Taxi.js"],
+   steps:["Begin met Lenis en één ScrollTrigger-sectie","Voeg een 3D-object toe met Three.js","Maak een interactieve animatie in Rive","Verbind pagina's met Taxi.js-overgangen"]},
+  {title:"Stemassistent met een gezicht",level:"Gevorderd",time:"3+ weekenden",
+   text:"Een assistent die praat en een geanimeerd gezicht heeft dat meebeweegt met de stem.",
+   stack:["ElevenLabs API","Rive","Boring Avatars","OmniRoute"],
+   steps:["Zet spraak om met de ElevenLabs API","Maak een mondanimatie in Rive (of een simpele avatar)","Stuur de animatie aan met het volume van de audio","Gebruik OmniRoute zodat het model nooit stilvalt"]}
+];
+const COMBOS = [
+  {tools:["GSAP + ScrollTrigger","Lenis"],why:"Standaardduo voor scroll-animaties: Lenis maakt het scrollen vloeiend, ScrollTrigger hangt er animaties aan."},
+  {tools:["Motion.dev","Kokonut UI"],why:"Kokonut UI is al gebouwd op Motion, dus je animaties en componenten spreken dezelfde taal."},
+  {tools:["Bklit UI","Kokonut UI"],why:"Beide gebaseerd op Tailwind/shadcn: charts en UI-componenten zien er direct als één geheel uit."},
+  {tools:["Supabase MCP","Vercel MCP","Chrome DevTools MCP"],why:"De volledige loop vanuit Claude: database aanpassen, deployen en de live site controleren."},
+  {tools:["Refero Styles","RandomA11y"],why:"Eerst een stijlrichting kiezen, dan kleuren die ook toegankelijk zijn."},
+  {tools:["kaankiziltug/logo-design-skill","Jitter"],why:"Logo als SVG uit de skill, direct animeren in Jitter voor een intro of social post."},
+  {tools:["andrej-karpathy-skills","Ponytail"],why:"Allebei tegen overbodige code: samen houden ze Claude klein en precies."},
+  {tools:["Rotato","Swishy"],why:"Mockups en motion graphics voor een complete app-promo zonder code."},
+  {avoid:true,tools:["GSAP","Motion.dev"],why:"Kies er één per project. Twee animatie-engines naast elkaar maakt je bundel groot en je code rommelig."},
+  {avoid:true,tools:["Three.js","Shaders"],why:"Allebei zwaar op de GPU. Voor één achtergrondeffect is Shaders genoeg; Three.js alleen als je echt 3D nodig hebt."}
+];
+const LINKS = {};
+IDEAS.forEach(i=>i.tools.forEach(([n,u])=>{LINKS[n.split(" — ")[0].trim()]=u;}));
+Object.assign(LINKS,{"Motion":"https://motion.dev","GSAP":"https://gsap.com","Supabase — Row Level Security":"https://supabase.com/docs/guides/database/postgres/row-level-security","Google Places API":"https://developers.google.com/maps/documentation/places/web-service","ElevenLabs API":"https://elevenlabs.io/docs","pandas":"https://pandas.pydata.org"});
+const tlink = n => LINKS[n] ? `<a class="tchip" href="${LINKS[n]}" target="_blank" rel="noopener">${esc(n)}</a>` : `<span class="tchip">${esc(n)}</span>`;
+let level = "Alles";
+function renderProjects(){
+  const lv=["Alles","Starter","Gemiddeld","Gevorderd"];
+  document.getElementById("levels").innerHTML = lv.map(l=>`<button type="button" class="drawer" data-level="${l}" aria-pressed="${l===level}">${l}<span class="n">${l==="Alles"?PROJECTS.length:PROJECTS.filter(p=>p.level===l).length}</span></button>`).join("");
+  document.getElementById("pgrid").innerHTML = PROJECTS.filter(p=>level==="Alles"||p.level===level).map(p=>`<article class="proj">
+    <div class="projmeta"><span class="lvl lvl-${p.level}">${p.level}</span><span>${p.time}</span></div>
+    <h3>${esc(p.title)}</h3><p>${esc(p.text)}</p>
+    <div class="stack">${p.stack.map(tlink).join("")}</div>
+    <ol class="steps">${p.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol></article>`).join("");
+}
+document.getElementById("levels").addEventListener("click",e=>{const b=e.target.closest("[data-level]");if(!b)return;level=b.dataset.level;renderProjects();});
+document.getElementById("combos").innerHTML = COMBOS.map(c=>`<div class="combo${c.avoid?" avoid":""}">
+  <div class="combotools"><span class="mark">${c.avoid?"✕ niet samen":"✓ past samen"}</span>${c.tools.map(tlink).join('<span class="plus">+</span>')}</div>
+  <p>${esc(c.why)}</p></div>`).join("");
+renderProjects();
+const missing=[...PROJECTS.flatMap(p=>p.stack),...COMBOS.flatMap(c=>c.tools)].filter(n=>!LINKS[n]);
+if(missing.length) console.warn("Geen link voor:",missing);
+
 </script>
 </body>
 </html>
