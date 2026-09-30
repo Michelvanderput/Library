@@ -116,22 +116,96 @@ a.tchip:hover{border-color:var(--accent);color:var(--accent)}
 .plus{font-family:var(--mono);color:var(--muted)}
 footer{margin-top:48px;font-size:13px;color:var(--muted);max-width:70ch}
 @media (prefers-reduced-motion:no-preference){.card{transition:opacity .2s}}
+/* tool rows with add toggle */
+ul.tools li{grid-template-columns:auto minmax(0,1fr) auto;align-items:start}
+ul.tools li .desc{color:var(--muted)}
+.add{font-family:var(--mono);font-size:12px;line-height:1;min-width:30px;height:24px;padding:0 7px;border-radius:5px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.add:hover{border-color:var(--accent);color:var(--accent)}
+.add[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--card)}
+.tchip.sel{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.projfoot{display:flex;justify-content:flex-end;padding-top:10px;border-top:1px dashed var(--line)}
+.btn{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-radius:6px;border:1px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn:hover{opacity:.88}
+/* builder */
+.builder{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:start}
+@media (max-width:900px){.builder{grid-template-columns:1fr}}
+.bpanel{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:18px;display:grid;gap:16px;min-width:0}
+.bpanel h3{font-family:var(--display);font-size:1.1rem;margin:0}
+.field{display:grid;gap:5px}
+.field label{font-family:var(--mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.field input,.field textarea{font:inherit;font-size:15px;padding:9px 12px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);width:100%}
+.field textarea{min-height:64px;resize:vertical}
+.selected{display:flex;flex-wrap:wrap;gap:6px}
+.selchip{font-family:var(--mono);font-size:12px;display:inline-flex;align-items:center;gap:6px;padding:4px 6px 4px 9px;border-radius:5px;background:var(--accent-soft);color:var(--ink)}
+.selchip button{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:14px;line-height:1;padding:0 2px}
+.selchip button:hover{color:var(--stamp)}
+.bempty{color:var(--muted);font-size:14.5px;margin:0}
+.checks{display:grid;gap:8px}
+.check{border-radius:4px;padding:10px 12px;font-size:14.5px;display:grid;gap:6px;border-left:3px solid}
+.check.conf{background:var(--stamp-soft);border-color:var(--stamp)}
+.check.miss{background:var(--accent-soft);border-color:var(--accent)}
+.check.tip{background:var(--paper);border-color:var(--line)}
+.check.ok{background:var(--ok-soft);border-color:var(--ok)}
+.check .lbl{font-family:var(--mono);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.check.conf .lbl{color:var(--stamp)} .check.miss .lbl{color:var(--accent)} .check.ok .lbl{color:var(--ok)} .check.tip .lbl{color:var(--muted)}
+.sugg{display:flex;flex-wrap:wrap;gap:6px}
+.sugg button{font-family:var(--mono);font-size:12px;padding:3px 8px;border-radius:4px;border:1px dashed var(--muted);background:transparent;color:var(--ink);cursor:pointer}
+.sugg button:hover{border-style:solid;border-color:var(--accent);color:var(--accent)}
+.mdbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.mdbar .fname{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--stamp)}
+.mdbar .acts{display:flex;gap:8px;flex-wrap:wrap}
+pre.md{font-family:var(--mono);font-size:12.5px;line-height:1.55;background:var(--paper);border:1px solid var(--line);border-radius:4px;padding:14px 16px;margin:0;max-height:560px;overflow:auto;white-space:pre-wrap;word-break:break-word}
+.hint{font-size:13.5px;color:var(--muted);margin:0}
+.toast{font-family:var(--mono);font-size:12px;color:var(--ok)}
+/* tray */
+.tray{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--paper);display:flex;justify-content:center}
+.tray .in{max-width:1180px;width:100%;display:flex;gap:10px 16px;align-items:center;justify-content:space-between;flex-wrap:wrap;font-family:var(--mono);font-size:13px}
+.tray a{color:var(--paper);font-weight:600}
+.tray .warn{color:var(--stamp-soft)}
+.wrap.hastray{padding-bottom:110px}
+.how{font-family:var(--mono);font-size:10.5px;padding:1px 6px;border-radius:3px;white-space:nowrap;vertical-align:1px;border:1px solid transparent}
+.how-code,.how-skill,.how-file{background:var(--ok-soft);color:var(--ok)}
+.how-mcp{background:var(--accent-soft);color:var(--accent)}
+.how-plugin,.how-service{background:var(--stamp-soft);color:var(--stamp)}
+.how-web{border-color:var(--line);color:var(--muted)}
+.star{color:var(--stamp);font-size:12px;margin-left:3px}
+.mustgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+@media (max-width:980px){.mustgrid{grid-template-columns:1fr}}
+.mustcol{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--stamp);border-radius:4px;padding:18px;display:grid;gap:10px;min-width:0}
+.mustcol h3{font-family:var(--display);font-size:1.15rem;margin:0}
+.mustcol p{margin:0;font-size:14.5px;color:var(--muted)}
+section.must{margin-top:8px;margin-bottom:40px}
+.hows{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.howcard{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:16px;display:flex;flex-wrap:wrap;gap:6px;align-content:start;min-width:0}
+.howcard h3{flex-basis:100%;font-family:var(--display);font-size:1.05rem;margin:6px 0 0}
+.howcard p{flex-basis:100%;margin:0;font-size:14.5px}
+.howcard code,.blockhead code,.hint code{font-family:var(--mono);font-size:.88em;background:var(--paper);padding:1px 4px;border-radius:3px}
 </style>
 </head>
 <body>
 
-<div class="wrap">
+<div class="wrap" id="wrap">
   <header class="top">
     <span class="eyebrow">Library · Claude &amp; frontend</span>
     <h1>Frontend <em>Ideeënbieb</em></h1>
-    <p class="lede">Tools, repo's en werkwijzen voor bouwen met Claude en frontend, gesorteerd per lade. Elke kaart zegt wat je ermee doet en linkt direct naar de bron.</p>
+    <p class="lede">Tools, repo's en werkwijzen voor bouwen met Claude en frontend. Klik op <b>+</b> bij een tool om hem aan je stack toe te voegen. De stack-bouwer laat zien wat er mist en wat niet samengaat, en maakt er een CLAUDE.md van voor je project.</p>
     <div class="stats" id="stats"></div>
-    <nav class="jump" aria-label="Secties"><a href="#ideeen">Ideeën</a><a href="#projecten">Projectideeën</a><a href="#combinaties">Wat past bij elkaar</a><a href="#md-gids">.md-starterkit</a></nav>
+    <nav class="jump" aria-label="Secties"><a href="#musthaves">★ Must-haves</a><a href="#ideeen">Library</a><a href="#projecten">Projectideeën</a><a href="#combinaties">Wat past bij elkaar</a><a href="#installeren">Wie installeert wat?</a><a href="#bouwer">Stack-bouwer</a><a href="#md-gids">.md-starterkit</a></nav>
   </header>
+
+  <section class="block must" id="musthaves">
+    <div class="blockhead">
+      <span class="eyebrow">★ Begin hier</span>
+      <h2>Must-haves</h2>
+      <p>Heb je geen idee waar je moet beginnen? Deze tools horen in bijna elk project. Ze zijn ook gemarkeerd met ★ in de library.</p>
+    </div>
+    <div class="mustgrid" id="mustgrid"></div>
+  </section>
 
   <div class="controls" id="ideeen">
     <div class="search">
-      <input id="q" type="search" placeholder="Zoek op tool, onderwerp of maker… (bijv. GSAP, MCP, logo)" aria-label="Zoeken">
+      <input id="q" type="search" placeholder="Zoek op tool, onderwerp of werkwijze… (bijv. GSAP, MCP, iconen)" aria-label="Zoeken">
       <label class="toggle"><input type="checkbox" id="hideDone"> verberg geprobeerd</label>
     </div>
     <div class="drawers" id="drawers" role="group" aria-label="Categorieën"></div>
@@ -144,7 +218,7 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);max-width:70ch}
     <div class="blockhead">
       <span class="eyebrow">Wat kun je ermee bouwen</span>
       <h2>Projectideeën</h2>
-      <p>Hobby- en vibecode-projecten die de tools van hierboven combineren. Begin elk project met een CLAUDE.md en een SECURITY.md (zie de gids onderaan), dan houdt Claude zich aan je regels.</p>
+      <p>Hobby- en vibecode-projecten die de tools uit de library combineren. Met "Laad deze stack" zet je alle tools in de stack-bouwer en krijg je meteen een CLAUDE.md.</p>
       <div class="drawers" id="levels" role="group" aria-label="Niveau"></div>
     </div>
     <div class="pgrid" id="pgrid"></div>
@@ -154,9 +228,53 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);max-width:70ch}
     <div class="blockhead">
       <span class="eyebrow">Stacks</span>
       <h2>Wat past bij elkaar</h2>
-      <p>Tools die elkaar aanvullen, en een paar die je beter niet samen gebruikt.</p>
+      <p>Tools die elkaar aanvullen, en een paar die je beter niet samen gebruikt. De stack-bouwer controleert dit automatisch.</p>
     </div>
     <div class="combos" id="combos"></div>
+  </section>
+
+  <section class="block" id="installeren">
+    <div class="blockhead">
+      <span class="eyebrow">Plugins, skills, MCP</span>
+      <h2>Wie installeert wat?</h2>
+      <p>Niet alles kan Claude zelf installeren. Elke tool in de library heeft een label dat zegt wie wat doet. De CLAUDE.md uit de stack-bouwer zet dit per stap op een rij, met een prompt die je aan Claude kunt geven.</p>
+    </div>
+    <div class="hows">
+      <div class="howcard who-claude"><span class="how how-code">npm</span><span class="how how-skill">skill</span><span class="how how-file">regels</span><h3>Claude doet het zelf</h3><p>Packages (npm), frameworks en componenten installeert Claude in je project. Skills zet Claude als map met een <code>SKILL.md</code> in <code>.claude/skills/</code>. Die worden direct opgepikt; bestond de map nog niet, typ dan <code>/reload-skills</code>.</p></div>
+      <div class="howcard who-both"><span class="how how-mcp">MCP</span><h3>Claude bereidt voor, jij keurt goed</h3><p>Voeg een MCP-server toe met <code>claude mcp add …</code> in je terminal, of laat Claude hem in <code>.mcp.json</code> zetten. Claude Code vraagt jou om goedkeuring. Servers met een login (Figma, Vercel, Supabase) koppel je via <code>/mcp</code>.</p></div>
+      <div class="howcard who-you"><span class="how how-plugin">plugin</span><h3>Jij installeert</h3><p>Plugins installeer je zelf met <code>/plugin</code> in Claude Code (eerst <code>/plugin marketplace add …</code> als ze niet in de officiële marketplace staan). Start daarna een nieuwe sessie. Een cloudsessie op claude.ai/code laadt je lokale plugins niet.</p></div>
+      <div class="howcard who-you"><span class="how how-service">account</span><h3>Jij maakt een account</h3><p>Diensten zoals Supabase, Vercel, Clerk of Sentry vragen een account. Zet de keys in <code>.env.local</code> en nooit in git. Claude schrijft daarna de code die ze gebruikt.</p></div>
+      <div class="howcard who-none"><span class="how how-web">site</span><h3>Geen installatie</h3><p>Inspiratie, kleuren, fonts en checkers gebruik je gewoon in je browser. Geef Claude screenshots of kopieer de waarden.</p></div>
+    </div>
+    <p class="hint">Bronnen: <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">Skills</a> · <a href="https://code.claude.com/docs/en/plugins" target="_blank" rel="noopener">Plugins</a> · <a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener">MCP</a> (Claude Code docs)</p>
+  </section>
+
+  <section class="block" id="bouwer">
+    <div class="blockhead">
+      <span class="eyebrow">Selecteer · controleer · exporteer</span>
+      <h2>Stack-bouwer</h2>
+      <p>Zet het gegenereerde bestand als <code>CLAUDE.md</code> in de root van je project. Claude Code leest het automatisch bij elke sessie, dus je stack, regels en aandachtspunten zijn vanaf de eerste prompt bekend.</p>
+    </div>
+    <div class="builder">
+      <div class="bpanel">
+        <div class="field"><label for="pname">Projectnaam</label><input id="pname" type="text" placeholder="Bijv. Café-finder"></div>
+        <div class="field"><label for="pdesc">Wat bouw je?</label><textarea id="pdesc" placeholder="Eén of twee zinnen: voor wie is het en wat moet het doen?"></textarea></div>
+        <div>
+          <h3>Jouw stack <span id="selcount" class="n" style="font-family:var(--mono);font-size:13px;color:var(--muted)"></span></h3>
+          <div class="selected" id="selected" style="margin-top:10px"></div>
+        </div>
+        <div>
+          <h3>Controle</h3>
+          <div class="checks" id="checks" style="margin-top:10px"></div>
+        </div>
+        <div class="acts" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn ghost" id="clearStack">Stack leegmaken</button></div>
+      </div>
+      <div class="bpanel">
+        <div class="mdbar"><span class="fname">CLAUDE.md</span><span class="acts"><span class="toast" id="toast" aria-live="polite"></span><button type="button" class="btn" id="copyMd">Kopieer</button><button type="button" class="btn ghost" id="dlMd" hidden>Download</button></span></div>
+        <pre class="md" id="md" tabindex="0"></pre>
+        <p class="hint">Tip: begin je eerste prompt met "Lees CLAUDE.md en stel eerst vragen als iets onduidelijk is." Werk het bestand bij als je stack verandert.</p>
+      </div>
+    </div>
   </section>
 
   <section class="guide" id="md-gids">
@@ -208,215 +326,758 @@ footer{margin-top:48px;font-size:13px;color:var(--muted);max-width:70ch}
     </div>
   </section>
 
-  <footer>Links gaan naar de officiële site of GitHub-repo. "Geprobeerd"-vinkjes worden alleen in deze browser bewaard.</footer>
+  <footer>Links gaan naar de officiële site of GitHub-repo. Je stack, projectnaam en "geprobeerd"-vinkjes worden alleen in deze browser bewaard.</footer>
 </div>
+<div class="tray" id="tray" hidden><div class="in"></div></div>
 
 <script>
+/* ---------- Tool registry: one entry per tool, used by cards, projects, combos and the builder ---------- */
+const REACT = ["nextjs","vite","astro","reactrouter","tsstart"];
+const T = {
+  // Claude: plugins, skills, MCP
+  ponytail:{n:"Ponytail",u:"https://github.com/DietrichGebert/ponytail",d:"laat Claude ~54% minder code schrijven",r:"plugin"},
+  omniroute:{n:"OmniRoute",u:"https://github.com/diegosouzapw/OmniRoute",d:"valt automatisch terug op een ander model als je limiet op is",r:"plugin"},
+  graphify:{n:"Graphify",u:"https://github.com/Graphify-Labs/graphify",d:"kennisgraaf van je codebase, zodat Claude niet steeds bestanden herleest",r:"plugin"},
+  agentskills:{n:"Agent Skills (Addy Osmani)",u:"https://github.com/addyosmani/agent-skills",d:"25 skills van spec tot ship",r:"rules",cmd:"/plugin marketplace add addyosmani/agent-skills"},
+  superpowers:{n:"Superpowers",u:"https://github.com/obra/superpowers",d:"skills-framework: plannen, TDD, debuggen",r:"rules"},
+  omc:{n:"oh-my-claudecode",u:"https://github.com/Yeachan-Heo/oh-my-claudecode",d:"19 agents via één /team-commando",r:"plugin",cmd:"/plugin marketplace add https://github.com/Yeachan-Heo/oh-my-claudecode"},
+  karpathy:{n:"andrej-karpathy-skills",u:"https://github.com/forrestchang/andrej-karpathy-skills",d:"één CLAUDE.md met vier regels tegen gretige AI-code",r:"rules"},
+  fedesign:{n:"Frontend Design skill (Anthropic)",u:"https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design",d:"officiële skill voor onderscheidende UI in plaats van standaard-look",r:"taste"},
+  taste:{n:"Taste Skill",u:"https://github.com/Leonxlnx/taste-skill",d:"anti-\"AI slop\" regels met instelbare variatie, motion en dichtheid",r:"taste"},
+  uiuxpro:{n:"UI/UX Pro Max",u:"https://github.com/nextlevelbuilder/ui-ux-pro-max-skill",d:"doorzoekbare database met stijlen, paletten en font-paren",r:"rules",cmd:"/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill"},
+  vercelskills:{n:"Vercel Agent Skills",u:"https://github.com/vercel-labs/agent-skills",d:"React/Next.js best practices en web-design-review",r:"rules"},
+  wig:{n:"Web Interface Guidelines",u:"https://github.com/vercel-labs/web-interface-guidelines",d:"checklist voor toegankelijke, snelle interfaces",r:"rules"},
+  supamcp:{n:"Supabase MCP",u:"https://supabase.com/docs/guides/ai-tools/mcp",d:"Claude praat direct met je database",r:"mcp",req:[["supabase"]]},
+  vercelmcp:{n:"Vercel MCP",u:"https://vercel.com/docs/mcp/vercel-mcp",d:"\"deploy my app\" en het staat live",r:"mcp",req:[["vercel"]],cmd:"claude mcp add --transport http vercel https://mcp.vercel.com"},
+  cdtmcp:{n:"Chrome DevTools MCP",u:"https://github.com/ChromeDevTools/chrome-devtools-mcp",d:"Claude kijkt mee in een echte browser",r:"test",cmd:"claude mcp add chrome-devtools npx chrome-devtools-mcp@latest"},
+  pwmcp:{n:"Playwright MCP",u:"https://github.com/microsoft/playwright-mcp",d:"Claude klikt en test in een echte browser",r:"test",cmd:"claude mcp add playwright npx @playwright/mcp@latest"},
+  figmamcp:{n:"Figma MCP",u:"https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server",d:"Claude leest je Figma-ontwerp: lagen, maten, tokens",r:"mcp",req:[["figma"]]},
+  context7:{n:"Context7",u:"https://github.com/upstash/context7",d:"actuele, versie-specifieke docs van libraries in je prompt",r:"mcp",cmd:"claude mcp add context7 -- npx -y @upstash/context7-mcp"},
+  shadcnmcp:{n:"shadcn MCP",u:"https://ui.shadcn.com/docs/mcp",d:"componenten zoeken en installeren uit shadcn-registries",r:"mcp",req:[["shadcn"]]},
+  awesomecc:{n:"awesome-claude-code",u:"https://github.com/hesreallyhim/awesome-claude-code",d:"de bekendste lijst met Claude Code-tools",r:"learn"},
+  cctoolkit:{n:"awesome-claude-code-toolkit",u:"https://github.com/rohitg00/awesome-claude-code-toolkit",d:"agents, skills, hooks en plugins in één repo",r:"learn"},
+  fetoolkit:{n:"Claude Code Frontend Design Toolkit",u:"https://github.com/wilwaldon/Claude-Code-Frontend-Design-Toolkit",d:"alles voor mooiere frontends uit Claude Code",r:"learn"},
+  skillssh:{n:"skills.sh",u:"https://skills.sh",d:"zoekmachine voor agent skills",r:"learn"},
+  // Animation & motion
+  gsap:{n:"GSAP + ScrollTrigger",u:"https://gsap.com",d:"complexe timelines en scroll-animaties",r:"animation",cmd:"npm i gsap"},
+  animejs:{n:"Anime.js",u:"https://animejs.com",d:"lichte, flexibele JS-animatie-engine",r:"animation",cmd:"npm i animejs"},
+  motion:{n:"Motion",u:"https://motion.dev",d:"animatielibrary voor React, JS en Vue (voorheen Framer Motion)",r:"animation",cmd:"npm i motion"},
+  reactspring:{n:"React Spring",u:"https://www.react-spring.dev",d:"natuurlijke physics-animaties",r:"animation",req:[REACT],cmd:"npm i @react-spring/web"},
+  lenis:{n:"Lenis",u:"https://lenis.darkroom.engineering",d:"smooth scrolling",r:"motionx",cmd:"npm i lenis"},
+  threejs:{n:"Three.js",u:"https://threejs.org",d:"3D in de browser",r:"motionx",cmd:"npm i three"},
+  rive:{n:"Rive",u:"https://rive.app",d:"interactieve motion graphics",r:"motionx"},
+  taxi:{n:"Taxi.js",u:"https://taxi.js.org",d:"paginatransities",r:"motionx"},
+  spline:{n:"Spline",u:"https://spline.design",d:"3D-scènes ontwerpen en embedden zonder code",r:"motionx"},
+  unicorn:{n:"Unicorn Studio",u:"https://unicorn.studio",d:"WebGL-effecten en achtergronden zonder code",r:"motionx"},
+  lottie:{n:"LottieFiles",u:"https://lottiefiles.com",d:"lichte vector-animaties (Lottie)",r:"motionx"},
+  theatre:{n:"Theatre.js",u:"https://www.theatrejs.com",d:"timeline-editor voor web- en 3D-animatie",r:"motionx"},
+  autoanimate:{n:"AutoAnimate",u:"https://auto-animate.formkit.com",d:"één regel code voor lijst- en layout-animaties",r:"motionx"},
+  jitter:{n:"Jitter",u:"https://jitter.video",d:"motion design in de browser",r:"video"},
+  swishy:{n:"Swishy",u:"https://www.swishy.ai",d:"AI motion designer, export naar MP4/MOV",r:"video"},
+  ripplix:{n:"Ripplix",u:"https://www.ripplix.com",d:"7.000+ voorbeelden van UI-animaties",r:"inspiration"},
+  flow:{n:"Google Flow",u:"https://labs.google/flow",d:"animaties en preloaders maken met AI, zonder code",r:"video"},
+  dotmatrix:{n:"Dot Matrix",u:"https://dotmatrix.zzzzshawn.cloud",d:"moderne loading-animaties",r:"motionx"},
+  cubic:{n:"cubic-bezier.com",u:"https://cubic-bezier.com",d:"eigen easing-curves maken",r:"design"},
+  easings:{n:"Easings.net",u:"https://easings.net",d:"overzicht van easing-functies",r:"design"},
+  // UI
+  bentogrids:{n:"Bento Grids",u:"https://bentogrids.com",d:"voorbeelden van bento-layouts",r:"inspiration"},
+  figma:{n:"Figma",u:"https://www.figma.com",d:"ontwerpen en schetsen",r:"design"},
+  kokonut:{n:"Kokonut UI",u:"https://kokonutui.com",d:"100+ gratis componenten (React, Tailwind, Motion)",r:"uikit",req:[REACT,["tailwind"],["motion"]]},
+  bklit:{n:"Bklit UI",u:"https://bklit.com",d:"charts en datavisualisatie op shadcn/ui",r:"uikit",req:[REACT,["tailwind"],["shadcn"]]},
+  shaders:{n:"Shaders",u:"https://shaders.com",d:"WebGPU-shadereffecten voor React, Vue, Svelte",r:"motionx"},
+  aceternity:{n:"Aceternity UI",u:"https://ui.aceternity.com",d:"200+ geanimeerde componenten voor landingspagina's",r:"uikit",req:[REACT,["tailwind"],["motion"]]},
+  magicui:{n:"Magic UI",u:"https://magicui.design",d:"150+ geanimeerde componenten voor shadcn-projecten",r:"uikit",req:[REACT,["tailwind"],["shadcn"],["motion"]]},
+  reactbits:{n:"React Bits",u:"https://reactbits.dev",d:"geanimeerde tekst, achtergronden en componenten",r:"uikit",req:[REACT]},
+  c21st:{n:"21st.dev",u:"https://21st.dev",d:"community-registry met React-componenten",r:"uikit",req:[REACT,["tailwind"]]},
+  motionprim:{n:"Motion Primitives",u:"https://motion-primitives.com",d:"animatiebouwstenen voor React",r:"uikit",req:[REACT,["tailwind"],["motion"]]},
+  animata:{n:"Animata",u:"https://animata.design",d:"handgemaakte animaties en interacties",r:"uikit",req:[REACT,["tailwind"]]},
+  cultui:{n:"Cult UI",u:"https://cult-ui.com",d:"opvallende shadcn-componenten",r:"uikit",req:[REACT,["tailwind"],["shadcn"]]},
+  hoverdev:{n:"Hover.dev",u:"https://hover.dev",d:"geanimeerde React-componenten",r:"uikit",req:[REACT,["tailwind"],["motion"]]},
+  shadcn:{n:"shadcn/ui",u:"https://ui.shadcn.com",d:"basiscomponenten die je zelf bezit en aanpast",r:"uikit",req:[REACT,["tailwind"]],cmd:"npx shadcn@latest init"},
+  tweakcn:{n:"tweakcn",u:"https://tweakcn.com",d:"visuele thema-editor voor shadcn/ui",r:"design",req:[["shadcn"]]},
+  daisyui:{n:"daisyUI",u:"https://daisyui.com",d:"componentklassen als Tailwind-plugin, ook zonder React",r:"uikit",req:[["tailwind"]]},
+  uiverse:{n:"Uiverse",u:"https://uiverse.io",d:"gratis HTML/CSS-elementen om te kopiëren",r:"uikit"},
+  // Logo & branding
+  iplogo:{n:"IP-as-logo skill",u:"https://github.com/s1dashu/ip-as-logo-skill",d:"schattige mascottelogo's",r:"logo"},
+  logoskill:{n:"Logo Design Skill",u:"https://github.com/kaankiziltug/logo-design-skill",d:"van briefing tot SVG, favicon-set en brand guidelines",r:"logo"},
+  gittrend:{n:"gittrend.io",u:"https://gittrend.io",d:"populaire nieuwe GitHub-repos",r:"learn"},
+  // Inspiration, color, design tools
+  refero:{n:"Refero Styles",u:"https://styles.refero.design",d:"websitestijlen met een DESIGN.md voor Claude",r:"inspiration"},
+  randoma11y:{n:"RandomA11y",u:"https://randoma11y.com",d:"toegankelijke kleurcombinaties",r:"color"},
+  rotato:{n:"Rotato",u:"https://rotato.app",d:"3D device-mockups",r:"video"},
+  manus:{n:"Manus",u:"https://manus.im",d:"AI-agent die taken en workflows uitvoert",r:"aibuilder"},
+  contentcore:{n:"ContentCore",u:"https://contentcore.xyz",d:"content maken, opslaan als beeld of video",r:"video"},
+  v0:{n:"v0",u:"https://v0.app",d:"UI genereren uit een prompt (Vercel)",r:"aibuilder"},
+  bolt:{n:"Bolt",u:"https://bolt.new",d:"complete apps genereren in de browser",r:"aibuilder"},
+  lovable:{n:"Lovable",u:"https://lovable.dev",d:"apps bouwen met een chat",r:"aibuilder"},
+  godly:{n:"Godly",u:"https://godly.website",d:"galerij met opvallend webdesign",r:"inspiration"},
+  awwwards:{n:"Awwwards",u:"https://www.awwwards.com",d:"prijswinnende websites",r:"inspiration"},
+  mobbin:{n:"Mobbin",u:"https://mobbin.com",d:"schermen en flows uit echte apps",r:"inspiration"},
+  landbook:{n:"Land-book",u:"https://land-book.com",d:"landingspagina-inspiratie",r:"inspiration"},
+  siteinspire:{n:"SiteInspire",u:"https://www.siteinspire.com",d:"webdesign op stijl en type",r:"inspiration"},
+  minimal:{n:"Minimal Gallery",u:"https://minimal.gallery",d:"minimalistische websites",r:"inspiration"},
+  supahero:{n:"Supahero",u:"https://supahero.io",d:"alleen hero-secties",r:"inspiration"},
+  lapa:{n:"Lapa Ninja",u:"https://www.lapa.ninja",d:"landingspagina's per categorie",r:"inspiration"},
+  coolors:{n:"Coolors",u:"https://coolors.co",d:"kleurenpaletten genereren",r:"color"},
+  realtime:{n:"Realtime Colors",u:"https://www.realtimecolors.com",d:"kleuren en fonts live op een voorbeeldsite testen",r:"color"},
+  uicolors:{n:"UI Colors",u:"https://uicolors.app",d:"Tailwind-kleurschalen uit één kleur",r:"color"},
+  haikei:{n:"Haikei",u:"https://haikei.app",d:"SVG-vormen, golven en blobs",r:"color"},
+  fffuel:{n:"fffuel",u:"https://www.fffuel.co",d:"gratis SVG-generators voor achtergronden",r:"color"},
+  patterncraft:{n:"Pattern Craft",u:"https://patterncraft.fun",d:"achtergrondpatronen voor Tailwind",r:"color"},
+  cssgradient:{n:"CSS Gradient",u:"https://cssgradient.io",d:"gradients maken en kopiëren",r:"color"},
+  shadows:{n:"Smooth Shadows",u:"https://shadows.brumm.af",d:"zachte, gelaagde CSS-schaduwen",r:"design"},
+  // Assets
+  lucide:{n:"Lucide",u:"https://lucide.dev",d:"strakke open-source iconen",r:"icons",cmd:"npm i lucide-react"},
+  phosphor:{n:"Phosphor Icons",u:"https://phosphoricons.com",d:"flexibele iconenfamilie in 6 gewichten",r:"icons",cmd:"npm i @phosphor-icons/react"},
+  tabler:{n:"Tabler Icons",u:"https://tabler.io/icons",d:"5.000+ gratis iconen",r:"icons"},
+  heroicons:{n:"Heroicons",u:"https://heroicons.com",d:"iconen van de makers van Tailwind",r:"icons"},
+  iconify:{n:"Iconify",u:"https://iconify.design",d:"zoeken in 200.000+ iconen uit alle sets",r:"iconsx"},
+  svgl:{n:"SVGL",u:"https://svgl.app",d:"SVG-logo's van bekende merken",r:"iconsx"},
+  gfonts:{n:"Google Fonts",u:"https://fonts.google.com",d:"gratis webfonts",r:"fonts"},
+  fontshare:{n:"Fontshare",u:"https://www.fontshare.com",d:"gratis fonts van hoge kwaliteit",r:"fonts"},
+  uncut:{n:"Uncut",u:"https://uncut.wtf",d:"gratis contemporaine fonts",r:"fonts"},
+  typescale:{n:"Typescale",u:"https://typescale.com",d:"typografische schaal berekenen",r:"design"},
+  fontpair:{n:"Fontpair",u:"https://www.fontpair.co",d:"font-combinaties die werken",r:"fonts"},
+  undraw:{n:"unDraw",u:"https://undraw.co",d:"gratis illustraties in je eigen kleur",r:"images"},
+  storyset:{n:"Storyset",u:"https://storyset.com",d:"geanimeerde illustraties",r:"images"},
+  unsplash:{n:"Unsplash",u:"https://unsplash.com",d:"gratis foto's",r:"images"},
+  squoosh:{n:"Squoosh",u:"https://squoosh.app",d:"afbeeldingen comprimeren",r:"images"},
+  // Base, backend, hosting
+  nextjs:{n:"Next.js",u:"https://nextjs.org",d:"React-framework met routing en server-rendering",r:"framework",cmd:"npx create-next-app@latest"},
+  vite:{n:"Vite + React",u:"https://vite.dev",d:"snelle, simpele React-setup",r:"framework",cmd:"npm create vite@latest"},
+  astro:{n:"Astro",u:"https://astro.build",d:"snelle content-sites, React waar nodig",r:"framework",cmd:"npm create astro@latest"},
+  webflow:{n:"Webflow",u:"https://webflow.com",d:"visuele websitebouwer met CMS en hosting",r:"framework"},
+  tailwind:{n:"Tailwind CSS",u:"https://tailwindcss.com",d:"utility-first styling",r:"styling"},
+  supabase:{n:"Supabase",u:"https://supabase.com",d:"Postgres-database, auth en storage",r:"backend"},
+  rls:{n:"Supabase Row Level Security",u:"https://supabase.com/docs/guides/database/postgres/row-level-security",d:"zorgt dat gebruikers alleen hun eigen data zien",r:"security",req:[["supabase"]]},
+  convex:{n:"Convex",u:"https://www.convex.dev",d:"realtime backend in TypeScript",r:"backend"},
+  clerk:{n:"Clerk",u:"https://clerk.com",d:"kant-en-klare login en accounts",r:"auth"},
+  resend:{n:"Resend",u:"https://resend.com",d:"e-mails versturen vanuit je app",r:"email"},
+  vercel:{n:"Vercel",u:"https://vercel.com",d:"hosting voor Next.js en frontends",r:"hosting"},
+  netlify:{n:"Netlify",u:"https://www.netlify.com",d:"hosting voor statische sites en frontends",r:"hosting"},
+  playwright:{n:"Playwright",u:"https://playwright.dev",d:"end-to-end tests in echte browsers",r:"test"},
+  // Learning & data
+  byox:{n:"Build Your Own X",u:"https://github.com/codecrafters-io/build-your-own-x",d:"bouw bekende technologie zelf na",r:"learn"},
+  awesome:{n:"Awesome",u:"https://github.com/sindresorhus/awesome",d:"lijsten over elk onderwerp",r:"learn"},
+  publicapis:{n:"Public APIs",u:"https://github.com/public-apis/public-apis",d:"gratis API's voor projecten",r:"data"},
+  fcc:{n:"freeCodeCamp",u:"https://github.com/freeCodeCamp/freeCodeCamp",d:"gestructureerd leren programmeren",r:"learn"},
+  fpb:{n:"Free Programming Books",u:"https://github.com/EbookFoundation/free-programming-books",d:"duizenden gratis boeken",r:"learn"},
+  sdp:{n:"System Design Primer",u:"https://github.com/donnemartin/system-design-primer",d:"schaalbare architectuur leren",r:"learn"},
+  roadmap:{n:"Developer Roadmap",u:"https://roadmap.sh",d:"visuele leerpaden per rol",r:"learn"},
+  ciu:{n:"Coding Interview University",u:"https://github.com/jwasham/coding-interview-university",d:"algoritmes en datastructuren",r:"learn"},
+  awesomepy:{n:"Awesome Python",u:"https://github.com/vinta/awesome-python",d:"Python-libraries en tools",r:"learn"},
+  pbl:{n:"Project Based Learning",u:"https://github.com/practical-tutorials/project-based-learning",d:"leren door te bouwen",r:"learn"},
+  places:{n:"Google Places API",u:"https://developers.google.com/maps/documentation/places/web-service",d:"plekken en cafés met echte data",r:"data"},
+  elevenlabs:{n:"ElevenLabs API",u:"https://elevenlabs.io/docs",d:"spraak genereren en herkennen",r:"data"},
+  pandas:{n:"pandas",u:"https://pandas.pydata.org",d:"data-analyse in Python",r:"data"},
+  codedex:{n:"Codédex",u:"https://www.codedex.io",d:"leren coderen met projecten",r:"learn"},
+  josh:{n:"Josh W. Comeau",u:"https://www.joshwcomeau.com",d:"de beste uitleg over CSS en React",r:"learn"},
+  mdn:{n:"MDN Web Docs",u:"https://developer.mozilla.org",d:"naslagwerk voor HTML, CSS en JS",r:"learn"},
+  webdev:{n:"web.dev",u:"https://web.dev",d:"performance en toegankelijkheid (Google)",r:"learn"},
+  fementor:{n:"Frontend Mentor",u:"https://www.frontendmentor.io",d:"oefenen met echte designs",r:"learn"},
+  // Best practices & docs
+  ccbp:{n:"Claude Code best practices (Anthropic)",u:"https://www.anthropic.com/engineering/claude-code-best-practices",d:"hoe je het meeste uit Claude Code haalt",r:"practice"},
+  ccdocs:{n:"Claude Code docs",u:"https://code.claude.com/docs/en/overview",d:"officiële documentatie",r:"practice"},
+  ccmemory:{n:"CLAUDE.md & geheugen (docs)",u:"https://code.claude.com/docs/en/memory",d:"hoe Claude projectregels onthoudt",r:"practice"},
+  ccskills:{n:"Skills (docs)",u:"https://code.claude.com/docs/en/skills",d:"skills maken, installeren en delen",r:"practice"},
+  ccplugins:{n:"Plugins (docs)",u:"https://code.claude.com/docs/en/plugins",d:"plugins en marketplaces",r:"practice"},
+  ccmcp:{n:"MCP (docs)",u:"https://code.claude.com/docs/en/mcp",d:"MCP-servers toevoegen en inloggen",r:"practice"},
+  wcag:{n:"WCAG 2.2 Quick Reference",u:"https://www.w3.org/WAI/WCAG22/quickref/",d:"de officiële toegankelijkheidsrichtlijnen",r:"practice"},
+  a11yproj:{n:"A11Y Project checklist",u:"https://www.a11yproject.com/checklist/",d:"toegankelijkheid als afvinklijst",r:"practice"},
+  webaim:{n:"WebAIM Contrast Checker",u:"https://webaim.org/resources/contrastchecker/",d:"check of je tekst leesbaar genoeg is",r:"practice"},
+  wave:{n:"WAVE",u:"https://wave.webaim.org",d:"scan een pagina op toegankelijkheidsfouten",r:"practice"},
+  learna11y:{n:"Learn Accessibility (web.dev)",u:"https://web.dev/learn/accessibility",d:"gratis cursus toegankelijkheid",r:"practice"},
+  reducedmotion:{n:"prefers-reduced-motion (MDN)",u:"https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion",d:"animaties uitzetten voor wie dat wil",r:"practice"},
+  cwv:{n:"Core Web Vitals",u:"https://web.dev/articles/vitals",d:"de drie cijfers die snelheid meten",r:"practice"},
+  psi:{n:"PageSpeed Insights",u:"https://pagespeed.web.dev",d:"meet de snelheid van je live site",r:"practice"},
+  everylayout:{n:"Every Layout",u:"https://every-layout.dev",d:"robuuste CSS-layouts zonder breakpoints",r:"practice"},
+  utopia:{n:"Utopia",u:"https://utopia.fyi",d:"vloeiende type- en spacing-schalen met clamp()",r:"practice"},
+  moderncss:{n:"Modern CSS Solutions",u:"https://moderncss.dev",d:"moderne oplossingen voor oude CSS-problemen",r:"practice"},
+  learncss:{n:"Learn CSS (web.dev)",u:"https://web.dev/learn/css",d:"gratis cursus CSS van begin tot eind",r:"practice"},
+  refactoringui:{n:"Refactoring UI",u:"https://www.refactoringui.com",d:"design-tips voor developers",r:"practice"},
+  lawsofux:{n:"Laws of UX",u:"https://lawsofux.com",d:"psychologische principes achter goede UX",r:"practice"},
+  practypo:{n:"Practical Typography",u:"https://practicaltypography.com",d:"typografie-regels die werken",r:"practice"},
+  checklistdesign:{n:"Checklist Design",u:"https://www.checklist.design",d:"checklists per pagina en component",r:"practice"},
+  uxpatterns:{n:"UX Patterns for Devs",u:"https://uxpatterns.dev",d:"wanneer je welk UI-patroon gebruikt",r:"practice"},
+  patternsdev:{n:"Patterns.dev",u:"https://www.patterns.dev",d:"design- en renderpatronen voor moderne web-apps",r:"practice"},
+  owasp:{n:"OWASP Top 10",u:"https://owasp.org/www-project-top-ten/",d:"de tien grootste beveiligingsrisico's",r:"practice"},
+  owaspcs:{n:"OWASP Cheat Sheets",u:"https://cheatsheetseries.owasp.org",d:"korte beveiligingsgidsen per onderwerp",r:"practice"},
+  secheaders:{n:"Security Headers",u:"https://securityheaders.com",d:"scan de beveiligingsheaders van je site",r:"practice"},
+  convcommits:{n:"Conventional Commits",u:"https://www.conventionalcommits.org",d:"duidelijke commit-berichten",r:"practice"},
+  gsearch:{n:"Google Search Central",u:"https://developers.google.com/search/docs",d:"officiële SEO-documentatie",r:"practice"},
+  ogp:{n:"Open Graph",u:"https://ogp.me",d:"hoe je link eruitziet als hij gedeeld wordt",r:"practice"},
+  favicon:{n:"RealFaviconGenerator",u:"https://realfavicongenerator.net",d:"favicons voor elk apparaat",r:"practice"},
+  reactdocs:{n:"react.dev",u:"https://react.dev",d:"officiële React-docs",r:"practice"},
+  smashing:{n:"Smashing Magazine",u:"https://www.smashingmagazine.com",d:"diepgaande artikelen over frontend en UX",r:"practice"},
+  csstricks:{n:"CSS-Tricks",u:"https://css-tricks.com",d:"CSS-gidsen en naslag",r:"practice"},
+  // Quality & app libraries
+  ts:{n:"TypeScript",u:"https://www.typescriptlang.org",d:"types vangen fouten voordat je gebruiker ze ziet",r:"quality"},
+  biome:{n:"Biome",u:"https://biomejs.dev",d:"linter en formatter in één, razendsnel",r:"quality",cmd:"npm i -D @biomejs/biome"},
+  eslint:{n:"ESLint",u:"https://eslint.org",d:"de klassieke JavaScript-linter",r:"quality"},
+  prettier:{n:"Prettier",u:"https://prettier.io",d:"automatische code-opmaak",r:"quality",cmd:"npm i -D prettier"},
+  storybook:{n:"Storybook",u:"https://storybook.js.org",d:"componenten los bouwen en documenteren",r:"quality"},
+  vitest:{n:"Vitest",u:"https://vitest.dev",d:"snelle unit tests",r:"test",cmd:"npm i -D vitest"},
+  testinglib:{n:"Testing Library",u:"https://testing-library.com",d:"componenten testen zoals een gebruiker",r:"test"},
+  zod:{n:"Zod",u:"https://zod.dev",d:"input valideren met één schema",r:"forms",cmd:"npm i zod"},
+  rhf:{n:"React Hook Form",u:"https://react-hook-form.com",d:"snelle formulieren in React",r:"forms",req:[REACT],cmd:"npm i react-hook-form"},
+  tanstack:{n:"TanStack Query",u:"https://tanstack.com/query",d:"data ophalen, cachen en verversen",r:"datalib",cmd:"npm i @tanstack/react-query"},
+  radix:{n:"Radix UI",u:"https://www.radix-ui.com",d:"toegankelijke primitives zonder styling",r:"uikit",req:[REACT]},
+  baseui:{n:"Base UI",u:"https://base-ui.com",d:"toegankelijke primitives, de nieuwe basis onder shadcn",r:"uikit",req:[REACT]},
+  sentry:{n:"Sentry",u:"https://sentry.io",d:"fouten in productie zien voordat gebruikers klagen",r:"monitor"},
+  plausible:{n:"Plausible",u:"https://plausible.io",d:"privacyvriendelijke bezoekersstatistieken",r:"monitor"},
+  // --- mega-uitbreiding ---
+  githubmcp:{n:"GitHub MCP",u:"https://github.com/github/github-mcp-server",d:"issues, PR's en Actions vanuit Claude",r:"mcp"},
+  magicmcp:{n:"21st MCP (Magic)",u:"https://21st.dev/mcp",d:"zoek 10.000+ React/Tailwind-componenten vanuit Claude",r:"mcp",req:[REACT,["tailwind"]]},
+  serena:{n:"Serena",u:"https://github.com/oraios/serena",d:"IDE-achtige code-navigatie voor je agent",r:"mcp"},
+  firecrawl:{n:"Firecrawl MCP",u:"https://github.com/firecrawl/firecrawl-mcp-server",d:"websites scrapen en doorzoeken vanuit Claude",r:"mcp"},
+  stripemcp:{n:"Stripe MCP",u:"https://docs.stripe.com/mcp",d:"Stripe-producten en betalingen beheren vanuit Claude",r:"mcp",req:[["stripe"]]},
+  claudemem:{n:"claude-mem",u:"https://github.com/thedotmack/claude-mem",d:"geheugen over sessies heen",r:"plugin"},
+  cctemplates:{n:"Claude Code Templates",u:"https://github.com/davila7/claude-code-templates",d:"900+ agents, commands, hooks en MCP's om te installeren",r:"plugin"},
+  ccusage:{n:"ccusage",u:"https://github.com/ryoppippi/ccusage",d:"zie hoeveel je Claude Code gebruikt",r:"devtool"},
+  anthskills:{n:"Anthropic Skills",u:"https://github.com/anthropics/skills",d:"officiële voorbeeld-skills om te installeren of te forken",r:"taste"},
+  heroui:{n:"HeroUI",u:"https://www.heroui.com",d:"mooie complete componentset op Tailwind",r:"uikit",req:[REACT,["tailwind"]]},
+  mantine:{n:"Mantine",u:"https://mantine.dev",d:"100+ componenten en hooks, alles erin",r:"uikit",req:[REACT]},
+  chakra:{n:"Chakra UI",u:"https://chakra-ui.com",d:"toegankelijke componenten met thema-systeem",r:"uikit",req:[REACT]},
+  ark:{n:"Ark UI",u:"https://ark-ui.com",d:"headless componenten voor React, Vue, Svelte",r:"uikit"},
+  flowbite:{n:"Flowbite",u:"https://flowbite.com",d:"Tailwind-componenten, ook zonder framework",r:"uikit",req:[["tailwind"]]},
+  preline:{n:"Preline",u:"https://preline.co",d:"gratis Tailwind-componenten en secties",r:"uikit",req:[["tailwind"]]},
+  tailwindplus:{n:"Tailwind Plus",u:"https://tailwindcss.com/plus",d:"officiële betaalde UI-blokken van Tailwind",r:"uikit",req:[["tailwind"]]},
+  shadcnblocks:{n:"shadcnblocks",u:"https://www.shadcnblocks.com",d:"kant-en-klare secties voor shadcn",r:"uikit",req:[["shadcn"]]},
+  tremor:{n:"Tremor",u:"https://tremor.so",d:"dashboard-componenten en charts",r:"charts",req:[REACT,["tailwind"]]},
+  recharts:{n:"Recharts",u:"https://recharts.org",d:"de standaard chartlibrary voor React",r:"charts",req:[REACT],cmd:"npm i recharts"},
+  nivo:{n:"nivo",u:"https://nivo.rocks",d:"rijke, geanimeerde datavisualisaties",r:"charts",req:[REACT]},
+  chartjs:{n:"Chart.js",u:"https://www.chartjs.org",d:"simpele charts in elk project",r:"charts",cmd:"npm i chart.js"},
+  echarts:{n:"Apache ECharts",u:"https://echarts.apache.org",d:"krachtige charts voor grote datasets",r:"charts",cmd:"npm i echarts"},
+  tanstacktable:{n:"TanStack Table",u:"https://tanstack.com/table/latest",d:"tabellen met sorteren, filteren en pagineren",r:"charts",cmd:"npm i @tanstack/react-table"},
+  reactflow:{n:"React Flow",u:"https://reactflow.dev",d:"diagrammen en node-editors",r:"charts",req:[REACT],cmd:"npm i @xyflow/react"},
+  sonner:{n:"Sonner",u:"https://sonner.emilkowal.ski",d:"de mooiste toast-meldingen voor React",r:"uikit",req:[REACT],cmd:"npm i sonner"},
+  vaul:{n:"Vaul",u:"https://vaul.emilkowal.ski",d:"drawers die aanvoelen als een native app",r:"uikit",req:[REACT],cmd:"npm i vaul"},
+  cmdk:{n:"cmdk",u:"https://cmdk.paco.me",d:"command-menu (⌘K) voor React",r:"uikit",req:[REACT],cmd:"npm i cmdk"},
+  headlessui:{n:"Headless UI",u:"https://headlessui.com",d:"toegankelijke componenten van het Tailwind-team",r:"uikit",req:[REACT]},
+  floatingui:{n:"Floating UI",u:"https://floating-ui.com",d:"tooltips en popovers die goed positioneren",r:"uikit"},
+  dndkit:{n:"dnd kit",u:"https://dndkit.com",d:"drag-and-drop voor React",r:"uikit",req:[REACT]},
+  swiper:{n:"Swiper",u:"https://swiperjs.com",d:"sliders en carrousels",r:"uikit",cmd:"npm i swiper"},
+  embla:{n:"Embla Carousel",u:"https://www.embla-carousel.com",d:"lichte, vloeiende carrousel",r:"uikit"},
+  leaflet:{n:"Leaflet",u:"https://leafletjs.com",d:"simpele interactieve kaarten",r:"maps",cmd:"npm i leaflet"},
+  maplibre:{n:"MapLibre",u:"https://maplibre.org",d:"snelle vector-kaarten, open source",r:"maps",cmd:"npm i maplibre-gl"},
+  barba:{n:"Barba.js",u:"https://barba.js.org",d:"vloeiende paginatransities",r:"motionx"},
+  vanta:{n:"Vanta.js",u:"https://www.vantajs.com",d:"geanimeerde 3D-achtergronden met één regel",r:"motionx"},
+  tsparticles:{n:"tsParticles",u:"https://particles.js.org",d:"deeltjes-effecten, confetti en vuurwerk",r:"motionx"},
+  r3f:{n:"React Three Fiber",u:"https://r3f.docs.pmnd.rs",d:"Three.js schrijven als React-componenten",r:"creative",req:[REACT,["threejs"]]},
+  babylon:{n:"Babylon.js",u:"https://www.babylonjs.com",d:"complete 3D- en game-engine",r:"creative"},
+  pixi:{n:"PixiJS",u:"https://pixijs.com",d:"supersnelle 2D-graphics en games",r:"creative"},
+  p5:{n:"p5.js",u:"https://p5js.org",d:"creative coding voor beginners",r:"creative"},
+  matter:{n:"Matter.js",u:"https://brm.io/matter-js",d:"2D-physics in de browser",r:"creative"},
+  framer:{n:"Framer",u:"https://www.framer.com",d:"visuele websitebouwer met animaties en hosting",r:"framework"},
+  fontsource:{n:"Fontsource",u:"https://fontsource.org",d:"fonts self-hosten via npm",r:"fonts"},
+  collletttivo:{n:"Collletttivo",u:"https://www.collletttivo.it",d:"gratis experimentele open-source fonts",r:"fonts"},
+  pangram:{n:"Pangram Pangram",u:"https://pangrampangram.com",d:"moderne fonts, gratis voor persoonlijk gebruik",r:"fonts"},
+  typewolf:{n:"Typewolf",u:"https://www.typewolf.com",d:"welke fonts echte sites gebruiken",r:"inspiration"},
+  fontsinuse:{n:"Fonts In Use",u:"https://fontsinuse.com",d:"archief van typografie in de praktijk",r:"inspiration"},
+  iconoir:{n:"Iconoir",u:"https://iconoir.com",d:"1.600+ gratis lijn-iconen",r:"icons"},
+  remixicon:{n:"Remix Icon",u:"https://remixicon.com",d:"neutrale iconen in lijn en vlak",r:"icons"},
+  hugeicons:{n:"Hugeicons",u:"https://hugeicons.com",d:"grote iconenset in meerdere stijlen",r:"icons"},
+  simpleicons:{n:"Simple Icons",u:"https://simpleicons.org",d:"3.000+ SVG-logo's van merken",r:"iconsx"},
+  radixicons:{n:"Radix Icons",u:"https://www.radix-ui.com/icons",d:"strakke 15×15 iconen",r:"icons"},
+  blush:{n:"Blush",u:"https://blush.design",d:"illustraties die je zelf samenstelt",r:"images"},
+  pexels:{n:"Pexels",u:"https://www.pexels.com",d:"gratis foto's en video's",r:"images"},
+  icons3d:{n:"3dicons",u:"https://3dicons.co",d:"gratis 3D-iconen",r:"images"},
+  shots:{n:"Shots",u:"https://shots.so",d:"mooie mockups van screenshots",r:"video"},
+  tinypng:{n:"TinyPNG",u:"https://tinypng.com",d:"PNG en JPG kleiner maken",r:"images"},
+  svgomg:{n:"SVGOMG",u:"https://jakearchibald.github.io/svgomg/",d:"SVG-bestanden opschonen en verkleinen",r:"images"},
+  removebg:{n:"remove.bg",u:"https://www.remove.bg",d:"achtergrond van een foto verwijderen",r:"images"},
+  huemint:{n:"Huemint",u:"https://huemint.com",d:"AI-kleurenpaletten op een echte layout",r:"color"},
+  colorhunt:{n:"Color Hunt",u:"https://colorhunt.co",d:"populaire paletten van vier kleuren",r:"color"},
+  adobecolor:{n:"Adobe Color",u:"https://color.adobe.com",d:"kleurharmonieën en contrast-check",r:"color"},
+  oklch:{n:"OKLCH Color Picker",u:"https://oklch.com",d:"moderne CSS-kleuren kiezen",r:"color"},
+  happyhues:{n:"Happy Hues",u:"https://www.happyhues.co",d:"paletten met voorbeeld van hoe je ze toepast",r:"color"},
+  dribbble:{n:"Dribbble",u:"https://dribbble.com",d:"UI-shots van designers",r:"inspiration"},
+  behance:{n:"Behance",u:"https://www.behance.net",d:"complete design-cases",r:"inspiration"},
+  onepagelove:{n:"One Page Love",u:"https://onepagelove.com",d:"websites van één pagina",r:"inspiration"},
+  saaslp:{n:"SaaS Landing Page",u:"https://saaslandingpage.com",d:"landingspagina's van SaaS-producten",r:"inspiration"},
+  landingfolio:{n:"Landingfolio",u:"https://www.landingfolio.com",d:"landingspagina's en componenten",r:"inspiration"},
+  darkmode:{n:"Dark Mode Design",u:"https://www.darkmodedesign.com",d:"alleen websites in dark mode",r:"inspiration"},
+  collectui:{n:"Collect UI",u:"https://collectui.com",d:"UI-ontwerpen per type scherm",r:"inspiration"},
+  pageflows:{n:"Page Flows",u:"https://pageflows.com",d:"opgenomen user flows van echte apps",r:"inspiration"},
+  navbar:{n:"Navbar Gallery",u:"https://www.navbar.gallery",d:"alleen navigatiebalken",r:"inspiration"},
+  cssda:{n:"CSS Design Awards",u:"https://www.cssdesignawards.com",d:"prijswinnende webdesigns",r:"inspiration"},
+  codrops:{n:"Codrops",u:"https://tympanus.net/codrops",d:"creatieve tutorials en demo's",r:"inspiration"},
+  codepen:{n:"CodePen",u:"https://codepen.io",d:"front-end experimenten om van te leren",r:"inspiration"},
+  penpot:{n:"Penpot",u:"https://penpot.app",d:"open-source alternatief voor Figma",r:"design"},
+  excalidraw:{n:"Excalidraw",u:"https://excalidraw.com",d:"snelle schetsen en wireframes",r:"design"},
+  tldraw:{n:"tldraw",u:"https://www.tldraw.com",d:"oneindig whiteboard",r:"design"},
+  relume:{n:"Relume",u:"https://www.relume.io",d:"sitemaps en wireframes met AI, 1.000+ secties",r:"design"},
+  caniuse:{n:"Can I use",u:"https://caniuse.com",d:"welke browsers ondersteunen deze feature?",r:"devtool"},
+  bundlephobia:{n:"Bundlephobia",u:"https://bundlephobia.com",d:"hoe zwaar is dit npm-pakket?",r:"devtool"},
+  regex101:{n:"regex101",u:"https://regex101.com",d:"regex testen met uitleg",r:"devtool"},
+  transform:{n:"transform.tools",u:"https://transform.tools",d:"JSON naar TypeScript, SVG naar JSX en meer",r:"devtool"},
+  responsively:{n:"Responsively",u:"https://responsively.app",d:"je site op alle schermformaten tegelijk",r:"devtool"},
+  clippy:{n:"Clippy",u:"https://bennettfeely.com/clippy",d:"CSS clip-path vormen maken",r:"devtool"},
+  carbon:{n:"Carbon",u:"https://carbon.now.sh",d:"mooie screenshots van code",r:"devtool"},
+  rayso:{n:"ray.so",u:"https://ray.so",d:"code-afbeeldingen voor social media",r:"devtool"},
+  neon:{n:"Neon",u:"https://neon.com",d:"serverless Postgres met branches",r:"backend"},
+  turso:{n:"Turso",u:"https://turso.tech",d:"SQLite aan de edge",r:"backend"},
+  upstash:{n:"Upstash",u:"https://upstash.com",d:"serverless Redis en queues",r:"storage"},
+  firebase:{n:"Firebase",u:"https://firebase.google.com",d:"backend van Google: database, auth, hosting",r:"backend"},
+  pocketbase:{n:"PocketBase",u:"https://pocketbase.io",d:"complete backend in één bestand",r:"backend"},
+  appwrite:{n:"Appwrite",u:"https://appwrite.io",d:"open-source backend-platform",r:"backend"},
+  stripe:{n:"Stripe",u:"https://stripe.com",d:"betalingen en abonnementen",r:"payments"},
+  lemonsqueezy:{n:"Lemon Squeezy",u:"https://www.lemonsqueezy.com",d:"betalingen inclusief btw-afhandeling",r:"payments"},
+  authjs:{n:"Auth.js",u:"https://authjs.dev",d:"open-source login voor elk framework",r:"auth"},
+  betterauth:{n:"Better Auth",u:"https://www.better-auth.com",d:"moderne TypeScript-auth die je zelf host",r:"auth"},
+  drizzle:{n:"Drizzle ORM",u:"https://orm.drizzle.team",d:"type-veilige SQL in TypeScript",r:"orm",cmd:"npm i drizzle-orm"},
+  prisma:{n:"Prisma",u:"https://www.prisma.io",d:"populaire ORM met schema-bestand",r:"orm"},
+  trpc:{n:"tRPC",u:"https://trpc.io",d:"type-veilige API's zonder schema",r:"api"},
+  hono:{n:"Hono",u:"https://hono.dev",d:"kleine, snelle API-server voor elke runtime",r:"api",cmd:"npm create hono@latest"},
+  cfpages:{n:"Cloudflare Pages",u:"https://pages.cloudflare.com",d:"gratis hosting op het Cloudflare-netwerk",r:"hosting"},
+  railway:{n:"Railway",u:"https://railway.com",d:"apps en databases hosten zonder gedoe",r:"hosting"},
+  render:{n:"Render",u:"https://render.com",d:"hosting voor web-apps, API's en databases",r:"hosting"},
+  uploadthing:{n:"UploadThing",u:"https://uploadthing.com",d:"bestands-uploads voor TypeScript-apps",r:"storage"},
+  cloudinary:{n:"Cloudinary",u:"https://cloudinary.com",d:"afbeeldingen en video automatisch optimaliseren",r:"storage"},
+  posthog:{n:"PostHog",u:"https://posthog.com",d:"analytics, session replays en feature flags",r:"monitor"},
+  umami:{n:"Umami",u:"https://umami.is",d:"simpele, privacyvriendelijke analytics",r:"monitor"},
+  formspree:{n:"Formspree",u:"https://formspree.io",d:"formulieren versturen zonder backend",r:"formsvc"},
+  tally:{n:"Tally",u:"https://tally.so",d:"mooie gratis formulieren om te embedden",r:"formsvc"},
+  sanity:{n:"Sanity",u:"https://www.sanity.io",d:"headless CMS met live samenwerken",r:"cms"},
+  payload:{n:"Payload",u:"https://payloadcms.com",d:"open-source CMS dat in Next.js draait",r:"cms"},
+  sveltekit:{n:"SvelteKit",u:"https://svelte.dev",d:"Svelte-framework: weinig code, heel snel",r:"framework",cmd:"npx sv create"},
+  nuxt:{n:"Nuxt",u:"https://nuxt.com",d:"Vue-framework met routing en server-rendering",r:"framework"},
+  reactrouter:{n:"React Router",u:"https://reactrouter.com",d:"React-framework (voorheen Remix)",r:"framework"},
+  tsstart:{n:"TanStack Start",u:"https://tanstack.com/start",d:"full-stack React-framework van TanStack",r:"framework"},
+  expo:{n:"Expo",u:"https://expo.dev",d:"mobiele apps bouwen met React Native",r:"framework"},
+  odin:{n:"The Odin Project",u:"https://www.theodinproject.com",d:"gratis full-stack curriculum",r:"learn"},
+  scrimba:{n:"Scrimba",u:"https://scrimba.com",d:"interactieve codeer-video's",r:"learn"},
+  cssbattle:{n:"CSS Battle",u:"https://cssbattle.dev",d:"CSS-puzzels op tijd",r:"learn"},
+  froggy:{n:"Flexbox Froggy",u:"https://flexboxfroggy.com",d:"flexbox leren met een spel",r:"learn"},
+  gridgarden:{n:"Grid Garden",u:"https://cssgridgarden.com",d:"CSS grid leren met een spel",r:"learn"},
+  jsinfo:{n:"javascript.info",u:"https://javascript.info",d:"moderne JavaScript-tutorial",r:"learn"},
+  femasters:{n:"Frontend Masters",u:"https://frontendmasters.com",d:"diepgaande cursussen van experts",r:"learn"},
+  tshandbook:{n:"TypeScript Handbook",u:"https://www.typescriptlang.org/docs/handbook/",d:"officiële TypeScript-gids",r:"learn"},
+  kevinpowell:{n:"Kevin Powell (YouTube)",u:"https://www.youtube.com/@KevinPowell",d:"de beste CSS-uitleg op YouTube",r:"learn"},
+  boring:{n:"Boring Avatars",u:"https://boringavatars.com",d:"gratis open-source avatars voor React",r:"images",req:[REACT]},
+  limora:{n:"Limora AI",u:"https://limora.ai",d:"hero-achtergronden en assets, met MCP",r:"images"}
+};
+const ROLES = {framework:"Basis",styling:"Styling",uikit:"UI-componenten",animation:"Animatie",motionx:"Motion, 3D & effecten",backend:"Backend & data",auth:"Login",email:"E-mail",security:"Beveiliging",hosting:"Hosting",taste:"Design-smaak voor Claude",rules:"Regels & skills voor Claude",plugin:"Claude-plugins",mcp:"MCP-koppelingen",test:"Testen",icons:"Iconen",iconsx:"Iconen (extra)",fonts:"Fonts",color:"Kleur & achtergronden",design:"Design-tools",inspiration:"Inspiratie",images:"Beeld",video:"Video & content",logo:"Logo & branding",aibuilder:"AI-builders",data:"Data & API's",learn:"Leren",quality:"Codekwaliteit",forms:"Formulieren & validatie",datalib:"Data ophalen",monitor:"Monitoring",practice:"Best practices & naslag",payments:"Betalingen",orm:"Database-toegang",api:"API-laag",storage:"Opslag & media",cms:"CMS",charts:"Grafieken & tabellen",maps:"Kaarten",devtool:"Dev-tools",creative:"Creative coding",formsvc:"Formulier-diensten"};
+
+/* ---------- Who installs what ---------- */
+const HOWS = {
+  code:{short:"npm",label:"Claude installeert dit zelf in je project"},
+  skill:{short:"skill",label:"Claude kan dit zelf in .claude/skills/ zetten"},
+  file:{short:"regels",label:"Claude zet deze regels in je CLAUDE.md"},
+  mcp:{short:"MCP",label:"Jij voegt dit één keer toe en keurt het goed (Claude kan het voorbereiden)"},
+  plugin:{short:"plugin",label:"Jij installeert dit met /plugin in Claude Code"},
+  service:{short:"account",label:"Jij maakt een account en zet de API-key in .env"},
+  web:{short:"site",label:"Geen installatie: je gebruikt de website"}
+};
+const HOW_OVR = {framer:"service",ccusage:"code",cctemplates:"code",anthskills:"skill",fontsource:"code",collletttivo:"web",pangram:"web",ark:"code",floatingui:"code",headlessui:"code",embla:"code",omniroute:"service",graphify:"skill",karpathy:"file",fedesign:"plugin",pwmcp:"mcp",cdtmcp:"mcp",webflow:"service",rive:"service",spline:"service",unicorn:"service",dotmatrix:"web",lottie:"code",iconify:"web",svgl:"web",boring:"code",limora:"service",places:"service",elevenlabs:"service",pandas:"code",publicapis:"web",figma:"web",tweakcn:"web",uiverse:"web",storybook:"code",rls:"file"};
+const HOW_ROLE = {plugin:"plugin",mcp:"mcp",rules:"plugin",taste:"skill",logo:"skill",framework:"code",styling:"code",uikit:"code",animation:"code",motionx:"code",quality:"code",forms:"code",datalib:"code",icons:"code",fonts:"code",test:"code",backend:"service",auth:"service",email:"service",hosting:"service",monitor:"service",aibuilder:"service",payments:"service",storage:"service",cms:"service",formsvc:"service",orm:"code",api:"code",charts:"code",maps:"code",creative:"code",devtool:"web"};
+const SKILL_RULES = ["vercelskills","wig"]; // skills-repos you can copy into .claude/skills
+const how = k => HOW_OVR[k] || (SKILL_RULES.includes(k)?"skill":null) || HOW_ROLE[T[k].r] || "web";
+
+/* ---------- Library cards ---------- */
 const CATS = {
-  claude:{code:"CLA",label:"Claude Code & AI-workflow"},
+  claude:{code:"CLA",label:"Claude Code & AI"},
   motion:{code:"ANI",label:"Animatie & motion"},
-  layout:{code:"LAY",label:"Hero's, layouts & UI"},
-  logo:{code:"LOG",label:"Logo's & mascottes"},
-  sites:{code:"WEB",label:"Handige websites"},
+  layout:{code:"UI",label:"UI & componenten"},
+  logo:{code:"LOG",label:"Logo's & branding"},
+  sites:{code:"INS",label:"Inspiratie & design"},
+  assets:{code:"AST",label:"Iconen, fonts & beeld"},
+  base:{code:"BAS",label:"Basis & hosting"},
+  best:{code:"BP",label:"Best practices"},
   learn:{code:"LRN",label:"Leren & oefenen"}
 };
 const IDEAS = [
-  {id:"Dd0gXqBy_dw",cat:"claude",title:"4 plugins voor Claude Code",
-   text:"Installeer deze voordat je begint met vibe coden.",
-   tools:[["Ponytail — laat Claude ~54% minder code schrijven","https://github.com/DietrichGebert/ponytail"],["OmniRoute — valt automatisch terug op een ander model als je limiet op is","https://github.com/diegosouzapw/OmniRoute"],["Graphify — maakt een kennisgraaf van je codebase, zodat de agent niet steeds bestanden herleest","https://github.com/Graphify-Labs/graphify"],["Agent Skills (Addy Osmani) — 25 skills van spec tot ship","https://github.com/addyosmani/agent-skills"]],
-   tags:["plugins","skills","claude code"]},
-  {id:"Dd4LrTSsx0i",cat:"claude",title:"4 koppelingen voor Claude Code",
-   text:"Laat Claude direct met je database praten, deployen, met een team van agents werken en een echte browser inspecteren.",
-   tools:[["Supabase MCP — praat direct met je database","https://supabase.com/docs/guides/ai-tools/mcp"],["Vercel MCP — \"deploy my app\" en het staat live","https://vercel.com/docs/mcp/vercel-mcp"],["oh-my-claudecode — 19 agents via één /team-commando","https://github.com/Yeachan-Heo/oh-my-claudecode"],["Chrome DevTools MCP — Claude kijkt mee in een echte browser","https://github.com/ChromeDevTools/chrome-devtools-mcp"]],
-   tags:["mcp","supabase","vercel","devtools"]},
-  {id:"DbVmPeLAuJS",cat:"claude",title:"Eén CLAUDE.md die Claude leert wanneer te stoppen",
-   text:"Slechte output komt vaak door gretigheid: Claude herschrijft bestanden die je niet noemde, gokt in plaats van te vragen, of bouwt een heel systeem voor een one-liner. Dat los je niet op met meer instructies, maar met grenzen.",
-   steps:["Denk eerst na: benoem aannames en vraag bij twijfel","Eenvoud eerst: niets bouwen waar niet om gevraagd is","Chirurgische wijzigingen: alleen aanpassen wat nodig is","Doelgericht: geef succescriteria en laat Claude het werk zelf controleren"],
-   tools:[["andrej-karpathy-skills — de CLAUDE.md met deze vier regels","https://github.com/forrestchang/andrej-karpathy-skills"]],
-   tags:["claude.md","prompting"]},
-  {id:"Ddi5_OkoiDa",cat:"claude",title:"Laat Claude je database niet openzetten",
-   text:"Tabellen die Claude in Supabase aanmaakt, staan soms met Row Level Security uit. Dan kan iedereen met je publieke API-key alle gebruikers en e-mailadressen ophalen.",
-   steps:["Zet RLS aan op elke tabel","Schrijf policies zodat gebruikers alleen hun eigen rijen zien","Test met de publieke key of je data echt dicht zit","Leg de regels vast in SECURITY.md (zie de gids onderaan)"],
-   tools:[["Supabase — Row Level Security","https://supabase.com/docs/guides/database/postgres/row-level-security"]],
-   tags:["security","supabase","rls"]},
-  {id:"Dc5YDjKI9ta",cat:"claude",title:"Een sign-up pagina met een avatar die meereageert",
-   text:"Een gratis repo als startpunt, Claude Code voor het werk, daarna zelf verfijnen.",
-   steps:["Plak de link van een avatar-repo in Claude Code en beschrijf wat je wilt: een formulier waar de avatar reageert op wat je typt","Verfijn het eerste resultaat: glow op de vorm, avatar volgt de muis","Voeg een premium achtergrond toe via de Limora MCP"],
-   tools:[["Boring Avatars — gratis open-source avatars voor React","https://boringavatars.com"],["Limora AI — hero-achtergronden, met MCP","https://limora.ai"]],
-   tags:["claude code","avatar","sign-up","mcp"]},
-  {id:"DafoIitSbr9",cat:"motion",title:"4 animatielibraries voor moderne websites",
-   text:"Kies op basis van wat je bouwt.",
-   tools:[["GSAP — complexe timelines en scroll-animaties","https://gsap.com"],["Anime.js — licht en flexibel","https://animejs.com"],["Motion.dev — dé keuze voor React","https://motion.dev"],["React Spring — natuurlijke physics-animaties","https://www.react-spring.dev"]],
-   tags:["gsap","react","scroll"]},
-  {id:"DauC8Ddy0t6",cat:"motion",title:"De stack van een filmische website",
-   text:"De stack achter de website van Lando Norris: smooth scroll, paginatransities en 3D. Geen van deze tools is moeilijk; het zit in de combinatie. Bestaande sites nabouwen is een snelle manier om beter te worden.",
-   tools:[["Webflow — CMS en content","https://webflow.com"],["GSAP + ScrollTrigger — animaties","https://gsap.com/scroll/"],["Lenis — smooth scrolling","https://lenis.darkroom.engineering"],["Three.js — 3D","https://threejs.org"],["Rive — interactieve motion graphics","https://rive.app"],["Taxi.js — paginatransities","https://taxi.js.org"]],
-   tags:["gsap","three.js","lenis"]},
-  {id:"tb-motion",cat:"motion",title:"Motion design en micro-interacties",
-   text:"Tools om animaties te maken of inspiratie op te doen.",
-   tools:[["Jitter — motion design in de browser","https://jitter.video"],["Swishy — AI motion designer, export naar MP4/MOV","https://www.swishy.ai"],["Ripplix — 7.000+ voorbeelden van UI-animaties","https://www.ripplix.com"],["Google Flow — preloader-animaties maken met AI, zonder code","https://labs.google/flow"],["Dot Matrix — moderne loading-animaties","https://dotmatrix.zzzzshawn.cloud"]],
-   tags:["animatie","preloader","inspiratie"]},
-  {id:"DdePLtKAoWw",cat:"layout",title:"5 hero-layouts die niet generiek zijn",
-   text:"De hero is het eerste wat iemand ziet. Vijf richtingen in plaats van \"hi, I'm a designer\":",
-   steps:["Bento box — modulaire kaarten in een strak grid","Brutalist billboard — 90% van het scherm is je naam","Swiss editorial — gridlijnen en gedempte kleuren","Floating node — dark mode, grote type, interactieve tags","Architectural split — asymmetrische kolommen, veel witruimte"],
-   tools:[["Bento Grids — voorbeelden van bento-layouts","https://bentogrids.com"],["Figma — om de hero eerst te schetsen","https://www.figma.com"]],
-   tags:["hero","portfolio","layout"]},
-  {id:"tb-ui",cat:"layout",title:"UI-componenten en effecten",
-   text:"Kant-en-klare componenten voor je React/Next.js-project.",
-   tools:[["Kokonut UI — 100+ gratis componenten (React, Tailwind, Motion)","https://kokonutui.com"],["Bklit UI — charts en datavisualisatie op shadcn/ui","https://bklit.com"],["Shaders — WebGPU-shadereffecten voor React, Vue, Svelte","https://shaders.com"]],
-   tags:["componenten","tailwind","shadcn","webgpu"]},
-  {id:"Ddf-7oiz126",cat:"layout",title:"Een dashboard met micro-interacties",
-   text:"Recept voor een modern dashboard: interactieve datakaarten, subtiele animaties bij hover en laden, volledig responsive. Gebouwd met React, CSS en Motion.",
-   tools:[["Motion — animaties in React","https://motion.dev"],["Bklit UI — charts voor de datakaarten","https://bklit.com"]],
-   tags:["dashboard","react","motion"]},
-  {id:"DcZLVTQR4S5",cat:"logo",title:"Mascottelogo's met de IP-as-logo skill",
-   text:"Een skill die platte, schattige karakterlogo's maakt, plus een grote bibliotheek met mascottes die gratis commercieel te gebruiken zijn. Een mascotte geeft je app persoonlijkheid en een premium gevoel.",
-   tools:[["s1dashu/ip-as-logo-skill","https://github.com/s1dashu/ip-as-logo-skill"]],
-   tags:["logo","mascotte","skill"]},
-  {id:"Dd1dJi9j-vq",cat:"logo",title:"Logo Design Skill voor Claude",
-   text:"Maakt van Claude een logo-ontwerper: van briefing en concepten tot SVG-bestanden, testsheets, favicon-set en brand guidelines.",
-   tools:[["kaankiziltug/logo-design-skill","https://github.com/kaankiziltug/logo-design-skill"],["gittrend.io — meer populaire repos zoals deze","https://gittrend.io"]],
-   tags:["logo","skill","svg","branding"]},
-  {id:"tb-insp",cat:"sites",title:"Stijl, kleur en mockups",
-   text:"Voor als je een stijlrichting zoekt. Refero Styles geeft per site een DESIGN.md-bestand dat je direct aan Claude kunt geven.",
-   tools:[["Refero Styles — websitestijlen + DESIGN.md","https://styles.refero.design"],["RandomA11y — toegankelijke kleurcombinaties","https://randoma11y.com"],["Rotato — 3D device-mockups","https://rotato.app"]],
-   tags:["inspiratie","kleuren","design.md","mockups"]},
-  {id:"tb-build",cat:"sites",title:"AI-builders en content",
-   text:"Tools die taken voor je uitvoeren of snel content maken.",
-   tools:[["Manus — AI-agent die taken en workflows uitvoert","https://manus.im"],["ContentCore — content maken, opslaan als beeld of video","https://contentcore.xyz"]],
-   tags:["ai tools","content","agents"]},
-  {id:"DdtvK1JixOE",cat:"learn",title:"10 GitHub-repos om van te leren",
-   text:"Kies er één en bouw er echt iets mee.",
-   tools:[["Build Your Own X","https://github.com/codecrafters-io/build-your-own-x"],["Awesome","https://github.com/sindresorhus/awesome"],["Public APIs","https://github.com/public-apis/public-apis"],["freeCodeCamp","https://github.com/freeCodeCamp/freeCodeCamp"],["Free Programming Books","https://github.com/EbookFoundation/free-programming-books"],["System Design Primer","https://github.com/donnemartin/system-design-primer"],["Developer Roadmap","https://github.com/kamranahmedse/developer-roadmap"],["Coding Interview University","https://github.com/jwasham/coding-interview-university"],["Awesome Python","https://github.com/vinta/awesome-python"],["Project Based Learning","https://github.com/practical-tutorials/project-based-learning"]],
-   tags:["github","leren"]},
-  {id:"DdgOI0NJoP1",cat:"learn",title:"4 oefenprojecten",
-   text:"Projecten om je portfolio mee te vullen, met de API of tool die je ervoor nodig hebt.",
-   tools:[["Café-finder met echte data (JavaScript) — Google Places API","https://developers.google.com/maps/documentation/places/web-service"],["Voice assistant (Python) — ElevenLabs API","https://elevenlabs.io/docs"],["Analyse van Amazon-bestsellers (Python) — pandas","https://pandas.pydata.org"],["Persoonlijke website (HTML/CSS/JS) — Codédex Builds","https://www.codedex.io"]],
-   tags:["projecten","portfolio"]}
+  {id:"Dd0gXqBy_dw",cat:"claude",title:"4 plugins voor Claude Code",text:"Installeer deze voordat je begint met vibe coden.",tools:["ponytail","omniroute","graphify","agentskills"],tags:["plugins","skills"]},
+  {id:"Dd4LrTSsx0i",cat:"claude",title:"4 koppelingen voor Claude Code",text:"Laat Claude direct met je database praten, deployen, met een team van agents werken en een echte browser inspecteren.",tools:["supamcp","vercelmcp","omc","cdtmcp"],tags:["mcp","supabase","vercel"]},
+  {id:"fe-skills",cat:"claude",title:"Skills voor mooiere frontends",text:"Zonder hulp kiest Claude vaak dezelfde veilige look. Deze skills sturen de smaak en de kwaliteit. Kies één smaak-skill (Frontend Design óf Taste Skill), anders krijg je tegenstrijdige regels.",tools:["fedesign","taste","uiuxpro","vercelskills","wig"],tags:["skills","design","kwaliteit"]},
+  {id:"fe-mcp",cat:"claude",title:"MCP-servers voor frontend",text:"Van ontwerp naar code en weer terug: Claude leest je Figma, haalt actuele docs op, installeert componenten en test het resultaat in de browser.",steps:["Figma MCP: bouw vanuit het echte ontwerp","Context7: gebruik de docs van de juiste versie","shadcn MCP: installeer componenten met een zin","Playwright MCP: laat Claude klikken en controleren"],tools:["figmamcp","context7","shadcnmcp","pwmcp"],tags:["mcp","figma","testen"]},
+  {id:"DbVmPeLAuJS",cat:"claude",title:"Eén CLAUDE.md die Claude leert wanneer te stoppen",text:"Slechte output komt vaak door gretigheid: Claude herschrijft bestanden die je niet noemde, gokt in plaats van te vragen, of bouwt een heel systeem voor een one-liner. Dat los je op met grenzen.",steps:["Denk eerst na: benoem aannames en vraag bij twijfel","Eenvoud eerst: niets bouwen waar niet om gevraagd is","Chirurgische wijzigingen: alleen aanpassen wat nodig is","Doelgericht: geef succescriteria en laat Claude het werk zelf controleren"],tools:["karpathy","superpowers"],tags:["claude.md","prompting"]},
+  {id:"Ddi5_OkoiDa",cat:"claude",title:"Laat Claude je database niet openzetten",text:"Tabellen die Claude in Supabase aanmaakt, staan soms met Row Level Security uit. Dan kan iedereen met je publieke API-key alle gebruikers ophalen.",steps:["Zet RLS aan op elke tabel","Schrijf policies zodat gebruikers alleen hun eigen rijen zien","Test met de publieke key of je data echt dicht zit","Leg de regels vast in SECURITY.md (zie de gids onderaan)"],tools:["rls","supabase"],tags:["security","supabase"]},
+  {id:"Dc5YDjKI9ta",cat:"claude",title:"Een sign-up pagina met een avatar die meereageert",text:"Een gratis repo als startpunt, Claude Code voor het werk, daarna zelf verfijnen.",steps:["Geef Claude de link van een avatar-library en vraag om een formulier waar de avatar reageert op wat je typt","Verfijn het resultaat: glow op de vorm, avatar volgt de muis","Voeg een premium achtergrond toe via de Limora MCP"],tools:["boring","limora"],tags:["avatar","sign-up"]},
+  {id:"cc-lists",cat:"claude",title:"Lijsten om nieuwe tools te vinden",text:"Hier verschijnen nieuwe skills, plugins en MCP-servers als eerste.",tools:["awesomecc","cctoolkit","fetoolkit","skillssh","gittrend"],tags:["awesome","ontdekken"]},
+  {id:"bp-claude",cat:"best",title:"Werken met Claude Code",text:"De gewoontes die het grootste verschil maken in kwaliteit.",steps:["Laat Claude eerst een plan maken (plan mode) en keur dat goed","Geef één duidelijke taak per keer, met succescriteria","Geef context: screenshots, bestanden, voorbeelden die je mooi vindt","Laat Claude zijn werk verifiëren: tests draaien of in de browser kijken","Begin met /clear aan een nieuwe taak, zo blijft de context schoon","Commit na elke werkende stap, dan kun je altijd terug"],tools:["ccbp","ccdocs","ccmemory"],tags:["workflow","prompting","claude.md"]},
+  {id:"bp-ext",cat:"best",title:"Skills, plugins en MCP: wat is wat?",text:"Skill = instructies die Claude laadt als ze relevant zijn (een map met SKILL.md). Plugin = een pakket van skills, agents, hooks en/of MCP-servers. MCP-server = een koppeling die Claude nieuwe tools geeft, zoals je database of browser.",steps:["Skills: Claude kan ze zelf in .claude/skills/ zetten","Plugins: jij installeert ze met /plugin in Claude Code","MCP: jij voegt ze één keer toe en keurt ze goed; log in via /mcp"],tools:["ccskills","ccplugins","ccmcp"],tags:["skills","plugins","mcp"]},
+  {id:"bp-a11y",cat:"best",title:"Toegankelijkheid",text:"Een toegankelijke site is voor iedereen prettiger en scoort beter in zoekmachines.",steps:["Gebruik echte HTML-elementen: button, nav, main, label","Geef elke afbeelding een beschrijvende alt-tekst","Zorg dat alles met het toetsenbord werkt en de focus zichtbaar is","Houd tekstcontrast minimaal op WCAG AA (4,5:1)","Respecteer prefers-reduced-motion bij animaties"],tools:["wcag","a11yproj","webaim","wave","learna11y","reducedmotion"],tags:["a11y","wcag","contrast"]},
+  {id:"bp-perf",cat:"best",title:"Snelheid",text:"Een trage site verliest bezoekers. Meet eerst, verbeter daarna.",steps:["Comprimeer afbeeldingen en geef ze vaste afmetingen","Maximaal twee fontfamilies, met font-display: swap","Laad zware onderdelen (3D, video) pas als ze in beeld komen","Houd JavaScript klein: niet elke library is nodig","Meet met PageSpeed Insights op je live site"],tools:["cwv","psi","squoosh","webdev"],tags:["performance","core web vitals"]},
+  {id:"bp-css",cat:"best",title:"Responsive en moderne CSS",text:"Layouts die op elk scherm werken zonder tientallen breakpoints.",steps:["Ontwerp mobile first","Gebruik clamp() voor vloeiende tekst en spacing","Gebruik gap in flex en grid in plaats van losse margins","Container queries voor componenten die zich aanpassen aan hun plek"],tools:["everylayout","utopia","moderncss","learncss","josh"],tags:["css","responsive","layout"]},
+  {id:"bp-design",cat:"best",title:"Design-principes",text:"De regels die een pagina er meteen professioneler uit laten zien.",steps:["Maak hiërarchie met grootte, gewicht en kleur, niet alleen met grootte","Gebruik een vaste spacing-schaal (bijv. 4, 8, 16, 24, 32)","Maximaal twee fonts en één accentkleur","Geef elementen ruimte: witruimte is geen verspilling","Ontwerp ook de lege, laad- en foutstatus"],tools:["refactoringui","lawsofux","practypo","typescale","checklistdesign"],tags:["design","typografie","spacing"]},
+  {id:"bp-ux",cat:"best",title:"UX-patronen en formulieren",text:"Kleine details die bepalen of iemand je formulier afmaakt.",steps:["Labels altijd zichtbaar, niet alleen als placeholder","Toon foutmeldingen bij het veld, in gewone taal","Bevestig elke actie (\"Opgeslagen\")","Valideer op de client voor snelheid én op de server voor veiligheid"],tools:["uxpatterns","checklistdesign","wig","zod","rhf"],tags:["ux","formulieren","validatie"]},
+  {id:"bp-sec",cat:"best",title:"Beveiliging voor vibe coders",text:"De meeste lekken in AI-gebouwde apps zijn dezelfde paar fouten.",steps:["Secrets in .env, nooit in client-side code of in git","Valideer alle input op de server","Row Level Security aan op elke tabel","Controleer sessies en rechten op de server","Houd dependencies up-to-date","Check je security headers na het deployen"],tools:["owasp","owaspcs","secheaders","rls"],tags:["security","owasp"]},
+  {id:"bp-quality",cat:"best",title:"Codekwaliteit",text:"Afspraken die je code leesbaar houden, ook voor Claude.",steps:["TypeScript in strict mode","Eén linter + formatter (Biome, of ESLint + Prettier)","Kleine componenten met één taak","Leg naamgeving en structuur vast in CODE_STYLE.md"],tools:["ts","biome","eslint","prettier","patternsdev"],tags:["typescript","lint","format"]},
+  {id:"bp-test",cat:"best",title:"Testen",text:"Tests zijn het vangnet waarmee Claude zelf kan controleren of iets werkt.",steps:["Test logica met unit tests","Test belangrijke flows (inloggen, betalen) end-to-end","Laat Claude na elke wijziging de tests draaien"],tools:["vitest","testinglib","playwright","pwmcp"],tags:["testen","e2e"]},
+  {id:"bp-react",cat:"best",title:"Data en state in React",text:"De meeste React-bugs komen van data die op de verkeerde plek staat.",steps:["Server-data via TanStack Query, niet via fetch in useEffect","Formulier-state in React Hook Form, validatie met Zod","Filters en tabs in de URL, zodat je kunt delen en terugkomen","Bouw eerst toegankelijke primitives, style daarna"],tools:["tanstack","zod","rhf","reactdocs","radix","baseui"],tags:["react","state","data"]},
+  {id:"bp-seo",cat:"best",title:"SEO en delen",text:"Zorg dat je site gevonden wordt en er goed uitziet als hij gedeeld wordt.",steps:["Unieke title en description per pagina","Een Open Graph-afbeelding voor social media","Favicons voor alle apparaten","Eén h1 per pagina, logische koppen daaronder"],tools:["gsearch","ogp","favicon"],tags:["seo","open graph"]},
+  {id:"bp-ship",cat:"best",title:"Git, deployen en monitoren",text:"Van je laptop naar live, zonder stress.",steps:["Kleine commits met duidelijke berichten","Eén branch per feature, preview-deploy per branch","Foutmonitoring aan vanaf dag één","Meet bezoekers zonder cookies"],tools:["convcommits","vercel","sentry","plausible"],tags:["git","deploy","monitoring"]},
+  {id:"bp-comp",cat:"best",title:"Componenten bouwen",text:"Bouw een eigen set componenten die je in elk project hergebruikt.",tools:["radix","baseui","shadcn","storybook"],tags:["componenten","design system"]},
+  {id:"bp-learn",cat:"best",title:"Bij blijven",text:"Waar frontend-developers hun kennis bijhouden.",tools:["smashing","csstricks","josh","patternsdev","webdev"],tags:["leren","artikelen"]},
+  {id:"cc-mcp2",cat:"claude",title:"Nog meer MCP-servers",text:"Koppelingen voor GitHub, componenten, code-navigatie, het web en betalingen.",tools:["githubmcp","magicmcp","serena","firecrawl","stripemcp"],tags:["mcp","github","stripe"]},
+  {id:"cc-ext",cat:"claude",title:"Claude Code uitbreiden",text:"Geheugen, kant-en-klare componenten en inzicht in je gebruik.",tools:["claudemem","cctemplates","anthskills","ccusage"],tags:["geheugen","templates","skills"]},
+  {id:"ui-kits",cat:"layout",title:"Complete UI-kits",text:"Liever alles in één pakket? Kies één kit als basis, niet twee.",tools:["heroui","mantine","chakra","ark","flowbite","preline","tailwindplus","shadcnblocks"],tags:["ui-kit","tailwind"]},
+  {id:"ui-charts",cat:"layout",title:"Grafieken, tabellen en diagrammen",text:"Voor dashboards en data-verhalen.",tools:["tremor","recharts","nivo","chartjs","echarts","tanstacktable","reactflow"],tags:["charts","data","tabellen"]},
+  {id:"ui-small",cat:"layout",title:"Kleine bouwstenen met grote impact",text:"Toasts, drawers, command-menu's, tooltips, drag-and-drop en carrousels.",tools:["sonner","vaul","cmdk","headlessui","floatingui","dndkit","swiper","embla"],tags:["react","interactie"]},
+  {id:"ui-maps",cat:"layout",title:"Kaarten",text:"Voor alles met locaties. Combineer met de Google Places API voor echte plekken.",tools:["leaflet","maplibre","places"],tags:["kaarten","locatie"]},
+  {id:"mo-creative",cat:"motion",title:"Creative coding, games en physics",text:"Voor speelse sites, games en generatieve kunst.",tools:["r3f","babylon","pixi","p5","matter","tsparticles","vanta"],tags:["3d","games","physics"]},
+  {id:"mo-trans",cat:"motion",title:"Paginatransities en scroll",text:"Vloeiend van pagina naar pagina. Kies één transitie-library.",tools:["barba","taxi","lenis","gsap"],tags:["transities","scroll"]},
+  {id:"as-fonts2",cat:"assets",title:"Meer fonts en typografie-inspiratie",text:"Minder bekende fonts geven je site direct een eigen gezicht.",tools:["fontsource","collletttivo","pangram","typewolf","fontsinuse"],tags:["fonts","typografie"]},
+  {id:"as-icons2",cat:"assets",title:"Meer iconen en merk-logo's",text:"Andere stijlen, en logo's van bekende merken.",tools:["iconoir","remixicon","hugeicons","radixicons","simpleicons"],tags:["iconen","logo's"]},
+  {id:"as-img2",cat:"assets",title:"Beeld bewerken en mockups",text:"Van foto tot presentatie-klare mockup.",tools:["blush","pexels","icons3d","shots","tinypng","svgomg","removebg"],tags:["beeld","mockups","compressie"]},
+  {id:"insp-color2",cat:"sites",title:"Meer kleurtools",text:"Paletten zoeken, genereren en toepassen.",tools:["huemint","colorhunt","adobecolor","oklch","happyhues"],tags:["kleuren","paletten"]},
+  {id:"insp-gal2",cat:"sites",title:"Meer inspiratie per onderdeel",text:"Specifieke galerijen voor landingspagina's, flows, navigatie en creatieve demo's.",tools:["dribbble","behance","onepagelove","saaslp","landingfolio","darkmode","collectui","pageflows","navbar","cssda","codrops","codepen"],tags:["inspiratie","flows"]},
+  {id:"insp-tools",cat:"sites",title:"Ontwerp- en schetstools",text:"Van snelle schets tot volledig ontwerp.",tools:["penpot","excalidraw","tldraw","relume","figma"],tags:["wireframes","design"]},
+  {id:"base-fw2",cat:"base",title:"Meer frameworks",text:"Andere smaken dan React, en mobiele apps.",tools:["sveltekit","nuxt","reactrouter","tsstart","expo","framer"],tags:["svelte","vue","mobile"]},
+  {id:"base-db",cat:"base",title:"Databases en backends",text:"Kies één backend. Neon en Turso zijn alleen een database; combineer ze met een ORM.",tools:["neon","turso","firebase","pocketbase","appwrite","drizzle","prisma","upstash"],tags:["database","orm"]},
+  {id:"base-auth",cat:"base",title:"Login, betalingen en API's",text:"Kies één login-oplossing en één betaalprovider.",tools:["authjs","betterauth","stripe","lemonsqueezy","trpc","hono"],tags:["auth","betalingen","api"]},
+  {id:"base-host",cat:"base",title:"Meer hosting, opslag en formulieren",text:"Van statische site tot app met database.",tools:["cfpages","railway","render","uploadthing","cloudinary","formspree","tally"],tags:["hosting","uploads","formulieren"]},
+  {id:"base-cms",cat:"base",title:"CMS en analytics",text:"Content beheren zonder code, en meten wat bezoekers doen.",tools:["sanity","payload","posthog","umami"],tags:["cms","analytics"]},
+  {id:"base-dev",cat:"base",title:"Handige dev-tools",text:"Kleine tools die je dagelijks tijd besparen.",tools:["caniuse","bundlephobia","regex101","transform","responsively","clippy","carbon","rayso"],tags:["tools","browser"]},
+  {id:"learn-more",cat:"learn",title:"Meer leren, met spelletjes",text:"Leer CSS en JavaScript op een manier die blijft hangen.",tools:["odin","scrimba","cssbattle","froggy","gridgarden","jsinfo","femasters","tshandbook","kevinpowell"],tags:["cursussen","games"]},
+  {id:"DafoIitSbr9",cat:"motion",title:"4 animatielibraries",text:"Kies er één per project, op basis van wat je bouwt.",tools:["gsap","animejs","motion","reactspring"],tags:["gsap","react","scroll"]},
+  {id:"DauC8Ddy0t6",cat:"motion",title:"De stack van een filmische website",text:"De stack achter de website van Lando Norris. Geen van deze tools is moeilijk; het zit in de combinatie. Bestaande sites nabouwen is een snelle manier om beter te worden.",tools:["webflow","gsap","lenis","threejs","rive","taxi"],tags:["3d","scroll","transities"]},
+  {id:"motion-3d",cat:"motion",title:"3D en effecten zonder veel code",text:"Visueel bouwen en daarna in je site zetten.",tools:["spline","unicorn","lottie","theatre","autoanimate","shaders"],tags:["3d","webgl","lottie"]},
+  {id:"tb-motion",cat:"motion",title:"Motion design en micro-interacties",text:"Tools om animaties te maken, plus inspiratie en timing.",tools:["jitter","swishy","flow","dotmatrix","ripplix","cubic","easings"],tags:["animatie","preloader","easing"]},
+  {id:"DdePLtKAoWw",cat:"layout",title:"5 hero-layouts die niet generiek zijn",text:"De hero is het eerste wat iemand ziet. Vijf richtingen in plaats van \"hi, I'm a designer\":",steps:["Bento box: modulaire kaarten in een strak grid","Brutalist billboard: 90% van het scherm is je naam","Swiss editorial: gridlijnen en gedempte kleuren","Floating node: dark mode, grote type, interactieve tags","Architectural split: asymmetrische kolommen, veel witruimte"],tools:["bentogrids","supahero","figma"],tags:["hero","portfolio"]},
+  {id:"ui-anim",cat:"layout",title:"Geanimeerde componentbibliotheken",text:"Kopieer een component, plak het in je React-project en pas het aan. Bijna allemaal gebouwd op Tailwind en Motion.",tools:["aceternity","magicui","reactbits","c21st","motionprim","animata","cultui","hoverdev","kokonut"],tags:["react","tailwind","motion"]},
+  {id:"ui-base",cat:"layout",title:"Basiscomponenten en thema's",text:"De fundering onder je UI. shadcn/ui is de standaard waar veel andere bibliotheken op bouwen.",tools:["shadcn","tweakcn","daisyui","uiverse","bklit"],tags:["shadcn","thema","charts"]},
+  {id:"Ddf-7oiz126",cat:"layout",title:"Een dashboard met micro-interacties",text:"Recept voor een modern dashboard: interactieve datakaarten, subtiele animaties bij hover en laden, volledig responsive.",tools:["bklit","motion","shaders"],tags:["dashboard","react"]},
+  {id:"DcZLVTQR4S5",cat:"logo",title:"Mascottelogo's",text:"Een mascotte geeft je app persoonlijkheid en een premium gevoel. De skill maakt platte, schattige karakterlogo's en heeft een bibliotheek die gratis commercieel te gebruiken is.",tools:["iplogo"],tags:["logo","mascotte"]},
+  {id:"Dd1dJi9j-vq",cat:"logo",title:"Logo Design Skill voor Claude",text:"Maakt van Claude een logo-ontwerper: van briefing en concepten tot SVG-bestanden, testsheets, favicon-set en brand guidelines.",tools:["logoskill","svgl"],tags:["logo","svg"]},
+  {id:"insp-gal",cat:"sites",title:"Inspiratiegalerijen",text:"Verzamel drie voorbeelden die je mooi vindt en geef ze als screenshot aan Claude.",tools:["godly","awwwards","mobbin","landbook","siteinspire","minimal","lapa","refero"],tags:["inspiratie","galerij"]},
+  {id:"insp-color",cat:"sites",title:"Kleur, achtergronden en schaduw",text:"Kies eerst een toegankelijk palet, maak daarna vormen en patronen in die kleuren.",tools:["randoma11y","realtime","coolors","uicolors","haikei","fffuel","patterncraft","cssgradient","shadows"],tags:["kleuren","svg","gradients"]},
+  {id:"tb-build",cat:"sites",title:"AI-builders en content",text:"Snel een eerste versie of promo-materiaal. Kies één builder als startpunt en werk daarna verder in Claude Code.",tools:["v0","bolt","lovable","manus","contentcore","rotato"],tags:["ai tools","prototype","mockups"]},
+  {id:"as-icons",cat:"assets",title:"Iconen",text:"Kies één iconenset per project, dan blijft je UI consistent. Iconify en SVGL zijn handig voor losse extra's.",tools:["lucide","phosphor","tabler","heroicons","iconify","svgl"],tags:["iconen","svg"]},
+  {id:"as-fonts",cat:"assets",title:"Fonts en typografie",text:"Maximaal twee families: één voor koppen, één voor tekst.",tools:["fontshare","uncut","gfonts","fontpair","typescale"],tags:["fonts","typografie"]},
+  {id:"as-img",cat:"assets",title:"Illustraties en beeld",text:"Gratis beeld, en zorg dat het snel laadt.",tools:["undraw","storyset","unsplash","squoosh","limora"],tags:["illustraties","foto's"]},
+  {id:"base-fw",cat:"base",title:"Frameworks en styling",text:"Kies één basis. Next.js voor apps, Vite voor simpele React-projecten, Astro voor content-sites.",tools:["nextjs","vite","astro","tailwind"],tags:["react","tailwind"]},
+  {id:"base-be",cat:"base",title:"Backend, login en hosting",text:"Alles wat je nodig hebt zodra je app gebruikers of data heeft.",tools:["supabase","convex","clerk","resend","vercel","netlify","playwright"],tags:["database","auth","deploy"]},
+  {id:"DdtvK1JixOE",cat:"learn",title:"10 GitHub-repos om van te leren",text:"Kies er één en bouw er echt iets mee.",tools:["byox","awesome","publicapis","fcc","fpb","sdp","roadmap","ciu","awesomepy","pbl"],tags:["github","leren"]},
+  {id:"learn-fe",cat:"learn",title:"Frontend leren en oefenen",text:"Uitleg die blijft hangen, en echte designs om na te bouwen.",tools:["josh","mdn","webdev","fementor"],tags:["css","react","oefenen"]},
+  {id:"DdgOI0NJoP1",cat:"learn",title:"4 oefenprojecten",text:"Café-finder (JavaScript), voice assistant (Python), analyse van Amazon-bestsellers (Python) en een persoonlijke website.",tools:["places","elevenlabs","pandas","codedex"],tags:["projecten","portfolio"]}
 ];
 
-const store = {get(){try{return JSON.parse(localStorage.getItem("bieb-done")||"[]")}catch(e){return[]}},set(v){try{localStorage.setItem("bieb-done",JSON.stringify(v))}catch(e){}}};
-let done = new Set(store.get());
-let active = "all";
+/* ---------- Projects & combos ---------- */
+const PROJECTS = [
+  {title:"Portfolio met een bento-hero",level:"Starter",time:"1 weekend",text:"Een persoonlijke site waar je werk in modulaire kaarten staat, met subtiele animaties bij hover.",stack:["nextjs","tailwind","shadcn","kokonut","motion","refero","fontshare","lucide","karpathy","fedesign","vercel","vercelmcp","pwmcp"],steps:["Kies een stijl op Refero Styles en geef de DESIGN.md aan Claude","Schets de bento-hero in Figma of op papier","Laat Claude het bouwen met Kokonut UI-componenten","Deploy met de Vercel MCP"]},
+  {title:"Claude Code starterkit",level:"Starter",time:"1 avond",text:"Eén template-repo die je voor elk nieuw project kloont, met al je regels en plugins klaar.",stack:["karpathy","ponytail","agentskills","context7","graphify","pwmcp"],steps:["Zet de vier CLAUDE.md-regels in de root","Voeg de /docs-map met SECURITY.md, CODE_STYLE.md, DATABASE.md en API.md toe","Installeer Ponytail en Agent Skills","Draai Graphify zodra het project groeit"]},
+  {title:"Merk in een weekend",level:"Starter",time:"1 weekend",text:"Logo, kleuren en een geanimeerde logo-intro voor een fictief (of echt) merk.",stack:["logoskill","randoma11y","fontshare","jitter","refero"],steps:["Laat de logo-skill een briefing en drie concepten maken","Kies een toegankelijk kleurenpaar met RandomA11y","Animeer het logo in Jitter","Leg alles vast in een DESIGN_SYSTEM.md"]},
+  {title:"Launch-video voor je app",level:"Starter",time:"1 middag",text:"Een korte promo zonder code: je app op een 3D-telefoon met strakke motion.",stack:["rotato","swishy","jitter","contentcore"],steps:["Maak screenshots van je app","Zet ze in een 3D-mockup met Rotato","Voeg titels en overgangen toe met Swishy of Jitter","Maak social posts in ContentCore"]},
+  {title:"Sfeervolle weer-site",level:"Starter",time:"1 dag",text:"De achtergrond verandert mee met het weer: rustig bij zon, onrustig bij storm.",stack:["vite","tailwind","publicapis","shaders","motion","dotmatrix","phosphor","netlify"],steps:["Zoek een gratis weer-API in Public APIs","Koppel het weertype aan shader-instellingen","Gebruik een Dot Matrix-loader tijdens het ophalen","Animeer de temperatuur met Motion"]},
+  {title:"Linkpagina met micro-animaties",level:"Starter",time:"1 avond",text:"Je eigen \"link in bio\"-pagina met één opvallend effect en je eigen iconen.",stack:["astro","tailwind","reactbits","svgl","uncut","haikei","netlify"],steps:["Kies één achtergrond-effect uit React Bits","Maak een SVG-achtergrond met Haikei","Gebruik merk-logo's van SVGL voor je socials","Publiceer op Netlify"]},
+  {title:"Café-finder met favorieten",level:"Gemiddeld",time:"2 weekenden",text:"Vind cafés in de buurt en sla je favorieten op in je eigen account.",stack:["nextjs","tailwind","shadcn","places","supabase","supamcp","rls","lucide","vercel","pwmcp"],steps:["Haal cafés op met de Places API","Laat Claude een favorieten-tabel maken via de Supabase MCP","Zet RLS aan zodat ieder alleen zijn eigen favorieten ziet","Deploy via Vercel en test met Playwright MCP"]},
+  {title:"Persoonlijk habit-dashboard",level:"Gemiddeld",time:"2 weekenden",text:"Houd gewoontes bij (sporten, lezen, water) en zie je voortgang in grafieken.",stack:["nextjs","tailwind","shadcn","bklit","motion","supabase","supamcp","rls","cdtmcp","vercel"],steps:["Ontwerp datakaarten met Bklit UI-charts","Sla check-ins op in Supabase","Voeg micro-animaties toe met Motion","Laat Claude de UI testen via de Chrome DevTools MCP"]},
+  {title:"Sign-up flow met een mascotte",level:"Gemiddeld",time:"1 weekend",text:"Een registratiepagina waar een mascotte meekijkt terwijl je typt en blij wordt als het lukt.",stack:["nextjs","tailwind","iplogo","boring","motion","limora","supabase","rls","resend","vercel"],steps:["Maak een mascotte met de IP-as-logo skill (of start met Boring Avatars)","Laat de mascotte reageren op focus en typen met Motion","Genereer een hero-achtergrond met Limora","Koppel echte auth via Supabase en stuur een welkomstmail met Resend"]},
+  {title:"Scrollverhaal over data",level:"Gemiddeld",time:"2 weekenden",text:"Een data-verhaal dat zich ontvouwt terwijl je scrolt, bijvoorbeeld over bestsellers.",stack:["astro","tailwind","pandas","gsap","lenis","gfonts","netlify"],steps:["Analyseer de dataset met pandas en exporteer JSON","Teken de grafieken als SVG","Laat grafieken in beeld animeren met ScrollTrigger","Maak het scrollen vloeiend met Lenis"]},
+  {title:"Landingspagina uit Figma",level:"Gemiddeld",time:"1 weekend",text:"Ontwerp eerst in Figma, laat Claude het daarna pixel-precies bouwen.",stack:["figma","figmamcp","nextjs","tailwind","shadcn","aceternity","motion","context7","pwmcp","vercel"],steps:["Ontwerp de pagina in Figma met auto-layout","Koppel de Figma MCP en laat Claude sectie voor sectie bouwen","Voeg één wow-effect toe uit Aceternity UI","Vergelijk het resultaat in de browser met Playwright MCP"]},
+  {title:"Browsergame met leaderboard",level:"Gemiddeld",time:"2–3 weekenden",text:"Een klein 3D-spelletje met een online topscorelijst.",stack:["vite","threejs","animejs","supabase","rls","netlify"],steps:["Bouw een simpele scène met Three.js","Gebruik Anime.js voor UI-animaties en score-pop-ups","Sla scores op in Supabase","Voorkom valsspelen met RLS en server-side checks"]},
+  {title:"Kanban-bord met drag-and-drop",level:"Gemiddeld",time:"2 weekenden",text:"Je eigen Trello: kolommen, kaartjes slepen en alles opgeslagen per gebruiker.",stack:["nextjs","tailwind","shadcn","dndkit","sonner","supabase","supamcp","rls","zod","vercel","pwmcp"],steps:["Maak tabellen voor borden, kolommen en kaarten met RLS","Bouw slepen met dnd kit","Geef feedback met Sonner-toasts","Test het slepen met Playwright MCP"]},
+  {title:"Receptensite met CMS",level:"Gemiddeld",time:"2 weekenden",text:"Een mooie receptensite waar je nieuwe recepten toevoegt zonder code aan te raken.",stack:["nextjs","tailwind","sanity","gfonts","phosphor","cloudinary","vercel","ogp"],steps:["Maak een recept-schema in Sanity","Laat Claude de pagina's genereren uit de CMS-data","Optimaliseer foto's met Cloudinary","Zorg voor mooie Open Graph-afbeeldingen per recept"]},
+  {title:"Kleine webshop",level:"Gevorderd",time:"3+ weekenden",text:"Verkoop een paar producten (prints, stickers) met echte betalingen.",stack:["nextjs","tailwind","shadcn","stripe","stripemcp","supabase","rls","resend","zod","vercel","sentry","pwmcp"],steps:["Zet producten in Stripe via de Stripe MCP","Gebruik Stripe Checkout en verwerk betalingen via webhooks","Stuur orderbevestigingen met Resend","Test de hele koopflow met Playwright MCP"]},
+  {title:"Mobiele habit-app",level:"Gevorderd",time:"3+ weekenden",text:"Een echte app voor je telefoon, gebouwd met React Native.",stack:["expo","supabase","rls","zod","sentry"],steps:["Start een Expo-project en test op je eigen telefoon","Sla gewoontes op in Supabase met RLS","Valideer invoer met Zod","Zet Sentry aan voordat je de app deelt"]},
+  {title:"Filmische fanpagina",level:"Gevorderd",time:"3+ weekenden",text:"Een landingspagina voor je favoriete sporter, band of film, in de stijl van de Lando Norris-site.",stack:["astro","gsap","lenis","threejs","rive","taxi","fontshare","netlify","awwwards"],steps:["Begin met Lenis en één ScrollTrigger-sectie","Voeg een 3D-object toe met Three.js","Maak een interactieve animatie in Rive","Verbind pagina's met Taxi.js-overgangen"]},
+  {title:"Stemassistent met een gezicht",level:"Gevorderd",time:"3+ weekenden",text:"Een assistent die praat en een geanimeerd gezicht heeft dat meebeweegt met de stem.",stack:["vite","tailwind","elevenlabs","rive","omniroute"],steps:["Zet spraak om met de ElevenLabs API","Maak een mondanimatie in Rive","Stuur de animatie aan met het volume van de audio","Gebruik OmniRoute zodat het model nooit stilvalt"]},
+  {title:"Mini-SaaS met login en e-mail",level:"Gevorderd",time:"4+ weekenden",text:"Een klein betaald-product-idee: accounts, een dashboard en e-mails. Goede oefening in veilig bouwen.",stack:["nextjs","tailwind","shadcn","magicui","motion","supabase","supamcp","rls","resend","vercel","vercelmcp","pwmcp","karpathy","vercelskills","context7"],steps:["Schrijf eerst SECURITY.md en DATABASE.md","Bouw auth en tabellen met RLS via de Supabase MCP","Maak het dashboard met shadcn/ui en Magic UI","Test de flows met Playwright MCP en deploy via Vercel"]}
+];
+const COMBOS = [
+  {tools:["gsap","lenis"],why:"Standaardduo voor scroll-animaties: Lenis maakt het scrollen vloeiend, ScrollTrigger hangt er animaties aan."},
+  {tools:["shadcn","tweakcn","magicui"],why:"shadcn als basis, tweakcn voor je thema, Magic UI voor de effecten. Alles spreekt dezelfde taal."},
+  {tools:["motion","kokonut"],why:"Kokonut UI is gebouwd op Motion, dus je eigen animaties sluiten er naadloos op aan."},
+  {tools:["supabase","supamcp","rls"],why:"Laat Claude de database bouwen via MCP, maar altijd met RLS aan."},
+  {tools:["vercelmcp","pwmcp","context7"],why:"Deployen, testen en actuele docs: Claude kan zelf controleren of het werkt."},
+  {tools:["figmamcp","shadcnmcp"],why:"Ontwerp in Figma, Claude bouwt het met echte shadcn-componenten in plaats van zelfgemaakte."},
+  {tools:["refero","randoma11y"],why:"Eerst een stijlrichting kiezen, dan kleuren die ook toegankelijk zijn."},
+  {tools:["logoskill","jitter"],why:"Logo als SVG uit de skill, direct animeren in Jitter voor een intro of social post."},
+  {tools:["karpathy","ponytail"],why:"Allebei tegen overbodige code: samen houden ze Claude klein en precies."},
+  {avoid:true,tools:["gsap","motion"],why:"Kies één animatie-engine per project. Twee naast elkaar maakt je bundel groot en je code rommelig."},
+  {avoid:true,tools:["fedesign","taste"],why:"Allebei sturen ze de visuele smaak van Claude, met eigen regels die elkaar tegenspreken."},
+  {avoid:true,tools:["threejs","shaders"],why:"Allebei zwaar op de GPU. Voor één achtergrondeffect is Shaders genoeg; Three.js alleen voor echte 3D."},
+  {avoid:true,tools:["webflow","shadcn"],why:"Webflow draait geen React-componenten. Kies Webflow óf een code-stack."},
+  {avoid:true,tools:["daisyui","shadcn"],why:"Twee componentsystemen door elkaar geven botsende stijlen. Kies er één."}
+];
+
+/* ---------- Compatibility rules ---------- */
+const EXCL = [
+  {keys:["gsap","motion","animejs","reactspring"],msg:"Kies één animatie-engine. Twee naast elkaar maakt je bundel groter en de code rommelig."},
+  {keys:["nextjs","vite","astro","webflow","framer","sveltekit","nuxt","reactrouter","tsstart","expo"],msg:"Kies één basis voor je project."},
+  {keys:["shadcn","heroui","mantine","chakra","daisyui","flowbite","preline"],msg:"Kies één componentsysteem als basis. Twee door elkaar geven botsende stijlen."},
+  {keys:["stripe","lemonsqueezy"],msg:"Kies één betaalprovider."},
+  {keys:["clerk","authjs","betterauth"],msg:"Kies één login-oplossing."},
+  {keys:["drizzle","prisma"],msg:"Kies één ORM."},
+  {keys:["barba","taxi"],msg:"Kies één library voor paginatransities."},
+  {keys:["swiper","embla"],msg:"Kies één carrousel."},
+  {keys:["threejs","babylon"],msg:"Kies één 3D-engine."},
+  {keys:["figma","penpot"],msg:"Kies één ontwerptool, anders raakt je ontwerp verspreid."},
+  {keys:["plausible","umami"],msg:"Eén analytics-tool is genoeg."},
+  {keys:["recharts","nivo","chartjs","echarts","tremor"],msg:"Eén chartlibrary houdt je grafieken consistent en je bundel klein."},
+  {keys:["vercel","netlify","cfpages","railway","render"],msg:"Kies één host."},
+  {keys:["supabase","convex","firebase","pocketbase","appwrite","neon","turso"],msg:"Kies één backend of database."},
+  {keys:["fedesign","taste"],msg:"Twee smaak-skills geven Claude tegenstrijdige designregels. Kies er één."},
+  {keys:["lucide","phosphor","tabler","heroicons","iconoir","remixicon","hugeicons","radixicons"],msg:"Eén iconenset houdt je UI consistent."},
+  {keys:["v0","bolt","lovable"],msg:"Kies één AI-builder als startpunt en werk daarna verder in Claude Code."}
+];
+const PAIRS = [
+  {a:"threejs",b:"shaders",msg:"Three.js en Shaders zijn allebei zwaar op de GPU. Gebruik Shaders voor een achtergrondeffect en Three.js alleen voor echte 3D."},
+  {a:"authjs",b:"supabase",msg:"Supabase heeft zelf al login. Een aparte auth-library erbij maakt het dubbel. Kies bewust.",soft:true},
+  {a:"betterauth",b:"supabase",msg:"Supabase heeft zelf al login. Een aparte auth-library erbij maakt het dubbel. Kies bewust.",soft:true},
+  {a:"firebase",b:"vercel",msg:"Firebase heeft zelf ook hosting. Kan prima samen, maar kies bewust waar je site draait.",soft:true},
+  {a:"clerk",b:"supabase",msg:"Supabase heeft zelf al login. Clerk erbij kan, maar dan moet je gebruikers in twee systemen koppelen. Kies bewust.",soft:true},
+  {a:"graphify",b:"context7",msg:null}
+];
+const isReactKit = k => (T[k].req||[]).some(g=>g===REACT);
+
+function analyse(sel){
+  const S = new Set(sel), out = {conf:[],miss:[],tip:[]};
+  if(!S.size) return out;
+  // exclusive groups
+  EXCL.forEach(g=>{const hit=g.keys.filter(k=>S.has(k)); if(hit.length>1) out.conf.push({msg:g.msg,tools:hit});});
+  PAIRS.forEach(p=>{if(p.msg&&S.has(p.a)&&S.has(p.b)) out[p.soft?"tip":"conf"].push({msg:p.msg,tools:[p.a,p.b]});});
+  // webflow vs react things
+  if(S.has("webflow")){const r=[...S].filter(k=>isReactKit(k)||(T[k].req||[]).some(g=>g.includes("shadcn")));
+    if(r.length) out.conf.push({msg:"Webflow draait geen React-componenten. Deze tools werken alleen in een code-project:",tools:r});}
+  // requirements
+  const reqSeen = new Set();
+  [...S].forEach(k=>(T[k].req||[]).forEach(alts=>{
+    if(alts.some(a=>S.has(a))) return;
+    if(S.has("webflow") && alts===REACT) return; // already reported as conflict
+    const id = alts.join("|"); const who = [...S].filter(x=>(T[x].req||[]).some(g=>g.join("|")===id));
+    if(reqSeen.has(id)) return; reqSeen.add(id);
+    out.miss.push({msg:`${who.map(x=>T[x].n).join(", ")} ${who.length>1?"hebben":"heeft"} ${alts===REACT?"een React-basis":T[alts[0]].n} nodig.`,add:alts});
+  }));
+  const has = r => [...S].some(k=>T[k].r===r);
+  const building = [...S].some(k=>["framework","uikit","animation","motionx","styling","backend","hosting","quality","forms","datalib"].includes(T[k].r));
+  if(building){
+    if(!has("framework") && !has("aibuilder")) out.miss.push({msg:"Nog geen basis gekozen.",add:["nextjs","vite","astro"]});
+    if(!has("hosting") && !S.has("webflow") && !S.has("framer") && !S.has("firebase")) out.miss.push({msg:"Nog geen hosting gekozen.",add:["vercel","netlify"]});
+    if(!has("styling") && !S.has("webflow") && ![...S].some(k=>(T[k].req||[]).some(g=>g.includes("tailwind")))) out.tip.push({msg:"Styling: Tailwind CSS is de standaard onder bijna alle componentbibliotheken.",add:["tailwind"]});
+    if(!has("test")) out.tip.push({msg:"Laat Claude zijn eigen werk in de browser controleren.",add:["pwmcp","cdtmcp"]});
+    if(!has("icons") && !S.has("webflow")) out.tip.push({msg:"Kies één iconenset.",add:["lucide","phosphor"]});
+    if(!has("fonts")) out.tip.push({msg:"Kies je fonts (maximaal twee families).",add:["fontshare","gfonts"]});
+    if(!has("rules") && !has("taste")) out.tip.push({msg:"Geef Claude regels en smaak mee.",add:["karpathy","fedesign","taste"]});
+    if(!S.has("ts") && [...S].some(k=>["framework","uikit"].includes(T[k].r)) && !S.has("webflow")) out.tip.push({msg:"TypeScript vangt fouten van Claude op voordat je gebruiker ze ziet.",add:["ts"]});
+    if(!has("quality") && !S.has("webflow")) out.tip.push({msg:"Een linter en formatter houden de code netjes.",add:["biome"]});
+    if(!S.has("context7") && [...S].filter(k=>["uikit","animation","motionx","framework"].includes(T[k].r)).length>=3) out.tip.push({msg:"Veel libraries? Context7 zorgt dat Claude de actuele docs gebruikt.",add:["context7"]});
+  }
+  if((has("backend")||has("auth")) && !S.has("zod")) out.tip.push({msg:"Valideer input op de server met één schema.",add:["zod"]});
+  if(has("backend") && !has("monitor")) out.tip.push({msg:"Zie fouten in productie voordat gebruikers klagen.",add:["sentry"]});
+  if(S.has("biome") && (S.has("eslint")||S.has("prettier"))) out.conf.push({msg:"Biome vervangt ESLint en Prettier. Kies Biome óf ESLint + Prettier.",tools:["biome",...["eslint","prettier"].filter(k=>S.has(k))]});
+  if(S.has("radix") && S.has("baseui")) out.conf.push({msg:"Radix en Base UI doen hetzelfde. Kies één set primitives.",tools:["radix","baseui"]});
+  if(S.has("supabase") && !S.has("rls")) out.miss.push({msg:"Supabase zonder Row Level Security laat je data open staan.",add:["rls"]});
+  if((has("backend")||has("auth")) && !S.has("supamcp") && S.has("supabase")) out.tip.push({msg:"Laat Claude de database direct beheren.",add:["supamcp"]});
+  if(S.has("vercel") && !S.has("vercelmcp")) out.tip.push({msg:"Deployen vanuit Claude met één zin.",add:["vercelmcp"]});
+  if(S.has("figma") && !S.has("figmamcp")) out.tip.push({msg:"Laat Claude je Figma-ontwerp direct lezen.",add:["figmamcp"]});
+  if(S.has("shadcn") && !S.has("shadcnmcp")) out.tip.push({msg:"Componenten installeren met een zin.",add:["shadcnmcp"]});
+  return out;
+}
+
+/* ---------- CLAUDE.md generator ---------- */
+function names(keys){return keys.map(k=>T[k].n).join(", ");}
+function buildMd(sel){
+  const S = new Set(sel), name = (val("pname")||"Mijn project").trim(), desc = (val("pdesc")||"").trim();
+  const by = r => sel.filter(k=>T[k].r===r);
+  const L = [];
+  L.push(`# ${name}`,"");
+  L.push(desc || "_Beschrijf in één of twee zinnen wat je bouwt en voor wie._","");
+  if(!sel.length){L.push("_Voeg tools toe met de + knoppen in de library._");return L.join("\n");}
+  L.push("## Stack","");
+  Object.keys(ROLES).forEach(r=>{const ks=by(r); if(!ks.length) return;
+    L.push(`### ${ROLES[r]}`); ks.forEach(k=>L.push(`- **${T[k].n}**: ${T[k].d}. ${T[k].u}`)); L.push("");});
+  // who installs what
+  const H = w => sel.filter(k=>how(k)===w);
+  const plugins=H("plugin"), mcps=H("mcp"), svcs=H("service"), codes=H("code"), skills=H("skill"), webs=H("web");
+  L.push("## Installatie: wie doet wat","");
+  if(plugins.length||mcps.length||svcs.length){
+    L.push("### 1. Doe dit zelf eerst","");
+    if(plugins.length){L.push("**Plugins** (typ dit in Claude Code; Claude kan slash-commando's niet voor je uitvoeren):","");
+      plugins.forEach(k=>L.push(T[k].cmd?`- ${T[k].n}: \`${T[k].cmd}\`, daarna \`/plugin\` → installeren`:`- ${T[k].n}: \`/plugin\` → zoek "${T[k].n}" of voeg de marketplace toe uit ${T[k].u}`));
+      L.push("","Plugins laden bij het starten van een sessie: start Claude Code opnieuw na het installeren. Een cloudsessie (claude.ai/code) laadt je lokale plugins niet.","");}
+    if(mcps.length){L.push("**MCP-servers** (draai dit in je terminal, of vraag Claude ze in `.mcp.json` te zetten):","");
+      mcps.forEach(k=>L.push(T[k].cmd?`- ${T[k].n}: \`${T[k].cmd}\``:`- ${T[k].n}: zie ${T[k].u}`));
+      L.push("","Claude Code vraagt je om servers uit `.mcp.json` goed te keuren. Servers met een login koppel je via `/mcp`. Check de status met `/mcp`.","");}
+    if(svcs.length){L.push("**Accounts** (maak ze aan en zet de keys in `.env.local`, nooit in git):","");
+      svcs.forEach(k=>L.push(`- ${T[k].n}: ${T[k].u}`)); L.push("");}
+  }
+  if(codes.length||skills.length||sel.includes("karpathy")){
+    L.push(`### ${plugins.length||mcps.length||svcs.length?"2":"1"}. Laat Claude dit doen`,"","Plak deze prompt in Claude Code:","","```text","Lees CLAUDE.md. Installeer daarna:");
+    const npm = codes.filter(k=>T[k].cmd&&T[k].cmd.startsWith("npm i")).map(k=>T[k].cmd.replace(/^npm i (-D )?/,(m,d)=>d?"-D ":""));
+    const setup = codes.filter(k=>T[k].cmd&&!T[k].cmd.startsWith("npm i"));
+    const rest = codes.filter(k=>!T[k].cmd);
+    setup.forEach(k=>L.push(`- ${T[k].n}: ${T[k].cmd}`));
+    if(npm.length) L.push(`- packages: ${npm.filter(x=>!x.startsWith("-D")).length?"npm i "+npm.filter(x=>!x.startsWith("-D")).join(" "):""}${npm.some(x=>x.startsWith("-D"))?(npm.some(x=>!x.startsWith("-D"))?" en ":"")+"npm i -D "+npm.filter(x=>x.startsWith("-D")).map(x=>x.slice(3)).join(" "):""}`);
+    if(rest.length) L.push(`- volgens hun docs: ${rest.map(k=>`${T[k].n} (${T[k].u})`).join(", ")}`);
+    skills.forEach(k=>L.push(`- skill: zet ${T[k].n} uit ${T[k].u} in .claude/skills/`));
+    if(sel.includes("karpathy")) L.push(`- regels: neem de vier regels uit ${T.karpathy.u} over in CLAUDE.md (onder "Regels voor Claude")`);
+    L.push("Controleer daarna of alles werkt en vertel wat ik nog zelf moet doen.","```","");
+    if(skills.length) L.push("Nieuwe skills worden direct opgepikt. Bestond de map `.claude/skills/` nog niet toen de sessie startte? Typ dan `/reload-skills`.","");
+  }
+  if(webs.length){L.push(`### ${[plugins.length||mcps.length||svcs.length, codes.length||skills.length].filter(Boolean).length+1}. Gebruik zelf (websites)`,"");
+    webs.forEach(k=>L.push(`- ${T[k].n}: ${T[k].u}`)); L.push("");}
+  L.push("## Regels voor Claude","");
+  L.push("- Gebruik alleen de tools uit deze stack. Vraag eerst voordat je een nieuwe dependency toevoegt.");
+  L.push("- Denk eerst na: benoem aannames en stel vragen als iets onduidelijk is.");
+  L.push("- Houd het simpel: bouw niets waar niet om gevraagd is.");
+  L.push("- Pas alleen aan wat nodig is voor de taak, en volg de bestaande stijl.");
+  const fw=by("framework"); if(fw.length===1) L.push(`- Bouw op ${T[fw[0]].n}.`);
+  if(S.has("tailwind")) L.push("- Style met Tailwind CSS. Geen losse CSS-bestanden tenzij het echt nodig is.");
+  const kits=by("uikit"); if(kits.length) L.push(`- Zoek eerst een passend component in ${names(kits)} voordat je zelf iets bouwt.`);
+  const an=by("animation"); if(an.length===1) L.push(`- Animeer alleen met ${T[an[0]].n}.`);
+  if(S.has("lenis")) L.push("- Smooth scroll gaat via Lenis. Kaap het scroll-gedrag niet op een andere manier.");
+  const ic=by("icons"); if(ic.length===1) L.push(`- Gebruik alleen iconen uit ${T[ic[0]].n}.`);
+  if(by("fonts").length) L.push(`- Fonts komen van ${names(by("fonts"))}. Maximaal twee families.`);
+  if(S.has("randoma11y")||S.has("realtime")) L.push("- Houd kleurcontrast minimaal op WCAG AA-niveau.");
+  if(S.has("refero")) L.push("- Volg de DESIGN.md van de gekozen Refero-stijl voor kleuren, typografie en spacing.");
+  if(S.has("figmamcp")) L.push("- Gebruik het Figma-ontwerp (via Figma MCP) als bron voor maten, kleuren en tekst.");
+  if(S.has("context7")) L.push("- Haal actuele docs op via Context7 voordat je een library-API gebruikt.");
+  if(S.has("supabase")) L.push("- Zet Row Level Security aan op elke tabel en schrijf policies per gebruiker.");
+  if(by("backend").length||by("auth").length||by("payments").length){L.push("- Zet nooit secrets in client-side code. Controleer sessies op de server.");L.push("- Zet authenticatie nooit uit om iets werkend te krijgen.");}
+  if(S.has("ts")) L.push("- Schrijf TypeScript in strict mode. Geen `any`.");
+  if(S.has("zod")) L.push("- Valideer alle input met Zod, op de client én op de server.");
+  if(S.has("rhf")) L.push("- Formulieren bouw je met React Hook Form.");
+  if(S.has("tanstack")) L.push("- Server-data haal je op met TanStack Query, niet met fetch in useEffect.");
+  if(S.has("biome")) L.push("- Draai Biome (lint + format) voordat je een taak afrondt.");
+  else if(S.has("eslint")||S.has("prettier")) L.push(`- Draai ${names(["eslint","prettier"].filter(k=>S.has(k)))} voordat je een taak afrondt.`);
+  if(S.has("vitest")) L.push("- Schrijf tests met Vitest voor nieuwe logica en draai ze na elke wijziging.");
+  if(S.has("stripe")||S.has("lemonsqueezy")) L.push("- Bereken prijzen en verwerk betalingen alleen op de server, via webhooks. Vertrouw nooit bedragen van de client.");
+  if(S.has("drizzle")||S.has("prisma")) L.push(`- Database-toegang gaat via ${names(["drizzle","prisma"].filter(k=>S.has(k)))}. Wijzig het schema alleen met migraties.`);
+  if(by("cms").length) L.push(`- Content komt uit ${names(by("cms"))}. Hardcode geen teksten die de klant moet kunnen aanpassen.`);
+  if(by("charts").length===1) L.push(`- Grafieken en tabellen bouw je met ${T[by("charts")[0]].n}.`);
+  if(S.has("sentry")) L.push("- Log fouten via Sentry. Nooit persoonsgegevens of secrets in logs.");
+  const tst=by("test"); if(tst.length) L.push(`- Controleer na elke UI-wijziging het resultaat in de browser via ${names(tst)}.`);
+  const host=by("hosting"); if(host.length===1) L.push(`- Deploy via ${T[host[0]].n}${S.has("vercelmcp")?" (Vercel MCP)":""}.`);
+  L.push("- Werk dit bestand bij als de stack verandert.","");
+  L.push("## Kwaliteitsbasis","");
+  L.push("- Semantische HTML: button, nav, main, label. Eén h1 per pagina.");
+  L.push("- Elke afbeelding heeft een alt-tekst, vaste afmetingen en is gecomprimeerd.");
+  L.push("- Alles werkt met het toetsenbord en de focus is zichtbaar.");
+  L.push("- Tekstcontrast minimaal WCAG AA (4,5:1).");
+  L.push("- Animaties respecteren prefers-reduced-motion.");
+  L.push("- Mobile first; geen horizontale scroll op 360px breed.");
+  L.push("- Ontwerp ook de lege, laad- en foutstatus.");
+  L.push("- Elke pagina heeft een unieke title, description en Open Graph-afbeelding.","");
+  const a = analyse(sel);
+  if(a.conf.length){L.push("## Let op: botst met elkaar",""); a.conf.forEach(c=>L.push(`- ${c.msg} (${names(c.tools)})`)); L.push("");}
+  if(a.miss.length){L.push("## Nog te beslissen",""); a.miss.forEach(m=>L.push(`- [ ] ${m.msg} Opties: ${names(m.add)}.`)); L.push("");}
+  L.push("## Documentatie","","Zet projectregels in `/docs` en laat Claude het relevante bestand lezen voor een feature:","");
+  L.push("- `docs/CODE_STYLE.md`: naamgeving, componenten, formatting");
+  if(by("backend").length||by("auth").length){L.push("- `docs/SECURITY.md`: auth, secrets, validatie, regels voor de agent");L.push("- `docs/DATABASE.md`: modellen, migraties, productieveiligheid");L.push("- `docs/API.md`: endpoints, statuscodes, rate limiting");}
+  return L.join("\n");
+}
+
+/* ---------- Must-haves ---------- */
+const MUST = [
+  {title:"Voor elk project",text:"De basis die Claude beter laat bouwen en zijn eigen werk laat controleren.",items:[
+    ["karpathy","Regels tegen overbodige en gegokte code"],["fedesign","Voorkomt de standaard AI-look"],["context7","Claude gebruikt de actuele docs"],["pwmcp","Claude test zijn werk in een echte browser"],
+    ["nextjs","Eén basis die alles aankan"],["tailwind","Styling waar bijna alle componenten op draaien"],["shadcn","Componenten die je zelf bezit"],["ts","Vangt fouten voordat je gebruiker ze ziet"],["biome","Nette code zonder discussie"],["lucide","Eén consistente iconenset"],["vercel","Live in een paar minuten"],["vercelmcp","Deployen met één zin"]]},
+  {title:"Zodra je data of login hebt",text:"Hier gaat het in AI-gebouwde apps het vaakst mis.",items:[
+    ["supabase","Database, login en opslag in één"],["rls","Iedereen ziet alleen zijn eigen data"],["supamcp","Claude beheert de database zelf"],["zod","Input valideren op client en server"],["sentry","Fouten zien voordat gebruikers klagen"]]},
+  {title:"Altijd checken voor je live gaat",text:"Geen installatie nodig: open de site en test je pagina.",items:[
+    ["psi","Is de site snel genoeg?"],["wave","Zitten er toegankelijkheidsfouten in?"],["webaim","Is de tekst leesbaar?"],["secheaders","Staan de security headers goed?"],["ogp","Ziet je link er goed uit als hij gedeeld wordt?"]]}
+];
+const MUSTSET = new Set(MUST.flatMap(g=>g.items.map(i=>i[0])));
+function renderMust(){
+  document.getElementById("mustgrid").innerHTML = MUST.map((g,gi)=>{
+    const allIn = g.items.every(([k])=>stack.includes(k));
+    return `<div class="mustcol"><h3>${esc(g.title)}</h3><p>${esc(g.text)}</p>
+    <ul class="tools">${g.items.map(([k,why])=>`<li><span><a href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a> <span class="desc">— ${esc(why)}</span> <span class="how how-${how(k)}" title="${esc(HOWS[how(k)].label)}">${HOWS[how(k)].short}</span></span>${addBtn(k)}</li>`).join("")}</ul>
+    <div><button type="button" class="btn${allIn?" ghost":""}" data-mustall="${gi}">${allIn?"✓ Allemaal in je stack":"Voeg deze "+g.items.length+" toe aan je stack"}</button></div></div>`;}).join("");
+}
+
+/* ---------- State ---------- */
+const ls = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let done = new Set(ls.get("bieb-done",[]));
+let stack = ls.get("bieb-stack",[]).filter(k=>T[k]);
+let active = "all", level = "Alles";
+const val = id => document.getElementById(id).value;
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const counters = {};
 IDEAS.forEach(i=>{counters[i.cat]=(counters[i.cat]||0)+1; i.no = CATS[i.cat].code+"-"+String(counters[i.cat]).padStart(2,"0");});
+function toggleTool(k,on){const has=stack.includes(k); if(on===undefined) on=!has; if(on&&!has) stack.push(k); if(!on&&has) stack=stack.filter(x=>x!==k); ls.set("bieb-stack",stack); renderAll();}
 
-const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+/* ---------- Rendering ---------- */
+const addBtn = k => `<button type="button" class="add" data-add="${k}" aria-pressed="${stack.includes(k)}" aria-label="${stack.includes(k)?"Verwijder":"Voeg"} ${esc(T[k].n)} ${stack.includes(k)?"uit":"toe aan"} je stack" title="${stack.includes(k)?"In je stack":"Voeg toe aan stack"}">${stack.includes(k)?"✓":"+"}</button>`;
+const tlink = k => `<a class="tchip${stack.includes(k)?" sel":""}" href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>`;
 function card(i){
-  const tools = `<ul class="tools">${i.tools.map(([n,u])=>`<li><span><a href="${u}" target="_blank" rel="noopener">${esc(n)}</a></span></li>`).join("")}</ul>`;
   const steps = i.steps ? `<ol class="steps">${i.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>` : "";
+  const tools = `<ul class="tools">${i.tools.map(k=>`<li><span><a href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>${MUSTSET.has(k)?`<span class="star" title="Must-have">★</span>`:""} <span class="desc">— ${esc(T[k].d)}</span> <span class="how how-${how(k)}" title="${esc(HOWS[how(k)].label)}">${HOWS[how(k)].short}</span></span>${addBtn(k)}</li>`).join("")}</ul>`;
   return `<article class="card${done.has(i.id)?" done":""}" data-id="${i.id}">
     <div class="cardhead"><span class="callno">${i.no}</span><span>${esc(CATS[i.cat].label)}</span></div>
-    <h3>${esc(i.title)}</h3>
-    <p>${esc(i.text)}</p>${steps}${tools}
+    <h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>${steps}${tools}
     <div class="chips">${i.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>
     <div class="foot"><span class="linkcount">${i.tools.length} link${i.tools.length>1?"s":""}</span>
       <button class="tried" type="button" aria-pressed="${done.has(i.id)}">${done.has(i.id)?"✓ geprobeerd":"markeer als geprobeerd"}</button></div>
   </article>`;
 }
-function render(){
-  const q = document.getElementById("q").value.trim().toLowerCase();
-  const hide = document.getElementById("hideDone").checked;
+function renderLibrary(){
+  const q = val("q").trim().toLowerCase(), hide = document.getElementById("hideDone").checked;
   const list = IDEAS.filter(i=>(active==="all"||i.cat===active)&&(!hide||!done.has(i.id))&&
-    (!q||[i.title,i.text,i.no,...i.tags,...(i.steps||[]),...i.tools.map(t=>t[0])].join(" ").toLowerCase().includes(q)));
+    (!q||[i.title,i.text,i.no,...i.tags,...(i.steps||[]),...i.tools.flatMap(k=>[T[k].n,T[k].d])].join(" ").toLowerCase().includes(q)));
   document.getElementById("grid").innerHTML = list.map(card).join("");
   document.getElementById("empty").hidden = list.length>0;
-  const tools = IDEAS.reduce((n,i)=>n+i.tools.length,0);
-  document.getElementById("stats").innerHTML = `<span><b>${IDEAS.length}</b> ideeën</span><span><b>${tools}</b> links</span><span><b>${done.size}</b> geprobeerd</span>`;
-}
-function drawers(){
   const all = [["all","Alles",IDEAS.length],...Object.entries(CATS).map(([k,c])=>[k,c.label,counters[k]||0])];
   document.getElementById("drawers").innerHTML = all.map(([k,l,n])=>`<button type="button" class="drawer" data-cat="${k}" aria-pressed="${k===active}">${esc(l)}<span class="n">${n}</span></button>`).join("");
+  document.getElementById("stats").innerHTML = `<span><b>${Object.keys(T).length}</b> tools &amp; links</span><span><b>${IDEAS.length}</b> kaarten</span><span><b>${PROJECTS.length}</b> projectideeën</span><span><b>${done.size}</b> geprobeerd</span>`;
 }
-document.getElementById("drawers").addEventListener("click",e=>{const b=e.target.closest(".drawer");if(!b)return;active=b.dataset.cat;drawers();render();});
-document.getElementById("grid").addEventListener("click",e=>{const b=e.target.closest(".tried");if(!b)return;const id=b.closest(".card").dataset.id;done.has(id)?done.delete(id):done.add(id);store.set([...done]);render();});
-document.getElementById("q").addEventListener("input",render);
-document.getElementById("hideDone").addEventListener("change",render);
-drawers();render();
-const PROJECTS = [
-  {title:"Portfolio met een bento-hero",level:"Starter",time:"1 weekend",
-   text:"Een persoonlijke site waar je werk in modulaire kaarten staat, met subtiele animaties bij hover.",
-   stack:["Refero Styles","Bento Grids","Figma","Kokonut UI","Motion.dev","Vercel MCP"],
-   steps:["Kies een stijl op Refero Styles en geef de DESIGN.md aan Claude","Schets de bento-hero in Figma","Laat Claude het bouwen met Kokonut UI-componenten","Deploy met de Vercel MCP"]},
-  {title:"Claude Code starterkit",level:"Starter",time:"1 avond",
-   text:"Eén template-repo die je voor elk nieuw project kloont, met al je regels en plugins klaar.",
-   stack:["andrej-karpathy-skills","Ponytail","Agent Skills (Addy Osmani)","Graphify"],
-   steps:["Zet de vier CLAUDE.md-regels in de root","Voeg de /docs-map met SECURITY.md, CODE_STYLE.md, DATABASE.md en API.md toe","Installeer Ponytail en Agent Skills","Draai Graphify zodra het project groeit"]},
-  {title:"Merk in een weekend",level:"Starter",time:"1 weekend",
-   text:"Logo, kleuren en een geanimeerde logo-intro voor een fictief (of echt) merk.",
-   stack:["kaankiziltug/logo-design-skill","RandomA11y","Jitter","Refero Styles"],
-   steps:["Laat de logo-skill een briefing en drie concepten maken","Kies een toegankelijk kleurenpaar met RandomA11y","Animeer het logo in Jitter","Leg alles vast in een DESIGN_SYSTEM.md"]},
-  {title:"Launch-video voor je app",level:"Starter",time:"1 middag",
-   text:"Een korte promo zonder code: je app op een 3D-telefoon met strakke motion.",
-   stack:["Rotato","Swishy","Jitter","ContentCore"],
-   steps:["Maak screenshots van je app","Zet ze in een 3D-mockup met Rotato","Voeg titels en overgangen toe met Swishy of Jitter","Maak social posts in ContentCore"]},
-  {title:"Sfeervolle weer-site met shader-achtergrond",level:"Starter",time:"1 dag",
-   text:"De achtergrond verandert mee met het weer: rustig bij zon, onrustig bij storm.",
-   stack:["Public APIs","Shaders","Motion.dev","Dot Matrix"],
-   steps:["Zoek een gratis weer-API in Public APIs","Koppel het weertype aan shader-instellingen","Gebruik een Dot Matrix-loader tijdens het ophalen","Animeer de temperatuur met Motion"]},
-  {title:"Café-finder met favorieten",level:"Gemiddeld",time:"2 weekenden",
-   text:"Vind cafés in de buurt en sla je favorieten op in je eigen account.",
-   stack:["Google Places API","Supabase MCP","Supabase — Row Level Security","Kokonut UI","Vercel MCP"],
-   steps:["Haal cafés op met de Places API","Laat Claude een favorieten-tabel maken via de Supabase MCP","Zet RLS aan zodat ieder alleen zijn eigen favorieten ziet","Bouw de lijst met Kokonut UI en deploy via Vercel"]},
-  {title:"Persoonlijk habit-dashboard",level:"Gemiddeld",time:"2 weekenden",
-   text:"Houd gewoontes bij (sporten, lezen, water) en zie je voortgang in grafieken.",
-   stack:["Bklit UI","Motion","Supabase MCP","Chrome DevTools MCP"],
-   steps:["Ontwerp datakaarten met Bklit UI-charts","Sla check-ins op in Supabase","Voeg micro-animaties toe met Motion","Laat Claude de UI testen via de Chrome DevTools MCP"]},
-  {title:"Sign-up flow met een mascotte",level:"Gemiddeld",time:"1 weekend",
-   text:"Een registratiepagina waar een mascotte meekijkt terwijl je typt en blij wordt als het lukt.",
-   stack:["s1dashu/ip-as-logo-skill","Boring Avatars","Motion","Limora AI","Supabase MCP"],
-   steps:["Maak een mascotte met de IP-as-logo skill (of start met Boring Avatars)","Laat de mascotte reageren op focus en typen met Motion","Genereer een hero-achtergrond met Limora","Koppel echte auth via Supabase"]},
-  {title:"Scrollverhaal over bestsellers",level:"Gemiddeld",time:"2 weekenden",
-   text:"Een data-verhaal dat zich ontvouwt terwijl je scrolt: welke boeken verkopen het best, en waarom?",
-   stack:["pandas","Bklit UI","GSAP + ScrollTrigger","Lenis"],
-   steps:["Analyseer de dataset met pandas en exporteer JSON","Bouw de grafieken met Bklit UI","Laat grafieken in beeld animeren met ScrollTrigger","Maak het scrollen vloeiend met Lenis"]},
-  {title:"Browsergame met leaderboard",level:"Gemiddeld",time:"2–3 weekenden",
-   text:"Een klein 3D-spelletje met een online topscorelijst.",
-   stack:["Three.js","Anime.js","Supabase MCP","Supabase — Row Level Security"],
-   steps:["Bouw een simpele scène met Three.js","Gebruik Anime.js voor UI-animaties en score-pop-ups","Sla scores op in Supabase","Voorkom valsspelen met RLS en server-side checks"]},
-  {title:"Filmische fanpagina",level:"Gevorderd",time:"3+ weekenden",
-   text:"Een landingspagina voor je favoriete sporter, band of film, in de stijl van de Lando Norris-site.",
-   stack:["GSAP + ScrollTrigger","Lenis","Three.js","Rive","Taxi.js"],
-   steps:["Begin met Lenis en één ScrollTrigger-sectie","Voeg een 3D-object toe met Three.js","Maak een interactieve animatie in Rive","Verbind pagina's met Taxi.js-overgangen"]},
-  {title:"Stemassistent met een gezicht",level:"Gevorderd",time:"3+ weekenden",
-   text:"Een assistent die praat en een geanimeerd gezicht heeft dat meebeweegt met de stem.",
-   stack:["ElevenLabs API","Rive","Boring Avatars","OmniRoute"],
-   steps:["Zet spraak om met de ElevenLabs API","Maak een mondanimatie in Rive (of een simpele avatar)","Stuur de animatie aan met het volume van de audio","Gebruik OmniRoute zodat het model nooit stilvalt"]}
-];
-const COMBOS = [
-  {tools:["GSAP + ScrollTrigger","Lenis"],why:"Standaardduo voor scroll-animaties: Lenis maakt het scrollen vloeiend, ScrollTrigger hangt er animaties aan."},
-  {tools:["Motion.dev","Kokonut UI"],why:"Kokonut UI is al gebouwd op Motion, dus je animaties en componenten spreken dezelfde taal."},
-  {tools:["Bklit UI","Kokonut UI"],why:"Beide gebaseerd op Tailwind/shadcn: charts en UI-componenten zien er direct als één geheel uit."},
-  {tools:["Supabase MCP","Vercel MCP","Chrome DevTools MCP"],why:"De volledige loop vanuit Claude: database aanpassen, deployen en de live site controleren."},
-  {tools:["Refero Styles","RandomA11y"],why:"Eerst een stijlrichting kiezen, dan kleuren die ook toegankelijk zijn."},
-  {tools:["kaankiziltug/logo-design-skill","Jitter"],why:"Logo als SVG uit de skill, direct animeren in Jitter voor een intro of social post."},
-  {tools:["andrej-karpathy-skills","Ponytail"],why:"Allebei tegen overbodige code: samen houden ze Claude klein en precies."},
-  {tools:["Rotato","Swishy"],why:"Mockups en motion graphics voor een complete app-promo zonder code."},
-  {avoid:true,tools:["GSAP","Motion.dev"],why:"Kies er één per project. Twee animatie-engines naast elkaar maakt je bundel groot en je code rommelig."},
-  {avoid:true,tools:["Three.js","Shaders"],why:"Allebei zwaar op de GPU. Voor één achtergrondeffect is Shaders genoeg; Three.js alleen als je echt 3D nodig hebt."}
-];
-const LINKS = {};
-IDEAS.forEach(i=>i.tools.forEach(([n,u])=>{LINKS[n.split(" — ")[0].trim()]=u;}));
-Object.assign(LINKS,{"Motion":"https://motion.dev","GSAP":"https://gsap.com","Supabase — Row Level Security":"https://supabase.com/docs/guides/database/postgres/row-level-security","Google Places API":"https://developers.google.com/maps/documentation/places/web-service","ElevenLabs API":"https://elevenlabs.io/docs","pandas":"https://pandas.pydata.org"});
-const tlink = n => LINKS[n] ? `<a class="tchip" href="${LINKS[n]}" target="_blank" rel="noopener">${esc(n)}</a>` : `<span class="tchip">${esc(n)}</span>`;
-let level = "Alles";
 function renderProjects(){
   const lv=["Alles","Starter","Gemiddeld","Gevorderd"];
   document.getElementById("levels").innerHTML = lv.map(l=>`<button type="button" class="drawer" data-level="${l}" aria-pressed="${l===level}">${l}<span class="n">${l==="Alles"?PROJECTS.length:PROJECTS.filter(p=>p.level===l).length}</span></button>`).join("");
-  document.getElementById("pgrid").innerHTML = PROJECTS.filter(p=>level==="Alles"||p.level===level).map(p=>`<article class="proj">
+  document.getElementById("pgrid").innerHTML = PROJECTS.map((p,ix)=>({p,ix})).filter(({p})=>level==="Alles"||p.level===level).map(({p,ix})=>`<article class="proj">
     <div class="projmeta"><span class="lvl lvl-${p.level}">${p.level}</span><span>${p.time}</span></div>
     <h3>${esc(p.title)}</h3><p>${esc(p.text)}</p>
     <div class="stack">${p.stack.map(tlink).join("")}</div>
-    <ol class="steps">${p.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol></article>`).join("");
+    <ol class="steps">${p.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
+    <div class="projfoot"><button type="button" class="btn" data-load="${ix}">Laad deze stack →</button></div></article>`).join("");
+  document.getElementById("combos").innerHTML = COMBOS.map(c=>`<div class="combo${c.avoid?" avoid":""}">
+    <div class="combotools"><span class="mark">${c.avoid?"✕ niet samen":"✓ past samen"}</span>${c.tools.map(tlink).join('<span class="plus">+</span>')}</div>
+    <p>${esc(c.why)}</p></div>`).join("");
 }
-document.getElementById("levels").addEventListener("click",e=>{const b=e.target.closest("[data-level]");if(!b)return;level=b.dataset.level;renderProjects();});
-document.getElementById("combos").innerHTML = COMBOS.map(c=>`<div class="combo${c.avoid?" avoid":""}">
-  <div class="combotools"><span class="mark">${c.avoid?"✕ niet samen":"✓ past samen"}</span>${c.tools.map(tlink).join('<span class="plus">+</span>')}</div>
-  <p>${esc(c.why)}</p></div>`).join("");
-renderProjects();
-const missing=[...PROJECTS.flatMap(p=>p.stack),...COMBOS.flatMap(c=>c.tools)].filter(n=>!LINKS[n]);
-if(missing.length) console.warn("Geen link voor:",missing);
+function renderBuilder(){
+  document.getElementById("selcount").textContent = stack.length?`(${stack.length})`:"";
+  document.getElementById("selected").innerHTML = stack.length ? stack.map(k=>`<span class="selchip">${esc(T[k].n)}<button type="button" data-remove="${k}" aria-label="Verwijder ${esc(T[k].n)}">×</button></span>`).join("")
+    : `<p class="bempty">Nog leeg. Klik op + bij een tool in de library, of laad de stack van een projectidee.</p>`;
+  const a = analyse(stack);
+  const sugg = ks => ks.filter(k=>!stack.includes(k)).length ? `<div class="sugg">${ks.filter(k=>!stack.includes(k)).map(k=>`<button type="button" data-addsugg="${k}">+ ${esc(T[k].n)}</button>`).join("")}</div>` : "";
+  let h = "";
+  a.conf.forEach(c=>h+=`<div class="check conf"><span class="lbl">Botst</span><span>${esc(c.msg)} <b>${esc(names(c.tools))}</b></span></div>`);
+  a.miss.forEach(m=>h+=`<div class="check miss"><span class="lbl">Mist</span><span>${esc(m.msg)}</span>${sugg(m.add)}</div>`);
+  a.tip.forEach(t=>h+=`<div class="check tip"><span class="lbl">Aanrader</span><span>${esc(t.msg)}</span>${sugg(t.add||t.tools||[])}</div>`);
+  if(stack.length && !a.conf.length && !a.miss.length) h = `<div class="check ok"><span class="lbl">Klopt</span><span>Niets botst en er mist niets essentieels.</span></div>` + h;
+  if(!stack.length) h = `<p class="bempty">Zodra je tools kiest, zie je hier wat er mist en wat niet samengaat.</p>`;
+  document.getElementById("checks").innerHTML = h;
+  document.getElementById("md").textContent = buildMd(stack);
+  const tray = document.getElementById("tray");
+  tray.hidden = !stack.length; document.getElementById("wrap").classList.toggle("hastray",!!stack.length);
+  if(stack.length) tray.querySelector(".in").innerHTML = `<span>Mijn stack: <b>${stack.length}</b> tool${stack.length>1?"s":""}${a.conf.length?` · <span class="warn">${a.conf.length} botst</span>`:""}${a.miss.length?` · ${a.miss.length} mist`:""}</span><a href="#bouwer">Naar stack-bouwer ↓</a>`;
+}
+function renderAll(){renderMust();renderLibrary();renderProjects();renderBuilder();}
 
+/* ---------- Events ---------- */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button"); if(!t) return;
+  if(t.dataset.cat){active=t.dataset.cat;renderLibrary();return;}
+  if(t.dataset.level){level=t.dataset.level;renderProjects();return;}
+  if(t.dataset.add){toggleTool(t.dataset.add);return;}
+  if(t.dataset.addsugg){toggleTool(t.dataset.addsugg,true);return;}
+  if(t.dataset.mustall){const g=MUST[+t.dataset.mustall]; const allIn=g.items.every(([k])=>stack.includes(k)); g.items.forEach(([k])=>{if(!allIn&&!stack.includes(k)) stack.push(k);}); ls.set("bieb-stack",stack); renderAll(); return;}
+  if(t.dataset.remove){toggleTool(t.dataset.remove,false);return;}
+  if(t.dataset.load){const p=PROJECTS[+t.dataset.load]; stack=[...p.stack]; ls.set("bieb-stack",stack);
+    document.getElementById("pname").value=p.title; document.getElementById("pdesc").value=p.text; saveMeta(); renderAll();
+    document.getElementById("bouwer").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); return;}
+  if(t.classList.contains("tried")){const id=t.closest(".card").dataset.id; done.has(id)?done.delete(id):done.add(id); ls.set("bieb-done",[...done]); renderLibrary(); return;}
+});
+document.getElementById("q").addEventListener("input",renderLibrary);
+document.getElementById("hideDone").addEventListener("change",renderLibrary);
+function saveMeta(){ls.set("bieb-meta",{n:val("pname"),d:val("pdesc")});}
+["pname","pdesc"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{saveMeta();document.getElementById("md").textContent=buildMd(stack);}));
+document.getElementById("clearStack").addEventListener("click",()=>{stack=[];ls.set("bieb-stack",stack);renderAll();});
+const toast = m => {const el=document.getElementById("toast"); el.textContent=m; clearTimeout(toast.t); toast.t=setTimeout(()=>el.textContent="",2500);};
+document.getElementById("copyMd").addEventListener("click",()=>{
+  const txt=document.getElementById("md").textContent;
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("md"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Geselecteerd, druk Ctrl/Cmd+C");};
+  try{navigator.clipboard.writeText(txt).then(()=>toast("Gekopieerd"),fallback);}catch(e){fallback();}
+});
+// Downloads only work outside the embedded artifact viewer (e.g. the repo's index.html opened directly).
+try{ if(window.self===window.top){const b=document.getElementById("dlMd"); b.hidden=false; b.addEventListener("click",()=>{
+  const blob=new Blob([document.getElementById("md").textContent],{type:"text/markdown"}); const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download="CLAUDE.md"; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);});} }catch(e){}
+const meta = ls.get("bieb-meta",{n:"",d:""}); document.getElementById("pname").value=meta.n||""; document.getElementById("pdesc").value=meta.d||"";
+renderAll();
 </script>
 </body>
 </html>
