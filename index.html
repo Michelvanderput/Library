@@ -366,6 +366,52 @@ ul.variants .desc{color:var(--muted);display:block}
   .drawer,.ftab,.copyp,.tried{min-height:36px}
   .sugg button{min-height:34px}
 }
+/* ===== wireframes ===== */
+.wf{margin:0;flex:none;border-radius:8px;overflow:hidden;line-height:0}
+.wf svg{width:100%;height:auto;display:block}
+.wf-lg{border:1px solid var(--line);border-radius:10px}
+.wf .bg{fill:var(--paper);stroke:var(--line);stroke-width:1}
+.wf .ph{stroke:var(--line-2);stroke-width:1.4}
+.wf .s{fill:var(--card-2);stroke:var(--line);stroke-width:.7}
+.wf .t{fill:var(--line-2)}
+.wf .h{fill:var(--muted)}
+.wf .a{fill:var(--accent)}
+.wf .ao{fill:var(--accent);fill-opacity:.28}
+.wf .k{fill:var(--stamp)}
+.wf .g{fill:var(--ok)}
+.wf .o{fill:none;stroke:var(--line-2);stroke-width:.9}
+.wf .d{fill:var(--paper);fill-opacity:.72}
+.wf .ak{stroke:var(--accent);stroke-width:1.2}
+.wf .ol{stroke:var(--line-2);stroke-width:.8}
+.wf .okl{stroke:var(--ok);stroke-width:1}
+.wf .errl{stroke:var(--stamp);stroke-width:1}
+.wf .uline{stroke:var(--accent);stroke-width:1.4}
+.wf .ln{fill:none;stroke:var(--muted);stroke-width:1;stroke-linecap:round;stroke-linejoin:round}
+.wf .lna{fill:none;stroke:var(--accent);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.wf .grid{stroke:var(--line);stroke-width:.6}
+.wf .dash{stroke:var(--line-2);stroke-width:.6;stroke-dasharray:2 2}
+.wf .track{stroke:var(--line-2);stroke-width:2.4;stroke-linecap:round}
+.wf .trackon{stroke:var(--accent);stroke-width:2.4;stroke-linecap:round}
+.wf .inv{fill:#0b0b0f} .wf .invh{fill:#f4f4f5} .wf .invs{fill:#1c1c22;stroke:#3f3f46;stroke-width:.7} .wf .inv2{fill:var(--paper);fill-opacity:.85}
+.wf .fadeL,.wf .fadeR{fill:var(--paper);fill-opacity:.8}
+.wf .q{font:700 44px/1 var(--display);fill:var(--accent)}
+.wf .big404{font:700 34px/1 var(--display);fill:var(--muted);letter-spacing:-1px}
+.wf .spot{fill:var(--accent);fill-opacity:.16}
+.wf .sk{fill:var(--line)}
+.wf .ring{fill:none;stroke:var(--accent);stroke-width:1.4;stroke-dasharray:3 2}
+.wf .map{fill:var(--accent-soft);stroke:var(--line);stroke-width:.7}
+.wf .shimmer{fill:none;stroke:var(--accent);stroke-width:1.4;stroke-dasharray:22 140}
+.wf .spin{fill:none;stroke:var(--paper);stroke-width:1.3;stroke-dasharray:14 8}
+@media (prefers-reduced-motion:no-preference){
+  .card:hover .wf .shimmer{animation:wfsh 2.4s linear infinite}
+  .card:hover .wf .spin{animation:wfsp 1s linear infinite;transform-origin:60px 49px}
+}
+@keyframes wfsh{to{stroke-dashoffset:-162}} @keyframes wfsp{to{transform:rotate(360deg)}}
+ul.variants li{display:grid;grid-template-columns:112px minmax(0,1fr);grid-template-rows:auto auto;column-gap:12px;row-gap:6px;align-items:start}
+ul.variants li .wf{grid-row:1/3}
+ul.variants li .copyp{grid-column:2;justify-self:start}
+ul.variants li .wf{border:1px solid var(--line)}
+@media (max-width:520px){ul.variants li{grid-template-columns:96px minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -1409,18 +1455,160 @@ function toggleTool(k,on){const has=stack.includes(k); if(on===undefined) on=!ha
 /* ---------- Rendering ---------- */
 const addBtn = k => `<button type="button" class="add" data-add="${k}" aria-pressed="${stack.includes(k)}" aria-label="${stack.includes(k)?"Verwijder":"Voeg"} ${esc(T[k].n)} ${stack.includes(k)?"uit":"toe aan"} je stack" title="${stack.includes(k)?"In je stack":"Voeg toe aan stack"}">${stack.includes(k)?"✓":"+"}</button>`;
 const tlink = k => `<a class="tchip${stack.includes(k)?" sel":""}" href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>`;
+
+/* ---------- Wireframes: kleine SVG-schetsen per UI-variant, gekleurd met de tokens van de site ---------- */
+const WF = (()=>{
+  const r=(x,y,w,h,c="s",rx=2)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" class="${c}"/>`;
+  const t=(x,y,w,c="t")=>r(x,y,w,2.4,c,1.2);
+  const L=(x,y,w,n=3,g=5,c="t")=>Array.from({length:n},(_,i)=>t(x,y+i*g,i===n-1&&n>1?w*.6:w,c)).join("");
+  const h=(x,y,w,hh=5,c="h")=>r(x,y,w,hh,c,1.5);
+  const c=(x,y,rad,cl="t")=>`<circle cx="${x}" cy="${y}" r="${rad}" class="${cl}"/>`;
+  const b=(x,y,w=22,hh=7,cl="a")=>r(x,y,w,hh,cl,hh/2);
+  const img=(x,y,w,hh)=>r(x,y,w,hh,"s",3)+`<path d="M${x+w*.2} ${y+hh*.75} L${x+w*.42} ${y+hh*.45} L${x+w*.58} ${y+hh*.62} L${x+w*.7} ${y+hh*.5} L${x+w*.85} ${y+hh*.75}" class="ln"/>`+c(x+w*.3,y+hh*.3,Math.min(w,hh)*.08);
+  const nav=(y=0)=>r(0,y,160,13,"s",0)+h(8,y+4.5,16,4)+t(96,y+5.5,10)+t(110,y+5.5,10)+t(124,y+5.5,10)+b(138,y+3,16,7);
+  const dim=()=>r(0,0,160,100,"d",0);
+  const P=inner=>r(52,3,56,94,"bg ph",7)+`<g transform="translate(55,8)">${inner}</g>`; // phone: inner area 50×84
+  const S=inner=>`<svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">${r(0.5,0.5,159,99,"bg",6)}${inner}</svg>`;
+  const chk=(x,y,on=true)=>c(x,y,2.6,on?"g":"o");
+  const W={};
+  // --- Hero
+  W["DdePLtKAoWw"]=S(nav()+h(20,28,70,7)+h(20,38,52,7)+L(20,52,60,2)+b(20,64,26)+b(50,64,22,7,"o")+img(100,24,48,48)+[0,1,2,3,4].map(i=>r(20+i*26,84,18,5,"t",2)).join(""));
+  W["hero-bento"]=S(nav()+r(8,18,70,40,"s",4)+h(14,26,44,6)+L(14,38,50,2)+b(14,47,20)+r(82,18,34,19,"s",4)+r(120,18,32,19,"s",4)+r(82,41,70,17,"s",4)+r(8,62,46,32,"s",4)+r(58,62,50,32,"s",4)+r(112,62,40,32,"s",4)+c(22,76,6,"ao"));
+  W["hero-brutal"]=S(r(0,0,160,100,"bg",6)+h(8,14,144,26)+h(8,44,120,26)+t(8,80,50)+t(118,80,34,"a"));
+  W["hero-swiss"]=S([1,2,3,4,5].map(i=>`<line x1="${i*26.6}" y1="0" x2="${i*26.6}" y2="100" class="grid"/>`).join("")+`<line x1="0" y1="20" x2="160" y2="20" class="grid"/><line x1="0" y1="78" x2="160" y2="78" class="grid"/>`+t(6,8,20)+t(60,8,14)+t(114,8,20)+h(6,32,100,9)+h(6,45,74,9)+t(6,86,18)+t(33,86,18)+t(60,86,18)+r(114,86,8,4,"a",1));
+  W["hero-node"]=S(r(0,0,160,100,"inv",6)+h(38,40,84,10,"invh")+h(52,54,56,6,"invh")+[[20,20],[128,18],[14,76],[138,72],[70,16],[92,84],[30,50],[132,46]].map(([x,y],i)=>r(x,y,20,7,i%3?"invs":"ao",3.5)).join("")+`<path d="M30 24 L60 42 M138 22 L110 42 M24 80 L60 58 M146 76 L112 58" class="ln"/>`);
+  W["hero-split"]=S(h(8,18,56,8)+h(8,30,40,8)+L(8,46,52,3)+b(8,66,24)+img(78,10,74,80)+`<path d="M78 94 L152 94 M78 92 L78 96 M152 92 L152 96" class="ln"/>`+t(104,97,22));
+  // --- Navigatie
+  W["pat-nav|0"]=S(r(0,0,160,14,"ao",0)+h(8,5,16,4)+t(96,6,10)+t(110,6,10)+t(124,6,10)+b(138,3.5,16,7)+L(20,30,120,4,8)+img(20,64,56,28)+img(84,64,56,28));
+  W["pat-nav|1"]=S(r(30,6,100,12,"s",6)+h(38,10,12,4)+t(62,11,10)+t(76,11,10)+t(90,11,10)+b(108,8.5,17,7)+h(30,40,100,7)+L(40,54,80,2)+b(66,68,28));
+  W["pat-nav|2"]=S(nav()+r(20,16,120,56,"s",4)+[0,1,2].map(i=>c(32+i*40,28,4,"ao")+t(40+i*40,26,22)+L(28+i*40,38,30,4,6)).join(""));
+  W["pat-nav|3"]=S(r(0,0,38,100,"s",0)+h(8,8,20,5)+[0,1,2,3,4,5].map(i=>r(6,22+i*11,26,7,i===1?"ao":"t",2)).join("")+h(48,10,50,6)+r(48,24,50,30,"s",3)+r(104,24,48,30,"s",3)+r(48,60,104,32,"s",3));
+  W["pat-nav|4"]=S(P(h(4,4,30,5)+L(4,14,42,3)+img(4,30,42,24)+r(0,72,50,12,"s",0)+[0,1,2,3].map(i=>c(7+i*12,78,2.8,i===0?"a":"t")).join("")));
+  W["pat-nav|5"]=S(L(12,12,136,6,8)+dim()+r(30,16,100,68,"s",5)+r(36,22,88,10,"bg",3)+t(42,26,40)+[0,1,2,3,4].map(i=>r(36,38+i*9,88,7,i===1?"ao":"bg",2)+t(42,40.5+i*9,36)).join(""));
+  // --- Footer
+  W["pat-footer|0"]=S(L(20,16,120,5,9)+`<line x1="10" y1="82" x2="150" y2="82" class="grid"/>`+t(12,88,40)+c(124,89,2.5)+c(134,89,2.5)+c(144,89,2.5));
+  W["pat-footer|1"]=S(L(20,10,120,3,8)+r(0,40,160,60,"s",0)+h(10,48,20,5)+L(10,58,26,3,6)+[0,1,2,3].map(i=>t(48+i*28,48,20,"h")+L(48+i*28,56,20,4,6)).join(""));
+  W["pat-footer|2"]=S(L(20,10,120,3,8)+r(0,42,160,58,"s",0)+h(8,54,144,24)+t(8,86,40)+t(120,86,32));
+  W["pat-footer|3"]=S(r(14,10,132,40,"ao",5)+h(28,18,70,6)+r(28,32,64,9,"bg",4.5)+b(96,32,30,9)+[0,1,2,3].map(i=>L(14+i*36,62,24,3,6)).join("")+t(14,90,40));
+  // --- Features
+  W["pat-features|0"]=S(h(40,6,80,5)+r(8,18,70,40,"s",4)+c(20,30,5,"ao")+L(14,42,50,2)+r(82,18,70,18,"s",4)+r(82,40,70,18,"s",4)+r(8,62,46,32,"s",4)+r(58,62,94,32,"s",4));
+  W["pat-features|1"]=S(img(10,8,60,38)+h(82,14,56,5)+L(82,24,64,3)+img(90,54,60,38)+h(12,60,56,5)+L(12,70,64,3));
+  W["pat-features|2"]=S(h(46,6,68,5)+[0,1,2,3,4,5].map(i=>{const x=12+(i%3)*48,y=22+Math.floor(i/3)*38;return c(x+6,y+6,6,"ao")+t(x,y+16,34,"h")+L(x,y+23,38,2)}).join(""));
+  W["pat-features|3"]=S(h(46,6,68,5)+[0,1,2,3].map(i=>b(22+i*30,18,26,7,i===0?"a":"o")).join("")+img(16,32,128,62));
+  W["pat-features|4"]=S([0,1,2].map(i=>h(10,12+i*30,50,5,i===0?"h":"t")+L(10,22+i*30,56,2)).join("")+r(8,10,2,20,"a",1)+img(84,14,68,72)+`<path d="M76 50 l4 -3 v6 z" class="a"/>`);
+  // --- Social proof
+  W["pat-proof|0"]=S(h(44,20,72,5)+L(52,30,56,1)+[0,1,2,3,4,5].map(i=>r(-6+i*30,52,24,12,"s",3)).join("")+r(0,48,16,20,"fadeL",0)+r(144,48,16,20,"fadeR",0));
+  W["pat-proof|1"]=S([[8,8,44,30],[8,42,44,50],[58,8,44,44],[58,56,44,36],[108,8,44,38],[108,50,44,42]].map(([x,y,w,hh])=>r(x,y,w,hh,"s",3)+c(x+7,y+7,3.5,"ao")+t(x+13,y+6,20)+L(x+5,y+15,w-10,Math.max(1,Math.floor((hh-20)/6)),6)).join(""));
+  W["pat-proof|2"]=S(`<text x="22" y="44" class="q">“</text>`+h(40,30,96,8)+h(40,42,80,8)+c(46,70,6,"ao")+t(56,66,40,"h")+t(56,72,28));
+  W["pat-proof|3"]=S([0,1,2,3].map(i=>h(10+i*37,34,26,14,i===0?"a":"h")+t(10+i*37,54,30)+t(10+i*37,59,20)).join(""));
+  W["pat-proof|4"]=S([0,1,2].map(i=>r(8+i*50,12,44,76,"s",4)+img(12+i*50,16,36,26)+h(12+i*50,48,26,8,i===1?"a":"h")+L(12+i*50,62,36,3)).join(""));
+  // --- Pricing
+  W["pat-pricing|0"]=S([0,1,2].map(i=>r(10+i*48,i===1?8:14,44,i===1?84:74,i===1?"s ak":"s",4)+t(16+i*48,(i===1?14:20),20,"h")+h(16+i*48,(i===1?22:28),24,7)+L(16+i*48,(i===1?36:42),30,4,6)+b(16+i*48,(i===1?78:80),32,7,i===1?"a":"o")).join(""));
+  W["pat-pricing|1"]=S(r(58,4,44,10,"s",5)+r(60,6,20,6,"a",3)+t(84,7,14)+[0,1,2].map(i=>r(10+i*48,20,44,74,i===1?"s ak":"s",4)+h(16+i*48,28,24,7)+L(16+i*48,42,30,4,6)+b(16+i*48,82,32,7,i===1?"a":"o")).join(""));
+  W["pat-pricing|2"]=S(r(8,8,144,84,"s",4)+[0,1,2].map(i=>t(70+i*28,14,16,"h")).join("")+[0,1,2,3,4,5].map(j=>`<line x1="8" y1="${24+j*11}" x2="152" y2="${24+j*11}" class="grid"/>`+t(14,28+j*11,36)+[0,1,2].map(i=>(j+i)%3===0&&i===0?"":chk(78+i*28,29+j*11,i>0||j%2===0)).join("")).join(""));
+  W["pat-pricing|3"]=S(h(50,14,60,6)+h(62,30,36,14,"a")+`<line x1="24" y1="64" x2="136" y2="64" class="track"/><line x1="24" y1="64" x2="88" y2="64" class="trackon"/>`+c(88,64,5,"a")+t(24,72,14)+t(122,72,14)+b(60,82,40,8));
+  // --- FAQ
+  W["pat-faq|0"]=S(h(46,6,68,5)+[0,1,2,3,4].map(i=>{const y=18+i*14+(i>1?12:0);return r(16,y,128,i===1?24:11,"s",3)+t(22,y+4.5,70,"h")+`<path d="M136 ${y+4} l3 3 l3 -3" class="ln"/>`+(i===1?L(22,y+13,100,2):"")}).join(""));
+  W["pat-faq|1"]=S([0,1,2,3].map(i=>r(8,12+i*12,40,9,i===0?"ao":"bg",3)+t(12,15.5+i*12,26)).join("")+[0,1,2,3,4].map(i=>r(56,12+i*16,96,12,"s",3)+t(62,16.5+i*16,60,"h")).join(""));
+  W["pat-faq|2"]=S(r(24,8,112,12,"s",6)+c(33,14,3,"o")+t(40,13,40)+[0,1,2,3].map(i=>r(24,28+i*16,112,12,"s",3)+t(30,32.5+i*16,i===0?50:70,"h")+(i===0?t(30,32.5,16,"a"):"")).join(""));
+  W["pat-faq|3"]=S([[10,10,80,"s"],[70,30,80,"ao"],[10,50,90,"s"],[80,72,70,"ao"]].map(([x,y,w,cl])=>r(x,y,w,16,cl,7)+t(x+6,y+6.5,w-20)).join(""));
+  // --- CTA
+  W["pat-cta|0"]=S(L(20,8,120,2,7)+r(12,26,136,50,"ao",8)+h(40,38,80,7)+L(52,50,56,1)+b(64,60,32,9));
+  W["pat-cta|1"]=S(r(8,14,144,72,"s",6)+h(18,26,60,7)+L(18,40,56,3)+b(18,62,32,9)+img(88,22,56,56));
+  W["pat-cta|2"]=S(h(40,26,80,7)+L(50,38,60,1)+r(28,52,78,12,"s",6)+t(34,57,40)+b(110,52,24,12));
+  W["pat-cta|3"]=S(P(h(4,4,32,5)+L(4,14,42,4)+img(4,36,42,22)+r(0,70,50,14,"s",0)+b(4,73,42,8)));
+  // --- Login & sign-up
+  W["pat-auth|0"]=S(r(48,8,64,84,"s",6)+c(80,20,5,"ao")+h(62,30,36,5)+[0,1].map(i=>t(56,42+i*16,20)+r(56,46+i*16,48,8,"bg",2)).join("")+b(56,78,48,8));
+  W["pat-auth|1"]=S(h(12,16,48,6)+[0,1].map(i=>t(12,30+i*16,20)+r(12,34+i*16,60,8,"bg ol",2)).join("")+b(12,68,60,8)+img(84,6,70,88));
+  W["pat-auth|2"]=S(r(40,14,80,72,"s",6)+`<path d="M70 28 h20 v13 h-20 z M70 28 l10 7 l10 -7" class="lna"/>`+h(56,48,48,5)+r(48,58,64,9,"bg",2)+b(48,72,64,8));
+  W["pat-auth|3"]=S(r(40,8,80,84,"s",6)+h(58,16,44,5)+r(48,28,64,9,"bg ol",3)+c(56,32.5,2.5,"h")+r(48,41,64,9,"bg ol",3)+c(56,45.5,2.5,"h")+`<line x1="48" y1="58" x2="112" y2="58" class="grid"/>`+r(48,64,64,8,"bg",2)+b(48,77,64,8));
+  W["pat-auth|4"]=S([0,1,2].map(i=>c(58+i*22,14,4,i<2?"a":"o")).join("")+`<line x1="62" y1="14" x2="76" y2="14" class="trackon"/><line x1="84" y1="14" x2="98" y2="14" class="track"/>`+r(40,26,80,66,"s",6)+[0,1,2].map(i=>t(48,34+i*14,20)+r(48,38+i*14,64,7,"bg",2)).join("")+b(84,80,28,7));
+  // --- Formulieren
+  W["pat-forms|0"]=S(r(40,6,80,88,"s",5)+[0,1,2,3].map(i=>t(48,12+i*16,22,"h")+r(48,16+i*16,64,8,"bg ol",2)).join("")+b(48,80,32,8));
+  W["pat-forms|1"]=S(`<line x1="30" y1="12" x2="130" y2="12" class="track"/><line x1="30" y1="12" x2="80" y2="12" class="trackon"/>`+r(40,20,80,72,"s",5)+h(48,28,40,5)+[0,1].map(i=>t(48,40+i*16,22)+r(48,44+i*16,64,8,"bg ol",2)).join("")+b(48,80,24,7,"o")+b(88,80,24,7));
+  W["pat-forms|2"]=S(r(40,10,80,80,"s",5)+t(48,18,22,"h")+r(48,22,64,9,"bg okl",2)+chk(106,26.5)+t(48,40,22,"h")+r(48,44,64,9,"bg errl",2)+t(48,56,46,"k")+t(48,66,22,"h")+r(48,70,64,9,"bg ol",2));
+  W["pat-forms|3"]=S(t(64,18,32)+h(28,30,104,8)+`<line x1="36" y1="62" x2="124" y2="62" class="uline"/>`+t(38,56,30)+b(66,74,28,9)+t(70,90,20));
+  // --- Kaarten
+  W["pat-cards|0"]=S(r(46,6,68,88,"s",5)+img(50,10,60,40)+h(52,56,40,5)+t(52,65,24,"a")+b(52,76,56,9));
+  W["pat-cards|1"]=S(r(40,10,80,80,"s",6)+c(80,30,11,"ao")+h(60,48,40,5)+t(64,57,32)+c(68,72,3)+c(80,72,3)+c(92,72,3));
+  W["pat-cards|2"]=S(r(30,16,100,68,"s",6)+t(40,26,30)+h(40,36,40,14)+`<path d="M40 72 L60 66 L76 70 L96 58 L118 54" class="lna"/>`+t(96,26,24,"g"));
+  W["pat-cards|3"]=S(r(30,16,100,68,"s",6)+`<circle cx="98" cy="36" r="30" class="spot"/>`+c(46,32,6,"ao")+h(40,46,50,5)+L(40,56,70,3));
+  W["pat-cards|4"]=S(`<g transform="translate(80 50) skewY(-6) skewX(8) translate(-80 -50)">${r(38,14,84,72,"s",6)+img(44,20,72,34)+h(44,60,50,5)+L(44,70,60,2)}</g>`);
+  // --- Dashboard
+  W["pat-dash|0"]=S(r(0,0,34,100,"s",0)+[0,1,2,3,4].map(i=>r(6,10+i*10,22,6,i===0?"ao":"t",2)).join("")+[0,1,2].map(i=>r(40+i*39,8,35,20,"s",3)+h(45+i*39,16,16,6,i===0?"a":"h")).join("")+r(40,32,113,60,"s",3)+`<path d="M46 80 L66 70 L84 74 L104 56 L124 60 L146 44" class="lna"/>`);
+  W["pat-dash|1"]=S(nav()+[0,1,2,3].map(i=>t(10+i*26,20,20,i===0?"a":"t")).join("")+`<line x1="8" y1="26" x2="152" y2="26" class="grid"/>`+r(8,32,70,60,"s",3)+r(82,32,70,28,"s",3)+r(82,64,70,28,"s",3));
+  W["pat-dash|2"]=S(r(8,8,70,44,"s",4)+`<path d="M14 44 L30 34 L44 38 L60 22 L72 26" class="lna"/>`+r(82,8,34,20,"s",4)+r(120,8,32,20,"s",4)+r(82,32,70,20,"s",4)+r(8,56,46,36,"s",4)+c(31,74,11,"ao")+r(58,56,94,36,"s",4)+L(64,64,80,4,6));
+  W["pat-dash|3"]=S(r(8,8,56,84,"s",3)+[0,1,2,3,4,5].map(i=>r(10,11+i*13,52,11,i===1?"ao":"bg",2)+t(14,15+i*13,34)).join("")+r(68,8,84,84,"s",3)+h(76,16,50,6)+L(76,28,68,5,7)+b(76,74,28,8));
+  // --- Tabellen
+  W["pat-tables|0"]=S([0,1,2].map(i=>b(8+i*26,6,22,7,i===0?"ao":"o")).join("")+r(8,18,144,76,"s",3)+r(8,18,144,10,"bg",3)+[0,1,2,3].map(i=>t(14+i*36,22,20,"h")).join("")+[0,1,2,3,4].map(j=>`<line x1="8" y1="${36+j*11}" x2="152" y2="${36+j*11}" class="grid"/>`+[0,1,2,3].map(i=>t(i===3?128:14+i*36,38.5+j*11+2,i===3?18:24)).join("")).join(""));
+  W["pat-tables|1"]=S(P([0,1,2,3].map(i=>r(2,2+i*21,46,18,"s",3)+t(6,6+i*21,24,"h")+t(6,12+i*21,36)+t(36,6+i*21,8,"a")).join("")));
+  W["pat-tables|2"]=S([0,1,2].map(i=>r(8+i*50,8,46,86,"bg ol",4)+t(12+i*50,13,22,"h")+[0,1,2].slice(0,3-i%2).map(j=>r(12+i*50,20+j*20,38,16,"s",3)+t(16+i*50,25+j*20,26)).join("")).join("")+r(66,36,38,16,"s ak",3));
+  W["pat-tables|3"]=S(r(20,6,120,88,"s",4)+Array.from({length:12},(_,j)=>t(26,11+j*6.8,j%3?80:96)).join("")+r(134,10,3,80,"t",1.5)+r(134,24,3,20,"a",1.5));
+  // --- Overlays
+  W["pat-overlay|0"]=S(L(12,12,136,7,9)+dim()+r(36,22,88,56,"s",6)+h(44,30,50,6)+L(44,42,72,2)+b(72,62,22,8,"o")+b(96,62,22,8));
+  W["pat-overlay|1"]=S(L(12,12,80,7,9)+dim()+r(96,0,64,100,"s",0)+h(104,10,34,6)+L(104,24,48,6,7)+b(104,84,48,8));
+  W["pat-overlay|2"]=S(P(L(4,4,42,6,7)+r(0,42,50,42,"s",8)+r(19,45,12,2,"t",1)+h(4,52,30,5)+L(4,62,42,2)+b(4,72,42,8)));
+  W["pat-overlay|3"]=S(L(12,10,136,2,8)+b(20,34,34,9)+`<path d="M34 48 l4 -4 l4 4 z" class="s"/>`+r(14,48,80,40,"s",4)+[0,1,2].map(i=>r(18,52+i*11,72,9,i===0?"ao":"bg",2)+t(22,55+i*11,40)).join(""));
+  W["pat-overlay|4"]=S(r(20,20,120,60,"s",5)+h(30,30,60,6)+L(30,42,90,2)+b(30,60,34,9,"o")+`<path d="M70 64.5 h8" class="lna"/><path d="M76 61.5 l3 3 l-3 3" class="lna"/>`+b(84,60,24,9,"k")+b(110,60,24,9,"o"));
+  // --- Feedback
+  W["pat-feedback|0"]=S(L(12,12,136,6,9)+r(96,74,58,18,"s",5)+c(104,83,3,"g")+t(110,79,36,"h")+t(110,85,26));
+  W["pat-feedback|1"]=S(h(12,10,60,6)+L(12,22,136,2)+r(12,38,136,20,"ao",4)+r(12,38,3,20,"a",1.5)+c(24,48,3,"a")+t(32,43,60,"h")+t(32,50,90)+L(12,66,136,3));
+  W["pat-feedback|2"]=S(r(0,0,160,12,"a",0)+t(40,5,80,"inv2")+nav(12)+L(12,34,136,6,9));
+  W["pat-feedback|3"]=S(r(10,10,140,80,"s",5)+r(18,18,26,26,"sk",13)+r(52,20,70,6,"sk",3)+r(52,32,50,5,"sk",2.5)+[0,1,2,3].map(i=>r(18,54+i*8,i===3?80:124,5,"sk",2.5)).join(""));
+  W["pat-feedback|4"]=S(h(20,20,70,6)+`<line x1="20" y1="42" x2="140" y2="42" class="track"/><line x1="20" y1="42" x2="96" y2="42" class="trackon"/>`+t(20,50,30)+[0,1,2,3].map(i=>c(32+i*32,74,5,i<2?"a":i===2?"ak":"o")+t(22+i*32,84,20)).join(""));
+  // --- Empty & 404
+  W["pat-empty|0"]=S(r(56,14,48,36,"ao",10)+c(72,30,5,"a")+`<path d="M62 44 Q80 30 98 44" class="lna"/>`+h(52,58,56,6)+t(58,68,44)+b(64,78,32,9));
+  W["pat-empty|1"]=S(r(10,8,140,84,"s",4)+r(112,12,34,9,"ao",4.5)+t(117,15.5,24,"a")+[0,1,2,3,4].map(j=>`<line x1="10" y1="${28+j*12}" x2="150" y2="${28+j*12}" class="dash"/>`+t(16,31+j*12,40)+t(70,31+j*12,26)+t(120,31+j*12,20)).join(""));
+  W["pat-empty|2"]=S(`<text x="80" y="54" class="big404" text-anchor="middle">404</text>`+t(52,62,56)+r(40,72,80,11,"s",5.5)+c(48,77.5,2.5,"o"));
+  W["pat-empty|3"]=S(r(30,8,100,84,"s",5)+h(38,16,56,6)+`<line x1="38" y1="28" x2="122" y2="28" class="track"/><line x1="38" y1="28" x2="80" y2="28" class="trackon"/>`+[0,1,2,3,4].map(i=>chk(42,40+i*11,i<2)+t(50,39+i*11,i<2?40:56,i<2?"t":"h")).join(""));
+  // --- Onboarding
+  W["pat-onboard|0"]=S(nav()+L(12,24,136,6,9)+dim()+r(122,2,34,11,"s",5.5)+`<rect x="119" y="-1" width="40" height="17" rx="8.5" class="ring"/>`+r(90,24,66,32,"s",5)+t(96,30,40,"h")+L(96,38,52,2)+b(126,46,24,7));
+  W["pat-onboard|1"]=S(r(20,8,120,84,"s",5)+h(30,16,60,6)+t(114,17,16,"a")+`<line x1="30" y1="28" x2="130" y2="28" class="track"/><line x1="30" y1="28" x2="90" y2="28" class="trackon"/>`+[0,1,2,3].map(i=>r(30,36+i*13,100,10,"bg",3)+chk(37,41+i*13,i<2)+t(44,40+i*13,50)).join(""));
+  W["pat-onboard|2"]=S(L(12,12,136,7,9)+dim()+r(34,14,92,72,"s",8)+r(60,22,40,26,"ao",6)+h(52,56,56,6)+t(58,66,44)+b(62,74,36,8));
+  W["pat-onboard|3"]=S(r(36,6,88,88,"s",5)+[0,1].map(i=>t(44,12+i*18,24,"h")+r(44,16+i*18,72,8,"bg ol",2)).join("")+r(44,50,72,10,"bg",2)+t(48,54,36)+`<path d="M108 53 l3 3 l3 -3" class="ln"/>`+[0,1].map(i=>r(48,64+i*7,60,4,"t",2)).join("")+b(44,82,32,7));
+  // --- Zoeken
+  W["pat-search|0"]=W["pat-nav|5"];
+  W["pat-search|1"]=S(r(24,10,112,13,"s",6.5)+c(33,16.5,3,"o")+t(40,15.5,30,"h")+r(24,26,112,62,"s",4)+[0,1,2,3,4].map(i=>r(28,30+i*11,104,9,i===0?"ao":"bg",2)+c(34,34.5+i*11,2.4,"h")+t(40,33.5+i*11,50)).join(""));
+  W["pat-search|2"]=S(r(8,8,44,84,"s",3)+[0,1,2,3,4,5].map(i=>c(15,18+i*11,2.6,i%2?"g":"o")+t(21,17+i*11,24)).join("")+[0,1].map(i=>b(58+i*30,8,26,7,"ao")).join("")+[0,1,2,3,4,5].map(i=>r(58+(i%3)*32,20+Math.floor(i/3)*36,28,32,"s",3)).join(""));
+  W["pat-search|3"]=S(r(24,18,112,13,"s",6.5)+c(33,24.5,3,"o")+t(24,40,40,"h")+[[24,28],[56,34],[94,24],[24,40],[68,30]].map(([x,w],i)=>b(x,46+(i>2?11:0),w,8,"o")).join(""));
+  // --- Galerij
+  W["pat-gallery|0"]=S([[8,8,46,30],[8,42,46,50],[58,8,44,52],[58,64,44,28],[106,8,46,24],[106,36,46,56]].map(([x,y,w,hh])=>img(x,y,w,hh)).join(""));
+  W["pat-gallery|1"]=S(img(-20,16,34,60)+img(28,10,104,72)+img(146,16,34,60)+[0,1,2,3,4].map(i=>c(64+i*8,92,2,i===1?"a":"t")).join(""));
+  W["pat-gallery|2"]=S(dim()+r(0,0,160,100,"d",0)+img(26,12,108,72)+`<path d="M14 48 l-5 5 l5 5 M146 48 l5 5 l-5 5" class="lna"/>`+t(64,90,32));
+  W["pat-gallery|3"]=S(h(10,12,60,6)+[0,1,2,3].map(i=>img(10+i*48,30,44,56)).join("")+`<path d="M130 22 h18 m-4 -3 l4 3 l-4 3" class="lna"/>`);
+  // --- Contact
+  W["pat-contact|0"]=S(r(8,8,70,84,"s",4)+[0,1].map(i=>t(14,14+i*16,20)+r(14,18+i*16,58,8,"bg ol",2)).join("")+r(14,50,58,24,"bg ol",2)+b(14,80,30,7)+r(84,8,68,84,"map",4)+`<path d="M118 42 a7 7 0 1 1 0.1 0 M118 49 l-4 -5 h8 z" class="a"/>`);
+  W["pat-contact|1"]=S(h(40,22,80,6)+r(24,42,112,16,"s",8)+t(34,48.8,64,"h")+b(106,44.5,26,11)+t(56,72,48));
+  W["pat-contact|2"]=S([0,1,2].map(i=>r(10+i*48,24,44,52,"s",5)+c(32+i*48,40,7,"ao")+t(20+i*48,54,24,"h")+t(18+i*48,62,28)).join(""));
+  // --- Blog
+  W["pat-article|0"]=S(h(44,10,72,7)+t(44,22,30)+L(44,32,72,9,6.5));
+  W["pat-article|1"]=S(r(8,10,36,50,"s",3)+[0,1,2,3,4].map(i=>t(12,16+i*9,26,i===1?"a":"t")).join("")+r(10,24,2,8,"a",1)+h(54,10,80,7)+L(54,24,96,10,6.5));
+  W["pat-article|2"]=S(r(0,0,160,2.4,"t",0)+r(0,0,70,2.4,"a",0)+h(44,12,72,7)+L(44,26,72,10,6.5));
+  // --- Laden
+  W["pat-loading|0"]=W["pat-feedback|3"];
+  W["pat-loading|1"]=S(Array.from({length:25},(_,i)=>c(62+(i%5)*9,32+Math.floor(i/5)*9,2.6,[2,6,7,8,12,13,16,18].includes(i)?"a":"t")).join(""));
+  W["pat-loading|2"]=S(r(66,30,28,28,"ao",8)+h(72,40,16,8,"a")+`<line x1="50" y1="72" x2="110" y2="72" class="track"/><line x1="50" y1="72" x2="84" y2="72" class="trackon"/>`+t(70,80,20));
+  W["pat-loading|3"]=S(r(0,0,160,2.4,"t",0)+r(0,0,96,2.4,"a",0)+`<g opacity=".45">${nav(4)+L(12,28,136,7,9)}</g>`);
+  // --- Knoppen
+  W["pat-buttons|0"]=S(b(18,44,38,12)+b(62,44,38,12,"o")+t(112,48.8,30,"h"));
+  W["pat-buttons|1"]=S(b(54,42,52,14)+`<path d="M112 64 l0 12 l3.5 -3.2 l3 5.5 l2 -1 l-3 -5.5 l4.5 0 z" class="h"/><path d="M104 60 q6 -2 10 2 M100 64 q4 2 8 6" class="ln"/>`);
+  W["pat-buttons|2"]=S(r(50,40,60,18,"s",9)+`<rect x="50" y="40" width="60" height="18" rx="9" class="shimmer"/>`+t(64,47.8,32,"h"));
+  W["pat-buttons|3"]=S(b(46,42,68,14,"a")+`<circle cx="60" cy="49" r="3.4" class="spin"/>`+t(68,47.8,34,"inv2"));
+  return W;
+})();
+
 const toolRow = (k,q) => `<li${q&&(T[k].n+" "+T[k].d).toLowerCase().includes(q)?' class="hit"':""}><span><a href="${T[k].u}" target="_blank" rel="noopener">${esc(T[k].n)}</a>${MUSTSET.has(k)?`<span class="star" title="Must-have">★</span>`:""} <span class="desc">— ${esc(T[k].d)}</span> <span class="how how-${how(k)}" title="${esc(HOWS[how(k)].label)}">${HOWS[how(k)].short}</span> ${priceBadge(k)}</span>${addBtn(k)}</li>`;
 const variantPrompt = (i,v) => `Bouw het UI-onderdeel "${i.title}" in de variant "${v[0]}": ${v[1]}. Maak het responsive (mobile first), toegankelijk (semantische HTML, toetsenbord, zichtbare focus, contrast AA) en respecteer prefers-reduced-motion. Gebruik waar het past: ${names(i.tools)}.`;
 function card(i,q){
   const steps = i.steps ? `<ol class="steps">${i.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>` : "";
-  const vars = i.variants ? `<ul class="variants">${i.variants.map((v,vi)=>`<li><div><b>${esc(v[0])}</b> <span class="desc">${esc(v[1])}</span></div><button type="button" class="copyp" data-vp="${i.id}|${vi}" aria-label="Kopieer prompt voor ${esc(v[0])}">Prompt</button></li>`).join("")}</ul>` : "";
+  const vars = i.variants ? `<ul class="variants">${i.variants.map((v,vi)=>`<li>${WF[i.id+"|"+vi]?`<figure class="wf" aria-hidden="true">${WF[i.id+"|"+vi]}</figure>`:""}<div><b>${esc(v[0])}</b> <span class="desc">${esc(v[1])}</span></div><button type="button" class="copyp" data-vp="${i.id}|${vi}" aria-label="Kopieer prompt voor ${esc(v[0])}">Prompt</button></li>`).join("")}</ul>` : "";
   const prompt = i.prompt ? `<div class="prompt"><div class="phead"><span>Prompt voor Claude</span><button type="button" class="copyp" data-p="${i.id}">Kopieer</button></div><p>${esc(i.prompt)}</p></div>` : "";
   const LIMIT=5, open=q||expanded.has(i.id)||i.tools.length<=LIMIT+1, list=open?i.tools:i.tools.slice(0,LIMIT);
   const more = open ? "" : `<li class="moreli"><button type="button" class="linkbtn" data-expand="${i.id}">+ ${i.tools.length-LIMIT} meer tools</button></li>`;
   const tools = `<ul class="tools">${list.map(k=>toolRow(k,q)).join("")}${more}</ul>`;
   return `<article class="card${done.has(i.id)?" done":""}" data-id="${i.id}">
     <div class="cardhead"><span class="callno">${i.no}</span><span>${esc(CATS[i.cat].label)}</span></div>
-    <h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>${steps}${vars}${prompt}${tools}
+    ${WF[i.id]?`<figure class="wf wf-lg" role="img" aria-label="Wireframe: ${esc(i.title)}">${WF[i.id]}</figure>`:""}<h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>${steps}${vars}${prompt}${tools}
     <div class="chips">${i.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>
     <div class="foot"><span class="linkcount">${i.tools.length} link${i.tools.length>1?"s":""}${i.variants?` · ${i.variants.length} varianten`:""}</span>
       <button class="tried" type="button" aria-pressed="${done.has(i.id)}">${done.has(i.id)?"✓ geprobeerd":"markeer als geprobeerd"}</button></div>
