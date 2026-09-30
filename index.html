@@ -187,7 +187,7 @@ pre.md{font-family:var(--mono);font-size:12.5px;line-height:1.55;background:var(
 .how-plugin,.how-service{background:var(--stamp-soft);color:var(--stamp)}
 .how-web{border-color:var(--line);color:var(--muted)}
 .star{color:var(--stamp);font-size:12px;margin-left:3px}
-.mustgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.mustgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;align-items:start}
 @media (max-width:980px){.mustgrid{grid-template-columns:1fr}}
 .mustcol{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--stamp);border-radius:4px;padding:18px;display:grid;gap:10px;min-width:0}
 .mustcol h3{font-family:var(--display);font-size:1.15rem;margin:0}
@@ -412,6 +412,18 @@ ul.variants li .wf{grid-row:1/3}
 ul.variants li .copyp{grid-column:2;justify-self:start}
 ul.variants li .wf{border:1px solid var(--line)}
 @media (max-width:520px){ul.variants li{grid-template-columns:96px minmax(0,1fr)}}
+
+/* ===== apps layer ===== */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.forf select{font:inherit;font-size:14px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.chip.for{border-color:var(--accent);color:var(--accent)}
+.flabel{font-size:13px;font-weight:500}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{font:inherit;font-size:13px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;min-height:34px}
+.seg button[aria-checked="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.wf .ink{fill:var(--ink)} .wf .invh2{fill:var(--paper)} .wf .invh2l{fill:none;stroke:var(--paper);stroke-width:1.3;stroke-linecap:round}
+.wf .errls{fill:none;stroke:var(--stamp);stroke-width:1.6;stroke-linecap:round}
+@media (max-width:700px){.forf select{padding:8px 10px;font-size:13px}}
 </style>
 </head>
 <body>
@@ -441,6 +453,7 @@ ul.variants li .wf{border:1px solid var(--line)}
   <div class="controls" id="ideeen">
     <div class="search">
       <input id="q" type="search" placeholder="Zoek op tool, onderwerp of werkwijze… (bijv. GSAP, MCP, iconen)" aria-label="Zoeken">
+      <label class="forf"><span class="sr-only">Toon tools voor</span><select id="forf"><option value="all">Voor: alles</option><option value="site">Websites</option><option value="app">Webapps</option><option value="mobile">Mobiele apps</option><option value="desktop">Desktop-apps</option></select></label>
       <label class="toggle"><input type="checkbox" id="hideDone"> verberg geprobeerd</label>
     </div>
     <div class="drawers" id="drawers" role="group" aria-label="Categorieën"></div>
@@ -496,6 +509,7 @@ ul.variants li .wf{border:1px solid var(--line)}
     </div>
     <div class="builder">
       <div class="bpanel">
+        <div class="field"><span class="flabel" id="ptype-l">Soort project</span><div class="seg" id="ptype" role="radiogroup" aria-labelledby="ptype-l"></div></div>
         <div class="field"><label for="pname">Projectnaam</label><input id="pname" type="text" placeholder="Bijv. Café-finder"></div>
         <div class="field"><label for="pdesc">Wat bouw je?</label><textarea id="pdesc" placeholder="Eén of twee zinnen: voor wie is het en wat moet het doen?"></textarea></div>
         <div>
@@ -759,7 +773,7 @@ const T = {
   vitest:{n:"Vitest",u:"https://vitest.dev",d:"snelle unit tests",r:"test",cmd:"npm i -D vitest"},
   testinglib:{n:"Testing Library",u:"https://testing-library.com",d:"componenten testen zoals een gebruiker",r:"test"},
   zod:{n:"Zod",u:"https://zod.dev",d:"input valideren met één schema",r:"forms",cmd:"npm i zod"},
-  rhf:{n:"React Hook Form",u:"https://react-hook-form.com",d:"snelle formulieren in React",r:"forms",req:[REACT],cmd:"npm i react-hook-form"},
+  rhf:{n:"React Hook Form",u:"https://react-hook-form.com",d:"snelle formulieren in React en React Native",r:"forms",req:[[...REACT,"expo"]],cmd:"npm i react-hook-form"},
   tanstack:{n:"TanStack Query",u:"https://tanstack.com/query",d:"data ophalen, cachen en verversen",r:"datalib",cmd:"npm i @tanstack/react-query"},
   radix:{n:"Radix UI",u:"https://www.radix-ui.com",d:"toegankelijke primitives zonder styling",r:"uikit",req:[REACT]},
   baseui:{n:"Base UI",u:"https://base-ui.com",d:"toegankelijke primitives, de nieuwe basis onder shadcn",r:"uikit",req:[REACT]},
@@ -930,9 +944,50 @@ const T = {
   learnimages:{n:"Learn Images (web.dev)",u:"https://web.dev/learn/images",d:"afbeeldingen snel en scherp laden",r:"practice"},
   learnhtml:{n:"Learn HTML (web.dev)",u:"https://web.dev/learn/html",d:"semantische HTML vanaf de basis",r:"practice"},
   nuqs:{n:"nuqs",u:"https://nuqs.dev",d:"filters en zoekopdrachten in de URL bewaren",r:"datalib",req:[REACT],cmd:"npm i nuqs"},
+  // --- apps & webapps ---
+  zustand:{n:"Zustand",u:"https://zustand.docs.pmnd.rs",d:"simpele, kleine state management voor React en React Native",r:"state",cmd:"npm i zustand"},
+  jotai:{n:"Jotai",u:"https://jotai.org",d:"state in kleine losse 'atoms'",r:"state",cmd:"npm i jotai"},
+  tsvirtual:{n:"TanStack Virtual",u:"https://tanstack.com/virtual/latest",d:"lange lijsten zonder te haperen",r:"utility",cmd:"npm i @tanstack/react-virtual"},
+  errorboundary:{n:"react-error-boundary",u:"https://github.com/bvaughn/react-error-boundary",d:"één kapot onderdeel breekt niet de hele app",r:"quality",req:[[...REACT,"expo"]],cmd:"npm i react-error-boundary"},
+  tiptap:{n:"Tiptap",u:"https://tiptap.dev",d:"rich text editor, open-source kern",r:"editor",cmd:"npm i @tiptap/react @tiptap/starter-kit"},
+  lexical:{n:"Lexical",u:"https://lexical.dev",d:"snelle, uitbreidbare editor van Meta",r:"editor"},
+  datefns:{n:"date-fns",u:"https://date-fns.org",d:"datums rekenen en formatteren",r:"utility",cmd:"npm i date-fns"},
+  dayjs:{n:"Day.js",u:"https://day.js.org",d:"piepkleine datumlibrary",r:"utility",cmd:"npm i dayjs"},
+  daypicker:{n:"React DayPicker",u:"https://daypicker.dev",d:"toegankelijke datumkiezer (basis van shadcn Calendar)",r:"uikit",req:[REACT],cmd:"npm i react-day-picker"},
+  schedulex:{n:"Schedule-X",u:"https://schedule-x.dev",d:"agenda-weergaves: dag, week, maand",r:"uikit"},
+  suprealtime:{n:"Supabase Realtime",u:"https://supabase.com/docs/guides/realtime",d:"live updates, presence en chat",r:"realtime",req:[["supabase"]]},
+  liveblocks:{n:"Liveblocks",u:"https://liveblocks.io",d:"samenwerken in realtime: cursors, comments, sync",r:"realtime"},
+  uppy:{n:"Uppy",u:"https://uppy.io",d:"complete upload-interface met voortgang",r:"uikit"},
+  dropzone:{n:"react-dropzone",u:"https://react-dropzone.js.org",d:"drag-and-drop uploadvlak",r:"uikit",req:[REACT],cmd:"npm i react-dropzone"},
+  vitepwa:{n:"Vite PWA",u:"https://vite-pwa-org.netlify.app",d:"maak van een Vite-app een installeerbare, offline PWA",r:"pwa",req:[["vite","astro","sveltekit","nuxt"]],cmd:"npm i -D vite-plugin-pwa"},
+  serwist:{n:"Serwist",u:"https://serwist.pages.dev",d:"offline en installeerbaar voor Next.js",r:"pwa",req:[["nextjs"]]},
+  pwaguide:{n:"Progressive Web Apps (web.dev)",u:"https://web.dev/explore/progressive-web-apps",d:"installeerbaar, offline, betrouwbaar",r:"practice"},
+  webpush:{n:"Push API (MDN)",u:"https://developer.mozilla.org/en-US/docs/Web/API/Push_API",d:"pushmeldingen vanuit een webapp",r:"practice"},
+  capacitor:{n:"Capacitor",u:"https://capacitorjs.com",d:"je bestaande webapp als iOS- en Android-app",r:"native"},
+  tauri:{n:"Tauri",u:"https://tauri.app",d:"kleine, veilige desktop-apps met webtechniek",r:"native"},
+  electron:{n:"Electron",u:"https://www.electronjs.org",d:"desktop-apps met web, zoals VS Code",r:"native"},
+  exporouter:{n:"Expo Router",u:"https://docs.expo.dev/router/introduction/",d:"navigatie op basis van bestanden in je Expo-app",r:"native",req:[["expo"]]},
+  nativewind:{n:"NativeWind",u:"https://www.nativewind.dev",d:"Tailwind-klassen in React Native",r:"styling",req:[["expo"]]},
+  reanimated:{n:"Reanimated",u:"https://docs.swmansion.com/react-native-reanimated/",d:"vloeiende 60fps-animaties in React Native",r:"animation",req:[["expo"]]},
+  moti:{n:"Moti",u:"https://moti.fyi",d:"simpele animatie-API bovenop Reanimated",r:"motionx",req:[["reanimated"]]},
+  rnr:{n:"React Native Reusables",u:"https://reactnativereusables.com",d:"shadcn/ui-stijl componenten voor React Native",r:"uikit",req:[["nativewind"]]},
+  tamagui:{n:"Tamagui",u:"https://tamagui.dev",d:"UI-kit en styling voor web én native",r:"uikit",req:[["expo"]]},
+  gluestack:{n:"gluestack UI",u:"https://gluestack.io",d:"toegankelijke componenten voor React Native",r:"uikit",req:[["expo"]]},
+  expopush:{n:"Expo push notifications",u:"https://docs.expo.dev/push-notifications/overview/",d:"pushmeldingen in je mobiele app",r:"practice"},
+  expodocs:{n:"Expo docs",u:"https://docs.expo.dev",d:"officiële handleiding voor Expo",r:"learn"},
+  rndocs:{n:"React Native docs",u:"https://reactnative.dev",d:"de basis van React Native",r:"learn"},
+  hig:{n:"Apple Human Interface Guidelines",u:"https://developer.apple.com/design/human-interface-guidelines",d:"hoe iOS-apps horen te voelen",r:"practice"},
+  m3:{n:"Material Design 3",u:"https://m3.material.io",d:"de ontwerprichtlijnen van Android",r:"practice"},
+  i18next:{n:"i18next",u:"https://www.i18next.com",d:"meertalige apps, web en native",r:"i18n",cmd:"npm i i18next react-i18next"},
+  nextintl:{n:"next-intl",u:"https://github.com/amannn/next-intl",d:"meertaligheid voor Next.js",r:"i18n",req:[["nextjs"]],cmd:"npm i next-intl"},
+  triggerdev:{n:"Trigger.dev",u:"https://trigger.dev",d:"achtergrondtaken en cronjobs in TypeScript",r:"jobs"},
+  inngest:{n:"Inngest",u:"https://www.inngest.com",d:"betrouwbare workflows en achtergrondtaken",r:"jobs"},
+  meilisearch:{n:"Meilisearch",u:"https://www.meilisearch.com",d:"razendsnelle zoekfunctie, open source",r:"search"},
+  aisdk:{n:"AI SDK",u:"https://ai-sdk.dev",d:"AI-chat en streaming in je app, met elk model (ook Claude)",r:"ai",cmd:"npm i ai"},
+  ghactions:{n:"GitHub Actions",u:"https://docs.github.com/en/actions",d:"automatisch testen en deployen bij elke push",r:"devtool"},
   boring:{n:"Boring Avatars",u:"https://boringavatars.com",d:"gratis open-source avatars voor React",r:"images",req:[REACT]},
 };
-const ROLES = {framework:"Basis",styling:"Styling",uikit:"UI-componenten",animation:"Animatie",motionx:"Motion, 3D & effecten",backend:"Backend & data",auth:"Login",email:"E-mail",security:"Beveiliging",hosting:"Hosting",taste:"Design-smaak voor Claude",rules:"Regels & skills voor Claude",plugin:"Claude-plugins",mcp:"MCP-koppelingen",test:"Testen",icons:"Iconen",iconsx:"Iconen (extra)",fonts:"Fonts",color:"Kleur & achtergronden",design:"Design-tools",inspiration:"Inspiratie",images:"Beeld",video:"Video & content",logo:"Logo & branding",aibuilder:"AI-builders",data:"Data & API's",learn:"Leren",quality:"Codekwaliteit",forms:"Formulieren & validatie",datalib:"Data ophalen",monitor:"Monitoring",practice:"Best practices & naslag",payments:"Betalingen",orm:"Database-toegang",api:"API-laag",storage:"Opslag & media",cms:"CMS",charts:"Grafieken & tabellen",maps:"Kaarten",devtool:"Dev-tools",creative:"Creative coding",formsvc:"Formulier-diensten"};
+const ROLES = {framework:"Basis",styling:"Styling",uikit:"UI-componenten",animation:"Animatie",motionx:"Motion, 3D & effecten",backend:"Backend & data",auth:"Login",email:"E-mail",security:"Beveiliging",hosting:"Hosting",taste:"Design-smaak voor Claude",rules:"Regels & skills voor Claude",plugin:"Claude-plugins",mcp:"MCP-koppelingen",test:"Testen",icons:"Iconen",iconsx:"Iconen (extra)",fonts:"Fonts",color:"Kleur & achtergronden",design:"Design-tools",inspiration:"Inspiratie",images:"Beeld",video:"Video & content",logo:"Logo & branding",aibuilder:"AI-builders",data:"Data & API's",learn:"Leren",quality:"Codekwaliteit",forms:"Formulieren & validatie",datalib:"Data ophalen",monitor:"Monitoring",practice:"Best practices & naslag",payments:"Betalingen",orm:"Database-toegang",api:"API-laag",storage:"Opslag & media",cms:"CMS",charts:"Grafieken & tabellen",maps:"Kaarten",devtool:"Dev-tools",creative:"Creative coding",formsvc:"Formulier-diensten",state:"State management",editor:"Editors",utility:"Hulpmiddelen",realtime:"Realtime",pwa:"PWA & offline",native:"Mobiel & desktop",i18n:"Meertaligheid",jobs:"Achtergrondtaken",search:"Zoeken",ai:"AI-functies"};
 
 /* ---------- Who installs what ---------- */
 const HOWS = {
@@ -944,15 +999,15 @@ const HOWS = {
   service:{short:"account",label:"Jij maakt een account en zet de API-key in .env"},
   web:{short:"site",label:"Geen installatie: je gebruikt de website"}
 };
-const HOW_OVR = {framer:"service",ccusage:"code",cctemplates:"code",anthskills:"skill",fontsource:"code",collletttivo:"web",pangram:"web",ark:"code",floatingui:"code",headlessui:"code",embla:"code",omniroute:"service",graphify:"skill",karpathy:"file",fedesign:"plugin",pwmcp:"mcp",cdtmcp:"mcp",webflow:"service",rive:"service",spline:"service",unicorn:"service",dotmatrix:"web",lottie:"code",iconify:"web",svgl:"web",boring:"code",places:"service",elevenlabs:"service",pandas:"code",publicapis:"web",figma:"web",tweakcn:"web",uiverse:"web",storybook:"code",rls:"file"};
-const HOW_ROLE = {plugin:"plugin",mcp:"mcp",rules:"plugin",taste:"skill",logo:"skill",framework:"code",styling:"code",uikit:"code",animation:"code",motionx:"code",quality:"code",forms:"code",datalib:"code",icons:"code",fonts:"code",test:"code",backend:"service",auth:"service",email:"service",hosting:"service",monitor:"service",aibuilder:"service",payments:"service",storage:"service",cms:"service",formsvc:"service",orm:"code",api:"code",charts:"code",maps:"code",creative:"code",devtool:"web"};
+const HOW_OVR = {suprealtime:"code",exporouter:"code",framer:"service",ccusage:"code",cctemplates:"code",anthskills:"skill",fontsource:"code",collletttivo:"web",pangram:"web",ark:"code",floatingui:"code",headlessui:"code",embla:"code",omniroute:"service",graphify:"skill",karpathy:"file",fedesign:"plugin",pwmcp:"mcp",cdtmcp:"mcp",webflow:"service",rive:"service",spline:"service",unicorn:"service",dotmatrix:"web",lottie:"code",iconify:"web",svgl:"web",boring:"code",places:"service",elevenlabs:"service",pandas:"code",publicapis:"web",figma:"web",tweakcn:"web",uiverse:"web",storybook:"code",rls:"file"};
+const HOW_ROLE = {plugin:"plugin",mcp:"mcp",rules:"plugin",taste:"skill",logo:"skill",framework:"code",styling:"code",uikit:"code",animation:"code",motionx:"code",quality:"code",forms:"code",datalib:"code",icons:"code",fonts:"code",test:"code",backend:"service",auth:"service",email:"service",hosting:"service",monitor:"service",aibuilder:"service",payments:"service",storage:"service",cms:"service",formsvc:"service",orm:"code",api:"code",charts:"code",maps:"code",creative:"code",devtool:"web",state:"code",editor:"code",utility:"code",realtime:"service",pwa:"code",native:"code",i18n:"code",jobs:"service",search:"service",ai:"code"};
 const SKILL_RULES = ["vercelskills","wig"]; // skills-repos you can copy into .claude/skills
 const how = k => HOW_OVR[k] || (SKILL_RULES.includes(k)?"skill":null) || HOW_ROLE[T[k].r] || "web";
 
 /* ---------- Prijs: alles is gratis; deze hebben een gratis tier met limieten ---------- */
-const TIER = new Set(["webflow","framer","supabase","convex","clerk","resend","vercel","netlify","cfpages","render","neon","turso","upstash","firebase","appwrite","uploadthing","cloudinary","posthog","umami","sentry","formspree","tally","sanity","figma","figmamcp","relume","spline","unicorn","rive","lottie","jitter","v0","bolt","lovable","manus","elevenlabs","places","firecrawl","magicmcp","ripplix","removebg","blush","scrimba","codedex","fementor","coolors","codepen","hugeicons","shots","tinypng","flow","supamcp","vercelmcp","githubmcp","context7","c21st"]);
-const PRICE_NOTE = {stripe:"transactiekosten",lemonsqueezy:"transactiekosten",stripemcp:"transactiekosten",remotion:"gratis voor particulieren"};
-const priceBadge = k => PRICE_NOTE[k] ? `<span class="price" title="Gratis te gebruiken, je betaalt ${PRICE_NOTE[k]==="transactiekosten"?"alleen per transactie":"pas als bedrijf"}">${PRICE_NOTE[k]}</span>` : TIER.has(k) ? `<span class="price" title="Gratis te gebruiken met limieten; betalen kan voor meer">gratis tier</span>` : "";
+const TIER = new Set(["webflow","framer","supabase","convex","clerk","resend","vercel","netlify","cfpages","render","neon","turso","upstash","firebase","appwrite","uploadthing","cloudinary","posthog","umami","sentry","formspree","tally","sanity","figma","figmamcp","relume","spline","unicorn","rive","lottie","jitter","v0","bolt","lovable","manus","elevenlabs","places","firecrawl","magicmcp","ripplix","removebg","blush","scrimba","codedex","fementor","coolors","codepen","hugeicons","shots","tinypng","flow","supamcp","vercelmcp","githubmcp","context7","c21st","liveblocks","triggerdev","inngest","ghactions","expo"]);
+const PRICE_NOTE = {stripe:"transactiekosten",lemonsqueezy:"transactiekosten",stripemcp:"transactiekosten",remotion:"gratis voor particulieren",meilisearch:"gratis self-hosted",aisdk:"AI-model betaal je apart"};
+const priceBadge = k => PRICE_NOTE[k] ? `<span class="price" title="${esc({transactiekosten:"Gratis te gebruiken, je betaalt alleen per transactie","gratis voor particulieren":"Gratis voor particulieren, bedrijven betalen","gratis self-hosted":"Gratis als je het zelf host; de cloudversie kost geld","AI-model betaal je apart":"De library is gratis; het AI-model betaal je per gebruik bij de aanbieder"}[PRICE_NOTE[k]]||"")}">${PRICE_NOTE[k]}</span>` : TIER.has(k) ? `<span class="price" title="Gratis te gebruiken met limieten; betalen kan voor meer">gratis tier</span>` : "";
 
 /* ---------- Library cards ---------- */
 const CATS = {
@@ -998,6 +1053,17 @@ const IDEAS = [
   {id:"ui-small",cat:"layout",title:"Kleine bouwstenen met grote impact",text:"Toasts, drawers, command-menu's, tooltips, drag-and-drop en carrousels.",tools:["sonner","vaul","cmdk","headlessui","floatingui","dndkit","swiper","embla"],tags:["react","interactie"]},
   {id:"ui-maps",cat:"layout",title:"Kaarten",text:"Voor alles met locaties. Combineer met de Google Places API voor echte plekken.",tools:["leaflet","maplibre","places"],tags:["kaarten","locatie"]},
   {id:"an-engines",cat:"motion",title:"Animatie-engines",text:"De bekendste libraries. Kies er één als hoofd-engine per project. GSAP is sinds 2025 volledig gratis, inclusief alle plugins.",tools:["gsap","motion","animejs","reactspring","mojs","tweenjs"],tags:["gsap","motion","anime.js"]},
+  {id:"app-state",cat:"base",for:["app","mobile"],title:"State en data in apps",text:"Houd server-data (TanStack Query) en UI-state (Zustand of Jotai) gescheiden. Zet filters in de URL.",tools:["tanstack","zustand","jotai","tsvirtual","errorboundary","nuqs"],tags:["state","data","react"]},
+  {id:"app-editor",cat:"layout",for:["app"],title:"Editors en rich text",text:"Voor notities, CMS's en alles waar gebruikers tekst schrijven. Kies één editor.",tools:["tiptap","lexical"],tags:["editor","rich text"]},
+  {id:"app-date",cat:"layout",for:["app","mobile"],title:"Datum, tijd en agenda",text:"Datums zijn lastiger dan ze lijken: tijdzones, notaties, toegankelijke kiezers.",tools:["datefns","dayjs","daypicker","schedulex"],tags:["datum","agenda","boeken"]},
+  {id:"app-rt",cat:"base",for:["app","mobile"],title:"Realtime en samenwerken",text:"Live updates, chat, wie er online is en samen bewerken.",tools:["suprealtime","liveblocks"],tags:["realtime","chat","presence"]},
+  {id:"app-upload",cat:"layout",for:["app"],title:"Bestanden uploaden",text:"Een goed uploadvlak plus opslag die afbeeldingen automatisch optimaliseert.",tools:["dropzone","uppy","uploadthing","cloudinary"],tags:["upload","bestanden"]},
+  {id:"app-pwa",cat:"base",for:["app"],title:"PWA en offline",text:"Laat je webapp installeren op telefoon en desktop, en werken zonder internet.",tools:["vitepwa","serwist","pwaguide","webpush"],tags:["pwa","offline","push"]},
+  {id:"app-native",cat:"base",for:["mobile"],title:"Mobiele apps met React Native",text:"Expo is de makkelijkste start. Let op: web-libraries zoals GSAP, Lenis, shadcn/ui en Magic UI werken niet in een native app. Gebruik de alternatieven hieronder.",steps:["Start met Expo en Expo Router","Styling: NativeWind (Tailwind-klassen) of Tamagui","Componenten: React Native Reusables of gluestack UI","Animaties: Reanimated, of Moti voor een simpele API","Test op je eigen telefoon met Expo Go"],tools:["expo","exporouter","nativewind","reanimated","moti","rnr","tamagui","gluestack","expopush","expodocs","rndocs"],tags:["react native","expo","ios","android"]},
+  {id:"app-desktop",cat:"base",for:["desktop","app"],title:"Desktop-apps en app-wrappers",text:"Je webapp als desktop- of mobiele app. Tauri is kleiner en veiliger, Electron is volwassener.",tools:["tauri","electron","capacitor"],tags:["desktop","wrapper"]},
+  {id:"app-backend",cat:"base",for:["app","mobile"],title:"Meertalig, achtergrondtaken en zoeken",text:"Wat een app nodig heeft zodra hij groeit.",tools:["i18next","nextintl","triggerdev","inngest","meilisearch","ghactions"],tags:["i18n","jobs","zoeken","ci"]},
+  {id:"app-ai",cat:"claude",for:["app","mobile"],title:"AI-functies in je eigen app",text:"Een chat, samenvatting of slimme zoekfunctie in je app. De SDK is gratis; het AI-model betaal je per gebruik bij de aanbieder.",steps:["Streaming-antwoorden met de AI SDK","Valideer wat het model teruggeeft met Zod","Zet de API-key alleen op de server","Beperk het gebruik per gebruiker (rate limit)"],tools:["aisdk","zod","upstash"],tags:["ai","chat","streaming"]},
+  {id:"bp-app",cat:"best",for:["app","mobile","desktop"],title:"Apps die goed voelen",text:"Een app gebruik je elke dag. Kleine details maken het verschil.",steps:["Ontwerp elke status: laden, leeg, fout, succes en offline","Optimistic updates: toon het resultaat meteen, met 'Ongedaan maken'","Touch targets minimaal 44×44 punten","Sneltoetsen en een command menu voor vaste gebruikers","Error boundaries zodat één fout niet de hele app breekt","Volg de richtlijnen van iOS en Android op mobiel"],tools:["hig","m3","pwaguide","noeffect","errorboundary"],tags:["apps","ux","mobiel"]},
   {id:"DafoIitSbr9",cat:"motion",title:"Welke animatielibrary kies je?",text:"Kies op basis van wat je bouwt, niet wat trending is.",steps:["Scroll- en timeline-animaties op een marketingsite: GSAP","UI-animaties in een React-app: Motion","Iets kleins zonder framework: Anime.js of native CSS","Natuurlijke, verende interacties: React Spring"],tools:["gsap","animejs","motion","reactspring"],tags:["gsap","react","scroll"]},
   {id:"an-gsap",cat:"motion",title:"GSAP-plugins (allemaal gratis)",text:"Registreer plugins één keer met gsap.registerPlugin(). In React gebruik je useGSAP, dan worden animaties automatisch opgeruimd.",tools:["gsapst","gsapsplit","gsapflip","gsapmorph","gsapdraw","gsapsmoother","gsapreact"],tags:["gsap","scroll","svg","tekst"]},
   {id:"an-scroll",cat:"motion",title:"Scroll-animaties en smooth scroll",text:"Eén smooth-scroll-library per site. Simpele fade-ins kunnen tegenwoordig met native CSS.",tools:["lenis","locomotive","aos","gsapst","scrolldriven"],tags:["scroll","parallax"]},
@@ -1095,6 +1161,48 @@ const IDEAS = [
   {id:"pat-buttons",cat:"patterns",title:"Knoppen & micro-interacties",text:"Een knop moet eruitzien als een knop en direct reageren.",variants:[
     ["Primair / secundair / ghost","drie duidelijke niveaus, overal hetzelfde"],["Magnetische knop","trekt licht naar je cursor toe"],["Shimmer border","een lichtje dat langs de rand loopt"],["Laadstatus in de knop","spinner en tekst 'Bezig…' zodat niemand twee keer klikt"]],
     tools:["magicui","uiverse","motion","reactbits"],tags:["buttons","hover"]},
+  {id:"pat-settings",cat:"patterns",for:["app","mobile"],title:"Instellingen",text:"Groepeer instellingen logisch en sla wijzigingen direct op, of maak duidelijk wanneer niet.",variants:[
+    ["Gegroepeerde lijst","secties met rijen, zoals iOS-instellingen"],["Sidebar met tabs","categorieën links, formulier rechts"],["Toggle-lijst","aan/uit-schakelaars met korte uitleg"],["Gevarenzone","verwijderen of opzeggen apart, in rood, met bevestiging"]],
+    tools:["shadcn","radix","rhf","zod"],tags:["settings","formulieren"]},
+  {id:"pat-profile",cat:"patterns",for:["app","mobile"],title:"Profiel & account",text:"Laat mensen zien wie ze zijn en snel aanpassen wat ze willen.",variants:[
+    ["Profielkop","grote avatar, naam, bio en statistieken"],["Bewerkbaar profiel","formulier met live voorbeeld"],["Accountmenu","avatar rechtsboven met dropdown"],["Account wisselen","snel schakelen tussen accounts of workspaces"]],
+    tools:["shadcn","boring","uploadthing"],tags:["profiel","account"]},
+  {id:"pat-notif",cat:"patterns",for:["app","mobile"],title:"Notificaties",text:"Stuur alleen wat nuttig is, en laat mensen zelf kiezen.",variants:[
+    ["Bel met dropdown","belletje met teller en de laatste meldingen"],["Notificatiecentrum","pagina met filters: alles, ongelezen, vermeldingen"],["Badge op icoon","een stip of getal op het tab-icoon"],["Toestemming op het juiste moment","vraag om push pas als het waarde heeft"]],
+    tools:["shadcn","sonner","webpush","expopush"],tags:["notificaties","push"]},
+  {id:"pat-chat",cat:"patterns",for:["app","mobile"],title:"Chat & berichten",text:"Snel, duidelijk wie wat zegt, en zichtbaar of een bericht is aangekomen.",variants:[
+    ["Gesprekken + chat","lijst met gesprekken links, het gesprek rechts"],["Chatbubbels","eigen berichten rechts, tijd en leesstatus"],["Typ-indicator en bijlagen","'aan het typen…' en een knop voor bestanden"],["AI-chat met streaming","het antwoord verschijnt woord voor woord"]],
+    tools:["suprealtime","liveblocks","aisdk","tsvirtual"],tags:["chat","realtime","ai"]},
+  {id:"pat-upload",cat:"patterns",for:["app","mobile"],title:"Bestanden uploaden",text:"Laat zien wat er gebeurt: voortgang, succes en duidelijke fouten.",variants:[
+    ["Dropzone","vlak waar je bestanden in sleept of klikt"],["Uploadlijst met voortgang","per bestand een balk en een annuleerknop"],["Avatar met bijsnijden","foto kiezen en in een cirkel bijsnijden"],["Galerij sorteren","geüploade foto's slepen om de volgorde te bepalen"]],
+    tools:["dropzone","uppy","uploadthing","dndkit"],tags:["upload","bestanden"]},
+  {id:"pat-date",cat:"patterns",for:["app","mobile"],title:"Datum & agenda",text:"Toon datums in de notatie van de gebruiker en houd rekening met tijdzones.",variants:[
+    ["Datumkiezer","kalender in een popover bij een veld"],["Periode kiezen","begin- en einddatum in één kalender"],["Weekagenda","dagen naast elkaar met afspraken als blokken"],["Tijdslot boeken","beschikbare tijden als knoppen per dag"]],
+    tools:["daypicker","schedulex","datefns"],tags:["datum","agenda","boeken"]},
+  {id:"pat-select",cat:"patterns",for:["app","mobile"],title:"Keuzes & invoer",text:"Kies het juiste invoerelement: dat scheelt uitleg.",variants:[
+    ["Combobox met zoeken","typ om te filteren in een lange lijst"],["Multi-select met chips","gekozen items als verwijderbare chips"],["Segmented control","2–4 opties naast elkaar, één actief"],["Schakelaar","aan/uit voor instellingen die meteen gelden"],["Schuifregelaar","een waarde of bereik kiezen"]],
+    tools:["shadcn","radix","cmdk","headlessui"],tags:["select","invoer"]},
+  {id:"pat-team",cat:"patterns",for:["app"],title:"Team & rechten",text:"Maak duidelijk wie wat mag, en voorkom dat iemand per ongeluk te veel rechten krijgt.",variants:[
+    ["Ledenlijst met rollen","avatar, naam, e-mail en een rol-dropdown"],["Uitnodigen","e-mailadressen invoeren en een rol kiezen"],["Rollenmatrix","rollen naast elkaar met vinkjes per recht"],["Workspace-wisselaar","snel schakelen tussen teams"]],
+    tools:["shadcn","tanstacktable","clerk","resend"],tags:["team","rollen","rechten"]},
+  {id:"pat-activity",cat:"patterns",for:["app"],title:"Activiteit & tijdlijn",text:"Laat zien wat er gebeurd is, door wie en wanneer.",variants:[
+    ["Activiteitenfeed","lijst met avatar, actie en tijd geleden"],["Verticale tijdlijn","stappen of gebeurtenissen langs een lijn"],["Auditlog","tabel met filters voor wie wat heeft gewijzigd"],["Reactie-thread","opmerkingen met antwoorden eronder"]],
+    tools:["shadcn","datefns","tanstacktable","liveblocks"],tags:["activiteit","tijdlijn"]},
+  {id:"pat-billing",cat:"patterns",for:["app"],title:"Abonnement & facturatie",text:"Wees transparant over wat iemand betaalt en maak opzeggen makkelijk.",variants:[
+    ["Huidig plan","kaart met plan, prijs, verlengdatum en knoppen"],["Gebruiksmeter","balk met verbruik ten opzichte van de limiet"],["Facturen","tabel met datum, bedrag en downloadlink"],["Plan wijzigen","plannen naast elkaar met het huidige gemarkeerd"]],
+    tools:["stripe","lemonsqueezy","shadcn","tanstacktable"],tags:["billing","abonnement"]},
+  {id:"pat-editor",cat:"patterns",for:["app"],title:"Editor & canvas",text:"Voor apps waar mensen iets maken: tekst, notities of diagrammen.",variants:[
+    ["Rich text met werkbalk","vet, kop, lijst en link boven de tekst"],["Slash-commando's","typ / voor een menu met blokken"],["Blokken-editor","elk blok los te slepen, zoals Notion"],["Canvas","oneindig vlak met vormen en verbindingen"]],
+    tools:["tiptap","lexical","tldraw","reactflow"],tags:["editor","notities","canvas"]},
+  {id:"pat-mobile",cat:"patterns",for:["mobile"],title:"Mobiele app-patronen",text:"Gebaren en patronen die mensen van hun telefoon kennen.",variants:[
+    ["Pull to refresh","naar beneden trekken om te verversen"],["Swipe-acties","veeg een rij opzij voor archiveren of verwijderen"],["Floating action button","ronde knop rechtsonder voor de hoofdactie"],["Stapelnavigatie","scherm schuift in, met een terugknop linksboven"],["Tabs bovenaan","horizontaal wisselen tussen lijsten"]],
+    tools:["expo","exporouter","reanimated","nativewind"],tags:["mobiel","gebaren","ios","android"]},
+  {id:"pat-states",cat:"patterns",for:["app","mobile"],title:"Fout- & offline-states",text:"Er gaat altijd iets mis. Zeg wat er aan de hand is en wat iemand kan doen.",variants:[
+    ["Offline-banner","melding dat je offline bent en wat er nog werkt"],["Fout met opnieuw proberen","duidelijke uitleg en een knop 'Opnieuw'"],["Optimistic update met undo","resultaat meteen tonen, met 'Ongedaan maken'"],["Geen toegang","leg uit waarom en wie toegang kan geven"]],
+    tools:["errorboundary","sonner","tanstack","vitepwa"],tags:["fouten","offline","undo"]},
+  {id:"pat-power",cat:"patterns",for:["app"],title:"Sneltoetsen & bulkacties",text:"Maak vaste gebruikers sneller zonder nieuwe gebruikers in de weg te zitten.",variants:[
+    ["Sneltoetsen-overzicht","druk op ? voor een lijst met sneltoetsen"],["Toets-hints in menu's","de sneltoets rechts naast elke menu-optie"],["Bulkacties","rijen selecteren en een actiebalk verschijnt"]],
+    tools:["cmdk","shadcn","tanstacktable"],tags:["sneltoetsen","power users"]},
   {id:"ui-anim",cat:"layout",title:"Geanimeerde componentbibliotheken",text:"Kopieer een component, plak het in je React-project en pas het aan. Bijna allemaal gebouwd op Tailwind en Motion.",tools:["aceternity","magicui","reactbits","c21st","motionprim","animata","cultui","kokonut"],tags:["react","tailwind","motion"]},
   {id:"ui-base",cat:"layout",title:"Basiscomponenten en thema's",text:"De fundering onder je UI. shadcn/ui is de standaard waar veel andere bibliotheken op bouwen.",tools:["shadcn","tweakcn","daisyui","uiverse","bklit"],tags:["shadcn","thema","charts"]},
   {id:"Ddf-7oiz126",cat:"layout",title:"Een dashboard met micro-interacties",text:"Recept voor een modern dashboard: interactieve datakaarten, subtiele animaties bij hover en laden, volledig responsive.",tools:["bklit","motion","shaders"],tags:["dashboard","react"]},
@@ -1121,19 +1229,25 @@ const PROJECTS = [
   {title:"Launch-video voor je app",level:"Starter",time:"1 middag",text:"Een korte promo: je app in een mooie mockup met strakke motion.",stack:["shots","jitter","remotion","rayso"],steps:["Maak screenshots van je app en zet ze in een mockup met Shots","Voeg titels en overgangen toe in Jitter","Of bouw de hele video met React-code in Remotion","Maak code-afbeeldingen voor social met ray.so"]},
   {title:"Sfeervolle weer-site",level:"Starter",time:"1 dag",text:"De achtergrond verandert mee met het weer: rustig bij zon, onrustig bij storm.",stack:["vite","tailwind","publicapis","shaders","motion","dotmatrix","phosphor","netlify"],steps:["Zoek een gratis weer-API in Public APIs","Koppel het weertype aan shader-instellingen","Gebruik een Dot Matrix-loader tijdens het ophalen","Animeer de temperatuur met Motion"]},
   {title:"Linkpagina met micro-animaties",level:"Starter",time:"1 avond",text:"Je eigen \"link in bio\"-pagina met één opvallend effect en je eigen iconen.",stack:["astro","tailwind","reactbits","svgl","uncut","haikei","netlify"],steps:["Kies één achtergrond-effect uit React Bits","Maak een SVG-achtergrond met Haikei","Gebruik merk-logo's van SVGL voor je socials","Publiceer op Netlify"]},
-  {title:"Café-finder met favorieten",level:"Gemiddeld",time:"2 weekenden",text:"Vind cafés in de buurt en sla je favorieten op in je eigen account.",stack:["nextjs","tailwind","shadcn","places","supabase","supamcp","rls","lucide","vercel","pwmcp"],steps:["Haal cafés op met de Places API","Laat Claude een favorieten-tabel maken via de Supabase MCP","Zet RLS aan zodat ieder alleen zijn eigen favorieten ziet","Deploy via Vercel en test met Playwright MCP"]},
-  {title:"Persoonlijk habit-dashboard",level:"Gemiddeld",time:"2 weekenden",text:"Houd gewoontes bij (sporten, lezen, water) en zie je voortgang in grafieken.",stack:["nextjs","tailwind","shadcn","bklit","motion","supabase","supamcp","rls","cdtmcp","vercel"],steps:["Ontwerp datakaarten met Bklit UI-charts","Sla check-ins op in Supabase","Voeg micro-animaties toe met Motion","Laat Claude de UI testen via de Chrome DevTools MCP"]},
+  {title:"Café-finder met favorieten",type:"app",level:"Gemiddeld",time:"2 weekenden",text:"Vind cafés in de buurt en sla je favorieten op in je eigen account.",stack:["nextjs","tailwind","shadcn","places","supabase","supamcp","rls","lucide","vercel","pwmcp"],steps:["Haal cafés op met de Places API","Laat Claude een favorieten-tabel maken via de Supabase MCP","Zet RLS aan zodat ieder alleen zijn eigen favorieten ziet","Deploy via Vercel en test met Playwright MCP"]},
+  {title:"Persoonlijk habit-dashboard",type:"app",level:"Gemiddeld",time:"2 weekenden",text:"Houd gewoontes bij (sporten, lezen, water) en zie je voortgang in grafieken.",stack:["nextjs","tailwind","shadcn","bklit","motion","supabase","supamcp","rls","cdtmcp","vercel"],steps:["Ontwerp datakaarten met Bklit UI-charts","Sla check-ins op in Supabase","Voeg micro-animaties toe met Motion","Laat Claude de UI testen via de Chrome DevTools MCP"]},
   {title:"Sign-up flow met een mascotte",level:"Gemiddeld",time:"1 weekend",text:"Een registratiepagina waar een mascotte meekijkt terwijl je typt en blij wordt als het lukt.",stack:["nextjs","tailwind","iplogo","boring","motion","haikei","supabase","rls","resend","vercel"],steps:["Maak een mascotte met de IP-as-logo skill (of start met Boring Avatars)","Laat de mascotte reageren op focus en typen met Motion","Maak een hero-achtergrond met Haikei","Koppel echte auth via Supabase en stuur een welkomstmail met Resend"]},
   {title:"Scrollverhaal over data",level:"Gemiddeld",time:"2 weekenden",text:"Een data-verhaal dat zich ontvouwt terwijl je scrolt, bijvoorbeeld over bestsellers.",stack:["astro","tailwind","pandas","gsap","lenis","gfonts","netlify"],steps:["Analyseer de dataset met pandas en exporteer JSON","Teken de grafieken als SVG","Laat grafieken in beeld animeren met ScrollTrigger","Maak het scrollen vloeiend met Lenis"]},
   {title:"Landingspagina uit Figma",level:"Gemiddeld",time:"1 weekend",text:"Ontwerp eerst in Figma, laat Claude het daarna pixel-precies bouwen.",stack:["figma","figmamcp","nextjs","tailwind","shadcn","aceternity","motion","context7","pwmcp","vercel"],steps:["Ontwerp de pagina in Figma met auto-layout","Koppel de Figma MCP en laat Claude sectie voor sectie bouwen","Voeg één wow-effect toe uit Aceternity UI","Vergelijk het resultaat in de browser met Playwright MCP"]},
-  {title:"Browsergame met leaderboard",level:"Gemiddeld",time:"2–3 weekenden",text:"Een klein 3D-spelletje met een online topscorelijst.",stack:["vite","threejs","animejs","supabase","rls","netlify"],steps:["Bouw een simpele scène met Three.js","Gebruik Anime.js voor UI-animaties en score-pop-ups","Sla scores op in Supabase","Voorkom valsspelen met RLS en server-side checks"]},
-  {title:"Kanban-bord met drag-and-drop",level:"Gemiddeld",time:"2 weekenden",text:"Je eigen Trello: kolommen, kaartjes slepen en alles opgeslagen per gebruiker.",stack:["nextjs","tailwind","shadcn","dndkit","sonner","supabase","supamcp","rls","zod","vercel","pwmcp"],steps:["Maak tabellen voor borden, kolommen en kaarten met RLS","Bouw slepen met dnd kit","Geef feedback met Sonner-toasts","Test het slepen met Playwright MCP"]},
+  {title:"Browsergame met leaderboard",type:"app",level:"Gemiddeld",time:"2–3 weekenden",text:"Een klein 3D-spelletje met een online topscorelijst.",stack:["vite","threejs","animejs","supabase","rls","netlify"],steps:["Bouw een simpele scène met Three.js","Gebruik Anime.js voor UI-animaties en score-pop-ups","Sla scores op in Supabase","Voorkom valsspelen met RLS en server-side checks"]},
+  {title:"Kanban-bord met drag-and-drop",type:"app",level:"Gemiddeld",time:"2 weekenden",text:"Je eigen Trello: kolommen, kaartjes slepen en alles opgeslagen per gebruiker.",stack:["nextjs","tailwind","shadcn","dndkit","sonner","supabase","supamcp","rls","zod","vercel","pwmcp"],steps:["Maak tabellen voor borden, kolommen en kaarten met RLS","Bouw slepen met dnd kit","Geef feedback met Sonner-toasts","Test het slepen met Playwright MCP"]},
   {title:"Receptensite met CMS",level:"Gemiddeld",time:"2 weekenden",text:"Een mooie receptensite waar je nieuwe recepten toevoegt zonder code aan te raken.",stack:["nextjs","tailwind","sanity","gfonts","phosphor","cloudinary","vercel","ogp"],steps:["Maak een recept-schema in Sanity","Laat Claude de pagina's genereren uit de CMS-data","Optimaliseer foto's met Cloudinary","Zorg voor mooie Open Graph-afbeeldingen per recept"]},
   {title:"Kleine webshop",level:"Gevorderd",time:"3+ weekenden",text:"Verkoop een paar producten (prints, stickers) met echte betalingen.",stack:["nextjs","tailwind","shadcn","stripe","stripemcp","supabase","rls","resend","zod","vercel","sentry","pwmcp"],steps:["Zet producten in Stripe via de Stripe MCP","Gebruik Stripe Checkout en verwerk betalingen via webhooks","Stuur orderbevestigingen met Resend","Test de hele koopflow met Playwright MCP"]},
-  {title:"Mobiele habit-app",level:"Gevorderd",time:"3+ weekenden",text:"Een echte app voor je telefoon, gebouwd met React Native.",stack:["expo","supabase","rls","zod","sentry"],steps:["Start een Expo-project en test op je eigen telefoon","Sla gewoontes op in Supabase met RLS","Valideer invoer met Zod","Zet Sentry aan voordat je de app deelt"]},
+  {title:"Mobiele habit-app",type:"mobile",level:"Gevorderd",time:"3+ weekenden",text:"Een echte app voor je telefoon, gebouwd met React Native.",stack:["expo","exporouter","nativewind","reanimated","rnr","supabase","rls","zod","rhf","zustand","sentry"],steps:["Start een Expo-project en test op je eigen telefoon","Sla gewoontes op in Supabase met RLS","Valideer invoer met Zod","Zet Sentry aan voordat je de app deelt"]},
+  {title:"Notities-app met rich text",type:"app",level:"Gemiddeld",time:"2 weekenden",text:"Je eigen Notion-light: notities met opmaak, mappen en zoeken.",stack:["nextjs","tailwind","shadcn","tiptap","zustand","tanstack","supabase","supamcp","rls","zod","cmdk","vercel","pwmcp"],steps:["Maak tabellen voor notities en mappen met RLS","Bouw de editor met Tiptap","Zoek en spring met een ⌘K-menu","Sla automatisch op met een optimistic update"]},
+  {title:"Realtime chat-app",type:"app",level:"Gemiddeld",time:"2 weekenden",text:"Chatten met vrienden, met 'aan het typen…' en wie er online is.",stack:["nextjs","tailwind","shadcn","supabase","suprealtime","rls","zod","sonner","tsvirtual","vercel"],steps:["Tabellen voor kanalen en berichten met RLS","Live berichten en presence via Supabase Realtime","Lange gesprekken soepel met TanStack Virtual","Meldingen met Sonner"]},
+  {title:"Boekingsapp voor afspraken",type:"app",level:"Gemiddeld",time:"2–3 weekenden",text:"Laat klanten een tijdslot kiezen en stuur automatisch een bevestiging.",stack:["nextjs","tailwind","shadcn","daypicker","datefns","supabase","rls","zod","rhf","resend","vercel","sentry"],steps:["Beschikbaarheid opslaan in Supabase","Datum en tijdslot kiezen met React DayPicker","Valideer de boeking op de server met Zod","Bevestiging per mail met Resend"]},
+  {title:"AI-assistent voor je eigen notities",type:"app",level:"Gevorderd",time:"3+ weekenden",text:"Stel vragen over je eigen teksten en krijg streaming antwoorden.",stack:["nextjs","tailwind","shadcn","aisdk","zod","supabase","rls","upstash","vercel","sentry"],steps:["Streaming chat met de AI SDK","API-key alleen op de server","Rate limit per gebruiker met Upstash","Log fouten in Sentry, nooit de inhoud van gebruikers"]},
+  {title:"Offline boodschappenlijst (PWA)",type:"app",level:"Starter",time:"1 weekend",text:"Een lijstje dat op je telefoon staat en ook zonder internet werkt.",stack:["vite","tailwind","vitepwa","zustand","dndkit","netlify"],steps:["Start met Vite en Tailwind","Bewaar de lijst lokaal met Zustand","Maak hem installeerbaar en offline met Vite PWA","Sorteer items met slepen"]},
+  {title:"Desktop-notitie-app",type:"desktop",level:"Gevorderd",time:"3+ weekenden",text:"Een snelle notitie-app voor je computer, met sneltoetsen.",stack:["tauri","vite","tailwind","zustand","lexical","cmdk"],steps:["Start een Tauri-project met Vite","Bewaar notities lokaal","Bouw de editor met Lexical","Voeg sneltoetsen en een ⌘K-menu toe"]},
   {title:"Filmische fanpagina",level:"Gevorderd",time:"3+ weekenden",text:"Een landingspagina voor je favoriete sporter, band of film, in de stijl van de Lando Norris-site.",stack:["astro","gsap","lenis","threejs","rive","taxi","fontshare","netlify","awwwards"],steps:["Begin met Lenis en één ScrollTrigger-sectie","Voeg een 3D-object toe met Three.js","Maak een interactieve animatie in Rive","Verbind pagina's met Taxi.js-overgangen"]},
-  {title:"Stemassistent met een gezicht",level:"Gevorderd",time:"3+ weekenden",text:"Een assistent die praat en een geanimeerd gezicht heeft dat meebeweegt met de stem.",stack:["vite","tailwind","elevenlabs","rive","omniroute"],steps:["Zet spraak om met de ElevenLabs API","Maak een mondanimatie in Rive","Stuur de animatie aan met het volume van de audio","Gebruik OmniRoute zodat het model nooit stilvalt"]},
-  {title:"Mini-SaaS met login en e-mail",level:"Gevorderd",time:"4+ weekenden",text:"Een klein betaald-product-idee: accounts, een dashboard en e-mails. Goede oefening in veilig bouwen.",stack:["nextjs","tailwind","shadcn","magicui","motion","supabase","supamcp","rls","resend","vercel","vercelmcp","pwmcp","karpathy","vercelskills","context7"],steps:["Schrijf eerst SECURITY.md en DATABASE.md","Bouw auth en tabellen met RLS via de Supabase MCP","Maak het dashboard met shadcn/ui en Magic UI","Test de flows met Playwright MCP en deploy via Vercel"]}
+  {title:"Stemassistent met een gezicht",type:"app",level:"Gevorderd",time:"3+ weekenden",text:"Een assistent die praat en een geanimeerd gezicht heeft dat meebeweegt met de stem.",stack:["vite","tailwind","elevenlabs","rive","omniroute"],steps:["Zet spraak om met de ElevenLabs API","Maak een mondanimatie in Rive","Stuur de animatie aan met het volume van de audio","Gebruik OmniRoute zodat het model nooit stilvalt"]},
+  {title:"Mini-SaaS met login en e-mail",type:"app",level:"Gevorderd",time:"4+ weekenden",text:"Een klein betaald-product-idee: accounts, een dashboard en e-mails. Goede oefening in veilig bouwen.",stack:["nextjs","tailwind","shadcn","magicui","motion","supabase","supamcp","rls","resend","vercel","vercelmcp","pwmcp","karpathy","vercelskills","context7"],steps:["Schrijf eerst SECURITY.md en DATABASE.md","Bouw auth en tabellen met RLS via de Supabase MCP","Maak het dashboard met shadcn/ui en Magic UI","Test de flows met Playwright MCP en deploy via Vercel"]}
 ];
 const COMBOS = [
   {tools:["gsap","lenis"],why:"Standaardduo voor scroll-animaties: Lenis maakt het scrollen vloeiend, ScrollTrigger hangt er animaties aan."},
@@ -1163,6 +1277,13 @@ const EXCL = [
   {keys:["drizzle","prisma"],msg:"Kies één ORM."},
   {keys:["barba","taxi","swup"],msg:"Kies één library voor paginatransities."},
   {keys:["lenis","locomotive","gsapsmoother"],msg:"Kies één smooth-scroll-library. Twee tegelijk vechten om de scroll."},
+  {keys:["zustand","jotai"],msg:"Kies één state-library."},
+  {keys:["tiptap","lexical"],msg:"Kies één editor."},
+  {keys:["datefns","dayjs"],msg:"Eén datumlibrary is genoeg."},
+  {keys:["triggerdev","inngest"],msg:"Kies één dienst voor achtergrondtaken."},
+  {keys:["tauri","electron"],msg:"Kies Tauri óf Electron voor je desktop-app."},
+  {keys:["rnr","tamagui","gluestack"],msg:"Kies één UI-systeem voor React Native."},
+  {keys:["vitepwa","serwist"],msg:"Kies de PWA-tool die bij je framework past."},
   {keys:["gsapsplit","splitting"],msg:"Twee manieren om tekst te splitsen. Kies er één."},
   {keys:["swiper","embla"],msg:"Kies één carrousel."},
   {keys:["threejs","babylon"],msg:"Kies één 3D-engine."},
@@ -1183,11 +1304,31 @@ const PAIRS = [
   {a:"clerk",b:"supabase",msg:"Supabase heeft zelf al login. Clerk erbij kan, maar dan moet je gebruikers in twee systemen koppelen. Kies bewust.",soft:true},
   {a:"graphify",b:"context7",msg:null}
 ];
+const has2=(S,r)=>[...S].some(k=>T[k].r===r);
 const isReactKit = k => (T[k].req||[]).some(g=>g===REACT);
 
+const NATIVE_OK = new Set(["expo","exporouter","nativewind","reanimated","moti","rnr","tamagui","gluestack","lucide","phosphor"]);
+const WEB_ONLY_ROLES = ["uikit","animation","motionx","styling","charts","maps","creative","pwa"];
 function analyse(sel){
   const S = new Set(sel), out = {conf:[],miss:[],tip:[]};
   if(!S.size) return out;
+  const mobile = ptype==="mobile" || S.has("expo"); let webOnly=new Set();
+  if(mobile){const bad=[...S].filter(k=>WEB_ONLY_ROLES.includes(T[k].r)&&!NATIVE_OK.has(k)); webOnly=new Set(bad); if(bad.length) out.conf.push({msg:"Deze libraries werken alleen in de browser, niet in een React Native-app. Gebruik NativeWind, Reanimated, Moti of React Native Reusables:",tools:bad});
+    const webfw=[...S].filter(k=>T[k].r==="framework"&&k!=="expo"); if(webfw.length&&ptype==="mobile") out.conf.push({msg:"Voor een mobiele app is Expo de basis; een web-framework is dan niet nodig (tenzij je ook een aparte website bouwt).",tools:webfw});}
+  if(ptype==="mobile"&&!S.has("expo")&&!S.has("capacitor")) out.miss.push({msg:"Een mobiele app heeft een basis nodig: Expo (React Native) of Capacitor (je webapp als app).",add:["expo","capacitor"]});
+  if(ptype==="desktop"&&!S.has("tauri")&&!S.has("electron")) out.miss.push({msg:"Een desktop-app heeft Tauri of Electron nodig.",add:["tauri","electron"]});
+  if(S.has("expo")&&ptype!=="mobile") out.tip.push({msg:"Je hebt Expo gekozen. Zet 'Soort project' op Mobiele app voor de juiste controles en regels.",add:[]});
+  if(ptype==="app"){
+    if(!S.has("tanstack")&&[...S].some(k=>["backend","api"].includes(T[k].r))) out.tip.push({msg:"Haal server-data op met TanStack Query: caching, laden en fouten gratis erbij.",add:["tanstack"]});
+    if(!S.has("errorboundary")&&[...S].some(k=>REACT.includes(k))) out.tip.push({msg:"Een error boundary voorkomt dat één fout de hele app laat crashen.",add:["errorboundary"]});
+    if(!has2(S,"auth")&&!S.has("supabase")&&!S.has("firebase")&&!S.has("convex")) out.tip.push({msg:"De meeste webapps hebben accounts. Kies een login-oplossing.",add:["supabase","clerk","betterauth"]});
+    if(!S.has("vitest")) out.tip.push({msg:"Tests voor je logica voorkomen dat Claude iets stukmaakt dat al werkte.",add:["vitest"]});
+  }
+  if(ptype==="mobile"){
+    if(!S.has("exporouter")&&S.has("expo")) out.tip.push({msg:"Navigatie tussen schermen met Expo Router.",add:["exporouter"]});
+    if(!S.has("nativewind")&&!S.has("tamagui")&&!S.has("gluestack")&&S.has("expo")) out.tip.push({msg:"Styling in React Native: NativeWind als je Tailwind kent.",add:["nativewind","tamagui"]});
+  }
+  if(ptype==="site"&&!has2(S,"monitor")&&[...S].some(k=>T[k].r==="framework")) out.tip.push({msg:"Weet hoeveel bezoekers je hebt, zonder cookiebanner.",add:["umami"]});
   // exclusive groups
   EXCL.forEach(g=>{const hit=g.keys.filter(k=>S.has(k)); if(hit.length>1) out.conf.push({msg:g.msg,tools:hit});});
   PAIRS.forEach(p=>{if(p.msg&&S.has(p.a)&&S.has(p.b)) out[p.soft?"tip":"conf"].push({msg:p.msg,tools:[p.a,p.b]});});
@@ -1196,7 +1337,7 @@ function analyse(sel){
     if(r.length) out.conf.push({msg:"Webflow draait geen React-componenten. Deze tools werken alleen in een code-project:",tools:r});}
   // requirements
   const reqSeen = new Set();
-  [...S].forEach(k=>(T[k].req||[]).forEach(alts=>{
+  [...S].filter(k=>!webOnly.has(k)).forEach(k=>(T[k].req||[]).forEach(alts=>{
     if(alts.some(a=>S.has(a))) return;
     if(S.has("webflow") && alts===REACT) return; // already reported as conflict
     const id = alts.join("|"); const who = [...S].filter(x=>(T[x].req||[]).some(g=>g.join("|")===id));
@@ -1204,10 +1345,10 @@ function analyse(sel){
     out.miss.push({msg:`${who.map(x=>T[x].n).join(", ")} ${who.length>1?"hebben":"heeft"} ${alts===REACT?"een React-basis":T[alts[0]].n} nodig.`,add:alts});
   }));
   const has = r => [...S].some(k=>T[k].r===r);
-  const building = [...S].some(k=>["framework","uikit","animation","motionx","styling","backend","hosting","quality","forms","datalib"].includes(T[k].r));
+  const building = [...S].some(k=>["framework","uikit","animation","motionx","styling","backend","hosting","quality","forms","datalib","native","state","editor","realtime","pwa"].includes(T[k].r));
   if(building){
-    if(!has("framework") && !has("aibuilder")) out.miss.push({msg:"Nog geen basis gekozen.",add:["nextjs","vite","astro"]});
-    if(!has("hosting") && !S.has("webflow") && !S.has("framer") && !S.has("firebase")) out.miss.push({msg:"Nog geen hosting gekozen.",add:["vercel","netlify"]});
+    if(!has("framework") && !has("aibuilder") && !has("native")) out.miss.push({msg:"Nog geen basis gekozen.",add:ptype==="mobile"?["expo"]:ptype==="desktop"?["vite","tauri"]:ptype==="app"?["nextjs","vite"]:["nextjs","astro","vite"]});
+    if(!has("hosting") && !S.has("webflow") && !S.has("framer") && !S.has("firebase") && !["mobile","desktop"].includes(ptype)) out.miss.push({msg:"Nog geen hosting gekozen.",add:["vercel","netlify"]});
     if(!has("styling") && !S.has("webflow") && ![...S].some(k=>(T[k].req||[]).some(g=>g.includes("tailwind")))) out.tip.push({msg:"Styling: Tailwind CSS is de standaard onder bijna alle componentbibliotheken.",add:["tailwind"]});
     if(!has("test")) out.tip.push({msg:"Laat Claude zijn eigen werk in de browser controleren.",add:["pwmcp","cdtmcp"]});
     if(!has("icons") && !S.has("webflow")) out.tip.push({msg:"Kies één iconenset.",add:["lucide","phosphor"]});
@@ -1237,6 +1378,7 @@ function buildMd(sel){
   const L = [];
   L.push(`# ${name}`,"");
   L.push(desc || "_Beschrijf in één of twee zinnen wat je bouwt en voor wie._","");
+  L.push(`**Soort project:** ${({site:"Website",app:"Webapp",mobile:"Mobiele app (React Native)",desktop:"Desktop-app"})[ptype]}`,"");
   if(!sel.length){L.push("_Voeg tools toe met de + knoppen in de library._");return L.join("\n");}
   L.push("## Stack","");
   Object.keys(ROLES).forEach(r=>{const ks=by(r); if(!ks.length) return;
@@ -1304,17 +1446,22 @@ function buildMd(sel){
   if(S.has("sentry")) L.push("- Log fouten via Sentry. Nooit persoonsgegevens of secrets in logs.");
   const tst=by("test"); if(tst.length) L.push(`- Controleer na elke UI-wijziging het resultaat in de browser via ${names(tst)}.`);
   const host=by("hosting"); if(host.length===1) L.push(`- Deploy via ${T[host[0]].n}${S.has("vercelmcp")?" (Vercel MCP)":""}.`);
+  if(ptype==="site"){L.push("- SEO telt: unieke title en description per pagina, Open Graph-afbeelding, sitemap.");L.push("- Performance-budget: LCP onder 2,5 s op mobiel.");}
+  if(ptype==="app"){L.push("- Ontwerp elk scherm in vijf staten: laden, leeg, fout, succes en offline.");L.push("- Houd server-state en UI-state gescheiden"+(S.has("tanstack")?" (server-data via TanStack Query)":"")+(S.has("zustand")?", UI-state via Zustand":"")+".");L.push("- Gebruik optimistic updates met 'Ongedaan maken' voor snelle acties.");L.push("- Zet filters, tabs en zoekopdrachten in de URL zodat je kunt delen en terugkomen.");}
+  if(ptype==="mobile"){L.push("- Dit is een React Native-app: gebruik geen libraries die de DOM of CSS nodig hebben.");L.push("- Touch targets minimaal 44×44 punten; volg Apple HIG en Material 3.");L.push("- Test op een echt toestel via Expo Go, niet alleen in de simulator.");L.push("- Bewaar secrets nooit in de app zelf: alles wat in de app zit, kan uitgelezen worden.");}
+  if(ptype==="desktop"){L.push("- Laad geen externe code in de app; beperk native commando's (IPC) tot wat echt nodig is.");L.push("- Ondersteun sneltoetsen en de standaard menubalk van het besturingssysteem.");}
   L.push("- Werk dit bestand bij als de stack verandert.","");
   L.push("## Kwaliteitsbasis","");
-  L.push("- Semantische HTML: button, nav, main, label. Eén h1 per pagina.");
+  L.push(ptype==="mobile"?"- Gebruik de toegankelijkheids-props van React Native (accessibilityLabel, accessibilityRole).":"- Semantische HTML: button, nav, main, label. Eén h1 per pagina.");
   L.push("- Elke afbeelding heeft een alt-tekst, vaste afmetingen en is gecomprimeerd.");
   L.push("- Alles werkt met het toetsenbord en de focus is zichtbaar.");
   L.push("- Tekstcontrast minimaal WCAG AA (4,5:1).");
   L.push("- Animeer alleen transform en opacity. 150–300 ms voor UI-feedback.");
   L.push("- Animaties respecteren prefers-reduced-motion.");
-  L.push("- Mobile first; geen horizontale scroll op 360px breed.");
+  if(ptype!=="mobile"&&ptype!=="desktop") L.push("- Mobile first; geen horizontale scroll op 360px breed.");
   L.push("- Ontwerp ook de lege, laad- en foutstatus.");
-  L.push("- Elke pagina heeft een unieke title, description en Open Graph-afbeelding.","");
+  if(ptype!=="mobile"&&ptype!=="desktop") L.push("- Elke pagina heeft een unieke title, description en Open Graph-afbeelding.");
+  L.push("");
   const a = analyse(sel);
   if(a.conf.length){L.push("## Let op: botst met elkaar",""); a.conf.forEach(c=>L.push(`- ${c.msg} (${names(c.tools)})`)); L.push("");}
   if(a.miss.length){L.push("## Nog te beslissen",""); a.miss.forEach(m=>L.push(`- [ ] ${m.msg} Opties: ${names(m.add)}.`)); L.push("");}
@@ -1427,6 +1574,10 @@ const MUST = [
     ["nextjs","Eén basis die alles aankan"],["tailwind","Styling waar bijna alle componenten op draaien"],["shadcn","Componenten die je zelf bezit"],["ts","Vangt fouten voordat je gebruiker ze ziet"],["biome","Nette code zonder discussie"],["lucide","Eén consistente iconenset"],["vercel","Live in een paar minuten"],["vercelmcp","Deployen met één zin"]]},
   {title:"Zodra je data of login hebt",text:"Hier gaat het in AI-gebouwde apps het vaakst mis.",items:[
     ["supabase","Database, login en opslag in één"],["rls","Iedereen ziet alleen zijn eigen data"],["supamcp","Claude beheert de database zelf"],["zod","Input valideren op client en server"],["sentry","Fouten zien voordat gebruikers klagen"]]},
+  {title:"Voor webapps",text:"Wat een app nodig heeft om betrouwbaar te voelen.",items:[
+    ["tanstack","Server-data ophalen en cachen"],["zustand","Simpele UI-state"],["rhf","Formulieren zonder gedoe"],["errorboundary","Eén fout breekt niet de hele app"],["vitest","Tests voor je logica"],["ghactions","Automatisch testen bij elke push"]]},
+  {title:"Voor mobiele apps",text:"React Native werkt anders dan het web. Deze tools passen erbij.",items:[
+    ["expo","De makkelijkste start"],["exporouter","Navigatie tussen schermen"],["nativewind","Tailwind in je app"],["reanimated","Vloeiende animaties"],["rnr","Componenten in shadcn-stijl"],["hig","Hoe iOS-apps horen te voelen"]]},
   {title:"Altijd checken voor je live gaat",text:"Geen installatie nodig: open de site en test je pagina.",items:[
     ["psi","Is de site snel genoeg?"],["wave","Zitten er toegankelijkheidsfouten in?"],["webaim","Is de tekst leesbaar?"],["secheaders","Staan de security headers goed?"],["ogp","Ziet je link er goed uit als hij gedeeld wordt?"]]}
 ];
@@ -1443,11 +1594,18 @@ function renderMust(){
 const ls = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 let done = new Set(ls.get("bieb-done",[]));
 let stack = ls.get("bieb-stack",[]).filter(k=>T[k]);
+let ptype = ls.get("bieb-ptype","site");
 let active = "all", level = "Alles", shown = 12, curFile = "CLAUDE.md", undo = null;
 let docOverride = ls.get("bieb-docs",{});
 const expanded = new Set();
 const val = id => document.getElementById(id).value;
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const FOR_ALL = ["claude","best","learn","sites","logo","assets"];
+IDEAS.forEach(i=>{ if(!i.for) i.for = FOR_ALL.includes(i.cat) ? ["site","app","mobile"] : ["site","app"]; });
+const PAT_FOR = {"DdePLtKAoWw":["site"],"hero-bento":["site"],"hero-brutal":["site"],"hero-swiss":["site"],"hero-node":["site"],"hero-split":["site"],"pat-nav":["site","app","mobile"],"pat-footer":["site"],"pat-features":["site"],"pat-proof":["site"],"pat-pricing":["site","app"],"pat-faq":["site"],"pat-cta":["site"],"pat-auth":["site","app","mobile"],"pat-forms":["site","app","mobile"],"pat-cards":["site","app","mobile"],"pat-dash":["app"],"pat-tables":["app"],"pat-overlay":["app","mobile"],"pat-feedback":["site","app","mobile"],"pat-empty":["app","mobile"],"pat-onboard":["app","mobile"],"pat-search":["site","app"],"pat-gallery":["site","mobile"],"pat-contact":["site"],"pat-article":["site"],"pat-loading":["site","app","mobile"],"pat-buttons":["site","app","mobile"]};
+IDEAS.forEach(i=>{ if(PAT_FOR[i.id]) i.for=PAT_FOR[i.id]; });
+IDEAS.filter(i=>i.id==="base-fw2").forEach(i=>i.for=["site","app","mobile"]);
+const FOR_LABEL = {site:"Website",app:"Webapp",mobile:"Mobiel",desktop:"Desktop"};
 const counters = {};
 IDEAS.forEach(i=>{counters[i.cat]=(counters[i.cat]||0)+1; i.no = CATS[i.cat].code+"-"+String(counters[i.cat]).padStart(2,"0");});
 function toggleTool(k,on){const has=stack.includes(k); if(on===undefined) on=!has; if(on&&!has) stack.push(k); if(!on&&has) stack=stack.filter(x=>x!==k); ls.set("bieb-stack",stack); renderAll();}
@@ -1594,6 +1752,80 @@ const WF = (()=>{
   W["pat-buttons|1"]=S(b(54,42,52,14)+`<path d="M112 64 l0 12 l3.5 -3.2 l3 5.5 l2 -1 l-3 -5.5 l4.5 0 z" class="h"/><path d="M104 60 q6 -2 10 2 M100 64 q4 2 8 6" class="ln"/>`);
   W["pat-buttons|2"]=S(r(50,40,60,18,"s",9)+`<rect x="50" y="40" width="60" height="18" rx="9" class="shimmer"/>`+t(64,47.8,32,"h"));
   W["pat-buttons|3"]=S(b(46,42,68,14,"a")+`<circle cx="60" cy="49" r="3.4" class="spin"/>`+t(68,47.8,34,"inv2"));
+  // --- App-patronen
+  const sw=(x,y,on=true)=>r(x,y,14,8,on?"a":"t",4)+c(on?x+10:x+4,y+4,3,"invh2");
+  const av=(x,y,rad=4)=>c(x,y,rad,"ao");
+  // Instellingen
+  W["pat-settings|0"]=S(P(h(4,2,24,5)+[0,1].map(g=>r(2,12+g*36,46,32,"s",4)+[0,1,2].map(i=>t(6,17+g*36+i*10,22)+`<path d="M42 ${16+g*36+i*10} l2 2 l-2 2" class="ln"/>`).join("")).join("")));
+  W["pat-settings|1"]=S(r(8,8,40,84,"s",3)+[0,1,2,3,4].map(i=>r(10,12+i*11,36,8,i===0?"ao":"bg",2)+t(14,14.8+i*11,22)).join("")+h(56,12,50,6)+[0,1,2].map(i=>t(56,26+i*18,24,"h")+r(56,30+i*18,90,8,"bg ol",2)).join(""));
+  W["pat-settings|2"]=S(r(20,8,120,84,"s",4)+[0,1,2,3,4].map(i=>t(28,16+i*15,50,"h")+t(28,21+i*15,70)+sw(116,15+i*15,i%2===0)).join(""));
+  W["pat-settings|3"]=S(h(20,10,60,6)+L(20,22,120,2)+r(20,44,120,40,"s errl",4)+t(28,52,50,"k")+L(28,60,90,2)+b(28,72,34,8,"k"));
+  // Profiel
+  W["pat-profile|0"]=S(r(0,0,160,34,"ao",0)+c(30,36,12,"s")+av(30,36,9)+h(48,40,50,6)+t(48,50,70)+[0,1,2].map(i=>h(20+i*44,66,20,8)+t(20+i*44,78,28)).join(""));
+  W["pat-profile|1"]=S(r(8,8,86,84,"s",4)+[0,1,2].map(i=>t(14,14+i*18,24,"h")+r(14,18+i*18,74,8,"bg ol",2)).join("")+b(14,76,34,8)+r(100,8,52,60,"s",4)+av(126,24,8)+t(110,38,32,"h")+L(108,46,36,2));
+  W["pat-profile|2"]=S(nav()+c(146,6.5,4.5,"ao")+r(96,16,58,52,"s",4)+av(104,24,4)+t(112,22,30,"h")+t(112,27,22)+`<line x1="96" y1="34" x2="154" y2="34" class="grid"/>`+[0,1,2].map(i=>t(102,40+i*8,34)).join("")+t(102,62,24,"k"));
+  W["pat-profile|3"]=S(r(40,10,80,80,"s",5)+t(48,16,40,"h")+[0,1,2].map(i=>r(46,24+i*16,68,13,i===0?"ao":"bg",3)+av(54,30.5+i*16,4)+t(62,29+i*16,34)).join("")+t(48,78,30,"a"));
+  // Notificaties
+  W["pat-notif|0"]=S(nav()+`<path d="M121 3 q5 0 5 5 v3 h-10 v-3 q0 -5 5 -5z" class="h"/>`+c(125,3,2.4,"k")+r(70,16,84,62,"s",4)+[0,1,2,3].map(i=>av(80,26+i*13,4)+t(88,23.5+i*13,52)+t(88,28.5+i*13,30)+(i<2?c(148,26+i*13,1.8,"a"):"")).join(""));
+  W["pat-notif|1"]=S(h(10,8,60,6)+[0,1,2].map(i=>b(10+i*30,20,26,7,i===1?"a":"o")).join("")+[0,1,2,3,4].map(i=>r(10,32+i*13,140,11,i<2?"ao":"s",3)+av(18,37.5+i*13,3.5)+t(26,35+i*13,80)).join(""));
+  W["pat-notif|2"]=S(P(L(4,4,42,6,7)+r(0,70,50,14,"s",0)+[0,1,2,3].map(i=>c(7+i*12,77,2.8,"t")).join("")+c(22,74,2.2,"k")));
+  W["pat-notif|3"]=S(L(12,10,136,4,8)+r(30,46,100,40,"s",5)+`<path d="M44 54 q5 0 5 5 v3 h-10 v-3 q0 -5 5 -5z" class="a"/>`+t(58,54,56,"h")+t(58,60,40)+b(58,70,30,8,"o")+b(92,70,30,8));
+  // Chat
+  W["pat-chat|0"]=S(r(0,0,50,100,"s",0)+[0,1,2,3,4,5].map(i=>r(3,4+i*15,44,13,i===1?"ao":"bg",3)+av(10,10.5+i*15,4)+t(17,8+i*15,24)+t(17,12.5+i*15,18)).join("")+r(58,8,60,12,"s",6)+r(90,26,62,12,"ao",6)+r(58,44,70,12,"s",6)+r(56,86,98,10,"bg ol",5)+c(148,91,3,"a"));
+  W["pat-chat|1"]=S([[10,8,70,"s",0],[80,26,70,"ao",1],[10,46,90,"s",0],[90,66,60,"ao",1]].map(([x,y,w,cl,me])=>r(x,y,w,14,cl,7)+t(x+6,y+5.6,w-26)+t(me?x+w-14:x+w-14,y+16,10)).join("")+c(148,82,1.6,"a"));
+  W["pat-chat|2"]=S(r(10,10,80,14,"s",7)+t(16,15.6,56)+r(10,32,34,12,"s",6)+c(20,38,1.8,"h")+c(27,38,1.8,"h")+c(34,38,1.8,"h")+r(10,86,140,10,"bg ol",5)+`<path d="M18 88 v6 M15 91 h6" class="ln"/>`+c(144,91,3,"a"));
+  W["pat-chat|3"]=S(r(80,8,70,14,"ao",7)+t(86,13.6,50)+r(10,30,110,40,"s",6)+L(16,36,96,4,7)+r(78,57,2,6,"a",1)+r(10,84,140,12,"bg ol",6)+c(144,90,3.4,"a"));
+  // Upload
+  W["pat-upload|0"]=S(r(20,14,120,60,"bg ring",8)+`<path d="M80 34 v18 M72 42 l8 -8 l8 8" class="lna"/>`+t(52,58,56,"h")+t(64,64,32)+t(56,82,48));
+  W["pat-upload|1"]=S([0,1,2].map(i=>r(14,12+i*26,132,20,"s",4)+r(20,17+i*26,10,10,"ao",2)+t(36,17+i*26,56,"h")+`<line x1="36" y1="${26+i*26}" x2="132" y2="${26+i*26}" class="track"/><line x1="36" y1="${26+i*26}" x2="${[132,96,60][i]}" y2="${26+i*26}" class="trackon"/>`+(i===0?chk(138,19):`<path d="M136 ${16+i*26} l5 5 m0 -5 l-5 5" class="ln"/>`)).join(""));
+  W["pat-upload|2"]=S(r(30,8,100,84,"s",5)+img(44,16,72,52)+`<circle cx="80" cy="42" r="20" class="ring"/>`+b(44,76,34,8,"o")+b(82,76,34,8));
+  W["pat-upload|3"]=S([0,1,2,3,4,5].map(i=>img(12+(i%3)*48,10+Math.floor(i/3)*42,42,36)).join("")+r(58,8,46,40,"s ak",4));
+  // Datum
+  W["pat-date|0"]=S(r(20,8,70,10,"bg ol",2)+t(26,11.8,30)+r(20,22,90,72,"s",4)+t(28,28,36,"h")+Array.from({length:28},(_,i)=>c(30+(i%7)*11,42+Math.floor(i/7)*12,3.4,i===10?"a":"t")).join(""));
+  W["pat-date|1"]=S(r(10,10,140,80,"s",4)+[0,1].map(m=>t(18+m*68,16,30,"h")+Array.from({length:28},(_,i)=>{const d=m*28+i,on=d>=12&&d<=33;return c(22+m*68+(i%7)*9,30+Math.floor(i/7)*12,3.2,d===12||d===33?"a":on?"ao":"t")}).join("")).join(""));
+  W["pat-date|2"]=S([0,1,2,3,4].map(i=>t(24+i*27,6,14,"h")+`<line x1="${20+i*27}" y1="12" x2="${20+i*27}" y2="96" class="grid"/>`).join("")+[[20,20,24],[47,34,18],[74,16,30],[101,50,20],[128,28,26],[47,62,22]].map(([x,y,hh],i)=>r(x+2,y,23,hh,i%2?"ao":"s ak",3)).join(""));
+  W["pat-date|3"]=S(h(20,8,60,6)+[0,1,2,3,4].map(i=>r(20+i*25,20,21,14,i===1?"a":"s",3)).join("")+[0,1,2,3,4,5].map(i=>b(20+(i%3)*42,44+Math.floor(i/3)*16,36,10,i===2?"a":"o")).join("")+b(20,80,120,9));
+  // Keuzes
+  W["pat-select|0"]=S(r(30,12,100,11,"bg okl",3)+t(36,16.4,30,"h")+r(30,26,100,58,"s",4)+[0,1,2,3,4].map(i=>r(34,30+i*10.5,92,9,i===1?"ao":"bg",2)+t(38,33+i*10.5,i===1?44:56)).join(""));
+  W["pat-select|1"]=S(r(20,30,120,22,"bg ol",4)+[[24,24],[52,30],[86,20]].map(([x,w])=>r(x,36,w,10,"ao",5)+t(x+4,39.8,w-10,"a")).join("")+t(112,39.8,20)+r(20,56,120,30,"s",4)+[0,1].map(i=>t(26,62+i*10,50)).join(""));
+  W["pat-select|2"]=S(r(28,42,104,16,"s",8)+r(30,44,34,12,"a",6)+t(38,48.8,18,"invh2")+t(72,48.8,18)+t(106,48.8,18));
+  W["pat-select|3"]=S([0,1,2].map(i=>t(34,28+i*18,60,"h")+sw(112,25.5+i*18,i!==1)).join(""));
+  W["pat-select|4"]=S(`<line x1="24" y1="50" x2="136" y2="50" class="track"/><line x1="56" y1="50" x2="112" y2="50" class="trackon"/>`+c(56,50,5,"a")+c(112,50,5,"a")+t(46,62,20)+t(102,62,20)+h(56,30,48,6));
+  // Team
+  W["pat-team|0"]=S(r(10,8,140,84,"s",4)+[0,1,2,3,4].map(i=>av(22,20+i*15,5)+t(32,16+i*15,40,"h")+t(32,21+i*15,54)+r(110,15+i*15,32,9,"bg ol",3)+t(114,18+i*15,18)).join(""));
+  W["pat-team|1"]=S(r(20,14,120,72,"s",5)+h(30,22,60,6)+r(30,36,100,20,"bg ol",3)+[[34,30],[68,34]].map(([x,w])=>r(x,40,w,9,"ao",4.5)).join("")+r(30,62,50,9,"bg ol",3)+b(98,62,32,9));
+  W["pat-team|2"]=S(r(8,8,144,84,"s",4)+[0,1,2].map(i=>t(76+i*26,14,18,"h")).join("")+[0,1,2,3,4,5].map(j=>`<line x1="8" y1="${24+j*11}" x2="152" y2="${24+j*11}" class="grid"/>`+t(14,28+j*11,44)+[0,1,2].map(i=>chk(85+i*26,29+j*11,j<2||i<2&&j<4||i===0)).join("")).join(""));
+  W["pat-team|3"]=S(r(0,0,40,100,"s",0)+r(4,4,32,12,"ao",3)+t(8,8.8,20)+`<path d="M30 8 l2 2 l2 -2" class="ln"/>`+r(4,18,50,40,"s",4)+[0,1,2].map(i=>av(12,26+i*11,3.5)+t(18,24.8+i*11,28)).join("")+L(52,70,96,3));
+  // Activiteit
+  W["pat-activity|0"]=S([0,1,2,3,4].map(i=>av(20,14+i*18,5)+t(30,10+i*18,70,"h")+t(30,16+i*18,40)+t(128,12+i*18,18)).join(""));
+  W["pat-activity|1"]=S(`<line x1="30" y1="10" x2="30" y2="92" class="track"/>`+[0,1,2,3].map(i=>c(30,16+i*22,4,i<2?"a":"o")+t(42,12+i*22,60,"h")+t(42,18+i*22,90)).join(""));
+  W["pat-activity|2"]=S([0,1,2].map(i=>b(8+i*26,6,22,7,"o")).join("")+r(8,18,144,76,"s",3)+[0,1,2,3,4,5].map(j=>`<line x1="8" y1="${28+j*11}" x2="152" y2="${28+j*11}" class="grid"/>`+av(16,33.5+j*11,3)+t(24,32+j*11,40)+t(76,32+j*11,40)+t(128,32+j*11,18)).join(""));
+  W["pat-activity|3"]=S([[10,8,0],[26,34,1],[26,58,1],[10,82,0]].map(([x,y,rep])=>av(x+6,y+6,5)+r(x+14,y,120-x,14,"s",5)+t(x+20,y+5.6,70)).join("")+`<path d="M16 22 v12 q0 6 6 6 h4" class="ln"/>`);
+  // Billing
+  W["pat-billing|0"]=S(r(20,12,120,76,"s ak",6)+t(30,20,30,"a")+h(30,30,50,9)+t(30,46,70)+t(30,52,50)+b(30,68,40,9)+b(76,68,40,9,"o"));
+  W["pat-billing|1"]=S(r(20,24,120,52,"s",5)+t(30,32,50,"h")+t(114,32,18)+`<line x1="30" y1="50" x2="130" y2="50" class="track"/><line x1="30" y1="50" x2="104" y2="50" class="trackon"/>`+t(30,60,60)+`<line x1="116" y1="44" x2="116" y2="56" class="grid"/>`);
+  W["pat-billing|2"]=S(r(8,8,144,84,"s",4)+[0,1,2].map(i=>t(14+i*48,14,24,"h")).join("")+[0,1,2,3,4].map(j=>`<line x1="8" y1="${24+j*13}" x2="152" y2="${24+j*13}" class="grid"/>`+t(14,29+j*13,30)+t(62,29+j*13,20)+`<path d="M136 ${27+j*13} v5 m-3 -2 l3 3 l3 -3" class="lna"/>`).join(""));
+  W["pat-billing|3"]=W["pat-pricing|0"];
+  // Editor
+  W["pat-editor|0"]=S(r(10,8,140,14,"s",4)+["B","I","H","•","↗"].map((g,i)=>r(14+i*14,11,10,8,i===0?"ao":"bg",2)).join("")+h(14,30,70,7)+L(14,44,130,6,7));
+  W["pat-editor|1"]=S(L(14,10,130,3,7)+t(14,32,6,"a")+r(14,38,76,54,"s",4)+[0,1,2,3].map(i=>r(18,42+i*12,68,10,i===0?"ao":"bg",2)+r(21,44+i*12,6,6,"t",1.5)+t(31,45+i*12,40)).join(""));
+  W["pat-editor|2"]=S([0,1,2,3].map(i=>r(24,8+i*22,120,18,i===1?"s ak":"s",3)+(i===1?[0,1,2].map(j=>c(16,14+i*22+j*3.5,1.2,"h")+c(20,14+i*22+j*3.5,1.2,"h")).join(""):"")+t(30,14+i*22,i===2?60:96,i===0?"h":"t")).join(""));
+  W["pat-editor|3"]=S(Array.from({length:48},(_,i)=>c(10+(i%12)*13,10+Math.floor(i/12)*25,.8,"t")).join("")+r(18,18,40,24,"s",4)+c(106,36,14,"ao")+r(62,62,44,22,"s ak",11)+`<path d="M58 30 L92 34 M104 50 L88 62" class="lna"/>`);
+  // Mobiel
+  W["pat-mobile|0"]=S(P(`<path d="M25 6 a6 6 0 1 1 -5 3" class="lna"/><path d="M20 5 l0 4 l4 0" class="lna"/>`+[0,1,2,3].map(i=>r(2,20+i*16,46,13,"s",3)+t(6,25+i*16,30)).join("")));
+  W["pat-mobile|1"]=S(P([0,2,3].map(i=>r(2,4+i*20,46,16,"s",3)+t(6,10+i*20,30)).join("")+r(28,24,22,16,"k",0)+r(-12,24,40,16,"s",3)+t(-8,30,24)+`<path d="M34 29 h8 M36 34 h4" class="invh2l"/>`));
+  W["pat-mobile|2"]=S(P([0,1,2,3,4].map(i=>r(2,2+i*15,46,12,"s",3)+t(6,6.5+i*15,30)).join("")+c(40,74,7,"a")+`<path d="M40 70.5 v7 M36.5 74 h7" class="invh2l"/>`));
+  W["pat-mobile|3"]=S(P(r(0,0,50,12,"s",0)+`<path d="M8 3 l-3 3 l3 3" class="lna"/>`+t(16,5,20,"h")+L(4,18,42,7,7)+r(-6,0,4,84,"ao",0)));
+  W["pat-mobile|4"]=S(P(r(0,0,50,12,"s",0)+[0,1,2].map(i=>t(4+i*16,5,12,i===0?"a":"t")).join("")+r(4,11,12,1.4,"a",.7)+[0,1,2,3].map(i=>r(2,16+i*16,46,13,"s",3)+t(6,21+i*16,30)).join("")));
+  // Fout & offline
+  W["pat-states|0"]=S(r(0,0,160,12,"k",0)+t(40,5,80,"inv2")+L(12,24,136,6,9)+`<g opacity=".5">${img(12,78,60,16)}</g>`);
+  W["pat-states|1"]=S(r(56,18,48,30,"s errl",8)+`<path d="M74 28 l12 12 m0 -12 l-12 12" class="errls"/>`+h(46,56,68,6)+t(52,66,56)+b(64,76,32,9));
+  W["pat-states|2"]=S([0,1,2,3].map(i=>r(14,10+i*18,132,14,i===1?"ao":"s",3)+t(20,15.6+i*18,70)).join("")+r(34,84,92,12,"ink",6)+t(42,88.8,40,"inv2")+t(98,88.8,20,"a"));
+  W["pat-states|3"]=S(`<path d="M72 22 h16 v14 h-16 z M75 22 v-4 a5 5 0 0 1 10 0 v4" class="lna"/>`+h(44,46,72,6)+L(40,56,80,2)+b(62,74,36,9,"o"));
+  // Power users
+  W["pat-power|0"]=S(L(12,10,136,6,8)+dim()+r(26,14,108,72,"s",5)+h(34,20,40,5)+[0,1,2,3,4].map(i=>t(34,33+i*10,50)+r(110,31+i*10,8,6,"bg ol",1.5)+r(120,31+i*10,8,6,"bg ol",1.5)).join(""));
+  W["pat-power|1"]=S(r(40,10,80,80,"s",4)+[0,1,2,3,4,5].map(i=>r(44,14+i*12,72,10,i===1?"ao":"bg",2)+t(48,17.5+i*12,34)+r(100,16+i*12,12,6,"bg ol",1.5)).join(""));
+  W["pat-power|2"]=S(r(8,8,144,70,"s",3)+[0,1,2,3,4].map(j=>r(12,14+j*12,5,5,j%2===0?"a":"o",1.2)+t(22,15+j*12,60)+t(96,15+j*12,40)).join("")+r(30,84,100,12,"ink",6)+t(38,88.8,24,"inv2")+b(84,86,20,8,"k")+b(106,86,20,8,"o"));
   return W;
 })();
 
@@ -1609,14 +1841,15 @@ function card(i,q){
   return `<article class="card${done.has(i.id)?" done":""}" data-id="${i.id}">
     <div class="cardhead"><span class="callno">${i.no}</span><span>${esc(CATS[i.cat].label)}</span></div>
     ${WF[i.id]?`<figure class="wf wf-lg" role="img" aria-label="Wireframe: ${esc(i.title)}">${WF[i.id]}</figure>`:""}<h3>${esc(i.title)}</h3><p>${esc(i.text)}</p>${steps}${vars}${prompt}${tools}
-    <div class="chips">${i.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>
+    <div class="chips">${i.for.map(f=>`<span class="chip for">${FOR_LABEL[f]}</span>`).join("")}${i.tags.map(t=>`<span class="chip">${esc(t)}</span>`).join("")}</div>
     <div class="foot"><span class="linkcount">${i.tools.length} link${i.tools.length>1?"s":""}${i.variants?` · ${i.variants.length} varianten`:""}</span>
       <button class="tried" type="button" aria-pressed="${done.has(i.id)}">${done.has(i.id)?"✓ geprobeerd":"markeer als geprobeerd"}</button></div>
   </article>`;
 }
 function renderLibrary(){
   const q = val("q").trim().toLowerCase(), hide = document.getElementById("hideDone").checked;
-  const list = IDEAS.filter(i=>(active==="all"||i.cat===active)&&(!hide||!done.has(i.id))&&
+  const ff = val("forf");
+  const list = IDEAS.filter(i=>(active==="all"||i.cat===active)&&(!hide||!done.has(i.id))&&(ff==="all"||i.for.includes(ff)||(ff==="desktop"&&i.for.includes("app")))&&
     (!q||[i.title,i.text,i.no,...i.tags,...(i.steps||[]),...(i.variants||[]).flat(),...i.tools.flatMap(k=>[T[k].n,T[k].d])].join(" ").toLowerCase().includes(q)));
   document.getElementById("grid").innerHTML = list.slice(0,q?list.length:shown).map(i=>card(i,q)).join("");
   document.getElementById("empty").hidden = list.length>0;
@@ -1630,7 +1863,7 @@ function renderProjects(){
   const lv=["Alles","Starter","Gemiddeld","Gevorderd"];
   document.getElementById("levels").innerHTML = lv.map(l=>`<button type="button" class="drawer" data-level="${l}" aria-pressed="${l===level}">${l}<span class="n">${l==="Alles"?PROJECTS.length:PROJECTS.filter(p=>p.level===l).length}</span></button>`).join("");
   document.getElementById("pgrid").innerHTML = PROJECTS.map((p,ix)=>({p,ix})).filter(({p})=>level==="Alles"||p.level===level).map(({p,ix})=>`<article class="proj">
-    <div class="projmeta"><span class="lvl lvl-${p.level}">${p.level}</span><span>${p.time}</span></div>
+    <div class="projmeta"><span class="lvl lvl-${p.level}">${p.level}</span><span>${FOR_LABEL[p.type||(p.stack.includes("expo")?"mobile":"site")]} · ${p.time}</span></div>
     <h3>${esc(p.title)}</h3><p>${esc(p.text)}</p>
     <div class="stack">${p.stack.map(tlink).join("")}</div>
     <ol class="steps">${p.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
@@ -1661,6 +1894,7 @@ function renderBuilder(){
   if(undo) tray.querySelector(".in").innerHTML = `<span>${esc(undo.label)}</span><button type="button" class="undo" data-undo="1">Ongedaan maken</button>`;
   else if(stack.length) tray.querySelector(".in").innerHTML = `<span>Mijn stack: <b>${stack.length}</b> tool${stack.length>1?"s":""}${a.conf.length?` · <span class="warn">${a.conf.length} botst</span>`:""}${a.miss.length?` · ${a.miss.length} mist`:""}</span><a href="#bouwer">Naar stack-bouwer ↓</a>`;
 }
+function renderPtype(){document.getElementById("ptype").innerHTML=Object.entries({site:"Website",app:"Webapp",mobile:"Mobiele app",desktop:"Desktop-app"}).map(([k,l])=>`<button type="button" role="radio" aria-checked="${k===ptype}" data-ptype="${k}">${l}</button>`).join("");}
 function renderFiles(){
   const files=allFiles(); if(!files.some(f=>f.f===curFile)) curFile="CLAUDE.md";
   document.getElementById("filetabs").innerHTML = files.length>1 ? files.map(f=>`<button type="button" role="tab" class="ftab" data-file="${f.f}" aria-selected="${f.f===curFile}">${f.f.replace("docs/","")}</button>`).join("") : "";
@@ -1668,7 +1902,7 @@ function renderFiles(){
   document.getElementById("md").textContent = files.find(f=>f.f===curFile).c;
   document.getElementById("dlZip").hidden = files.length<2 || !dlReady;
 }
-function renderAll(){renderMust();renderLibrary();renderProjects();renderBuilder();}
+function renderAll(){renderPtype();renderMust();renderLibrary();renderProjects();renderBuilder();}
 
 /* ---------- Events ---------- */
 document.addEventListener("click",e=>{
@@ -1679,19 +1913,21 @@ document.addEventListener("click",e=>{
   if(t.dataset.addsugg){toggleTool(t.dataset.addsugg,true);return;}
   if(t.dataset.mustall){const g=MUST[+t.dataset.mustall]; const allIn=g.items.every(([k])=>stack.includes(k)); g.items.forEach(([k])=>{if(!allIn&&!stack.includes(k)) stack.push(k);}); ls.set("bieb-stack",stack); renderAll(); return;}
   if(t.dataset.remove){toggleTool(t.dataset.remove,false);return;}
+  if(t.dataset.ptype){ptype=t.dataset.ptype;ls.set("bieb-ptype",ptype);renderPtype();renderBuilder();return;}
   if(t.dataset.expand){expanded.add(t.dataset.expand);renderLibrary();return;}
   if(t.dataset.file){curFile=t.dataset.file;renderFiles();return;}
   if(t.dataset.undo){stack=undo.stack; document.getElementById("pname").value=undo.meta.n; document.getElementById("pdesc").value=undo.meta.d; saveMeta(); ls.set("bieb-stack",stack); undo=null; renderAll(); return;}
   if(t.dataset.vp||t.dataset.p){const [id,vi]=(t.dataset.vp||t.dataset.p).split("|"); const i=IDEAS.find(x=>x.id===id); const txt=t.dataset.vp?variantPrompt(i,i.variants[+vi]):i.prompt;
     const old=t.textContent; const ok=()=>{t.textContent="✓ Gekopieerd";setTimeout(()=>t.textContent=old,1600);};
     try{navigator.clipboard.writeText(txt).then(ok,()=>{t.textContent="Kopiëren lukt niet";});}catch(e){t.textContent="Kopiëren lukt niet";} return;}
-  if(t.dataset.load){const p=PROJECTS[+t.dataset.load]; setUndo(`Stack vervangen door "${p.title}"`); stack=[...p.stack]; ls.set("bieb-stack",stack);
+  if(t.dataset.load){const p=PROJECTS[+t.dataset.load]; setUndo(`Stack vervangen door "${p.title}"`); stack=[...p.stack]; ls.set("bieb-stack",stack); ptype=p.type||(p.stack.includes("expo")?"mobile":"site"); ls.set("bieb-ptype",ptype);
     document.getElementById("pname").value=p.title; document.getElementById("pdesc").value=p.text; saveMeta(); renderAll();
     document.getElementById("bouwer").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); return;}
   if(t.classList.contains("tried")){const id=t.closest(".card").dataset.id; done.has(id)?done.delete(id):done.add(id); ls.set("bieb-done",[...done]); renderLibrary(); return;}
 });
 document.getElementById("q").addEventListener("input",()=>{shown=12;renderLibrary();});
 document.getElementById("hideDone").addEventListener("change",renderLibrary);
+document.getElementById("forf").addEventListener("change",()=>{shown=12;ls.set("bieb-forf",val("forf"));renderLibrary();});
 function saveMeta(){ls.set("bieb-meta",{n:val("pname"),d:val("pdesc")});}
 ["pname","pdesc"].forEach(id=>document.getElementById(id).addEventListener("input",()=>{saveMeta();renderFiles();}));
 function setUndo(label){if(!stack.length){undo=null;return;} undo={stack:[...stack],meta:{n:val("pname"),d:val("pdesc")},label}; clearTimeout(setUndo.t); setUndo.t=setTimeout(()=>{undo=null;renderBuilder();},10000);}
@@ -1720,6 +1956,7 @@ let dlReady=false;
       if(e&&["unavailable","not_granted","capability_disabled","capability_removed"].includes(e.code)){b.hidden=true;z.hidden=true;dlReady=false;} toast("Download lukt hier niet, gebruik Kopieer"); }};
   b.addEventListener("click",()=>run(cur)); z.addEventListener("click",()=>run(zip));
 })();
+try{document.getElementById("forf").value=ls.get("bieb-forf","all");}catch(e){}
 const meta = ls.get("bieb-meta",{n:"",d:""}); document.getElementById("pname").value=meta.n||""; document.getElementById("pdesc").value=meta.d||"";
 renderAll();
 (()=>{const pick=["gsap","motion","shadcn","magicui","aceternity","tailwind","nextjs","supabase","vercel","context7","pwmcp","figmamcp","fedesign","taste","lenis","threejs","rive","spline","lucide","fontshare","refero","stripe","zod","biome","reactbits","kokonut","sonner","astro","posthog","ponytail"];
