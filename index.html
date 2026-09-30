@@ -424,6 +424,12 @@ ul.variants li .wf{border:1px solid var(--line)}
 .wf .ink{fill:var(--ink)} .wf .invh2{fill:var(--paper)} .wf .invh2l{fill:none;stroke:var(--paper);stroke-width:1.3;stroke-linecap:round}
 .wf .errls{fill:none;stroke:var(--stamp);stroke-width:1.6;stroke-linecap:round}
 @media (max-width:700px){.forf select{padding:8px 10px;font-size:13px}}
+
+.allbar{display:grid;gap:10px;padding:14px;border:1px solid var(--line-2);border-radius:12px;background:var(--paper)}
+.allbar b{font-weight:600}
+.allbar .desc{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
+.allbar .acts{display:flex;gap:8px;flex-wrap:wrap}
+.allbar .hint{margin:0}
 </style>
 </head>
 <body>
@@ -528,10 +534,15 @@ ul.variants li .wf{border:1px solid var(--line)}
         <div class="acts" style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn ghost" id="clearStack">Stack leegmaken</button></div>
       </div>
       <div class="bpanel">
+        <div class="allbar">
+          <div><b>Alle bestanden in één keer</b><span class="desc" id="allsum"></span></div>
+          <div class="acts"><button type="button" class="btn" id="copyAll">Kopieer alles voor Claude</button><button type="button" class="btn ghost" id="dlZip" hidden>Download alles (.zip)</button></div>
+          <p class="hint">Plak de gekopieerde prompt in Claude Code: Claude maakt dan zelf alle bestanden aan op de juiste plek.</p>
+        </div>
         <div class="filetabs" id="filetabs" role="tablist" aria-label="Bestanden"></div>
-        <div class="mdbar"><span class="fname" id="fname">CLAUDE.md</span><span class="acts"><span class="toast" id="toast" aria-live="polite"></span><button type="button" class="btn" id="copyMd">Kopieer</button><button type="button" class="btn ghost" id="dlMd" hidden>Download</button><button type="button" class="btn ghost" id="dlZip" hidden>Download alles (.zip)</button></span></div>
+        <div class="mdbar"><span class="fname" id="fname">CLAUDE.md</span><span class="acts"><span class="toast" id="toast" aria-live="polite"></span><button type="button" class="btn ghost" id="copyMd">Kopieer dit bestand</button><button type="button" class="btn ghost" id="dlMd" hidden>Download</button></span></div>
         <pre class="md" id="md" tabindex="0"></pre>
-        <p class="hint">Zet CLAUDE.md in de root en de doc-bestanden in een map <code>docs/</code>. Tip: begin je eerste prompt met "Lees CLAUDE.md en stel eerst vragen als iets onduidelijk is." Werk het bestand bij als je stack verandert.</p>
+        <p class="hint">Liever zelf? Zet CLAUDE.md in de root en de doc-bestanden in een map <code>docs/</code>. Tip: begin je eerste prompt met "Lees CLAUDE.md en stel eerst vragen als iets onduidelijk is." Werk het bestand bij als je stack verandert.</p>
       </div>
     </div>
   </section>
@@ -1568,6 +1579,13 @@ return [
 ...(tp.length?[``,`## Externe diensten`,...tp.map(n=>`- **${n}**: doel, benodigde env-variabelen (server-only?), webhook-endpoint, wat er gebeurt als het faalt.`)]:[]),
 ...(x.pay?[``,`## Webhooks`,`- ${x.pay}-webhook op \`/api/webhooks/${x.pay.toLowerCase().replace(/\s/g,"")}\`: controleer altijd de signature voordat je iets verwerkt.`]:[])].join("\n");}
 const DOC_GEN = {"docs/CODE_STYLE.md":docCodeStyle,"docs/SECURITY.md":docSecurity,"docs/DATABASE.md":docDatabase,"docs/API.md":docApi};
+function allPrompt(){
+  const files=allFiles();
+  const L=["Maak de volgende "+files.length+" bestand"+(files.length>1?"en":"")+" aan in de root van dit project, met precies de inhoud die hieronder staat.","",
+    "Regels:","- Maak mappen aan als ze nog niet bestaan (bijvoorbeeld docs/).","- Bestaat een bestand al? Overschrijf het dan niet, maar vraag eerst wat ik wil: vervangen, samenvoegen of overslaan.","- Neem de inhoud letterlijk over, zonder iets toe te voegen of weg te laten.","- Installeer nog niets. Geef na het aanmaken een lijst van de bestanden en vraag of je de installatiestappen uit CLAUDE.md mag uitvoeren.",""];
+  files.forEach(f=>{L.push(`=== BESTAND: ${f.f} ===`,"````markdown",f.c,"````","");});
+  return L.join("\n");
+}
 function allFiles(){const S=new Set(stack), x=stackFacts(S); return [{f:"CLAUDE.md",c:buildMd(stack)},...(stack.length?docsOn(S):[]).map(d=>({f:d.f,c:DOC_GEN[d.f](S,x)}))];}
 /* Minimal store-only ZIP so all files download at once */
 const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
@@ -1915,6 +1933,7 @@ function renderFiles(){
   document.getElementById("fname").textContent = curFile;
   document.getElementById("md").textContent = files.find(f=>f.f===curFile).c;
   document.getElementById("dlZip").hidden = files.length<2 || !dlReady;
+  document.getElementById("allsum").textContent = ` · ${files.length} bestand${files.length>1?"en":""}: ${files.map(f=>f.f).join(", ")}`;
 }
 function renderAll(){renderPtype();renderMust();renderLibrary();renderProjects();renderBuilder();}
 
@@ -1949,6 +1968,12 @@ document.getElementById("clearStack").addEventListener("click",()=>{setUndo("Sta
 document.getElementById("moreCards").addEventListener("click",()=>{shown+=12;renderLibrary();});
 document.getElementById("docs").addEventListener("change",e=>{const f=e.target.dataset.doc; if(!f) return; docOverride[f]=e.target.checked; ls.set("bieb-docs",docOverride); renderFiles();});
 const toast = m => {const el=document.getElementById("toast"); el.textContent=m; clearTimeout(toast.t); toast.t=setTimeout(()=>el.textContent="",2500);};
+document.getElementById("copyAll").addEventListener("click",()=>{
+  const txt=allPrompt(), b=document.getElementById("copyAll"), n=allFiles().length;
+  const done=()=>{b.textContent="✓ Gekopieerd, plak in Claude Code";setTimeout(()=>b.textContent="Kopieer alles voor Claude",2500);};
+  const fallback=()=>{const pre=document.getElementById("md");pre.textContent=txt;const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Alles staat geselecteerd in het venster, druk Ctrl/Cmd+C");};
+  try{navigator.clipboard.writeText(txt).then(()=>{done();toast(`${n} bestand${n>1?"en":""} gekopieerd`);},fallback);}catch(e){fallback();}
+});
 document.getElementById("copyMd").addEventListener("click",()=>{
   const txt=document.getElementById("md").textContent;
   const fallback=()=>{const r=document.createRange();r.selectNodeContents(document.getElementById("md"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Geselecteerd, druk Ctrl/Cmd+C");};
