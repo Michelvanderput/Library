@@ -430,13 +430,194 @@ ul.variants li .wf{border:1px solid var(--line)}
 .allbar .desc{color:var(--muted);font-size:13px;overflow-wrap:anywhere}
 .allbar .acts{display:flex;gap:8px;flex-wrap:wrap}
 .allbar .hint{margin:0}
+/* ===== portal ===== */
+.appbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;align-items:center;gap:16px;margin-inline:-20px;padding:10px 20px;background:var(--glass);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--line)}
+.brand{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+.brand .logo{width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,var(--glow1),var(--glow2))}
+.appbar .tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.appbar .tabs::-webkit-scrollbar{display:none}
+.appbar .tabs a{white-space:nowrap;padding:7px 12px;border-radius:8px;color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.appbar .tabs a:hover{color:var(--ink);background:var(--card)}
+.appbar .tabs a[aria-selected="true"]{color:var(--ink);background:var(--card-2);box-shadow:inset 0 0 0 1px var(--line)}
+.pchip{flex:none;display:inline-flex;align-items:center;gap:8px;max-width:260px;font:inherit;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pchip .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);flex:none}
+.pchip .n{color:var(--muted)}
+.view{padding-top:28px}
+.dashhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.dtitle{font-family:var(--display);font-weight:600;letter-spacing:-.04em;font-size:clamp(1.8rem,4.5vw,2.8rem);line-height:1.05;margin:6px 0 8px;text-wrap:balance}
+.lede-s{color:var(--muted);max-width:62ch;margin:0}
+.btn.big{font-size:15px;padding:12px 18px}
+.newproj{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding:18px;border:1px solid var(--line-2);border-radius:14px;background:var(--card);margin-bottom:20px;align-items:end}
+.npacts{display:flex;gap:8px;flex-wrap:wrap}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.kpi{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:linear-gradient(180deg,var(--card-2),var(--card));display:grid;gap:2px}
+.klabel{font-size:12.5px;color:var(--muted)} .kval{font-size:1.6rem;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums} .ksub{font-size:12px;color:var(--muted)}
+.pipeline{display:grid;grid-template-columns:repeat(6,minmax(170px,1fr));gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:24px}
+.pcol{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:8px;align-content:start;min-height:120px}
+.pcolhead{display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;color:var(--muted)} .pcolhead .n{font-family:var(--mono)}
+.pcard{display:grid;gap:4px;text-align:left;font:inherit;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.pcard:hover,.pcard.on{border-color:var(--accent)}
+.pc-name{font-weight:600;font-size:14px} .pc-sub{font-size:12px;color:var(--muted)} .pc-empty{font-size:12.5px;color:var(--muted);margin:0}
+.pc-bar{display:block;height:4px;border-radius:2px;background:var(--line);overflow:hidden} .pc-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--glow1),var(--glow2))}
+.emptyhero{grid-column:1/-1;border:1px dashed var(--line-2);border-radius:14px;padding:28px;text-align:center;color:var(--muted)} .emptyhero h3{color:var(--ink);margin:0 0 6px}
+.dashgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.dashgrid{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);border-radius:14px;padding:18px;background:linear-gradient(180deg,var(--card-2),var(--card));display:grid;gap:12px;min-width:0}
+.panel h3,.panel h4{margin:0;font-family:var(--display);font-weight:600;letter-spacing:-.02em} .panel h4{font-size:1.02rem}
+.panel h3 .n,.stephead .n{font-family:var(--mono);font-size:13px;color:var(--muted);font-weight:400}
+.setgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.filebtn{cursor:pointer}
+ul.studio{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ul.studio label{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:14px;padding:8px 10px;border-radius:10px;cursor:pointer}
+ul.studio label:hover{background:var(--paper)} ul.studio input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px}
+ul.studio .desc{color:var(--muted)} .how2{font-size:12.5px;color:var(--accent)}
+.noproj{text-align:center;padding:60px 0;display:grid;gap:12px;justify-items:center}
+.projhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.pmeta{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap}
+.pmeta select,.panel select{font:inherit;font-size:14px;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.progress{display:grid;gap:6px;min-width:160px}
+.stepper{list-style:none;margin:18px 0;padding:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line);padding-bottom:12px}
+.stepper::-webkit-scrollbar{display:none}
+.stepper li{display:grid;gap:4px;flex:none}
+.stepper .phase{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.stepper li:not(:has(.phase)){padding-top:16px}
+.stepper button{display:inline-flex;align-items:center;gap:8px;font:inherit;font-size:13.5px;font-weight:500;padding:8px 12px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap}
+.stepper .sn{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;font-size:11px;background:var(--line);color:var(--ink);font-family:var(--mono)}
+.stepper li.done .sn{background:var(--ok);color:var(--paper)}
+.stepper li.on button{background:var(--ink);color:var(--paper);border-color:var(--ink)} .stepper li.on .sn{background:var(--paper);color:var(--ink)}
+.steppanel{display:grid;gap:16px}
+.stephead h3{font-family:var(--display);font-size:1.5rem;font-weight:600;letter-spacing:-.03em;margin:0 0 4px} .stephead p{margin:0;color:var(--muted);max-width:70ch}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start}
+.formgrid .wide{grid-column:1/-1}
+@media (max-width:820px){.formgrid{grid-template-columns:1fr}}
+.field select,.field input,.field textarea{width:100%}
+.featgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.feat{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-size:14px;background:var(--paper)}
+.feat:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.feat input{accent-color:var(--accent);width:16px;height:16px;flex:none} .feat .fh{margin-left:auto;font-family:var(--mono);font-size:11.5px;color:var(--ink);opacity:.8}
+.row2{display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:start} @media (max-width:520px){.row2{grid-template-columns:1fr}}
+.chkrow{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;padding-top:6px} .chkrow input{accent-color:var(--accent)}
+.cta-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+table.est{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.est th{text-align:left;font-size:12px;color:var(--muted);font-weight:500;padding:6px 8px;border-bottom:1px solid var(--line)}
+.est td{padding:6px 8px;border-bottom:1px solid var(--line)} .est .num{text-align:right;white-space:nowrap}
+.est input{width:78px;text-align:right;font:inherit;padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.est tr.sub td{color:var(--muted)} .est tr.tot td{font-weight:600;font-size:15px;border-bottom:2px solid var(--line-2)}
+ul.sched{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:14px} ul.sched li{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:8px;background:var(--paper)}
+.preview summary{cursor:pointer;color:var(--accent);font-size:14px} .preview pre{margin-top:10px}
+.dirgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.dir,.pick{display:grid;gap:6px;text-align:left;font:inherit;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer;align-content:start}
+.dir .desc{font-size:12.5px;color:var(--muted)}
+.dir.on,.pick.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.dir .wf,.pick .wf{border:1px solid var(--line)}
+.pickrow{display:grid;gap:8px;padding-top:8px} .pickrow h5{margin:0;font-size:14px}
+.picks{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px} .pick span{font-size:12.5px}
+ol.milestones{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:m}
+ol.milestones li{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+ol.milestones li.done{opacity:.6}
+.mcheck{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:14px;cursor:pointer} .mcheck input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent)} .mcheck .desc{color:var(--muted);font-size:13px}
+.kmini{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:14px} .kmini span{color:var(--muted)} .kmini b{text-align:right;font-variant-numeric:tabular-nums} .kmini b.over{color:var(--stamp)}
+.logrow{display:grid;grid-template-columns:90px 1fr auto;gap:6px} .logrow input{font:inherit;font-size:14px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);min-width:0}
+ul.loglist{list-style:none;margin:0;padding:0;display:grid;gap:4px;font-size:13px} ul.loglist li{display:grid;grid-template-columns:80px 1fr auto;gap:8px;color:var(--muted)} ul.loglist b{color:var(--ink)}
+ul.checklist{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+ul.checklist li.cg{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);padding:12px 0 4px}
+ul.checklist label{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:14px;padding:8px 10px;border-radius:10px;cursor:pointer} ul.checklist label:hover{background:var(--paper)}
+ul.checklist input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent)} ul.checklist input:checked+span{color:var(--muted);text-decoration:line-through}
+.tplgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:16px}
+pre.md.small{max-height:220px;font-size:12px}
+.stepnav{display:flex;justify-content:space-between;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+#step-stack #bouwer{margin-top:0;border-top:0;padding-top:0}
+@media (max-width:700px){.appbar{gap:8px}.pchip{display:none}.pipeline{grid-template-columns:repeat(6,minmax(200px,1fr))}}
+
+ul.connect{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+ul.connect li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);flex-wrap:wrap}
+ul.connect label{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:14px;cursor:pointer;min-width:0;flex:1}
+ul.connect input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent)}
+ul.connect code{font-family:var(--mono);font-size:11.5px;background:var(--card-2);padding:1px 5px;border-radius:4px}
+.btn.sm{font-size:12.5px;padding:6px 10px}
 </style>
 </head>
 <body>
 
-<a class="skip" href="#ideeen">Naar de library</a>
+<a class="skip" href="#main">Naar de inhoud</a>
 <div class="wrap" id="wrap">
-  <header class="top">
+  <nav class="appbar" aria-label="Hoofdmenu">
+    <a class="brand" href="#dashboard" data-go="dashboard"><span class="logo" aria-hidden="true"></span>Ideeënbieb</a>
+    <div class="tabs" role="tablist">
+      <a href="#dashboard" data-go="dashboard" role="tab">Dashboard</a>
+      <a href="#project" data-go="project" role="tab" id="tab-project">Project</a>
+      <a href="#toolbox" data-go="toolbox" role="tab">Toolbox</a>
+      <a href="#patronen" data-go="patronen" role="tab">UI-patronen</a>
+      <a href="#gidsen" data-go="gidsen" role="tab">Gidsen</a>
+    </div>
+    <button type="button" class="pchip" id="pchip" data-go="project"></button>
+  </nav>
+
+  <main id="main">
+  <section class="view" data-view="dashboard" id="view-dashboard">
+    <div class="dashhead">
+      <div>
+        <span class="eyebrow">Projectportaal</span>
+        <h2 class="dtitle">Waar begin je vandaag aan?</h2>
+        <p class="lede-s">Elk klantproject loopt hier door dezelfde stappen: intake, offerte, richting, stack, bouwen, lanceren en overdracht. Alles wordt per project bewaard in deze browser.</p>
+      </div>
+      <button type="button" class="btn big" id="newProjBtn">+ Nieuw project</button>
+    </div>
+    <form class="newproj" id="newProj" hidden>
+      <div class="field"><label for="np-name">Projectnaam</label><input id="np-name" required placeholder="Bijv. Website Bakkerij De Korenaar"></div>
+      <div class="field"><label for="np-client">Klant</label><input id="np-client" placeholder="Bedrijfsnaam"></div>
+      <div class="field"><span class="flabel" id="np-type-l">Soort project</span><div class="seg" id="np-type" role="radiogroup" aria-labelledby="np-type-l"></div></div>
+      <div class="npacts"><button type="submit" class="btn">Project aanmaken en intake starten</button><button type="button" class="btn ghost" id="np-cancel">Annuleren</button></div>
+    </form>
+    <div class="kpis" id="kpis"></div>
+    <div class="pipeline" id="pipeline"></div>
+    <div class="dashgrid">
+      <div class="panel" id="studio"></div>
+      <div class="panel">
+        <h3>Instellingen</h3>
+        <p class="hint">Gebruikt in de prijscalculator en offertes.</p>
+        <div class="setgrid">
+          <div class="field"><label for="set-studio">Jouw studionaam</label><input id="set-studio" data-set="studio"></div>
+          <div class="field"><label for="set-rate">Uurtarief (€, excl. btw)</label><input id="set-rate" type="number" min="0" step="5" data-set="rate"></div>
+          <div class="field"><label for="set-buffer">Buffer voor onvoorzien (%)</label><input id="set-buffer" type="number" min="0" max="100" data-set="buffer"></div>
+          <div class="field"><label for="set-hours">Werkuren per week voor één project</label><input id="set-hours" type="number" min="1" max="60" data-set="hoursWeek"></div>
+        </div>
+        <h3 style="margin-top:18px">Back-up</h3>
+        <p class="hint">Je projecten staan alleen in deze browser. Maak regelmatig een back-up, zeker voor klantwerk.</p>
+        <div class="npacts"><button type="button" class="btn ghost" id="exportBtn">Back-up downloaden (.json)</button><label class="btn ghost filebtn">Back-up terugzetten<input type="file" id="importFile" accept="application/json,.json" class="sr-only"></label></div>
+        <p class="hint" id="backupMsg" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="view" data-view="project" id="view-project">
+    <div class="noproj" id="noproj" hidden><h2 class="dtitle">Nog geen project open</h2><p class="lede-s">Kies een project op het dashboard of maak een nieuw project.</p><a class="btn" href="#dashboard" data-go="dashboard">Naar dashboard</a></div>
+    <div id="projwrap">
+      <div class="projhead">
+        <div class="ptitle"><span class="eyebrow" id="p-client"></span><h2 class="dtitle" id="p-name"></h2></div>
+        <div class="pmeta">
+          <label class="field"><span class="flabel">Status</span><select id="p-status"></select></label>
+          <div class="progress" id="p-progress"></div>
+        </div>
+      </div>
+      <ol class="stepper" id="stepper"></ol>
+      <div class="steppanel" data-step="intake" id="step-intake"></div>
+      <div class="steppanel" data-step="offerte" id="step-offerte"></div>
+      <div class="steppanel" data-step="richting" id="step-richting"></div>
+      <div class="steppanel" data-step="stack" id="step-stack"></div>
+      <div class="steppanel" data-step="bouwen" id="step-bouwen"></div>
+      <div class="steppanel" data-step="lanceren" id="step-lanceren"></div>
+      <div class="steppanel" data-step="overdracht" id="step-overdracht"></div>
+      <div class="stepnav"><button type="button" class="btn ghost" id="prevStep">← Vorige stap</button><button type="button" class="btn" id="nextStep">Volgende stap →</button></div>
+    </div>
+  </section>
+
+  <section class="view" data-view="gidsen" id="view-gidsen">
+    <div class="blockhead"><span class="eyebrow">Werkwijze</span><h2>Jouw werkwijze en templates</h2><p>Het proces van dit portaal als vast document (SOP), plus berichten die je bij elke klant opnieuw gebruikt.</p></div>
+    <div class="tplgrid" id="templates"></div>
+  </section>
+
+  <header class="top" data-view="toolbox">
     <a class="pill" href="#bouwer"><b>Nieuw</b> Stack-bouwer met CLAUDE.md-export →</a>
     <h1>Frontend <em>Ideeënbieb</em></h1>
     <p class="lede">Tools, repo's en werkwijzen voor bouwen met Claude en frontend. Klik op <b>+</b> bij een tool om hem aan je stack toe te voegen. De stack-bouwer laat zien wat er mist en wat niet samengaat, en maakt er een CLAUDE.md van. Alles is gratis; tools met een limiet hebben het label <b>gratis tier</b>.</p>
@@ -446,8 +627,7 @@ ul.variants li .wf{border:1px solid var(--line)}
     <div class="marquee" aria-hidden="true"><div class="track" id="marq"></div></div>
   </header>
 
-  <main id="main">
-  <section class="block must" id="musthaves">
+  <section class="block must" id="musthaves" data-view="toolbox">
     <div class="blockhead">
       <span class="eyebrow">★ Begin hier</span>
       <h2>Must-haves</h2>
@@ -456,7 +636,7 @@ ul.variants li .wf{border:1px solid var(--line)}
     <div class="mustgrid" id="mustgrid"></div>
   </section>
 
-  <div class="controls" id="ideeen">
+  <div class="controls" id="ideeen" data-view="toolbox patronen">
     <div class="search">
       <input id="q" type="search" placeholder="Zoek op tool, onderwerp of werkwijze… (bijv. GSAP, MCP, iconen)" aria-label="Zoeken">
       <label class="forf"><span class="sr-only">Toon tools voor</span><select id="forf"><option value="all">Voor: alles</option><option value="site">Websites</option><option value="app">Webapps</option><option value="mobile">Mobiele apps</option><option value="desktop">Desktop-apps</option></select></label>
@@ -465,14 +645,14 @@ ul.variants li .wf{border:1px solid var(--line)}
     <div class="drawers" id="drawers" role="group" aria-label="Categorieën"></div>
   </div>
 
-  <details class="legend"><summary>Wat betekenen de labels?</summary>
+  <details class="legend" data-view="toolbox patronen"><summary>Wat betekenen de labels?</summary>
     <div class="legendrow"><span><span class="how how-code">npm</span> Claude installeert het</span><span><span class="how how-skill">skill</span> Claude zet het in .claude/skills/</span><span><span class="how how-file">regels</span> komt in je CLAUDE.md</span><span><span class="how how-mcp">MCP</span> jij keurt goed</span><span><span class="how how-plugin">plugin</span> jij installeert met /plugin</span><span><span class="how how-service">account</span> jij maakt een account</span><span><span class="how how-web">site</span> gewoon gebruiken</span><span><span class="price">gratis tier</span> gratis met limieten</span><span><span class="star">★</span> must-have</span></div>
   </details>
-  <div class="grid" id="grid" aria-live="polite"></div>
-  <div class="more"><button type="button" class="btn ghost" id="moreCards" hidden></button></div>
-  <p class="empty" id="empty" hidden>Niets gevonden. Probeer een andere zoekterm of lade.</p>
+  <div class="grid" id="grid" aria-live="polite" data-view="toolbox patronen"></div>
+  <div class="more" data-view="toolbox patronen"><button type="button" class="btn ghost" id="moreCards" hidden></button></div>
+  <p class="empty" id="empty" hidden data-view="toolbox patronen">Niets gevonden. Probeer een andere zoekterm of lade.</p>
 
-  <section class="block" id="projecten">
+  <section class="block" id="projecten" data-view="gidsen">
     <div class="blockhead">
       <span class="eyebrow">Wat kun je ermee bouwen</span>
       <h2>Projectideeën</h2>
@@ -482,7 +662,7 @@ ul.variants li .wf{border:1px solid var(--line)}
     <div class="pgrid" id="pgrid"></div>
   </section>
 
-  <section class="block" id="combinaties">
+  <section class="block" id="combinaties" data-view="toolbox">
     <div class="blockhead">
       <span class="eyebrow">Stacks</span>
       <h2>Wat past bij elkaar</h2>
@@ -491,7 +671,7 @@ ul.variants li .wf{border:1px solid var(--line)}
     <div class="combos" id="combos"></div>
   </section>
 
-  <section class="block" id="installeren">
+  <section class="block" id="installeren" data-view="gidsen">
     <div class="blockhead">
       <span class="eyebrow">Plugins, skills, MCP</span>
       <h2>Wie installeert wat?</h2>
@@ -547,7 +727,7 @@ ul.variants li .wf{border:1px solid var(--line)}
     </div>
   </section>
 
-  <section class="guide" id="md-gids">
+  <section class="guide" id="md-gids" data-view="gidsen">
     <div>
       <span class="eyebrow">Uit het Google Doc</span>
       <h2>De .md-starterkit voor vibe coders</h2>
@@ -1403,6 +1583,7 @@ function buildMd(sel){
   const L = [];
   L.push(`# ${name}`,"");
   L.push(desc || "_Beschrijf in één of twee zinnen wat je bouwt en voor wie._","");
+  projectMdLines().forEach(x=>L.push(x));
   L.push(`**Soort project:** ${({site:"Website",app:"Webapp",mobile:"Mobiele app (React Native)",desktop:"Desktop-app"})[ptype]}`,"");
   if(!sel.length){L.push("_Voeg tools toe met de + knoppen in de library._");return L.join("\n");}
   L.push("## Stack","");
@@ -1419,7 +1600,7 @@ function buildMd(sel){
       L.push("","Plugins laden bij het starten van een sessie: start Claude Code opnieuw na het installeren. Een cloudsessie (claude.ai/code) laadt je lokale plugins niet.","");}
     if(mcps.length){L.push("**MCP-servers** (draai dit in je terminal, of vraag Claude ze in `.mcp.json` te zetten):","");
       mcps.forEach(k=>L.push(T[k].cmd?`- ${T[k].n}: \`${T[k].cmd}\``:`- ${T[k].n}: zie ${T[k].u}`));
-      L.push("","Claude Code vraagt je om servers uit `.mcp.json` goed te keuren. Servers met een login koppel je via `/mcp`. Check de status met `/mcp`.","");}
+      L.push("","Deze servers staan al in `.mcp.json` in je project. Start Claude Code in de projectmap, keur ze goed en log in via `/mcp`.","");}
     if(svcs.length){L.push("**Accounts** (maak ze aan en zet de keys in `.env.local`, nooit in git):","");
       svcs.forEach(k=>L.push(`- ${T[k].n}: ${T[k].u}`)); L.push("");}
   }
@@ -1456,6 +1637,7 @@ function buildMd(sel){
   if(S.has("figmamcp")) L.push("- Gebruik het Figma-ontwerp (via Figma MCP) als bron voor maten, kleuren en tekst.");
   if(S.has("context7")) L.push("- Haal actuele docs op via Context7 voordat je een library-API gebruikt.");
   if(S.has("supabase")) L.push("- Zet Row Level Security aan op elke tabel en schrijf policies per gebruiker.");
+  if(S.has("ts")||by("backend").length) L.push("- Environment-variabelen staan in `.env.local` (niet in git); `.env.example` beschrijft welke er nodig zijn.");
   if(by("backend").length||by("auth").length||by("payments").length){L.push("- Zet nooit secrets in client-side code. Controleer sessies op de server.");L.push("- Zet authenticatie nooit uit om iets werkend te krijgen.");}
   if(S.has("ts")) L.push("- Schrijf TypeScript in strict mode. Geen `any`.");
   if(S.has("zod")) L.push("- Valideer alle input met Zod, op de client én op de server.");
@@ -1583,10 +1765,10 @@ function allPrompt(){
   const files=allFiles();
   const L=["Maak de volgende "+files.length+" bestand"+(files.length>1?"en":"")+" aan in de root van dit project, met precies de inhoud die hieronder staat.","",
     "Regels:","- Maak mappen aan als ze nog niet bestaan (bijvoorbeeld docs/).","- Bestaat een bestand al? Overschrijf het dan niet, maar vraag eerst wat ik wil: vervangen, samenvoegen of overslaan.","- Neem de inhoud letterlijk over, zonder iets toe te voegen of weg te laten.","- Installeer nog niets. Geef na het aanmaken een lijst van de bestanden en vraag of je de installatiestappen uit CLAUDE.md mag uitvoeren.",""];
-  files.forEach(f=>{L.push(`=== BESTAND: ${f.f} ===`,"````markdown",f.c,"````","");});
+  files.forEach(f=>{L.push(`=== BESTAND: ${f.f} ===`,"````"+(f.f.endsWith(".json")?"json":f.f.endsWith(".md")?"markdown":"text"),f.c,"````","");});
   return L.join("\n");
 }
-function allFiles(){const S=new Set(stack), x=stackFacts(S); return [{f:"CLAUDE.md",c:buildMd(stack)},...(stack.length?docsOn(S):[]).map(d=>({f:d.f,c:DOC_GEN[d.f](S,x)}))];}
+function allFiles(){const S=new Set(stack), x=stackFacts(S); const F=[{f:"CLAUDE.md",c:buildMd(stack)},...(stack.length?docsOn(S):[]).map(d=>({f:d.f,c:DOC_GEN[d.f](S,x)}))]; const m=typeof mcpJson==="function"?mcpJson(S):null, e=typeof envExample==="function"?envExample(S):null; if(m) F.push({f:".mcp.json",c:m}); if(e) F.push({f:".env.example",c:e}); return F;}
 /* Minimal store-only ZIP so all files download at once */
 const CRC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
 const crc32=d=>{let c=0xFFFFFFFF;for(let i=0;i<d.length;i++)c=CRC[(c^d[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0;};
@@ -1624,11 +1806,32 @@ function renderMust(){
 
 /* ---------- State ---------- */
 const ls = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- Portaal: projecten, opgeslagen per browser ---------- */
+const P = {
+  projects: ls.get("portal-projects", []),
+  activeId: ls.get("portal-active", null),
+  settings: Object.assign({studio:"",rate:75,buffer:20,hoursWeek:24}, ls.get("portal-settings", {})),
+  studio: ls.get("portal-studio", {})
+};
+const proj = () => P.projects.find(p=>p.id===P.activeId) || null;
+const saveP = () => { const s=ls._raw; s("portal-projects",P.projects); s("portal-active",P.activeId); };
+const newId = () => "p"+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+function blankProject(name,client,type){ return {id:newId(),name:name||"Naamloos project",client:client||"",type:type||"site",status:"lead",desc:"",stack:[],docOverride:{},
+  intake:{features:[],content:[],pages:5}, offer:{over:{},model:"fixed",schedule:"30/40/30",revisions:2,retainer:0}, design:{picks:{}}, checks:{bouwen:{},lanceren:{},overdracht:{}},
+  hours:[], costs:[], step:"intake", created:Date.now(), updated:Date.now()}; }
+// Builder state (stack, type, docs, name) is the active project's state
+ls._raw = ls.set;
+ls.set = (k,v) => { const p=proj(); const map={"bieb-stack":"stack","bieb-ptype":"type","bieb-docs":"docOverride"};
+  if(p && (map[k]||k==="bieb-meta")){ if(k==="bieb-meta"){p.name=v.n||p.name;p.desc=v.d;} else p[map[k]]=v; p.updated=Date.now(); saveP(); return; }
+  ls._raw(k,v); };
+// One-time migration of an older single stack into a first project
+(()=>{ const old=ls.get("bieb-stack",[]); if(!P.projects.length && old.length){ const m=ls.get("bieb-meta",{n:"",d:""}); const p=blankProject(m.n||"Mijn eerste project","",ls.get("bieb-ptype","site")); p.stack=old; p.desc=m.d||""; p.docOverride=ls.get("bieb-docs",{}); P.projects.push(p); P.activeId=p.id; saveP(); } })();
 let done = new Set(ls.get("bieb-done",[]));
-let stack = ls.get("bieb-stack",[]).filter(k=>T[k]);
-let ptype = ls.get("bieb-ptype","site");
+let stack = ((proj()||{}).stack||[]).filter(k=>T[k]);
+let ptype = (proj()||{}).type||"site";
 let active = "all", level = "Alles", shown = 12, curFile = "CLAUDE.md", undo = null;
-let docOverride = ls.get("bieb-docs",{});
+let docOverride = (proj()||{}).docOverride||{};
 const expanded = new Set();
 const val = id => document.getElementById(id).value;
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1640,7 +1843,7 @@ IDEAS.filter(i=>i.id==="base-fw2").forEach(i=>i.for=["site","app","mobile"]);
 const FOR_LABEL = {site:"Website",app:"Webapp",mobile:"Mobiel",desktop:"Desktop"};
 const counters = {};
 IDEAS.forEach(i=>{counters[i.cat]=(counters[i.cat]||0)+1; i.no = CATS[i.cat].code+"-"+String(counters[i.cat]).padStart(2,"0");});
-function toggleTool(k,on){const has=stack.includes(k); if(on===undefined) on=!has; if(on&&!has) stack.push(k); if(!on&&has) stack=stack.filter(x=>x!==k); ls.set("bieb-stack",stack); renderAll();}
+function toggleTool(k,on){ensureProject();const has=stack.includes(k); if(on===undefined) on=!has; if(on&&!has) stack.push(k); if(!on&&has) stack=stack.filter(x=>x!==k); ls.set("bieb-stack",stack); renderAll();}
 
 /* ---------- Rendering ---------- */
 const addBtn = k => `<button type="button" class="add" data-add="${k}" aria-pressed="${stack.includes(k)}" aria-label="${stack.includes(k)?"Verwijder":"Voeg"} ${esc(T[k].n)} ${stack.includes(k)?"uit":"toe aan"} je stack" title="${stack.includes(k)?"In je stack":"Voeg toe aan stack"}">${stack.includes(k)?"✓":"+"}</button>`;
@@ -1899,7 +2102,7 @@ function renderProjects(){
     <h3>${esc(p.title)}</h3><p>${esc(p.text)}</p>
     <div class="stack">${p.stack.map(tlink).join("")}</div>
     <ol class="steps">${p.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
-    <div class="projfoot"><button type="button" class="btn" data-load="${ix}">Laad deze stack →</button></div></article>`).join("");
+    <div class="projfoot"><button type="button" class="btn" data-load="${ix}">Start project met deze stack →</button></div></article>`).join("");
   document.getElementById("combos").innerHTML = COMBOS.map(c=>`<div class="combo${c.avoid?" avoid":""}">
     <div class="combotools"><span class="mark">${c.avoid?"✕ niet samen":"✓ past samen"}</span>${c.tools.map(tlink).join('<span class="plus">+</span>')}</div>
     <p>${esc(c.why)}</p></div>`).join("");
@@ -1924,7 +2127,7 @@ function renderBuilder(){
   const tray = document.getElementById("tray");
   tray.hidden = !stack.length && !undo; document.getElementById("wrap").classList.toggle("hastray",!tray.hidden);
   if(undo) tray.querySelector(".in").innerHTML = `<span>${esc(undo.label)}</span><button type="button" class="undo" data-undo="1">Ongedaan maken</button>`;
-  else if(stack.length) tray.querySelector(".in").innerHTML = `<span>Mijn stack: <b>${stack.length}</b> tool${stack.length>1?"s":""}${a.conf.length?` · <span class="warn">${a.conf.length} botst</span>`:""}${a.miss.length?` · ${a.miss.length} mist`:""}</span><a href="#bouwer">Naar stack-bouwer ↓</a>`;
+  else if(stack.length) tray.querySelector(".in").innerHTML = `<span>Mijn stack: <b>${stack.length}</b> tool${stack.length>1?"s":""}${a.conf.length?` · <span class="warn">${a.conf.length} botst</span>`:""}${a.miss.length?` · ${a.miss.length} mist`:""}</span><a href="#project" data-go="project" data-gostep="stack">Naar stack →</a>`;
 }
 function renderPtype(){document.getElementById("ptype").innerHTML=Object.entries({site:"Website",app:"Webapp",mobile:"Mobiele app",desktop:"Desktop-app"}).map(([k,l])=>`<button type="button" role="radio" aria-checked="${k===ptype}" data-ptype="${k}">${l}</button>`).join("");}
 function renderFiles(){
@@ -1935,7 +2138,7 @@ function renderFiles(){
   document.getElementById("dlZip").hidden = files.length<2 || !dlReady;
   document.getElementById("allsum").textContent = ` · ${files.length} bestand${files.length>1?"en":""}: ${files.map(f=>f.f).join(", ")}`;
 }
-function renderAll(){renderPtype();renderMust();renderLibrary();renderProjects();renderBuilder();}
+function renderAll(){if(typeof renderConnect==="function"&&document.getElementById("connect")) setTimeout(renderConnect,0);if(typeof renderChip==="function") renderChip();renderPtype();renderMust();renderLibrary();renderProjects();renderBuilder();}
 
 /* ---------- Events ---------- */
 document.addEventListener("click",e=>{
@@ -1944,7 +2147,7 @@ document.addEventListener("click",e=>{
   if(t.dataset.level){level=t.dataset.level;renderProjects();return;}
   if(t.dataset.add){toggleTool(t.dataset.add);return;}
   if(t.dataset.addsugg){toggleTool(t.dataset.addsugg,true);return;}
-  if(t.dataset.mustall){const g=MUST[+t.dataset.mustall]; const allIn=g.items.every(([k])=>stack.includes(k)); g.items.forEach(([k])=>{if(!allIn&&!stack.includes(k)) stack.push(k);}); ls.set("bieb-stack",stack); renderAll(); return;}
+  if(t.dataset.mustall){ensureProject();const g=MUST[+t.dataset.mustall]; const allIn=g.items.every(([k])=>stack.includes(k)); g.items.forEach(([k])=>{if(!allIn&&!stack.includes(k)) stack.push(k);}); ls.set("bieb-stack",stack); renderAll(); return;}
   if(t.dataset.remove){toggleTool(t.dataset.remove,false);return;}
   if(t.dataset.ptype){ptype=t.dataset.ptype;ls.set("bieb-ptype",ptype);renderPtype();renderBuilder();return;}
   if(t.dataset.expand){expanded.add(t.dataset.expand);renderLibrary();return;}
@@ -1953,9 +2156,7 @@ document.addEventListener("click",e=>{
   if(t.dataset.vp||t.dataset.p){const [id,vi]=(t.dataset.vp||t.dataset.p).split("|"); const i=IDEAS.find(x=>x.id===id); const txt=t.dataset.vp?variantPrompt(i,i.variants[+vi]):i.prompt;
     const old=t.textContent; const ok=()=>{t.textContent="✓ Gekopieerd";setTimeout(()=>t.textContent=old,1600);};
     try{navigator.clipboard.writeText(txt).then(ok,()=>{t.textContent="Kopiëren lukt niet";});}catch(e){t.textContent="Kopiëren lukt niet";} return;}
-  if(t.dataset.load){const p=PROJECTS[+t.dataset.load]; setUndo(`Stack vervangen door "${p.title}"`); stack=[...p.stack]; ls.set("bieb-stack",stack); ptype=p.type||(p.stack.includes("expo")?"mobile":"site"); ls.set("bieb-ptype",ptype);
-    document.getElementById("pname").value=p.title; document.getElementById("pdesc").value=p.text; saveMeta(); renderAll();
-    document.getElementById("bouwer").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); return;}
+  if(t.dataset.load){const pi=PROJECTS[+t.dataset.load]; const np=createProject(pi.title,"",pi.type||(pi.stack.includes("expo")?"mobile":"site"),pi.stack); np.desc=pi.text; np.intake.notes="Stappen: "+pi.steps.join(" → "); saveP(); openProject(np.id,"intake"); toast("Nieuw project gestart met deze stack"); return;}
   if(t.classList.contains("tried")){const id=t.closest(".card").dataset.id; done.has(id)?done.delete(id):done.add(id); ls.set("bieb-done",[...done]); renderLibrary(); return;}
 });
 document.getElementById("q").addEventListener("input",()=>{shown=12;renderLibrary();});
@@ -1972,6 +2173,7 @@ document.getElementById("copyAll").addEventListener("click",()=>{
   const txt=allPrompt(), b=document.getElementById("copyAll"), n=allFiles().length;
   const done=()=>{b.textContent="✓ Gekopieerd, plak in Claude Code";setTimeout(()=>b.textContent="Kopieer alles voor Claude",2500);};
   const fallback=()=>{const pre=document.getElementById("md");pre.textContent=txt;const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Alles staat geselecteerd in het venster, druk Ctrl/Cmd+C");};
+  const pp=proj(); if(pp){pp.filesCopied=true; touch();}
   try{navigator.clipboard.writeText(txt).then(()=>{done();toast(`${n} bestand${n>1?"en":""} gekopieerd`);},fallback);}catch(e){fallback();}
 });
 document.getElementById("copyMd").addEventListener("click",()=>{
@@ -1989,15 +2191,504 @@ let dlReady=false;
   let save;
   if(top){ save=({name,data})=>{const blob=new Blob([data],{type:name.endsWith(".zip")?"application/zip":"text/markdown"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);return Promise.resolve();}; }
   else { const dl = window.claude?.use ? await window.claude.use("downloads").catch(()=>null) : null; if(!dl) return;
-    save=({name,data})=>dl.save({filename:name,data}); }
-  dlReady=true; b.hidden=false; renderFiles();
+    save=({name,data})=>dl.save({filename:name,data}); saveFileImpl=save; }
+  dlReady=true; b.hidden=false; setTimeout(renderFiles,0);
   const run=async f=>{try{await save(f()); toast("Gedownload");}catch(e){ if(e&&e.code==="declined") return; if(e&&e.code==="rate_limited"){toast("Even wachten en opnieuw proberen");return;}
       if(e&&["unavailable","not_granted","capability_disabled","capability_removed"].includes(e.code)){b.hidden=true;z.hidden=true;dlReady=false;} toast("Download lukt hier niet, gebruik Kopieer"); }};
-  b.addEventListener("click",()=>run(cur)); z.addEventListener("click",()=>run(zip));
+  b.addEventListener("click",()=>run(cur)); z.addEventListener("click",()=>{const pp=proj(); if(pp){pp.filesCopied=true; touch();} run(zip);});
 })();
 try{document.getElementById("forf").value=ls.get("bieb-forf","all");}catch(e){}
-const meta = ls.get("bieb-meta",{n:"",d:""}); document.getElementById("pname").value=meta.n||""; document.getElementById("pdesc").value=meta.d||"";
+
+/* ================= PORTAAL ================= */
+const STATUSES = [["lead","Lead"],["offerte","Offerte verstuurd"],["akkoord","Akkoord"],["bouw","In aanbouw"],["live","Live"],["afgerond","Afgerond"]];
+const TYPES = {site:"Website",app:"Webapp",mobile:"Mobiele app",desktop:"Desktop-app"};
+const STEPS = [["intake","Intake","Voorbereiden"],["offerte","Offerte","Voorbereiden"],["richting","Richting","Ontwerpen"],["stack","Stack & bestanden","Ontwerpen"],["bouwen","Bouwen","Bouwen"],["lanceren","Lanceren","Opleveren"],["overdracht","Overdracht","Opleveren"]];
+const GOALS = [["leads","Aanvragen en leads"],["sales","Online verkopen"],["bookings","Afspraken en boekingen"],["info","Informeren en vertrouwen"],["portfolio","Werk laten zien"],["tool","Een tool of app die mensen gebruiken"]];
+const CONTENT = [["copy","Teksten"],["photos","Foto's en beeld"],["brand","Logo en huisstijl"],["domain","Domeinnaam"]];
+const FEATURES = [
+  {k:"contact",n:"Contactformulier",h:3,tools:{site:["formspree"],app:["zod","resend"],mobile:["zod"]},pat:{site:["pat-contact"],app:["pat-forms"],mobile:["pat-forms"]}},
+  {k:"login",n:"Inloggen en accounts",h:10,tools:["supabase","rls","supamcp","zod"],pat:["pat-auth","pat-profile"],react:1},
+  {k:"pay",n:"Betalen / webshop",h:14,tools:["stripe","stripemcp","zod"],pat:{site:["pat-cards"],app:["pat-pricing","pat-billing"],mobile:["pat-billing"]},react:1},
+  {k:"cms",n:"Klant beheert zelf content",h:10,tools:["sanity"],pat:["pat-article"]},
+  {k:"i18n",n:"Meertalig",h:8,tools:["i18next"]},
+  {k:"booking",n:"Afspraken / boekingen",h:14,tools:["daypicker","datefns","resend","supabase","rls"],pat:["pat-date"],react:1},
+  {k:"newsletter",n:"Nieuwsbrief",h:3,tools:["resend"],pat:["pat-cta"]},
+  {k:"search",n:"Zoekfunctie",h:6,tools:["cmdk"],pat:["pat-search"],react:1},
+  {k:"dash",n:"Dashboard en data",h:16,tools:["tremor","tanstacktable"],pat:["pat-dash","pat-tables"],react:1},
+  {k:"motion",n:"Opvallende animaties",h:8,tools:{site:["gsap","lenis"],app:["motion"],mobile:["reanimated","moti"],desktop:["motion"]}},
+  {k:"3d",n:"3D / WebGL",h:16,tools:{site:["spline"],app:["spline"]}},
+  {k:"map",n:"Kaart en locaties",h:5,tools:{site:["leaflet"],app:["leaflet"]}},
+  {k:"chat",n:"Chat / realtime",h:16,tools:["supabase","suprealtime","rls"],pat:["pat-chat"],react:1},
+  {k:"upload",n:"Bestanden uploaden",h:6,tools:["uploadthing"],pat:["pat-upload"],react:1},
+  {k:"notif",n:"Meldingen",h:6,tools:{site:["sonner"],app:["sonner","webpush"],mobile:["expopush"]},pat:["pat-notif"]},
+  {k:"ai",n:"AI-functie",h:12,tools:["aisdk","zod","upstash"],pat:["pat-chat"],react:1},
+  {k:"team",n:"Teams en rollen",h:12,tools:["supabase","rls","resend"],pat:["pat-team"],react:1},
+  {k:"pwa",n:"Installeerbaar en offline",h:6,tools:{app:["vitepwa"],site:["vitepwa"]}}
+];
+const BASE = {
+  site:["tailwind","vercel","vercelmcp","umami","lucide","fontshare","karpathy","fedesign","pwmcp","biome","ts"],
+  app:["nextjs","tailwind","shadcn","ts","zod","tanstack","errorboundary","vercel","vercelmcp","sentry","vitest","pwmcp","karpathy","fedesign","lucide","biome","context7"],
+  mobile:["expo","exporouter","nativewind","reanimated","rnr","ts","zod","sentry","karpathy"],
+  desktop:["tauri","vite","tailwind","ts","zustand","karpathy","biome"]
+};
+const DIRECTIONS = [
+  ["minimal","Strak en minimal","Veel witruimte, één accentkleur, rustige typografie. Denk aan Linear en Vercel.","hero-swiss"],
+  ["bold","Bold en expressief","Grote typografie, sterke contrasten, één duidelijk wow-moment.","hero-brutal"],
+  ["editorial","Editorial","Gridlijnen, gedempte kleuren, serif-koppen. Voelt als een tijdschrift.","hero-swiss"],
+  ["soft","Zacht en vriendelijk","Afgeronde vormen, warme kleuren, illustraties of een mascotte.","hero-bento"],
+  ["tech","Dark en technisch","Dark mode, mono-font details, glow en subtiele animaties.","hero-node"],
+  ["playful","Speels en kleurrijk","Felle kleuren, beweging, verrassende interacties.","hero-bento"]
+];
+const HERO_OPTS = ["hero-bento","hero-brutal","hero-swiss","hero-node","hero-split"];
+const fmtEUR = n => "€ "+Math.round(n).toLocaleString("nl-NL");
+const P_ = () => proj();
+function touch(){const p=proj(); if(p){p.updated=Date.now(); saveP();}}
+
+/* ---------- Router ---------- */
+let view = "dashboard";
+function show(v){
+  view = v==="patronen"||v==="toolbox"||v==="gidsen"||v==="project"||v==="dashboard" ? v : "dashboard";
+  document.querySelectorAll("[data-view]").forEach(el=>{ el.hidden = !el.dataset.view.split(" ").includes(view); });
+  document.querySelectorAll(".appbar .tabs a").forEach(a=>a.setAttribute("aria-selected", a.dataset.go===view));
+  if(view==="patronen"){ active="patterns"; shown=99; renderLibrary(); }
+  else if(view==="toolbox" && active==="patterns"){ active="all"; shown=12; renderLibrary(); }
+  if(view==="project") renderProject();
+  if(view==="dashboard") renderDashboard();
+  if(view==="gidsen") renderTemplates();
+  try{ if(location.hash.slice(1)!==view) history.replaceState(null,"","#"+view); }catch(e){}
+  window.scrollTo(0,0);
+}
+document.addEventListener("click",e=>{ const a=e.target.closest("[data-go]"); if(!a) return; e.preventDefault(); if(a.dataset.gostep&&proj()){proj().step=a.dataset.gostep; saveP();} show(a.dataset.go); });
+window.addEventListener("hashchange",()=>{ const h=location.hash.slice(1); if(["dashboard","project","toolbox","patronen","gidsen"].includes(h)) show(h); });
+
+/* ---------- Project openen / maken ---------- */
+function openProject(id, step){
+  P.activeId=id; const p=proj(); if(!p) return;
+  stack=[...p.stack].filter(k=>T[k]); ptype=p.type; docOverride=p.docOverride||{};
+  document.getElementById("pname").value=p.name; document.getElementById("pdesc").value=p.desc||"";
+  if(step) p.step=step; saveP(); renderAll(); show("project");
+}
+function createProject(name,client,type,stackSeed){
+  const p=blankProject(name,client,type); if(stackSeed) p.stack=[...stackSeed];
+  P.projects.unshift(p); saveP(); openProject(p.id,"intake"); return p;
+}
+function ensureProject(){ if(!proj()){ const p=blankProject("Naamloos project","",ptype); P.projects.unshift(p); P.activeId=p.id; saveP(); toast("Nieuw project gestart: geef het een naam op het dashboard"); } }
+
+/* ---------- Stack voorstellen uit intake ---------- */
+function suggestStack(p){
+  const f=new Set(p.intake.features||[]), t=p.type, out=new Set(BASE[t]||BASE.site);
+  if(t==="site"){ const needsReact=FEATURES.some(x=>f.has(x.k)&&x.react); out.add(needsReact?"nextjs":"astro"); if(needsReact) out.add("shadcn"); }
+  FEATURES.forEach(x=>{ if(!f.has(x.k)) return; const tl=Array.isArray(x.tools)?x.tools:(x.tools[t]||x.tools.app||x.tools.site||[]); tl.forEach(k=>out.add(k)); });
+  if(f.has("i18n") && out.has("nextjs")){ out.delete("i18next"); out.add("nextintl"); }
+  if(f.has("pwa") && out.has("nextjs")){ out.delete("vitepwa"); out.add("serwist"); }
+  if([...out].some(k=>T[k]&&T[k].r==="backend")) out.add("rls");
+  return [...out].filter(k=>T[k]);
+}
+function suggestPatterns(p){
+  const f=new Set(p.intake.features||[]), t=p.type, out=[];
+  if(t==="site") out.push("hero","pat-nav","pat-features","pat-proof","pat-cta","pat-footer");
+  if(t==="app") out.push("pat-nav","pat-dash","pat-empty","pat-feedback","pat-settings");
+  if(t==="mobile") out.push("pat-nav","pat-mobile","pat-empty","pat-onboard");
+  if(t==="desktop") out.push("pat-nav","pat-power","pat-settings");
+  FEATURES.forEach(x=>{ if(!f.has(x.k)||!x.pat) return; (Array.isArray(x.pat)?x.pat:(x.pat[t]||x.pat.app||[])).forEach(k=>out.push(k)); });
+  if((p.intake.goal==="sales"||f.has("pay")) && t==="site") out.push("pat-pricing");
+  if(p.intake.goal==="leads") out.push("pat-contact");
+  return [...new Set(out)];
+}
+function patternOptions(key){
+  if(key==="hero") return {title:"Hero",opts:HERO_OPTS.map(id=>{const i=IDEAS.find(x=>x.id===id);return {label:i.title.replace("Hero-variant: ",""),desc:i.text,wf:WF[id]}})};
+  const i=IDEAS.find(x=>x.id===key); if(!i) return null;
+  return {title:i.title,opts:i.variants.map((v,vi)=>({label:v[0],desc:v[1],wf:WF[key+"|"+vi]}))};
+}
+
+/* ---------- Prijscalculator ---------- */
+function estimate(p){
+  const s=P.settings, f=new Set(p.intake.features||[]), pages=Math.max(1,+p.intake.pages||1), t=p.type, o=p.offer.over||{};
+  const unit = t==="site"?"pagina":"scherm";
+  const L=[
+    ["setup","Project opzetten en stack",t==="site"?4:8],
+    ["design","Ontwerp en ontwerprichting",8+pages*1.5],
+    ["pages",`Bouwen: ${pages} ${unit}${pages>1?(unit==="pagina"?"'s":"s"):""}`,pages*(t==="site"?4:6)]
+  ];
+  FEATURES.forEach(x=>{ if(f.has(x.k)) L.push(["f-"+x.k,x.n,x.h]); });
+  if(!(p.intake.content||[]).includes("copy")) L.push(["copy","Teksten schrijven of redigeren",Math.max(4,pages*1.5)]);
+  L.push(["content","Content invoeren",Math.max(2,pages)],["qa","Testen, verbeteren en lancering",6+Math.ceil(pages/2)]);
+  const lines=L.map(([k,n,h])=>({k,n,h:o[k]!=null?+o[k]:Math.round(h*2)/2,base:Math.round(h*2)/2}));
+  const sub=lines.reduce((a,l)=>a+l.h,0), pm=Math.round(sub*0.1*2)/2;
+  lines.push({k:"pm",n:"Projectmanagement en overleg (10%)",h:o.pm!=null?+o.pm:pm,base:pm});
+  const hours=lines.reduce((a,l)=>a+l.h,0), buffer=hours*(s.buffer/100), total=(hours+buffer)*s.rate;
+  const price=Math.ceil(total/50)*50, weeks=Math.max(1,Math.ceil((hours+buffer)/s.hoursWeek))+1;
+  return {lines,hours,buffer,price,weeks,rate:s.rate};
+}
+const SCHEDULES = {"30/40/30":[["Aanbetaling bij akkoord",30],["Bij goedkeuring ontwerp",40],["Bij oplevering",30]],"50/50":[["Aanbetaling bij akkoord",50],["Bij oplevering",50]],"100":[["Bij oplevering",100]]};
+
+/* ---------- Render: dashboard ---------- */
+function projPrice(p){ return estimate(p).price; }
+function stepDone(p,st){
+  const i=p.intake||{}, c=p.checks||{};
+  if(st==="intake") return !!(i.goal && (i.features||[]).length+((i.action||"").length>2?1:0)>0 && p.client);
+  if(st==="offerte") return !!p.offer.sent;
+  if(st==="richting") return !!(p.design.direction && Object.keys(p.design.picks||{}).length);
+  if(st==="stack") return p.stack.length>0 && !analyseFor(p).conf.length && !!p.filesCopied;
+  const list=st==="bouwen"?BUILD(p):checklist(p,st); return list.length>0 && list.every(x=>c[st]&&c[st][x.id]);
+}
+function analyseFor(p){ const s0=stack,t0=ptype; stack=p.stack; ptype=p.type; const a=analyse(p.stack); stack=s0; ptype=t0; return a; }
+function progress(p){ return Math.round(STEPS.filter(s=>stepDone(p,s[0])).length/STEPS.length*100); }
+function renderDashboard(){
+  const ps=P.projects, val=st=>ps.filter(p=>st.includes(p.status)).reduce((a,p)=>a+projPrice(p),0);
+  const hrs=ps.reduce((a,p)=>a+(p.hours||[]).reduce((b,h)=>b+(+h.h||0),0),0);
+  const won=ps.filter(p=>["akkoord","bouw","live","afgerond"].includes(p.status));
+  const doneP=ps.filter(p=>["live","afgerond"].includes(p.status)), doneVal=doneP.reduce((a,p)=>a+projPrice(p)-(p.costs||[]).reduce((b,c)=>b+(+c.a||0),0),0), doneHrs=doneP.reduce((a,p)=>a+(p.hours||[]).reduce((b,h)=>b+(+h.h||0),0),0);
+  const wonVal=won.reduce((a,p)=>a+projPrice(p)-(p.costs||[]).reduce((b,c)=>b+(+c.a||0),0),0), wonHrs=won.reduce((a,p)=>a+(p.hours||[]).reduce((b,h)=>b+(+h.h||0),0),0);
+  document.getElementById("kpis").innerHTML=[
+    ["Open offertes",fmtEUR(val(["lead","offerte"])),`${ps.filter(p=>["lead","offerte"].includes(p.status)).length} project(en)`],
+    ["Akkoord en in aanbouw",fmtEUR(val(["akkoord","bouw"])),`${ps.filter(p=>["akkoord","bouw"].includes(p.status)).length} project(en)`],
+    ["Gelogde uren",hrs.toLocaleString("nl-NL"),"over alle projecten"],
+    ["Effectief uurtarief",doneHrs?fmtEUR(doneVal/doneHrs):"–",doneHrs?"van opgeleverde projecten (opbrengst min kosten ÷ uren)":"verschijnt na je eerste oplevering"]
+  ].map(([l,v,s])=>`<div class="kpi"><span class="klabel">${l}</span><span class="kval">${v}</span><span class="ksub">${s}</span></div>`).join("");
+  document.getElementById("pipeline").innerHTML = ps.length ? STATUSES.map(([k,l])=>{const list=ps.filter(p=>p.status===k);
+    return `<div class="pcol"><div class="pcolhead"><span>${l}</span><span class="n">${list.length}</span></div>${list.map(p=>`<button type="button" class="pcard${p.id===P.activeId?" on":""}" data-open="${p.id}"><span class="pc-name">${esc(p.name)}</span><span class="pc-sub">${esc(p.client||"Geen klant")} · ${TYPES[p.type]}</span><span class="pc-bar"><span style="width:${progress(p)}%"></span></span><span class="pc-sub">${progress(p)}% · ${fmtEUR(projPrice(p))}</span></button>`).join("")||`<p class="pc-empty">Leeg</p>`}</div>`;}).join("")
+    : `<div class="emptyhero"><h3>Nog geen projecten</h3><p>Start met <b>+ Nieuw project</b>. Tip uit de praktijk: maak je eerste project voor jezelf, bijvoorbeeld je eigen portfolio. Zo test je je werkwijze voordat een klant dat doet.</p></div>`;
+  renderStudio();
+  ["studio","rate","buffer","hoursWeek"].forEach(k=>{const el=document.querySelector(`[data-set="${k}"]`); if(el&&document.activeElement!==el) el.value=P.settings[k];});
+  document.getElementById("np-type").innerHTML=Object.entries(TYPES).map(([k,l],i)=>`<button type="button" role="radio" aria-checked="${(document.getElementById("np-type").dataset.v||"site")===k}" data-nptype="${k}">${l}</button>`).join("");
+}
+const STUDIO = [
+  ["leads","Lead tracker","Volg elke aanvraag van lead tot afgerond.","Gebruik de pijplijn hierboven: zet elke aanvraag er direct in als Lead."],
+  ["portfolio","Een echt portfolio-project","Iets wat live staat, geen mockup.","Kies een projectidee bij Gidsen en bouw het als eerste project in dit portaal."],
+  ["pricing","Prijscalculator","Weet je prijs voordat de klant ernaar vraagt.","Zit in de stap Offerte. Stel eerst je uurtarief en buffer in."],
+  ["proposal","Offerte-template","Eén keer goed, elke keer hergebruiken.","De stap Offerte maakt hem automatisch uit je intake."],
+  ["outreach","Outreach-bericht","Getest op je eigen leads.","Template staat bij Gidsen."],
+  ["site","Je eigen website","Vertrouwen begint vóór het eerste gesprek.","Start een Website-project voor jezelf en loop alle stappen door."],
+  ["referral","Referral-verzoek","Regel het vóór je het nodig hebt.","Template staat bij Gidsen en in de stap Overdracht."],
+  ["content","Content over je werk","Laat zichtbaar zien wat je kunt.","Deel na elke oplevering een korte case (stap Overdracht)."],
+  ["finance","Financiën bijhouden","Ken je marge per project.","Log uren en kosten in de stap Bouwen; het dashboard rekent je uurtarief uit."],
+  ["sop","Je werkwijze op papier","Wat je niet kunt uitleggen, kun je niet opschalen.","Download je werkwijze (SOP) bij Gidsen."]
+];
+function renderStudio(){
+  const done=STUDIO.filter(s=>P.studio[s[0]]).length;
+  document.getElementById("studio").innerHTML=`<h3>Eerst voor jezelf <span class="n">${done}/10</span></h3><p class="hint">Bouw wat je aan klanten verkoopt eerst voor jezelf. Dat is de beste test of het werkt.</p>
+  <ul class="studio">${STUDIO.map(([k,n,d,how])=>`<li><label><input type="checkbox" data-studio="${k}" ${P.studio[k]?"checked":""}><span><b>${n}</b> <span class="desc">${d}</span><br><span class="how2">${how}</span></span></label></li>`).join("")}</ul>`;
+}
+
+/* ---------- Render: project ---------- */
+function renderProjectHead(){
+  const p=proj(); if(!p) return;
+  const sel=document.getElementById("p-status"); sel.innerHTML=STATUSES.map(([k,l])=>`<option value="${k}" ${p.status===k?"selected":""}>${l}</option>`).join("");
+  const pr=progress(p); document.getElementById("p-progress").innerHTML=`<span class="flabel">Voortgang ${pr}%</span><span class="pc-bar"><span style="width:${pr}%"></span></span>`;
+  let lastPhase="";
+  document.getElementById("stepper").innerHTML=STEPS.map(([k,l,ph],i)=>{const d=stepDone(p,k), on=p.step===k; const phase=ph!==lastPhase?(lastPhase=ph,`<span class="phase">${ph}</span>`):"";
+    return `<li class="${on?"on":""} ${d?"done":""}">${phase}<button type="button" data-step="${k}" aria-current="${on?"step":"false"}"><span class="sn">${d?"✓":i+1}</span>${l}</button></li>`;}).join("");
+}
+function renderProject(){
+  const p=proj(); document.getElementById("noproj").hidden=!!p; document.getElementById("projwrap").hidden=!p; if(!p) return;
+  document.getElementById("p-client").textContent=(p.client||"Geen klant")+" · "+TYPES[p.type];
+  document.getElementById("p-name").textContent=p.name;
+  const sel=document.getElementById("p-status"); sel.innerHTML=STATUSES.map(([k,l])=>`<option value="${k}" ${p.status===k?"selected":""}>${l}</option>`).join("");
+  const pr=progress(p); document.getElementById("p-progress").innerHTML=`<span class="flabel">Voortgang ${pr}%</span><span class="pc-bar"><span style="width:${pr}%"></span></span>`;
+  let lastPhase="";
+  document.getElementById("stepper").innerHTML=STEPS.map(([k,l,ph],i)=>{const d=stepDone(p,k), on=p.step===k; const phase=ph!==lastPhase?(lastPhase=ph,`<span class="phase">${ph}</span>`):"";
+    return `<li class="${on?"on":""} ${d?"done":""}">${phase}<button type="button" data-step="${k}" aria-current="${on?"step":"false"}"><span class="sn">${d?"✓":i+1}</span>${l}</button></li>`;}).join("");
+  document.querySelectorAll(".steppanel").forEach(el=>el.hidden=el.dataset.step!==p.step);
+  const idx=STEPS.findIndex(s=>s[0]===p.step);
+  document.getElementById("prevStep").hidden=idx===0; const nx=document.getElementById("nextStep"); nx.hidden=idx===STEPS.length-1; if(idx<STEPS.length-1) nx.textContent=`Volgende: ${STEPS[idx+1][1]} →`;
+  ({intake:renderIntake,offerte:renderOffer,richting:renderDesign,stack:renderStackStep,bouwen:renderBuild,lanceren:()=>renderChecks("lanceren"),overdracht:()=>renderChecks("overdracht")})[p.step]();
+  renderChip();
+}
+function renderChip(){ const p=proj(), c=document.getElementById("pchip"); c.hidden=!p; if(p) c.innerHTML=`<span class="dot"></span>${esc(p.name)} <span class="n">${p.stack.length} tools</span>`; document.getElementById("tab-project").textContent=p?"Project":"Project"; }
+
+function field(id,label,val,type="text",ph=""){return `<div class="field"><label for="${id}">${label}</label>${type==="textarea"?`<textarea id="${id}" data-in="${id}" placeholder="${esc(ph)}">${esc(val||"")}</textarea>`:`<input id="${id}" data-in="${id}" type="${type}" value="${esc(val||"")}" placeholder="${esc(ph)}">`}</div>`;}
+function renderIntake(){
+  const p=proj(), i=p.intake;
+  document.getElementById("step-intake").innerHTML=`
+  <div class="stephead"><h3>Intake</h3><p>Vul dit in tijdens of na het eerste gesprek. Hieruit volgen de stack, de UI-patronen en de prijs.</p></div>
+  <div class="formgrid">
+    <div class="panel"><h4>Klant</h4>
+      ${field("in-name","Projectnaam",p.name)}${field("in-client","Klant (bedrijf)",p.client)}${field("in-contact","Contactpersoon",i.contact)}${field("in-decider","Wie beslist er uiteindelijk?",i.decider,"text","Bijv. de eigenaar")}
+      <div class="field"><span class="flabel" id="in-type-l">Soort project</span><div class="seg" role="radiogroup" aria-labelledby="in-type-l">${Object.entries(TYPES).map(([k,l])=>`<button type="button" role="radio" aria-checked="${p.type===k}" data-intype="${k}">${l}</button>`).join("")}</div></div>
+    </div>
+    <div class="panel"><h4>Doel</h4>
+      <div class="field"><label for="in-goal">Wat moet het vooral opleveren?</label><select id="in-goal" data-in="in-goal"><option value="">Kies…</option>${GOALS.map(([k,l])=>`<option value="${k}" ${i.goal===k?"selected":""}>${l}</option>`).join("")}</select></div>
+      ${field("in-action","Belangrijkste actie voor bezoekers",i.action,"text","Bijv. een taart bestellen")}${field("in-audience","Voor wie is het?",i.audience,"text","Bijv. buurtbewoners, 30–60 jaar")}${field("in-success","Wanneer is het over 6 maanden een succes?",i.success,"text","Bijv. 20 bestellingen per week via de site")}
+    </div>
+    <div class="panel wide"><h4>Functies</h4><p class="hint">Vink aan wat het moet kunnen. Elke functie voegt tools, UI-patronen en uren toe.</p>
+      <div class="featgrid">${FEATURES.map(x=>`<label class="feat"><input type="checkbox" data-feat="${x.k}" ${(i.features||[]).includes(x.k)?"checked":""}><span>${x.n}</span><span class="fh">~${x.h} u</span></label>`).join("")}</div>
+      <div class="row2">${field("in-pages",p.type==="site"?"Aantal pagina's":"Aantal schermen",i.pages,"number")}
+      <div class="field"><span class="flabel">Wat levert de klant al aan?</span><div class="chkrow">${CONTENT.map(([k,l])=>`<label><input type="checkbox" data-content="${k}" ${(i.content||[]).includes(k)?"checked":""}> ${l}</label>`).join("")}</div></div></div>
+    </div>
+    <div class="panel"><h4>Smaak</h4>${field("in-likes","Sites die ze mooi vinden (en waarom)",i.likes,"textarea","Links, één per regel")}${field("in-dislikes","Sites die ze niet mooi vinden (en waarom)",i.dislikes,"textarea","Wat ze níet willen zegt vaak het meest")}</div>
+    <div class="panel"><h4>Planning en budget</h4>${field("in-deadline","Deadline",i.deadline,"date")}
+      <div class="field"><label for="in-budget">Budget</label><select id="in-budget" data-in="in-budget">${["","< € 1.500","€ 1.500 – 3.000","€ 3.000 – 6.000","€ 6.000 – 12.000","> € 12.000","Weet ik nog niet"].map(b=>`<option ${i.budget===b?"selected":""} value="${b}">${b||"Kies…"}</option>`).join("")}</select></div>
+      ${field("in-notes","Overige notities",i.notes,"textarea")}</div>
+  </div>
+  <div class="cta-row"><button type="button" class="btn" id="applyIntake">Stack en patronen voorstellen op basis van intake</button><span class="hint">Je huidige stack wordt vervangen; je kunt het ongedaan maken.</span></div>`;
+}
+function renderOffer(){
+  const p=proj(), e=estimate(p), s=P.settings, o=p.offer;
+  const sched=SCHEDULES[o.schedule]||SCHEDULES["30/40/30"];
+  const budgetWarn = (()=>{const m={"< € 1.500":1500,"€ 1.500 – 3.000":3000,"€ 3.000 – 6.000":6000,"€ 6.000 – 12.000":12000}[p.intake.budget]; return m&&e.price>m?`<div class="check miss"><span class="lbl">Let op</span><span>De prijs (${fmtEUR(e.price)}) ligt boven het budget van de klant (${esc(p.intake.budget)}). Schrap functies of maak een fase 2.</span></div>`:"";})();
+  document.getElementById("step-offerte").innerHTML=`
+  <div class="stephead"><h3>Offerte</h3><p>De uren komen uit je intake. Pas ze aan waar nodig; de offerte verandert mee. Uurtarief en buffer stel je in op het dashboard.</p></div>
+  <div class="formgrid">
+    <div class="panel wide"><h4>Prijscalculator</h4>
+      <table class="est"><thead><tr><th>Onderdeel</th><th class="num">Uren</th><th class="num">Bedrag</th></tr></thead><tbody>
+      ${e.lines.map(l=>`<tr><td>${esc(l.n)}</td><td class="num"><input type="number" step="0.5" min="0" value="${l.h}" data-hours="${l.k}" aria-label="Uren voor ${esc(l.n)}"></td><td class="num">${fmtEUR(l.h*s.rate)}</td></tr>`).join("")}
+      <tr class="sub"><td>Buffer voor onvoorzien (${s.buffer}%)</td><td class="num">${(Math.round(e.buffer*2)/2).toLocaleString("nl-NL")}</td><td class="num">${fmtEUR(e.buffer*s.rate)}</td></tr>
+      <tr class="tot"><td>Totaal (afgerond, excl. btw)</td><td class="num">${(Math.round((e.hours+e.buffer)*2)/2).toLocaleString("nl-NL")}</td><td class="num">${fmtEUR(e.price)}</td></tr>
+      <tr class="sub"><td>Incl. 21% btw</td><td></td><td class="num">${fmtEUR(e.price*1.21)}</td></tr></tbody></table>
+      <p class="hint">Tarief ${fmtEUR(s.rate)} per uur · geschatte doorlooptijd ${e.weeks} weken (incl. een week voor feedback). <button type="button" class="linkbtn" id="resetHours">Uren terugzetten naar de schatting</button></p>
+      ${budgetWarn}
+    </div>
+    <div class="panel"><h4>Voorwaarden</h4>
+      <div class="field"><label for="of-schedule">Betaling</label><select id="of-schedule" data-of="schedule">${Object.keys(SCHEDULES).map(k=>`<option value="${k}" ${o.schedule===k?"selected":""}>${k==="100"?"Alles bij oplevering":k.replace(/\//g," / ")+" %"}</option>`).join("")}</select></div>
+      <div class="field"><label for="of-rev">Feedbackrondes inbegrepen</label><input id="of-rev" type="number" min="0" max="5" value="${o.revisions}" data-of="revisions"></div>
+      <div class="field"><label for="of-ret">Onderhoud per maand (€, optioneel)</label><input id="of-ret" type="number" min="0" step="5" value="${o.retainer||0}" data-of="retainer"></div>
+      <ul class="sched">${sched.map(([n,pc])=>`<li><span>${n}</span><b>${pc}% · ${fmtEUR(e.price*pc/100)}</b></li>`).join("")}</ul>
+    </div>
+    <div class="panel"><h4>Offerte versturen</h4><p class="hint">Kopieer de offerte als tekst of download hem als Markdown. Plak hem in je mail, Google Docs of Notion en voeg je algemene voorwaarden toe.</p>
+      <div class="npacts"><button type="button" class="btn" id="copyOffer">Kopieer offerte</button><button type="button" class="btn ghost" id="dlOffer">Download .md</button></div>
+      <label class="feat" style="margin-top:12px"><input type="checkbox" id="offerSent" ${o.sent?"checked":""}><span>Offerte is verstuurd</span></label>
+      <label class="feat"><input type="checkbox" id="offerOk" ${["akkoord","bouw","live","afgerond"].includes(p.status)?"checked":""}><span>Klant is akkoord (en de aanbetaling is binnen)</span></label>
+    </div>
+  </div>
+  <details class="preview"><summary>Bekijk de offerte</summary><pre class="md" tabindex="0">${esc(offerMd(p))}</pre></details>`;
+}
+function offerMd(p){
+  const e=estimate(p), s=P.settings, o=p.offer, i=p.intake, f=new Set(i.features||[]);
+  const sched=SCHEDULES[o.schedule]||SCHEDULES["30/40/30"]; const today=new Date(); const valid=new Date(today.getTime()+30*864e5);
+  const goal=(GOALS.find(g=>g[0]===i.goal)||[,""])[1];
+  const L=[`# Offerte: ${p.name}`,``,`**Voor:** ${p.client||"[klant]"}${i.contact?` · t.a.v. ${i.contact}`:""}  `,`**Van:** ${s.studio||"[jouw studio]"}  `,`**Datum:** ${today.toLocaleDateString("nl-NL")} · geldig tot ${valid.toLocaleDateString("nl-NL")}`,``,
+  `## Samenvatting`,`${TYPES[p.type]} die ${goal?goal.toLowerCase():"[doel]"} oplevert${i.action?`, met als belangrijkste actie: ${i.action.toLowerCase()}`:""}.${i.audience?` Voor ${i.audience}.`:""}${i.success?` Succes is: ${i.success}.`:""}`,``,
+  `## Wat je krijgt`,...e.lines.filter(l=>l.h>0&&l.k!=="pm").map(l=>`- ${l.n}`),`- ${o.revisions} feedbackronde${o.revisions==1?"":"s"} op ontwerp en bouw`,`- Snel, toegankelijk (WCAG AA) en vindbaar in Google`,``,
+  `## Niet inbegrepen`,...FEATURES.filter(x=>!f.has(x.k)).slice(0,6).map(x=>`- ${x.n} (kan later als uitbreiding)`),`- Kosten van externe diensten (domein, hosting boven de gratis limiet, betaalprovider)`,``,
+  `## Planning`,`Geschatte doorlooptijd: ${e.weeks} weken na akkoord en aanlevering van content.`,`1. Intake en ontwerprichting`,`2. Ontwerp en goedkeuring`,`3. Bouwen`,`4. Testen, feedback en lancering`,``,
+  `## Investering`,`| Onderdeel | Bedrag |`,`|---|---:|`,`| ${TYPES[p.type]} zoals hierboven beschreven | ${fmtEUR(e.price)} |`,`| Btw 21% | ${fmtEUR(e.price*0.21)} |`,`| **Totaal** | **${fmtEUR(e.price*1.21)}** |`,``,
+  ...(o.retainer>0?[`Onderhoud en support na oplevering: ${fmtEUR(o.retainer)} per maand (excl. btw), maandelijks opzegbaar.`,``]:[]),
+  `## Betaling`,...sched.map(([n,pc])=>`- ${n}: ${pc}% (${fmtEUR(e.price*pc/100)} excl. btw)`),``,
+  `## Afspraken`,`- Extra wensen buiten deze offerte worden vooraf geschat en apart gefactureerd (${fmtEUR(s.rate)} per uur excl. btw).`,`- Accounts voor domein, hosting en diensten komen op naam van de klant.`,`- Op deze offerte zijn mijn algemene voorwaarden van toepassing.`,``,
+  `## Akkoord`,`Akkoord? Reageer op deze mail of teken hieronder.`,``,`Naam: ____________________  Datum: __________  Handtekening: ____________________`];
+  return L.join("\n");
+}
+function renderDesign(){
+  const p=proj(), d=p.design, pats=suggestPatterns(p);
+  document.getElementById("step-richting").innerHTML=`
+  <div class="stephead"><h3>Ontwerprichting</h3><p>Kies samen met de klant een stijl en per onderdeel een variant. Dit komt in je CLAUDE.md, zodat Claude in die richting bouwt.</p></div>
+  <div class="panel"><h4>Stijl</h4><div class="dirgrid">${DIRECTIONS.map(([k,n,desc,wf])=>`<button type="button" class="dir${d.direction===k?" on":""}" data-dir="${k}" aria-pressed="${d.direction===k}"><figure class="wf" aria-hidden="true">${WF[wf]}</figure><b>${n}</b><span class="desc">${desc}</span></button>`).join("")}</div></div>
+  <div class="panel"><h4>Onderdelen <span class="hint">voorgesteld op basis van je intake</span></h4>
+    ${pats.map(key=>{const po=patternOptions(key); if(!po) return ""; return `<div class="pickrow"><h5>${esc(po.title)}</h5><div class="picks">${po.opts.map((o,oi)=>`<button type="button" class="pick${d.picks[key]===oi?" on":""}" data-pick="${key}|${oi}" aria-pressed="${d.picks[key]===oi}"><figure class="wf" aria-hidden="true">${o.wf||""}</figure><span>${esc(o.label)}</span></button>`).join("")}</div></div>`;}).join("")}
+  </div>
+  <div class="panel">${field("ds-notes","Notities over de stijl (kleuren, fonts, voorbeelden)",d.notes,"textarea","Bijv. warm terracotta + crème, ronde vormen, foto's van het team")}
+    <p class="hint">Inspiratie nodig? Bekijk <a href="https://styles.refero.design" target="_blank" rel="noopener">Refero Styles</a>, <a href="https://godly.website" target="_blank" rel="noopener">Godly</a> of <a href="https://www.realtimecolors.com" target="_blank" rel="noopener">Realtime Colors</a>.</p></div>`;
+}
+function renderStackStep(){
+  const host=document.getElementById("step-stack"), b=document.getElementById("bouwer");
+  if(b.parentNode!==host){ host.appendChild(b); }
+  if(!document.getElementById("connect")){ const d=document.createElement("div"); d.className="panel"; d.id="connect"; host.appendChild(d); }
+  renderConnect();
+}
+const BUILD = p => {
+  const f=new Set(p.intake.features||[]), picks=p.design.picks||{};
+  const pick=k=>{const po=patternOptions(k); return po&&picks[k]!=null?po.opts[picks[k]].label:null;};
+  const L=[{id:"setup",n:"Project opzetten",d:"Plak 'Kopieer alles voor Claude' uit de vorige stap in Claude Code, laat de bestanden aanmaken en voer daarna de installatie uit.",prompt:"Lees CLAUDE.md. Voer de stappen onder 'Laat Claude dit doen' uit en vertel wat ik zelf nog moet doen."},
+    {id:"layout",n:"Basislayout en navigatie",d:"De structuur die op elke pagina terugkomt.",prompt:`Lees CLAUDE.md. Bouw de basislayout${pick("pat-nav")?` met navigatie in de variant "${pick("pat-nav")}"`:""}${pick("pat-footer")?` en een footer in de variant "${pick("pat-footer")}"`:""}. Mobile first, toegankelijk, en volg de ontwerprichting. Laat het resultaat zien in de browser.`}];
+  Object.entries(picks).filter(([k])=>!["pat-nav","pat-footer"].includes(k)).forEach(([k,vi])=>{const po=patternOptions(k); if(!po) return; const o=po.opts[vi];
+    L.push({id:"pat-"+k,n:`${po.title}: ${o.label}`,d:o.desc,prompt:`Lees CLAUDE.md. Bouw het onderdeel "${po.title}" in de variant "${o.label}": ${o.desc}. Volg de ontwerprichting uit CLAUDE.md, maak het responsive en toegankelijk, en respecteer prefers-reduced-motion.`});});
+  FEATURES.filter(x=>f.has(x.k)).forEach(x=>L.push({id:"feat-"+x.k,n:`Functie: ${x.n}`,d:"Volg docs/ als die bij je stack horen.",prompt:`Lees CLAUDE.md${["login","pay","chat","team","booking","ai"].includes(x.k)?" en docs/SECURITY.md":""}. Bouw de functie "${x.n}". Benoem eerst welke bestanden, tabellen en endpoints je aanmaakt en wacht op mijn akkoord. Schrijf daarna de code, test het en laat zien hoe ik het kan proberen.`}));
+  L.push({id:"content",n:"Content invoeren",d:"Echte teksten en beelden van de klant, geen placeholders.",prompt:"Vervang alle placeholder-teksten en -afbeeldingen door de content in de map content/. Comprimeer afbeeldingen en geef ze alt-teksten."},
+    {id:"qa",n:"Zelf testen met Claude",d:"Claude controleert zijn werk in een echte browser.",prompt:"Test de hele site/app met Playwright MCP op mobiel (390px) en desktop: alle links, formulieren en flows. Maak een lijst van fouten met de oorzaak en los ze één voor één op."},
+    {id:"review",n:"Klant-review op een testlink",d:`Deel een preview-link (bijv. Vercel preview). ${p.offer.revisions} feedbackronde(s) inbegrepen.`,prompt:""});
+  return L;
+};
+function renderBuild(){
+  const p=proj(), c=p.checks.bouwen||{}, L=BUILD(p), hrs=(p.hours||[]).reduce((a,h)=>a+(+h.h||0),0), costs=(p.costs||[]).reduce((a,x)=>a+(+x.a||0),0), price=projPrice(p), est=estimate(p);
+  document.getElementById("step-bouwen").innerHTML=`
+  <div class="stephead"><h3>Bouwen</h3><p>Werk de stappen in volgorde af. Elke stap heeft een prompt die je in Claude Code plakt.</p></div>
+  <div class="formgrid"><div class="panel wide"><ol class="milestones">${L.map(m=>`<li class="${c[m.id]?"done":""}"><label class="mcheck"><input type="checkbox" data-check="bouwen|${m.id}" ${c[m.id]?"checked":""}><span><b>${esc(m.n)}</b><br><span class="desc">${esc(m.d)}</span></span></label>${m.prompt?`<button type="button" class="copyp" data-cp="${esc(m.prompt)}">Kopieer prompt</button>`:""}</li>`).join("")}</ol></div>
+  <div class="panel"><h4>Uren en marge</h4>
+    ${(()=>{const bud=Math.round((est.hours+est.buffer)*2)/2, left=bud-hrs, fin=["live","afgerond"].includes(p.status);
+      return `<div class="kmini"><span>Begroot (incl. buffer)</span><b>${bud.toLocaleString("nl-NL")} u</b><span>Gelogd</span><b>${hrs.toLocaleString("nl-NL")} u</b><span>${left>=0?"Nog over in budget":"Over budget"}</span><b class="${left<0?"over":""}">${Math.abs(left).toLocaleString("nl-NL")} u</b><span>${fin?"Effectief uurtarief":"Uurtarief als je binnen budget blijft"}</span><b>${fin&&hrs?fmtEUR((price-costs)/hrs):fmtEUR((price-costs)/Math.max(bud,hrs||1))}</b></div>`;})()}
+    <form class="logrow" id="logHours"><input type="number" step="0.25" min="0.25" id="lh-h" placeholder="Uren" aria-label="Uren" required><input id="lh-n" placeholder="Waaraan? (optioneel)" aria-label="Omschrijving"><button class="btn" type="submit">Log</button></form>
+    <ul class="loglist">${(p.hours||[]).slice(-6).reverse().map(h=>`<li><span>${new Date(h.d).toLocaleDateString("nl-NL")}</span><span>${esc(h.n||"")}</span><b>${h.h} u</b></li>`).join("")}</ul>
+    <form class="logrow" id="logCost"><input type="number" step="1" min="0" id="lc-a" placeholder="€" aria-label="Bedrag" required><input id="lc-n" placeholder="Kosten (bijv. stockfoto's)" aria-label="Omschrijving kosten"><button class="btn ghost" type="submit">+ Kosten</button></form>
+    <p class="hint">${costs?`Kosten: ${fmtEUR(costs)} · `:""}Marge: ${fmtEUR(price-costs)} excl. btw</p>
+  </div></div>`;
+}
+function checklist(p,kind){
+  const S=new Set(p.stack), f=new Set(p.intake.features||[]), app=p.type!=="site", tracking=["posthog"].some(k=>S.has(k));
+  const C=[];
+  if(kind==="lanceren"){
+    C.push(["Werkt alles",[["forms","Alle formulieren getest met een echte inzending (komt de mail aan?)"],["links","Alle links en knoppen werken, ook de 404-pagina"],["devices","Getest op een echte telefoon en in Safari, Chrome en Firefox"],["content","Geen placeholder-tekst of testdata meer"]]]);
+    C.push(["Kwaliteit",[["psi","PageSpeed mobiel minstens 90",T.psi.u],["a11y","WAVE / axe: 0 toegankelijkheidsfouten",T.wave.u],["contrast","Tekstcontrast minimaal AA",T.webaim.u]]]);
+    if(p.type!=="mobile"&&p.type!=="desktop") C.push(["Vindbaar",[["meta","Unieke title en description per pagina"],["og","Open Graph-afbeelding en favicon",T.ogp.u],["sitemap","sitemap.xml en robots.txt staan goed"],["redirects","Oude URL's doorverwezen (301) bij een redesign"],["gsc","Site aangemeld bij Google Search Console","https://search.google.com/search-console"]]]);
+    const legal=[["privacy","Privacyverklaring op de site (verplicht zodra je persoonsgegevens verwerkt, zoals via een formulier)"]];
+    legal.push(tracking?["cookies","Cookiebanner met echte keuze vóór tracking-cookies (je stack gebruikt PostHog)"]:["cookies","Geen tracking-cookies? Dan geen cookiebanner nodig (Umami is cookieloos). Check embeds zoals YouTube of Maps"]);
+    if(f.has("pay")) legal.push(["av","Algemene voorwaarden, retourrecht (14 dagen) en KvK- en btw-nummer zichtbaar"]);
+    C.push(["Juridisch (NL)",legal]);
+    const tech=[["domain","Domein, DNS en SSL ingesteld; www en zonder www werken allebei"],["headers","Security headers gecontroleerd",T.secheaders.u],["env","Environment-variabelen staan in productie, niet in de code"]];
+    if(S.has("supabase")) tech.push(["rls","RLS staat aan op elke tabel; getest met de publieke key"],["backup","Back-ups van de database staan aan"]);
+    if(S.has("resend")||f.has("newsletter")) tech.push(["mail","E-maildomein geverifieerd (SPF en DKIM), mails komen niet in spam"]);
+    if(S.has("sentry")) tech.push(["sentry","Foutmeldingen komen binnen in Sentry"]);
+    if(S.has("umami")||S.has("posthog")) tech.push(["analytics","Analytics telt bezoeken"]);
+    C.push(["Techniek",tech]);
+    if(p.type==="mobile") C.push(["App stores",[["store","Screenshots, beschrijving en privacy-URL voor de App Store en Play Store"],["testflight","Getest via TestFlight / interne test"]]]);
+  } else if(kind==="overdracht"){
+    C.push(["Eigendom",[["accounts","Domein, hosting en diensten staan op naam van de klant (of zijn overgedragen)"],["creds","Inloggegevens gedeeld via een wachtwoordmanager, niet via mail"],["mine","Tijdelijke ontwikkelaarsaccounts verwijderd of afgesproken"]]]);
+    C.push(["Uitleg",[["manual","Korte handleiding: content aanpassen, wie te bellen bij problemen"],["video","Uitlegvideo van 5 minuten opgenomen"],["costs","Overzicht van terugkerende kosten en verlengdatums"]]]);
+    C.push(["Afronden",[["invoice","Eindfactuur verstuurd"],["support",p.offer.retainer>0?`Onderhoudscontract van ${fmtEUR(p.offer.retainer)}/maand getekend`:"Onderhoud aangeboden (of bewust niet)"],["d30","Check na 30 dagen gepland"],["review","Om een review of testimonial gevraagd"],["referral","Om een doorverwijzing gevraagd"],["case","Case toegevoegd aan je portfolio"]]]);
+  }
+  return C.flatMap(([g,items])=>items.map(([id,n,u])=>({g,id,n,u})));
+}
+function renderChecks(kind){
+  const p=proj(), c=p.checks[kind]||{}, list=checklist(p,kind); let lastG="";
+  const done=list.filter(x=>c[x.id]).length;
+  document.getElementById("step-"+kind).innerHTML=`<div class="stephead"><h3>${kind==="lanceren"?"Lanceren":"Overdracht"} <span class="n">${done}/${list.length}</span></h3><p>${kind==="lanceren"?"Afgestemd op jouw stack en functies. Pas live als alles is afgevinkt.":"Rond het project netjes af. Een goede overdracht levert reviews en nieuwe klanten op."}</p></div>
+  ${kind==="lanceren"&&["lead","offerte"].includes(p.status)?`<div class="check miss"><span class="lbl">Let op</span><span>Dit project staat nog op "${STATUSES.find(x=>x[0]===p.status)[1]}". Is de klant akkoord en de aanbetaling binnen? Vink dat aan in de stap Offerte.</span></div>`:""}
+  <div class="panel"><ul class="checklist">${list.map(x=>{const head=x.g!==lastG?(lastG=x.g,`<li class="cg">${esc(x.g)}</li>`):""; return head+`<li><label><input type="checkbox" data-check="${kind}|${x.id}" ${c[x.id]?"checked":""}><span>${esc(x.n)}${x.u?` <a href="${x.u}" target="_blank" rel="noopener">open ↗</a>`:""}</span></label></li>`;}).join("")}</ul></div>
+  ${kind==="overdracht"?`<div class="tplgrid">${TEMPLATES.filter(t=>["oplevering","review","referral"].includes(t.id)).map(tplCard).join("")}</div>`:`<div class="cta-row"><button type="button" class="btn ghost" data-cp="${esc("Lees CLAUDE.md. Doe een pre-launch check: test alle formulieren, links en flows met Playwright MCP op 390px en 1280px, controleer title/description/OG per pagina, en meld welke punten van deze lijst nog niet in orde zijn: "+list.map(x=>x.n).join("; "))}">Kopieer pre-launch prompt voor Claude</button></div>`}`;
+}
+
+/* ---------- Templates en SOP ---------- */
+const TEMPLATES = [
+  {id:"outreach",n:"Outreach-bericht",d:"Kort, persoonlijk en met één vraag.",t:p=>`Hoi [naam],\n\nIk kwam [bedrijf] tegen via [waar] en zag dat [concreet punt: bijv. je site laadt traag op mobiel / je kunt nog niet online boeken].\n\nIk bouw websites en apps voor [type bedrijven]. Voor [vergelijkbaar bedrijf] leverde dat [resultaat] op.\n\nZal ik je in een kort voorstel laten zien wat dat voor [bedrijf] kan betekenen?\n\nGroet,\n${P.settings.studio||"[jouw naam]"}`},
+  {id:"intake",n:"Uitnodiging intakegesprek",d:"Stuur vooraf, dan is de intake snel klaar.",t:p=>`Hoi [naam],\n\nLeuk dat je interesse hebt! Om het gesprek nuttig te maken, kun je vooraf alvast nadenken over:\n\n1. Wat moet de nieuwe ${p?TYPES[p.type].toLowerCase():"website"} vooral opleveren?\n2. Wat is de belangrijkste actie die bezoekers moeten doen?\n3. Twee of drie sites die je mooi vindt, en één die je niet mooi vindt.\n4. Heb je al teksten, foto's en een logo?\n5. Is er een deadline en een budget?\n\nTot [datum]!\n${P.settings.studio||"[jouw naam]"}`},
+  {id:"oplevering",n:"Opleveringsmail",d:"Bij de lancering, met alles wat de klant nodig heeft.",t:p=>`Hoi [naam],\n\n${p?p.name:"Het project"} staat live! 🎉 Je vindt het op [url].\n\nWat je van mij krijgt:\n- Een korte handleiding en uitlegvideo: [link]\n- Toegang tot alle accounts via [wachtwoordmanager]\n- Een overzicht van terugkerende kosten\n\n${p&&p.offer.retainer>0?`Het onderhoud (${fmtEUR(p.offer.retainer)}/maand) gaat in per [datum]. `:""}Over 30 dagen kijk ik samen met je naar de eerste resultaten.\n\nDank voor het vertrouwen!\n${P.settings.studio||"[jouw naam]"}`},
+  {id:"review",n:"Review-verzoek",d:"Een week na oplevering, als de klant tevreden is.",t:p=>`Hoi [naam],\n\nHoe bevalt de nieuwe ${p?TYPES[p.type].toLowerCase():"website"} tot nu toe?\n\nZou je in twee of drie zinnen willen opschrijven hoe je de samenwerking hebt ervaren? Ik gebruik het (met je naam en bedrijf, als je dat goed vindt) op mijn website.\n\nAlvast bedankt!\n${P.settings.studio||"[jouw naam]"}`},
+  {id:"referral",n:"Doorverwijzing vragen",d:"Na een positieve review.",t:p=>`Hoi [naam],\n\nDank je wel voor je mooie woorden!\n\nKen je iemand die ook een website of app nodig heeft? Een introductie per mail of app is genoeg. Als daar een project uit komt, krijg je van mij [bedankje, bijv. een maand gratis onderhoud].\n\nGroet,\n${P.settings.studio||"[jouw naam]"}`},
+  {id:"sop",n:"Mijn werkwijze (SOP)",d:"Het proces van dit portaal als document, om te delen of op je site te zetten.",t:p=>[`# Werkwijze ${P.settings.studio||""}`.trim(),"",...STEPS.map(([k,l,ph],i)=>{const d={intake:"Gesprek met de klant over doel, doelgroep, functies, smaak, planning en budget. Resultaat: een ingevulde intake.",offerte:"Prijs uit de calculator (uren × tarief + buffer), offerte met scope, planning, betaling in termijnen en afspraken over meerwerk.",richting:"Samen een stijl en per onderdeel een variant kiezen op basis van wireframes.",stack:"Stack kiezen of laten voorstellen, controleren op conflicten en CLAUDE.md plus doc-bestanden genereren.",bouwen:"Bouwen in vaste stappen met een prompt per stap, uren en kosten bijhouden, klant-review op een testlink.",lanceren:"Pre-launch checklist: werking, kwaliteit, vindbaarheid, juridisch (NL) en techniek.",overdracht:"Accounts op naam van de klant, handleiding en video, eindfactuur, 30-dagen check, review en doorverwijzing."}[k];return `${i+1}. **${l}** (${ph}): ${d}`;}),"","Elke stap is pas klaar als de checklist in het portaal is afgevinkt."].join("\n")}
+];
+function tplCard(t){ const p=proj(); const txt=t.t(p); return `<div class="panel tpl"><h4>${t.n}</h4><p class="hint">${t.d}</p><pre class="md small" tabindex="0">${esc(txt)}</pre><div class="npacts"><button type="button" class="btn ghost" data-cp="${esc(txt)}">Kopieer</button></div></div>`; }
+function renderTemplates(){ document.getElementById("templates").innerHTML=TEMPLATES.map(tplCard).join(""); }
+
+
+/* ---------- Koppelingen per project: .mcp.json, .env.example en snelle links ---------- */
+const MCP_CONF = {
+  vercelmcp:["vercel",{type:"http",url:"https://mcp.vercel.com"}],
+  supamcp:["supabase",{type:"http",url:"https://mcp.supabase.com/mcp"}],
+  context7:["context7",{command:"npx",args:["-y","@upstash/context7-mcp"]}],
+  pwmcp:["playwright",{command:"npx",args:["@playwright/mcp@latest"]}],
+  cdtmcp:["chrome-devtools",{command:"npx",args:["chrome-devtools-mcp@latest"]}],
+  figmamcp:["figma",{type:"http",url:"https://mcp.figma.com/mcp"}],
+  shadcnmcp:["shadcn",{command:"npx",args:["shadcn@latest","mcp"]}],
+  githubmcp:["github",{type:"http",url:"https://api.githubcopilot.com/mcp/",headers:{Authorization:"Bearer ${GITHUB_PAT}"}}],
+  stripemcp:["stripe",{type:"http",url:"https://mcp.stripe.com"}],
+  firecrawl:["firecrawl",{command:"npx",args:["-y","firecrawl-mcp"],env:{FIRECRAWL_API_KEY:"${FIRECRAWL_API_KEY}"}}]
+};
+const pubPrefix = S => S.has("nextjs")?"NEXT_PUBLIC_":S.has("expo")?"EXPO_PUBLIC_":S.has("astro")?"PUBLIC_":(S.has("vite")||S.has("sveltekit"))?"VITE_":"PUBLIC_";
+const SERVICES = [
+  {k:"vercel",n:"Vercel",link:"https://vercel.com/new",linkN:"Nieuw project koppelen aan je repo",env:[],mcp:"vercelmcp"},
+  {k:"netlify",n:"Netlify",link:"https://app.netlify.com/start",linkN:"Nieuwe site koppelen",env:[]},
+  {k:"supabase",n:"Supabase",link:"https://supabase.com/dashboard/new",linkN:"Nieuw database-project",env:pp=>[pp+"SUPABASE_URL",pp+"SUPABASE_ANON_KEY","SUPABASE_SERVICE_ROLE_KEY # alleen op de server"],mcp:"supamcp"},
+  {k:"stripe",n:"Stripe",link:"https://dashboard.stripe.com/register",linkN:"Account (start in testmodus)",env:pp=>["STRIPE_SECRET_KEY",pp+"STRIPE_PUBLISHABLE_KEY","STRIPE_WEBHOOK_SECRET"],mcp:"stripemcp"},
+  {k:"resend",n:"Resend",link:"https://resend.com/signup",linkN:"Account en domein verifiëren",env:["RESEND_API_KEY"]},
+  {k:"sentry",n:"Sentry",link:"https://sentry.io/signup/",linkN:"Account en project",env:pp=>[pp+"SENTRY_DSN"]},
+  {k:"umami",n:"Umami",link:"https://cloud.umami.is/signup",linkN:"Website toevoegen",env:pp=>[pp+"UMAMI_WEBSITE_ID"]},
+  {k:"formspree",n:"Formspree",link:"https://formspree.io/register",linkN:"Formulier aanmaken",env:pp=>[pp+"FORMSPREE_ID"]},
+  {k:"sanity",n:"Sanity",link:"https://www.sanity.io/get-started",linkN:"Nieuw CMS-project",env:pp=>[pp+"SANITY_PROJECT_ID",pp+"SANITY_DATASET"]},
+  {k:"clerk",n:"Clerk",link:"https://clerk.com/sign-up",linkN:"Nieuwe applicatie",env:pp=>[pp+"CLERK_PUBLISHABLE_KEY","CLERK_SECRET_KEY"]},
+  {k:"convex",n:"Convex",link:"https://dashboard.convex.dev",linkN:"Nieuw project",env:["CONVEX_DEPLOYMENT"]},
+  {k:"upstash",n:"Upstash",link:"https://console.upstash.com",linkN:"Redis-database",env:["UPSTASH_REDIS_REST_URL","UPSTASH_REDIS_REST_TOKEN"]},
+  {k:"uploadthing",n:"UploadThing",link:"https://uploadthing.com/dashboard",linkN:"Nieuwe app",env:["UPLOADTHING_TOKEN"]},
+  {k:"aisdk",n:"AI-model (bijv. Claude)",link:"https://console.anthropic.com",linkN:"API-key (betaald per gebruik)",env:["ANTHROPIC_API_KEY"]},
+  {k:"figma",n:"Figma",link:"https://www.figma.com/signup",linkN:"Account",env:[],mcp:"figmamcp"},
+  {k:"githubmcp",n:"GitHub (voor de MCP)",link:"https://github.com/settings/personal-access-tokens/new",linkN:"Personal access token maken",env:["GITHUB_PAT"]},
+  {k:"firecrawl",n:"Firecrawl",link:"https://www.firecrawl.dev",linkN:"API-key",env:["FIRECRAWL_API_KEY"]}
+];
+function mcpJson(S){ const servers={}; Object.entries(MCP_CONF).forEach(([k,[name,conf]])=>{ if(S.has(k)) servers[name]=conf; }); return Object.keys(servers).length?JSON.stringify({mcpServers:servers},null,2)+"\n":null; }
+function envExample(S){ const pp=pubPrefix(S), L=[]; SERVICES.forEach(s=>{ if(!S.has(s.k)) return; const e=typeof s.env==="function"?s.env(pp):s.env; if(!e.length) return; L.push(`# ${s.n}: ${s.link}`, ...e.map(v=>v.includes("#")?v.replace(" #","= #"):v+"="), ""); });
+  return L.length?["# Kopieer naar .env.local en vul de waarden in. Zet .env.local nooit in git.",`# Variabelen met ${pp} zijn zichtbaar in de browser; de rest alleen op de server.`,"",...L].join("\n"):null; }
+function renderConnect(){
+  const p=proj(); if(!p) return; const S=new Set(stack), host=document.getElementById("connect"); if(!host) return;
+  const svc=SERVICES.filter(s=>S.has(s.k)), mcps=Object.keys(MCP_CONF).filter(k=>S.has(k)), c=(p.checks.koppel||{});
+  if(!svc.length && !mcps.length){ host.innerHTML=`<h4>Koppelingen</h4><p class="hint">Je stack heeft nog geen diensten of MCP-servers. Voeg bijvoorbeeld Vercel, Supabase of Playwright MCP toe.</p>`; return; }
+  const done=svc.filter(s=>c[s.k]).length+(c.mcpok?1:0), total=svc.length+(mcps.length?1:0);
+  host.innerHTML=`<h4>Koppelingen <span class="n">${done}/${total}</span></h4>
+  <p class="hint">Maak per dienst een account of project aan, zet de keys in <code>.env.local</code> en vink af. <code>.mcp.json</code> en <code>.env.example</code> zitten al in "Kopieer alles voor Claude".</p>
+  <ul class="connect">${svc.map(s=>{const e=typeof s.env==="function"?s.env(pubPrefix(S)):s.env; return `<li><label><input type="checkbox" data-check="koppel|${s.k}" ${c[s.k]?"checked":""}><span><b>${s.n}</b>${e.length?` <span class="desc">${e.map(v=>`<code>${esc(v.split(" #")[0])}</code>`).join(" ")}</span>`:""}</span></label><a class="btn ghost sm" href="${s.link}" target="_blank" rel="noopener">${s.linkN} ↗</a></li>`;}).join("")}
+  ${mcps.length?`<li><label><input type="checkbox" data-check="koppel|mcpok" ${c.mcpok?"checked":""}><span><b>MCP-servers (${mcps.length})</b> <span class="desc">${mcps.map(k=>MCP_CONF[k][0]).join(", ")}: start Claude Code in je projectmap, keur de servers uit .mcp.json goed en log in met <code>/mcp</code></span></span></label><button type="button" class="btn ghost sm" data-cp="/mcp">Kopieer /mcp</button></li>`:""}</ul>`;
+}
+
+/* ---------- Projectsectie in CLAUDE.md ---------- */
+function projectMdLines(){
+  const p=proj(); if(!p) return [];
+  const i=p.intake, d=p.design, L=[];
+  const goal=(GOALS.find(g=>g[0]===i.goal)||[,""])[1];
+  if(p.client||goal||i.action||i.audience){ L.push("## Project","");
+    if(p.client) L.push(`- Klant: ${p.client}`); if(goal) L.push(`- Doel: ${goal}`); if(i.action) L.push(`- Belangrijkste actie: ${i.action}`); if(i.audience) L.push(`- Doelgroep: ${i.audience}`); if(i.success) L.push(`- Succes na 6 maanden: ${i.success}`);
+    const fs=FEATURES.filter(x=>(i.features||[]).includes(x.k)).map(x=>x.n); if(fs.length) L.push(`- Functies: ${fs.join(", ")}`);
+    L.push(`- Omvang: ${i.pages||"?"} ${p.type==="site"?"pagina's":"schermen"}`); if(i.deadline) L.push(`- Deadline: ${new Date(i.deadline).toLocaleDateString("nl-NL")}`); L.push(""); }
+  const dir=DIRECTIONS.find(x=>x[0]===d.direction), picks=Object.entries(d.picks||{});
+  if(dir||picks.length||d.notes){ L.push("## Ontwerprichting","");
+    if(dir) L.push(`- Stijl: ${dir[1]}. ${dir[2]}`);
+    picks.forEach(([k,vi])=>{const po=patternOptions(k); if(po) L.push(`- ${po.title}: ${po.opts[vi].label} (${po.opts[vi].desc})`);});
+    if(d.notes) L.push(`- Notities: ${d.notes.replace(/\n+/g," ")}`);
+    if(i.dislikes) L.push(`- Vermijd: ${i.dislikes.replace(/\n+/g," ")}`);
+    L.push(""); }
+  return L;
+}
+
+/* ---------- Events ---------- */
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,[data-open]"); if(!b) return; const p=proj();
+  if(b.dataset.open){ openProject(b.dataset.open); return; }
+  if(b.dataset.nptype){ document.getElementById("np-type").dataset.v=b.dataset.nptype; renderDashboard(); return; }
+  if(b.dataset.step && b.closest("#stepper")){ p.step=b.dataset.step; touch(); renderProject(); return; }
+  if(b.dataset.intype){ p.type=b.dataset.intype; ptype=p.type; touch(); renderAll(); renderProject(); return; }
+  if(b.dataset.dir){ p.design.direction=b.dataset.dir; touch(); renderProject(); document.querySelector(`[data-dir="${b.dataset.dir}"]`)?.focus(); return; }
+  if(b.dataset.pick){ const [k,vi]=b.dataset.pick.split("|"); if(p.design.picks[k]===+vi) delete p.design.picks[k]; else p.design.picks[k]=+vi; touch(); renderProject(); renderFiles(); document.querySelector(`[data-pick="${b.dataset.pick}"]`)?.focus(); return; }
+  if(b.dataset.cp!=null){ const old=b.textContent; const ok=()=>{b.textContent="✓ Gekopieerd";setTimeout(()=>b.textContent=old,1600);}; try{navigator.clipboard.writeText(b.dataset.cp).then(ok,()=>b.textContent="Kopiëren lukt niet");}catch(err){b.textContent="Kopiëren lukt niet";} return; }
+  if(b.id==="applyIntake"){ setUndo(`Stack voorgesteld voor "${p.name}"`); stack=suggestStack(p); ls.set("bieb-stack",stack); suggestPatterns(p).forEach(k=>{ if(p.design.picks[k]==null && k!=="hero"){} }); renderAll(); p.step="offerte"; touch(); renderProject(); toast("Stack voorgesteld. Bekijk hem bij Stack & bestanden."); return; }
+  if(b.id==="resetHours"){ p.offer.over={}; touch(); renderOffer(); return; }
+  if(b.id==="copyOffer"){ const t=offerMd(p); try{navigator.clipboard.writeText(t).then(()=>{b.textContent="✓ Gekopieerd";setTimeout(()=>b.textContent="Kopieer offerte",1600);});}catch(err){} return; }
+  if(b.id==="dlOffer"){ saveFile(`offerte-${slug(p.name)}.md`, offerMd(p)); return; }
+  if(b.id==="prevStep"||b.id==="nextStep"){ const i=STEPS.findIndex(s=>s[0]===p.step)+(b.id==="nextStep"?1:-1); if(STEPS[i]){p.step=STEPS[i][0]; touch(); renderProject(); document.getElementById("stepper").scrollIntoView({block:"start"});} return; }
+  if(b.id==="newProjBtn"){ const f=document.getElementById("newProj"); f.hidden=!f.hidden; if(!f.hidden) document.getElementById("np-name").focus(); return; }
+  if(b.id==="np-cancel"){ document.getElementById("newProj").hidden=true; return; }
+  if(b.id==="exportBtn"){ saveFile(`ideeenbieb-backup-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify({version:1,exported:Date.now(),projects:P.projects,settings:P.settings,studio:P.studio},null,2)); document.getElementById("backupMsg").textContent="Back-up gemaakt."; return; }
+},true);
+const slug = s => (s||"project").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"project";
+let saveFileImpl = null;
+function saveFile(name,data){ if(saveFileImpl) return saveFileImpl({name,data}).then(()=>toast("Gedownload")).catch(()=>{}); const blob=new Blob([data],{type:name.endsWith(".json")?"application/json":"text/markdown"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); }
+document.addEventListener("submit",e=>{
+  const p=proj();
+  if(e.target.id==="newProj"){ e.preventDefault(); const t=document.getElementById("np-type").dataset.v||"site"; createProject(val("np-name").trim(),val("np-client").trim(),t); e.target.reset(); e.target.hidden=true; return; }
+  if(e.target.id==="logHours"){ e.preventDefault(); p.hours.push({d:Date.now(),h:+val("lh-h"),n:val("lh-n").trim()}); if(p.status==="akkoord") p.status="bouw"; touch(); renderBuild(); return; }
+  if(e.target.id==="logCost"){ e.preventDefault(); p.costs.push({d:Date.now(),a:+val("lc-a"),n:val("lc-n").trim()}); touch(); renderBuild(); return; }
+});
+document.addEventListener("input",e=>{
+  const t=e.target, p=proj();
+  if(t.dataset.set){ P.settings[t.dataset.set]= t.type==="number"?+t.value:t.value; ls._raw("portal-settings",P.settings); return; }
+  if(!p) return;
+  if(t.dataset.in){ const k=t.dataset.in.replace("in-","").replace("ds-","");
+    if(t.dataset.in==="in-name"){ p.name=t.value; document.getElementById("pname").value=t.value; }
+    else if(t.dataset.in==="in-client") p.client=t.value;
+    else if(t.dataset.in==="ds-notes") p.design.notes=t.value;
+    else p.intake[k]= t.type==="number"?+t.value:t.value;
+    touch(); renderChip(); return; }
+  if(t.dataset.hours){ p.offer.over[t.dataset.hours]=t.value===""?null:+t.value; touch(); clearTimeout(renderOffer.t); renderOffer.t=setTimeout(()=>{const id=t.dataset.hours, pos=t.selectionStart; renderOffer(); const n=document.querySelector(`[data-hours="${id}"]`); if(n){n.focus();}},500); return; }
+  if(t.dataset.of){ p.offer[t.dataset.of]= t.type==="number"?+t.value:t.value; touch(); clearTimeout(renderOffer.t); renderOffer.t=setTimeout(renderOffer,400); return; }
+});
+document.addEventListener("change",e=>{
+  const t=e.target, p=proj();
+  if(t.dataset.studio){ P.studio[t.dataset.studio]=t.checked; ls._raw("portal-studio",P.studio); renderStudio(); return; }
+  if(t.id==="importFile"){ const f=t.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!Array.isArray(d.projects)) throw 0; const ids=new Set(P.projects.map(x=>x.id)); d.projects.forEach(x=>{ if(!ids.has(x.id)) P.projects.push(x); }); Object.assign(P.settings,d.settings||{}); Object.assign(P.studio,d.studio||{}); saveP(); ls._raw("portal-settings",P.settings); ls._raw("portal-studio",P.studio); document.getElementById("backupMsg").textContent=`${d.projects.length} project(en) teruggezet. Bestaande projecten zijn niet overschreven.`; renderDashboard(); }catch(err){ document.getElementById("backupMsg").textContent="Dit bestand is geen geldige back-up van de Ideeënbieb."; } }; r.readAsText(f); t.value=""; return; }
+  if(!p) return;
+  if(t.id==="p-status"){ p.status=t.value; touch(); return; }
+  if(t.dataset.feat){ const s=new Set(p.intake.features); t.checked?s.add(t.dataset.feat):s.delete(t.dataset.feat); p.intake.features=[...s]; touch(); return; }
+  if(t.dataset.content){ const s=new Set(p.intake.content); t.checked?s.add(t.dataset.content):s.delete(t.dataset.content); p.intake.content=[...s]; touch(); return; }
+  if(t.dataset.check){ const [k,id]=t.dataset.check.split("|"); p.checks[k]=p.checks[k]||{}; p.checks[k][id]=t.checked; touch();
+    if(k==="lanceren"&&checklist(p,k).every(x=>p.checks[k][x.id])&&["bouw","akkoord"].includes(p.status)){p.status="live"; toast("Alles afgevinkt: status staat nu op Live");}
+    const li=t.closest("li"); if(li&&li.parentNode.classList.contains("milestones")) li.classList.toggle("done",t.checked);
+    const cnt=document.querySelector(`#step-${k} .stephead .n`); if(cnt){const L=checklist(p,k); cnt.textContent=`${L.filter(x=>p.checks[k][x.id]).length}/${L.length}`;}
+    if(k==="koppel"){ renderConnect(); document.querySelector(`[data-check="koppel|${id}"]`)?.focus(); }
+    renderProjectHead(); return; }
+  if(t.id==="offerOk"){ if(t.checked){ p.offer.sent=true; if(["lead","offerte"].includes(p.status)) p.status="akkoord"; toast("Status: Akkoord. Tijd om te bouwen!"); } else if(p.status==="akkoord") p.status="offerte"; touch(); renderProject(); return; }
+  if(t.id==="offerSent"){ p.offer.sent=t.checked; if(t.checked&&p.status==="lead") p.status="offerte"; touch(); renderProject(); return; }
+  if(t.dataset.in && t.tagName==="SELECT"){ p.intake[t.dataset.in.replace("in-","")]=t.value; touch(); return; }
+});
+
+(()=>{const p=proj(); document.getElementById("pname").value=p?p.name:""; document.getElementById("pdesc").value=p?(p.desc||""):"";})();
 renderAll();
+show((location.hash||"#dashboard").slice(1));
 (()=>{const pick=["gsap","motion","shadcn","magicui","aceternity","tailwind","nextjs","supabase","vercel","context7","pwmcp","figmamcp","fedesign","taste","lenis","threejs","rive","spline","lucide","fontshare","refero","stripe","zod","biome","reactbits","kokonut","sonner","astro","posthog","ponytail"];
   const h=pick.map(k=>`<span>${esc(T[k].n)}</span>`).join(""); document.getElementById("marq").innerHTML=h+h;})();
 document.addEventListener("pointermove",e=>{const el=e.target.closest&&e.target.closest(".card,.proj,.mustcol,.howcard,.combo"); if(!el) return;
