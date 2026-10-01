@@ -654,8 +654,13 @@ footer .made b{color:var(--cherry)}
 
 .appbar .lockbtn{margin-left:6px;padding:8px 14px;font-size:14px;text-decoration:none}
 .appbar .lockbtn[hidden]{display:none}
+html{overflow-x:clip}
+@media (max-width:1180px){.appbar .pchip{display:none}}
+@media (max-width:1024px){.appbar .tabs a{padding:7px 10px;font-size:13.5px}.appbar .brand{font-size:15px}}
 @media (max-width:700px){
-  body{padding-bottom:96px}
+  .appbar{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--card)}
+  body{padding-bottom:170px}
+  .tray{bottom:calc(88px + env(safe-area-inset-bottom,0px))}
   .appbar{justify-content:space-between}
   .appbar .tabs{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;justify-content:space-between;gap:2px;padding:6px;border:1.5px solid var(--ink);border-radius:22px;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 4px 0 var(--ink);overflow:visible}
   .appbar .tabs a{flex:1;text-align:center;padding:10px 2px;font-size:12.5px;border-radius:16px}
@@ -2910,7 +2915,7 @@ let lenis=null;
 function greet(){
   const h=new Date().getHours(), hi=h<6?"Nachtbraker":h<12?"Goeiemorgen":h<18?"Goeiemiddag":"Goeienavond";
   const ps=P.projects, bouw=ps.filter(p=>["akkoord","bouw"].includes(p.status)).length, open=ps.filter(p=>["lead","offerte"].includes(p.status)).length;
-  const el=document.getElementById("hello-title"); if(el) el.innerHTML=`${hi} Michel, waar <span class="hl">beginnen</span> we vandaag aan?`;
+  const el=document.getElementById("hello-title"); if(el&&el._sp){ el._tw&&el._tw.kill(); el._sp=null; } if(el) el.innerHTML=`${hi} Michel, waar <span class="hl">beginnen</span> we vandaag aan?`;
   const sub=document.getElementById("hello-sub"); if(sub) sub.innerHTML = ps.length
     ? `Kop koffie erbij, stuk vlaai ernaast. Je hebt <b>${bouw} project${bouw==1?"":"en"} in aanbouw</b> en <b>${open} lead${open==1?"":"s"} of offerte${open==1?"":"s"}</b> open.`
     : `Kop koffie erbij, stuk vlaai ernaast. Nog geen projecten: <b>start er één</b>, het liefst eerst voor jezelf.`;
@@ -2919,8 +2924,10 @@ function animateIn(scope){
   if(!HAS_GSAP||RM||!scope) return;
   const items=[...scope.querySelectorAll(":scope > *")].filter(e=>!e.hidden).slice(0,8);
   gsap.from(items,{y:24,opacity:0,duration:.6,ease:"power3.out",stagger:.06,clearProps:"transform,opacity"});
-  scope.querySelectorAll(".dtitle").forEach(t=>{ if(typeof SplitText==="undefined"||t.dataset.split) return; t.dataset.split="1";
-    const sp=SplitText.create(t,{type:"words,chars",mask:"chars"}); gsap.from(sp.chars,{yPercent:110,rotate:6,duration:.7,ease:"back.out(1.6)",stagger:.012,onComplete:()=>{sp.revert();delete t.dataset.split;}}); });
+  scope.querySelectorAll(".dtitle").forEach(t=>{ if(typeof SplitText==="undefined") return;
+    if(t._sp){ t._tw&&t._tw.kill(); t._sp.revert(); t._sp=null; }
+    const sp=SplitText.create(t,{type:"lines,words,chars",mask:"lines"}); t._sp=sp;
+    t._tw=gsap.from(sp.chars,{yPercent:120,duration:.8,ease:"expo.out",stagger:.014,onComplete:()=>{ if(t._sp===sp){ sp.revert(); t._sp=null; } }}); });
 }
 function confetti(){
   if(RM) return; const box=document.createElement("div"); box.className="confetti"; document.body.appendChild(box);
