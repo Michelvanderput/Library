@@ -463,7 +463,7 @@ ul.variants li .wf{border:1px solid var(--line)}
 .pcard:hover,.pcard.on{border-color:var(--accent)}
 .pc-name{font-weight:600;font-size:14px} .pc-sub{font-size:12px;color:var(--muted)} .pc-empty{font-size:12.5px;color:var(--muted);margin:0}
 .pc-bar{display:block;height:4px;border-radius:2px;background:var(--line);overflow:hidden} .pc-bar span{display:block;height:100%;background:linear-gradient(90deg,var(--glow1),var(--glow2))}
-.emptyhero{grid-column:1/-1;border:1px dashed var(--line-2);border-radius:14px;padding:28px;text-align:center;color:var(--muted)} .emptyhero h3{color:var(--ink);margin:0 0 6px}
+.emptyhero{grid-column:1/-1;border:1px dashed var(--line-2);border-radius:14px;padding:28px;text-align:center;color:var(--muted)} .emptyhero h2{color:var(--ink);margin:0 0 6px;font-size:1.2rem}
 .dashgrid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;align-items:start}
 @media (max-width:900px){.dashgrid{grid-template-columns:1fr}}
 .panel{border:1px solid var(--line);border-radius:14px;padding:18px;background:linear-gradient(180deg,var(--card-2),var(--card));display:grid;gap:12px;min-width:0}
@@ -617,7 +617,7 @@ h1,h2,h3,h4,.dtitle,.blockhead h2,.stephead h3{font-family:var(--display);font-v
 .band .track2{display:flex;gap:28px;width:max-content;padding:12px 0;font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(1.6rem,3.6vw,2.8rem);letter-spacing:-.03em;white-space:nowrap}
 .band .track2 span{display:inline-flex;align-items:center;gap:28px}
 .band .track2 span::after{content:"✶";color:var(--sun);font-size:.7em}
-.band .track2 span:nth-child(3n+2){color:transparent;-webkit-text-stroke:1.5px var(--paper)}
+.band .track2 span:nth-child(3n+2){font-style:italic;color:var(--accent-soft-text,#8d98ff)}
 .band .track2 span:nth-child(3n){color:var(--sun)}
 /* toolbox hero personality */
 header.top::after{background:radial-gradient(ellipse 45% 55% at 30% 40%,color-mix(in srgb,var(--sun) 40%,transparent),transparent 70%),radial-gradient(ellipse 40% 50% at 70% 35%,color-mix(in srgb,var(--cherry) 22%,transparent),transparent 70%)}
@@ -645,47 +645,25 @@ footer .made b{color:var(--cherry)}
 
 @media (prefers-reduced-motion:reduce){.seal{animation:none}}
 @media (max-width:900px){.seal{display:none}}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hello .lede-s b{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--sun) 40%,transparent) 62%)}:root:not([data-theme="light"]) .band{background:var(--cherry);color:#fff;border-color:var(--cherry)}:root:not([data-theme="light"]) .band .track2 span:nth-child(3n+2){-webkit-text-stroke-color:#fff}:root:not([data-theme="light"]) .band .track2 span::after{color:#121733}:root:not([data-theme="light"]) .band .track2 span:nth-child(3n){color:#121733}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hello .lede-s b{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--sun) 40%,transparent) 62%)}:root:not([data-theme="light"]) .band{background:var(--cherry);color:#fff;border-color:var(--cherry)}:root:not([data-theme="light"]) .band .track2 span:nth-child(3n+2){color:#fff}:root:not([data-theme="light"]) .band .track2 span::after{color:#121733}:root:not([data-theme="light"]) .band .track2 span:nth-child(3n){color:#121733}}
 :root[data-theme="dark"] .hello .lede-s b{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--sun) 40%,transparent) 62%)}
 :root[data-theme="dark"] .band{background:var(--cherry);color:#fff;border-color:var(--cherry)}
-:root[data-theme="dark"] .band .track2 span:nth-child(3n+2){-webkit-text-stroke-color:#fff}
+:root[data-theme="dark"] .band .track2 span:nth-child(3n+2){color:#fff}
 :root[data-theme="dark"] .band .track2 span::after{color:#121733}
 :root[data-theme="dark"] .band .track2 span:nth-child(3n){color:#121733}
 
-/* PIN-poort */
-body.locked > :not(#gate){display:none!important}
-#gate{display:none}
-body.locked #gate{display:grid;min-height:100dvh;place-items:center;padding:24px;position:relative;z-index:2}
-.gate-card{width:min(420px,100%);background:var(--card);border:1.5px solid var(--ink);border-radius:28px;box-shadow:0 6px 0 var(--ink);padding:32px 28px;display:grid;gap:16px;text-align:center}
-.gate-card .logo{width:64px;height:64px;margin:0 auto;border-radius:50%;background:var(--cherry);box-shadow:inset 0 0 0 5px var(--sun);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:30px;color:#fff}
-.gate-card h1{font-size:clamp(1.8rem,6vw,2.4rem);max-width:none}
-.gate-card p{margin:0;color:var(--muted)}
-.pin{position:relative;display:flex;justify-content:center;gap:12px;margin:6px 0}
-.pin input{position:absolute;inset:0;opacity:0;width:100%;height:100%;font-size:16px;cursor:text}
-.pin span[aria-hidden]{width:58px;height:70px;border:1.5px solid var(--ink);border-radius:16px;background:var(--card-2);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:2rem;box-shadow:0 3px 0 var(--line-2);transition:transform .15s}
-.pin span[aria-hidden].f{background:var(--sun);color:#121733;transform:translateY(-3px)}
-.pin span[aria-hidden].cur{border-color:var(--accent);box-shadow:0 3px 0 var(--accent)}
-.pin:focus-within span[aria-hidden].cur{outline:2px solid var(--accent);outline-offset:2px}
-.gate-msg{min-height:1.5em;font-weight:600}
-.gate-msg.err{color:var(--stamp)}
-.gate-card.shake{animation:shake .4s}
-@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
-.gate-links{display:flex;justify-content:center;gap:16px;font-size:14px}
-.appbar .lockbtn{margin-left:6px}
+.appbar .lockbtn{margin-left:6px;padding:8px 14px;font-size:14px;text-decoration:none}
+.appbar .lockbtn[hidden]{display:none}
+@media (max-width:700px){
+  body{padding-bottom:96px}
+  .appbar{justify-content:space-between}
+  .appbar .tabs{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;justify-content:space-between;gap:2px;padding:6px;border:1.5px solid var(--ink);border-radius:22px;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 4px 0 var(--ink);overflow:visible}
+  .appbar .tabs a{flex:1;text-align:center;padding:10px 2px;font-size:12.5px;border-radius:16px}
+}
 </style>
 </head>
 <body>
 
-<script>try{if(sessionStorage.getItem("portal-open")!=="1")document.body.classList.add("locked")}catch(e){document.body.classList.add("locked")}</script>
-<div id="gate" role="main">
-  <form class="gate-card" id="gateForm" autocomplete="off">
-    <span class="logo" aria-hidden="true">M</span>
-    <span class="eyebrow">Groundwork · alleen voor Michel</span>
-    <h1 id="gateTitle">Pincode</h1>
-    <p id="gateSub">Vul je 4-cijferige pincode in.</p>
-    <label class="pin"><span class="sr-only" id="gateLabel">Pincode, 4 cijfers</span><input id="gatePin" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" aria-labelledby="gateLabel" aria-describedby="gateMsg"><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span></label>
-    <p class="gate-msg" id="gateMsg" role="status" aria-live="polite"></p>
-    <div class="gate-links"><a href="../">← Naar het portfolio</a><button type="button" class="btn ghost" id="gateReset" hidden>Pincode vergeten</button></div>
   </form>
 </div>
 
@@ -701,14 +679,14 @@ body.locked #gate{display:grid;min-height:100dvh;place-items:center;padding:24px
       <a href="#gidsen" data-go="gidsen" role="tab">Gidsen</a>
     </div>
     <button type="button" class="pchip" id="pchip" data-go="project"></button>
-    <button type="button" class="btn ghost lockbtn" id="lockBtn" title="Vergrendel het portaal">Vergrendel</button>
+    <a class="btn ghost lockbtn" id="lockBtn" href="/portal/logout/" hidden>Uitloggen</a>
   </nav>
 
   <main id="main">
   <section class="view" data-view="dashboard" id="view-dashboard">
     <div class="hello">
       <span class="eyebrow">Groundwork · studio van Michel van der Put</span>
-      <h2 class="dtitle" id="hello-title">Hoi Michel, waar <span class="hl">beginnen</span> we vandaag aan?</h2>
+      <h1 class="dtitle" id="hello-title">Hoi Michel, waar <span class="hl">beginnen</span> we vandaag aan?</h1>
       <p class="lede-s" id="hello-sub">Kop koffie erbij, stuk vlaai ernaast.</p>
       <div class="dashhead"><button type="button" class="btn big" id="newProjBtn">+ Nieuw project</button><span class="hint">Elk project: intake → offerte → richting → stack → bouwen → lanceren → overdracht.</span></div>
       <div class="stickers" aria-hidden="true"><span class="sticker s1">Mestreech ✶</span><span class="sticker s2">Frontender, 26</span><span class="sticker s3">Gezellig druk</span><span class="sticker s4">Vlaai &amp; code</span><svg class="seal" viewBox="0 0 200 200"><defs><path id="seal-c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><circle cx="100" cy="100" r="98" class="seal-bg"/><text class="seal-t"><textPath href="#seal-c" textLength="486" lengthAdjust="spacing">Michel van der Put ✶ Frontender ✶ Mestreech ✶</textPath></text><circle cx="100" cy="100" r="44" class="seal-in"/><text x="100" y="118" text-anchor="middle" class="seal-m">M</text></svg></div>
@@ -2512,7 +2490,7 @@ function renderDashboard(){
   ].map(([l,v,s])=>`<div class="kpi"><span class="klabel">${l}</span><span class="kval">${v}</span><span class="ksub">${s}</span></div>`).join("");
   document.getElementById("pipeline").innerHTML = ps.length ? STATUSES.map(([k,l])=>{const list=ps.filter(p=>p.status===k);
     return `<div class="pcol"><div class="pcolhead"><span>${l}</span><span class="n">${list.length}</span></div>${list.map(p=>`<button type="button" class="pcard${p.id===P.activeId?" on":""}" data-open="${p.id}"><span class="pc-name">${esc(p.name)}</span><span class="pc-sub">${esc(p.client||"Geen klant")} · ${TYPES[p.type]}</span><span class="pc-bar"><span style="width:${progress(p)}%"></span></span><span class="pc-sub">${progress(p)}% · ${fmtEUR(projPrice(p))}</span></button>`).join("")||`<p class="pc-empty">Leeg</p>`}</div>`;}).join("")
-    : `<div class="emptyhero"><h3>Nog geen projecten</h3><p>Start met <b>+ Nieuw project</b>. Tip uit de praktijk: maak je eerste project voor jezelf, bijvoorbeeld je eigen portfolio. Zo test je je werkwijze voordat een klant dat doet.</p></div>`;
+    : `<div class="emptyhero"><h2 class="eh">Nog geen projecten</h2><p>Start met <b>+ Nieuw project</b>. Tip uit de praktijk: maak je eerste project voor jezelf, bijvoorbeeld je eigen portfolio. Zo test je je werkwijze voordat een klant dat doet.</p></div>`;
   renderStudio(); renderMcpDefaults(); renderVault();
   ["studio","rate","buffer","hoursWeek"].forEach(k=>{const el=document.querySelector(`[data-set="${k}"]`); if(el&&document.activeElement!==el) el.value=P.settings[k];});
   document.getElementById("np-type").innerHTML=Object.entries(TYPES).map(([k,l],i)=>`<button type="button" role="radio" aria-checked="${(document.getElementById("np-type").dataset.v||"site")===k}" data-nptype="${k}">${l}</button>`).join("");
@@ -2924,33 +2902,7 @@ document.addEventListener("change",e=>{
 renderAll();
 
 
-/* ---------- PIN-poort: 4 cijfers, gehasht per browser ---------- */
-(()=>{
-  const g=document.getElementById("gateForm"), inp=document.getElementById("gatePin"), boxes=[...g.querySelectorAll(".pin span[aria-hidden]")], msg=document.getElementById("gateMsg"), title=document.getElementById("gateTitle"), sub=document.getElementById("gateSub"), reset=document.getElementById("gateReset");
-  const get=k=>{try{return localStorage.getItem(k)}catch(e){return null}}, set=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
-  const hash=async pin=>{ const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("groundwork:"+pin)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join(""); };
-  let mode=get("portal-pin")?"enter":"new", first="", fails=0, until=0;
-  const paint=()=>{ const v=inp.value; boxes.forEach((b,i)=>{ b.textContent=v[i]?"•":""; b.classList.toggle("f",!!v[i]); b.classList.toggle("cur",i===Math.min(v.length,3)); }); };
-  const setMode=m=>{ mode=m; inp.value=""; paint();
-    title.textContent = m==="enter"?"Hoi Michel 👋":m==="new"?"Kies een pincode":"Nog een keer";
-    sub.textContent = m==="enter"?"Vul je 4-cijferige pincode in.":m==="new"?"Eerste keer in deze browser: kies 4 cijfers.":"Herhaal je pincode ter controle.";
-    reset.hidden = m!=="enter"; };
-  const say=(t,err)=>{ msg.textContent=t; msg.classList.toggle("err",!!err); };
-  const fail=t=>{ say(t,true); g.classList.remove("shake"); void g.offsetWidth; g.classList.add("shake"); inp.value=""; paint(); };
-  const open=()=>{ try{sessionStorage.setItem("portal-open","1")}catch(e){} document.body.classList.remove("locked"); say(""); inp.value=""; paint();
-    if(typeof show==="function") show(location.hash.slice(1)||"dashboard"); };
-  inp.addEventListener("input",async()=>{ inp.value=inp.value.replace(/\D/g,"").slice(0,4); paint(); if(inp.value.length<4) return;
-    const v=inp.value;
-    if(mode==="new"){ first=v; setMode("confirm"); return; }
-    if(mode==="confirm"){ if(v!==first){ setMode("new"); fail("Die kwamen niet overeen. Probeer opnieuw."); return; } set("portal-pin",await hash(v)); open(); setMode("enter"); return; }
-    if(Date.now()<until){ fail(`Even wachten, nog ${Math.ceil((until-Date.now())/1000)} s.`); return; }
-    if(await hash(v)===get("portal-pin")){ fails=0; open(); }
-    else { fails++; if(fails>=5){ until=Date.now()+30000; fails=0; fail("5 keer fout. Wacht 30 seconden."); } else fail("Verkeerde pincode."); } });
-  g.addEventListener("submit",e=>e.preventDefault());
-  reset.addEventListener("click",()=>{ if(confirm("Nieuwe pincode kiezen? Je projecten blijven staan, alleen de pincode wordt vervangen. Iedereen met toegang tot deze browser kan dit ook, de pincode is een slot op de deur, geen kluis.")){ try{localStorage.removeItem("portal-pin")}catch(e){} setMode("new"); inp.focus(); } });
-  document.getElementById("lockBtn").addEventListener("click",()=>{ try{sessionStorage.removeItem("portal-open")}catch(e){} document.body.classList.add("locked"); setMode(get("portal-pin")?"enter":"new"); window.scrollTo(0,0); inp.focus(); });
-  setMode(mode); if(document.body.classList.contains("locked")) inp.focus();
-})();
+if(location.pathname.startsWith("/portal")) document.getElementById("lockBtn").hidden=false;
 /* ---------- Brand motion: GSAP + ScrollTrigger + SplitText + Lenis (uit de eigen toolbox) ---------- */
 const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const HAS_GSAP = typeof window.gsap!=="undefined";
@@ -2989,7 +2941,7 @@ function confetti(){
   if(!RM && typeof window.Lenis!=="undefined"){ lenis=new Lenis({lerp:.12,smoothWheel:true}); lenis.on("scroll",()=>window.ScrollTrigger&&ScrollTrigger.update()); gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0); }
   // marquee speeds up with scroll velocity
   if(t && !RM){ const loop=gsap.to(t,{xPercent:-33.333,duration:28,ease:"none",repeat:-1});
-    if(window.ScrollTrigger) ScrollTrigger.create({onUpdate:self=>{ const v=Math.min(4,1+Math.abs(self.getVelocity())/600); gsap.to(loop,{timeScale:self.direction*v,duration:.3,overwrite:true}); gsap.to(loop,{timeScale:self.direction,duration:1.2,delay:.3}); }}); }
+    if(window.ScrollTrigger) ScrollTrigger.create({onUpdate:self=>{ const v=Math.min(4,1+Math.abs(self.getVelocity())/600); gsap.to(loop,{timeScale:v,duration:.3,overwrite:true}); gsap.to(loop,{timeScale:1,duration:1.2,delay:.3}); }}); }
   // stickers: draggable-ish wobble
   document.querySelectorAll(".sticker").forEach((s,i)=>{ if(RM) return; gsap.from(s,{scale:0,rotate:-30,duration:.8,ease:"back.out(2)",delay:.3+i*.08});
     s.addEventListener("pointerenter",()=>gsap.to(s,{rotate:(Math.random()-.5)*24,scale:1.08,duration:.4,ease:"back.out(3)"}));
