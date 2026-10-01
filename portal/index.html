@@ -535,9 +535,12 @@ pre.md.small{max-height:220px;font-size:12px}
 
 ul.connect{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 ul.connect li{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);flex-wrap:wrap}
-ul.connect label{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:14px;cursor:pointer;min-width:0;flex:1}
+ul.connect label{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:14px;cursor:pointer;min-width:0;flex:1 1 260px}
+ul.connect label > *{min-width:0}
+ul.connect li > a,ul.connect li > button{flex:none;max-width:100%;white-space:normal;text-align:center}
+@media (max-width:700px){ul.connect li{display:grid;grid-template-columns:1fr;gap:10px}ul.connect li > a,ul.connect li > button{justify-self:start;margin-left:26px}}
 ul.connect input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent)}
-ul.connect code{font-family:var(--mono);font-size:11.5px;background:var(--card-2);padding:1px 5px;border-radius:4px}
+ul.connect code{font-family:var(--mono);font-size:11.5px;background:var(--card-2);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere;display:inline-block;max-width:100%;margin:1px 0}
 .btn.sm{font-size:12.5px;padding:6px 10px}
 
 ul.custlist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px} ul.custlist li{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:6px 10px;border-radius:8px;background:var(--paper)} ul.custlist .desc{color:var(--muted);font-family:var(--mono);font-size:12px;overflow-wrap:anywhere}
@@ -671,6 +674,19 @@ html{overflow-x:hidden;overflow-x:clip}
 #enter.out{clip-path:circle(0% at 50% 50%)}
 #enter.out span{transform:scale(.6);opacity:0}
 @media (prefers-reduced-motion:reduce){#enter{transition:opacity .2s}#enter.out{clip-path:none;opacity:0}}
+/* verwijderen + toast */
+.pcwrap{position:relative}
+.pcwrap .pcard{width:100%;padding-right:34px}
+.pcdel{position:absolute;top:6px;right:6px;width:28px;height:28px;border-radius:50%;border:1px solid var(--line-2);background:var(--card);color:var(--muted);font-size:12px;cursor:pointer;display:grid;place-items:center;opacity:.55;transition:opacity .2s,background .2s,color .2s}
+.pcwrap:hover .pcdel,.pcdel:focus-visible{opacity:1}
+.pcdel:hover{background:var(--stamp);border-color:var(--stamp);color:#fff;opacity:1}
+@media (pointer:coarse){.pcdel{opacity:.9}}
+.delproj{color:var(--stamp)!important;border-color:var(--stamp)!important;box-shadow:none!important;align-self:end}
+#gwtoast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:250;display:flex;align-items:center;gap:14px;max-width:calc(100% - 24px);padding:10px 10px 10px 18px;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);box-shadow:0 4px 0 var(--cherry);font-size:14.5px;transform:translate(-50%,160%);transition:transform .45s cubic-bezier(.3,1.4,.5,1)}
+#gwtoast.show{transform:translate(-50%,0)}
+#gwtoast .btn{background:var(--sun);color:#121733;border-color:var(--sun);box-shadow:none;white-space:nowrap}
+@media (max-width:700px){#gwtoast{bottom:calc(92px + env(safe-area-inset-bottom,0px));border-radius:18px}}
+@media (prefers-reduced-motion:reduce){#gwtoast{transition:none}}
 </style>
 </head>
 <body>
@@ -746,6 +762,7 @@ html{overflow-x:hidden;overflow-x:clip}
         <div class="pmeta">
           <label class="field"><span class="flabel">Status</span><select id="p-status"></select></label>
           <div class="progress" id="p-progress"></div>
+          <button type="button" class="btn ghost sm delproj" id="delProjBtn">Project verwijderen</button>
         </div>
       </div>
       <ol class="stepper" id="stepper"></ol>
@@ -2512,7 +2529,7 @@ function renderDashboard(){
     ["Effectief uurtarief",doneHrs?fmtEUR(doneVal/doneHrs):"–",doneHrs?"van opgeleverde projecten (opbrengst min kosten ÷ uren)":"verschijnt na je eerste oplevering"]
   ].map(([l,v,s])=>`<div class="kpi"><span class="klabel">${l}</span><span class="kval">${v}</span><span class="ksub">${s}</span></div>`).join("");
   document.getElementById("pipeline").innerHTML = ps.length ? STATUSES.map(([k,l])=>{const list=ps.filter(p=>p.status===k);
-    return `<div class="pcol"><div class="pcolhead"><span>${l}</span><span class="n">${list.length}</span></div>${list.map(p=>`<button type="button" class="pcard${p.id===P.activeId?" on":""}" data-open="${p.id}"><span class="pc-name">${esc(p.name)}</span><span class="pc-sub">${esc(p.client||"Geen klant")} · ${TYPES[p.type]}</span><span class="pc-bar"><span style="width:${progress(p)}%"></span></span><span class="pc-sub">${progress(p)}% · ${fmtEUR(projPrice(p))}</span></button>`).join("")||`<p class="pc-empty">Leeg</p>`}</div>`;}).join("")
+    return `<div class="pcol"><div class="pcolhead"><span>${l}</span><span class="n">${list.length}</span></div>${list.map(p=>`<div class="pcwrap"><button type="button" class="pcard${p.id===P.activeId?" on":""}" data-open="${p.id}"><span class="pc-name">${esc(p.name)}</span><span class="pc-sub">${esc(p.client||"Geen klant")} · ${TYPES[p.type]}</span><span class="pc-bar"><span style="width:${progress(p)}%"></span></span><span class="pc-sub">${progress(p)}% · ${fmtEUR(projPrice(p))}</span></button><button type="button" class="pcdel" data-delproj="${p.id}" aria-label="Verwijder ${esc(p.name)}" title="Verwijderen">✕</button></div>`).join("")||`<p class="pc-empty">Leeg</p>`}</div>`;}).join("")
     : `<div class="emptyhero"><h2 class="eh">Nog geen projecten</h2><p>Start met <b>+ Nieuw project</b>. Tip uit de praktijk: maak je eerste project voor jezelf, bijvoorbeeld je eigen portfolio. Zo test je je werkwijze voordat een klant dat doet.</p></div>`;
   renderStudio(); renderMcpDefaults(); renderVault();
   ["studio","rate","buffer","hoursWeek"].forEach(k=>{const el=document.querySelector(`[data-set="${k}"]`); if(el&&document.activeElement!==el) el.value=P.settings[k];});
@@ -2853,6 +2870,8 @@ function projectMdLines(){
 document.addEventListener("click",e=>{
   const b=e.target.closest("button,[data-open]"); if(!b) return; const p=proj();
   if(b.dataset.open){ openProject(b.dataset.open); return; }
+  if(b.dataset.delproj){ deleteProject(b.dataset.delproj); return; }
+  if(b.id==="delProjBtn"&&p){ deleteProject(p.id); return; }
   if(b.dataset.nptype){ document.getElementById("np-type").dataset.v=b.dataset.nptype; renderDashboard(); return; }
   if(b.dataset.step && b.closest("#stepper")){ p.step=b.dataset.step; touch(); renderProject(); return; }
   if(b.dataset.intype){ p.type=b.dataset.intype; ptype=p.type; touch(); renderAll(); renderProject(); return; }
@@ -2926,6 +2945,22 @@ renderAll();
 
 
 if(location.pathname.startsWith("/portal")) document.getElementById("lockBtn").hidden=false;
+
+/* ---------- Project verwijderen, met ongedaan maken ---------- */
+let undoTimer=null;
+function deleteProject(id){
+  const i=P.projects.findIndex(x=>x.id===id); if(i<0) return;
+  const gone=P.projects.splice(i,1)[0], wasActive=P.activeId===id;
+  if(wasActive) P.activeId=(P.projects[0]||{}).id||null;
+  saveP(); if(view==="dashboard"){ renderDashboard(); greet(); } else show(wasActive&&view==="project"?"dashboard":view);
+  gwToast(`<b>${esc(gone.name)}</b> verwijderd.`,"Ongedaan maken",()=>{ P.projects.splice(i,0,gone); if(wasActive) P.activeId=id; saveP(); if(view==="dashboard"){ renderDashboard(); greet(); } else show(view); gwToast(`<b>${esc(gone.name)}</b> is terug.`); });
+}
+function gwToast(html,actLabel,act){
+  let t=document.getElementById("gwtoast"); if(!t){ t=document.createElement("div"); t.id="gwtoast"; t.setAttribute("role","status"); t.setAttribute("aria-live","polite"); document.body.appendChild(t); }
+  t.innerHTML=`<span>${html}</span>${actLabel?`<button type="button" class="btn sm" id="gwtoastAct">${actLabel}</button>`:""}`; t.className="show";
+  if(act) document.getElementById("gwtoastAct").onclick=()=>{ clearTimeout(undoTimer); t.className=""; act(); };
+  clearTimeout(undoTimer); undoTimer=setTimeout(()=>t.className="",act?7000:2500);
+}
 /* ---------- Brand motion: GSAP + ScrollTrigger + SplitText + Lenis (uit de eigen toolbox) ---------- */
 const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const HAS_GSAP = typeof window.gsap!=="undefined";
