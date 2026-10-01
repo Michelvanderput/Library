@@ -43,6 +43,7 @@ body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opa
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body::before{mix-blend-mode:screen;opacity:.1}}
 a{color:inherit}
 :focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:6px}
+[tabindex="-1"]:focus,[tabindex="-1"]:focus-visible{outline:none}
 .skip{position:absolute;left:-999px;top:8px;z-index:300;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:99px}
 .skip:focus{left:12px}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
