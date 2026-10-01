@@ -219,6 +219,7 @@ body.loading #loader{display:grid}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:clamp(1.1rem,2vw,1.4rem);padding:18px 30px;border-radius:999px;border:1.5px solid var(--ink);background:var(--cherry);color:var(--on-cherry);text-decoration:none;box-shadow:0 5px 0 var(--ink);transition:box-shadow .2s,translate .2s cubic-bezier(.3,1.6,.5,1)}
 .btn:hover{translate:0 -3px;box-shadow:0 8px 0 var(--ink)}
 .btn.ghost{background:transparent;color:var(--ink)}
+.btn.mail-txt{font-family:var(--mono);font-weight:600;font-size:clamp(.95rem,1.6vw,1.1rem);word-break:break-all}
 footer{padding:70px 0 34px}
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;border-top:1.5px solid var(--ink);padding-top:22px;font-size:15px}
 .foot .made{font-weight:800;font-size:1.15rem}
@@ -593,7 +594,8 @@ footer{padding:70px 0 34px}
   <h2 class="hey" id="hey">Zin in iets <em>gezelligs</em>?</h2>
   <p class="pitch">Vertel kort wat je zoekt. Dan plannen we een videocall of een kop koffie in Maastricht, en krijg je binnen een paar dagen een voorstel.</p>
   <div class="ctas">
-    <a class="btn" id="mailBtn" href="https://github.com/michelvanderput">Zeg hoi ↗</a>
+    <a class="btn" id="mailBtn" href="mailto:michel.vdput@live.nl?subject=Nieuw%20project">Mail me ↗</a>
+    <a class="btn ghost mail-txt" href="mailto:michel.vdput@live.nl">michel.vdput@live.nl</a>
   </div>
 </section>
 </main>
@@ -608,13 +610,13 @@ footer{padding:70px 0 34px}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/Draggable.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js" defer></script>
 <script>
-/* E-mailadres voor de "Zeg hoi"-knop. Leeg = de knop gaat naar GitHub. */
-const MAIL = "";
+/* E-mailadres voor de contactknoppen. */
+const MAIL = "michel.vdput@live.nl";
 document.addEventListener("DOMContentLoaded", () => {
   const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const G = typeof window.gsap !== "undefined";
   const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  if (MAIL) $("#mailBtn").href = "mailto:" + MAIL;
+  if (MAIL) $("#mailBtn").href = "mailto:" + MAIL + "?subject=" + encodeURIComponent("Nieuw project");
   $("#yr").textContent = new Date().getFullYear();
 
   // marquee content (dubbel voor naadloze loop)
@@ -645,8 +647,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // intro
   const intro = () => {
     if (RM) return;
-    if (window.SplitText) { const sp = SplitText.create(".name .l", { type: "chars,lines", mask: "lines" });
-      gsap.from(sp.chars, { yPercent: 115, rotate: 8, duration: 1, ease: "expo.out", stagger: .028, onComplete: () => sp.revert() }); }
+    if (window.SplitText) { const sp = SplitText.create(".name .l", { type: "words" });
+      gsap.from(sp.words, { yPercent: 60, rotate: 5, opacity: 0, transformOrigin: "0% 100%", duration: 1.1, ease: "expo.out", stagger: .09, onComplete: () => sp.revert() }); }
     gsap.from(".hero .eyebrow span, .tag, .pitchwrap .btn, .cue", { y: 24, opacity: 0, duration: .8, ease: "power3.out", stagger: .08, delay: .35 });
     gsap.from(".sticker", { scale: 0, rotate: -40, duration: .9, ease: "back.out(2.2)", stagger: .07, delay: .55 });
     gsap.from(".seal", { scale: 0, rotate: -180, duration: 1.2, ease: "expo.out", delay: .4 });
@@ -683,8 +685,8 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.from(".fact", { y: 60, rotate: (i) => [-4, 3, -2][i], opacity: 0, stagger: .1, duration: .9, ease: "back.out(1.6)", scrollTrigger: { trigger: ".facts", start: "top 85%" } });
 
   // koppen springen in beeld
-  $$(".head h2, .hey").forEach(h => { if (!window.SplitText) return; const sp = SplitText.create(h, { type: "chars,lines", mask: "lines" });
-    gsap.from(sp.chars, { yPercent: 110, duration: .9, ease: "expo.out", stagger: .025, scrollTrigger: { trigger: h, start: "top 85%" }, onComplete: () => sp.revert() }); });
+  $$(".head h2, .hey").forEach(h => { if (!window.SplitText) return; const sp = SplitText.create(h, { type: "words" });
+    gsap.from(sp.words, { yPercent: 60, opacity: 0, duration: .9, ease: "expo.out", stagger: .07, scrollTrigger: { trigger: h, start: "top 85%" }, onComplete: () => sp.revert() }); });
 
   // werk: horizontale rail op desktop
   const mm = gsap.matchMedia();

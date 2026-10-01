@@ -56,11 +56,15 @@ export default async function middleware(req) {
     if (req.method === "POST") {
       let tried = "";
       try { tried = String((await req.formData()).get("pin") || ""); } catch {}
+      const viaFetch = req.headers.get("x-gw-fetch") === "1";
       if (tried && safeEqual(tried, pin)) {
         const exp = String(Date.now() + MAX_AGE * 1000);
+        const set = cookie(`${exp}.${await sign(secret, exp)}`, MAX_AGE);
+        if (viaFetch) return new Response(null, { status: 204, headers: { "Set-Cookie": set, "Cache-Control": "no-store" } });
         return new Response(null, { status: 303, headers: { Location: "/portal/", "Set-Cookie": cookie(`${exp}.${await sign(secret, exp)}`, MAX_AGE), "Cache-Control": "no-store" } });
       }
       await sleep(1200); // remt raden af
+      if (viaFetch) return new Response(null, { status: 401, headers: { "Cache-Control": "no-store" } });
       return html(401, page({ len: pin.length, error: true }));
     }
     if (valid) return new Response(null, { status: 303, headers: { Location: "/portal/" } });
@@ -88,6 +92,8 @@ function page({ len = 4, error = false, setup = false }) {
   return `<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex">
 <title>Groundwork · inloggen</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23c81e3a' stroke='%23ffcf3a' stroke-width='5'/%3E%3Ctext x='32' y='43' font-family='Arial,sans-serif' font-weight='900' font-size='30' text-anchor='middle' fill='%23fff'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" crossorigin>
+<link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=JetBrains+Mono:wght@600&display=swap">
 <style>
 :root{--paper:#f3ead8;--card:#fbf5e9;--ink:#121733;--muted:#56536a;--accent:#2e3df0;--cherry:#c81e3a;--sun:#ffcf3a;--err:#c0262d;color-scheme:light}
@@ -106,12 +112,27 @@ h1{margin:0;font-weight:800;font-size:2.2rem;letter-spacing:-.01em}p{margin:0;co
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 .msg{min-height:1.4em;font-weight:700;margin-top:8px}.msg.err{color:var(--err)}
 .back{color:var(--ink);font-weight:600}code{font-family:"JetBrains Mono",monospace;background:var(--paper);padding:2px 6px;border-radius:6px}
+.pin.busy span[aria-hidden]{animation:pulse .9s ease-in-out infinite}
+.pin.busy span[aria-hidden]:nth-of-type(2){animation-delay:.1s}.pin.busy span[aria-hidden]:nth-of-type(3){animation-delay:.2s}.pin.busy span[aria-hidden]:nth-of-type(4){animation-delay:.3s}
+@keyframes pulse{50%{transform:translateY(-8px)}}
+.pin.ok span[aria-hidden]{background:#17734a;color:#fff;border-color:#17734a}
+#wipe{position:fixed;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:var(--cherry);transform:scale(0);z-index:9;pointer-events:none;transition:transform .7s cubic-bezier(.7,0,.2,1)}
+#wipe.go{transform:scale(60)}
+@media (prefers-reduced-motion:reduce){#wipe,.pin.busy span[aria-hidden]{transition:none;animation:none}}
 button{font:800 16px "Bricolage Grotesque",system-ui,sans-serif;padding:12px 20px;border-radius:99px;border:1.5px solid var(--ink);background:var(--cherry);color:#fff}
 </style></head><body><main${error ? ' class="shake"' : ""}><span class="logo" aria-hidden="true">M</span><span class="eyebrow">Groundwork · alleen voor Michel</span>${body}</main>
 <script>
-(()=>{const i=document.getElementById("pin");if(!i)return;const b=[...document.querySelectorAll(".pin span[aria-hidden]")],L=${len},f=document.getElementById("f");
+(()=>{const i=document.getElementById("pin");if(!i)return;const b=[...document.querySelectorAll(".pin span[aria-hidden]")],L=${len},f=document.getElementById("f"),m=document.getElementById("msg"),pinBox=document.querySelector(".pin"),card=document.querySelector("main");let busy=false;
 const paint=()=>{const v=i.value;b.forEach((x,k)=>{x.textContent=v[k]?"•":"";x.classList.toggle("f",!!v[k]);x.classList.toggle("c",k===Math.min(v.length,b.length-1));});};
-i.addEventListener("input",()=>{i.value=i.value.replace(/\\D/g,"").slice(0,L);paint();const m=document.getElementById("msg");if(i.value.length<L){m.textContent="";m.classList.remove("err");}if(i.value.length===L){document.getElementById("msg").textContent="Even kijken…";f.submit();}});
+const fail=()=>{busy=false;pinBox.classList.remove("busy");m.textContent="Verkeerde pincode, probeer opnieuw.";m.classList.add("err");card.classList.remove("shake");void card.offsetWidth;card.classList.add("shake");i.value="";paint();i.focus();};
+const go=async()=>{busy=true;pinBox.classList.add("busy");m.classList.remove("err");m.textContent="Even kijken…";
+  try{const r=await fetch("/portal/login/",{method:"POST",headers:{"x-gw-fetch":"1"},body:new URLSearchParams({pin:i.value}),credentials:"same-origin"});
+    if(r.status===204){pinBox.classList.remove("busy");pinBox.classList.add("ok");m.textContent="Welkom terug!";try{sessionStorage.setItem("gw-enter","1")}catch(e){}
+      const w=document.createElement("div");w.id="wipe";document.body.appendChild(w);requestAnimationFrame(()=>requestAnimationFrame(()=>w.classList.add("go")));
+      setTimeout(()=>location.replace("/portal/"),matchMedia("(prefers-reduced-motion: reduce)").matches?0:650);}
+    else fail();}catch(e){f.submit();}};
+i.addEventListener("input",()=>{if(busy){return;}i.value=i.value.replace(/\\D/g,"").slice(0,L);paint();if(i.value.length<L){m.textContent="";m.classList.remove("err");}if(i.value.length===L)go();});
+f.addEventListener("submit",e=>{if(i.value.length===L){e.preventDefault();if(!busy)go();}});
 paint();i.focus();})();
 </script></body></html>`;
 }

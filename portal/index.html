@@ -665,9 +665,18 @@ html{overflow-x:hidden;overflow-x:clip}
   .appbar .tabs{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:60;justify-content:space-between;gap:2px;padding:6px;border:1.5px solid var(--ink);border-radius:22px;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 4px 0 var(--ink);overflow:visible}
   .appbar .tabs a{flex:1;text-align:center;padding:10px 2px;font-size:12.5px;border-radius:16px}
 }
+/* overgang na inloggen */
+#enter{position:fixed;inset:0;z-index:300;background:var(--cherry);display:grid;place-items:center;clip-path:circle(150% at 50% 50%);transition:clip-path .8s cubic-bezier(.7,0,.2,1)}
+#enter span{width:64px;height:64px;border-radius:50%;background:var(--cherry);box-shadow:inset 0 0 0 5px var(--sun);display:grid;place-items:center;color:#fff;font:800 30px var(--display);transition:transform .5s,opacity .4s}
+#enter.out{clip-path:circle(0% at 50% 50%)}
+#enter.out span{transform:scale(.6);opacity:0}
+@media (prefers-reduced-motion:reduce){#enter{transition:opacity .2s}#enter.out{clip-path:none;opacity:0}}
 </style>
 </head>
 <body>
+
+<div id="enter" hidden aria-hidden="true"><span>M</span></div>
+<script>try{if(sessionStorage.getItem("gw-enter")){sessionStorage.removeItem("gw-enter");var en=document.getElementById("enter");en.hidden=false;addEventListener("DOMContentLoaded",function(){setTimeout(function(){en.classList.add("out");setTimeout(function(){en.remove()},900)},120)})}}catch(e){}</script>
 
   </form>
 </div>
@@ -2935,8 +2944,8 @@ function animateIn(scope){
   gsap.from(items,{y:24,opacity:0,duration:.6,ease:"power3.out",stagger:.06,clearProps:"transform,opacity"});
   scope.querySelectorAll(".dtitle").forEach(t=>{ if(typeof SplitText==="undefined") return;
     if(t._sp){ t._tw&&t._tw.kill(); t._sp.revert(); t._sp=null; }
-    const sp=SplitText.create(t,{type:"lines,words,chars",mask:"lines"}); t._sp=sp;
-    t._tw=gsap.from(sp.chars,{yPercent:120,duration:.8,ease:"expo.out",stagger:.014,onComplete:()=>{ if(t._sp===sp){ sp.revert(); t._sp=null; } }}); });
+    const sp=SplitText.create(t,{type:"words"}); t._sp=sp;
+    t._tw=gsap.from(sp.words,{yPercent:60,opacity:0,duration:.8,ease:"expo.out",stagger:.06,onComplete:()=>{ if(t._sp===sp){ sp.revert(); t._sp=null; } }}); });
 }
 function confetti(){
   if(RM) return; const box=document.createElement("div"); box.className="confetti"; document.body.appendChild(box);
