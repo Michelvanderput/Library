@@ -535,6 +535,18 @@ ul.connect label{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:
 ul.connect input{margin-top:3px;width:16px;height:16px;accent-color:var(--accent)}
 ul.connect code{font-family:var(--mono);font-size:11.5px;background:var(--card-2);padding:1px 5px;border-radius:4px}
 .btn.sm{font-size:12.5px;padding:6px 10px}
+
+ul.custlist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px} ul.custlist li{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:6px 10px;border-radius:8px;background:var(--paper)} ul.custlist .desc{color:var(--muted);font-family:var(--mono);font-size:12px;overflow-wrap:anywhere}
+.custform{display:grid;grid-template-columns:1fr 150px 2fr 1fr auto;gap:6px;margin-top:8px} .custform input,.custform select{font:inherit;font-size:13.5px;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);min-width:0}
+@media (max-width:900px){.custform{grid-template-columns:1fr 1fr}}
+.custmcp summary{cursor:pointer;font-size:14px;color:var(--accent);margin-top:6px} .custmcp{display:grid;gap:6px}
+
+.vault{display:grid;gap:6px} .vrow{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:8px;align-items:center}
+.vrow label{font-size:13px;min-width:0;overflow-wrap:anywhere} .vrow code{font-family:var(--mono);font-size:12px} .vrow .desc{color:var(--muted)}
+.vrow input{font:inherit;font-family:var(--mono);font-size:12.5px;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);min-width:0}
+@media (max-width:600px){.vrow{grid-template-columns:1fr}}
+.custform.k2{grid-template-columns:1fr auto}
+.pkeys summary{cursor:pointer;font-size:14px;color:var(--accent);margin-top:6px} .pkeys{display:grid;gap:8px}
 </style>
 </head>
 <body>
@@ -582,9 +594,14 @@ ul.connect code{font-family:var(--mono);font-size:11.5px;background:var(--card-2
           <div class="field"><label for="set-buffer">Buffer voor onvoorzien (%)</label><input id="set-buffer" type="number" min="0" max="100" data-set="buffer"></div>
           <div class="field"><label for="set-hours">Werkuren per week voor één project</label><input id="set-hours" type="number" min="1" max="60" data-set="hoursWeek"></div>
         </div>
+        <h3 style="margin-top:18px">Mijn standaard-koppelingen</h3>
+        <p class="hint">Deze MCP-servers komen automatisch in elk nieuw project (in de stack en in <code>.mcp.json</code>).</p>
+        <div id="mcpDefaults"></div>
+        <h3 style="margin-top:18px">Mijn keys</h3>
+        <div id="vault"></div>
         <h3 style="margin-top:18px">Back-up</h3>
         <p class="hint">Je projecten staan alleen in deze browser. Maak regelmatig een back-up, zeker voor klantwerk.</p>
-        <div class="npacts"><button type="button" class="btn ghost" id="exportBtn">Back-up downloaden (.json)</button><label class="btn ghost filebtn">Back-up terugzetten<input type="file" id="importFile" accept="application/json,.json" class="sr-only"></label></div>
+        <div class="npacts"><button type="button" class="btn ghost" id="exportBtn">Back-up downloaden (.json)</button><label class="feat"><input type="checkbox" id="bkKeys"><span>Keys meenemen in de back-up (bewaar dat bestand dan veilig)</span></label><label class="btn ghost filebtn">Back-up terugzetten<input type="file" id="importFile" accept="application/json,.json" class="sr-only"></label></div>
         <p class="hint" id="backupMsg" aria-live="polite"></p>
       </div>
     </div>
@@ -1811,7 +1828,7 @@ const ls = {get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):
 const P = {
   projects: ls.get("portal-projects", []),
   activeId: ls.get("portal-active", null),
-  settings: Object.assign({studio:"",rate:75,buffer:20,hoursWeek:24}, ls.get("portal-settings", {})),
+  settings: Object.assign({studio:"",rate:75,buffer:20,hoursWeek:24,mcpDefaults:["pwmcp","context7"],mcpCustom:[]}, ls.get("portal-settings", {})),
   studio: ls.get("portal-studio", {})
 };
 const proj = () => P.projects.find(p=>p.id===P.activeId) || null;
@@ -2270,6 +2287,8 @@ function openProject(id, step){
 }
 function createProject(name,client,type,stackSeed){
   const p=blankProject(name,client,type); if(stackSeed) p.stack=[...stackSeed];
+  (P.settings.mcpDefaults||[]).forEach(k=>{ if(T[k]&&!p.stack.includes(k)) p.stack.push(k); });
+  p.mcpCustom=(P.settings.mcpCustom||[]).map(x=>({...x,on:true}));
   P.projects.unshift(p); saveP(); openProject(p.id,"intake"); return p;
 }
 function ensureProject(){ if(!proj()){ const p=blankProject("Naamloos project","",ptype); P.projects.unshift(p); P.activeId=p.id; saveP(); toast("Nieuw project gestart: geef het een naam op het dashboard"); } }
@@ -2282,6 +2301,7 @@ function suggestStack(p){
   if(f.has("i18n") && out.has("nextjs")){ out.delete("i18next"); out.add("nextintl"); }
   if(f.has("pwa") && out.has("nextjs")){ out.delete("vitepwa"); out.add("serwist"); }
   if([...out].some(k=>T[k]&&T[k].r==="backend")) out.add("rls");
+  (P.settings.mcpDefaults||[]).forEach(k=>out.add(k));
   return [...out].filter(k=>T[k]);
 }
 function suggestPatterns(p){
@@ -2349,7 +2369,7 @@ function renderDashboard(){
   document.getElementById("pipeline").innerHTML = ps.length ? STATUSES.map(([k,l])=>{const list=ps.filter(p=>p.status===k);
     return `<div class="pcol"><div class="pcolhead"><span>${l}</span><span class="n">${list.length}</span></div>${list.map(p=>`<button type="button" class="pcard${p.id===P.activeId?" on":""}" data-open="${p.id}"><span class="pc-name">${esc(p.name)}</span><span class="pc-sub">${esc(p.client||"Geen klant")} · ${TYPES[p.type]}</span><span class="pc-bar"><span style="width:${progress(p)}%"></span></span><span class="pc-sub">${progress(p)}% · ${fmtEUR(projPrice(p))}</span></button>`).join("")||`<p class="pc-empty">Leeg</p>`}</div>`;}).join("")
     : `<div class="emptyhero"><h3>Nog geen projecten</h3><p>Start met <b>+ Nieuw project</b>. Tip uit de praktijk: maak je eerste project voor jezelf, bijvoorbeeld je eigen portfolio. Zo test je je werkwijze voordat een klant dat doet.</p></div>`;
-  renderStudio();
+  renderStudio(); renderMcpDefaults(); renderVault();
   ["studio","rate","buffer","hoursWeek"].forEach(k=>{const el=document.querySelector(`[data-set="${k}"]`); if(el&&document.activeElement!==el) el.value=P.settings[k];});
   document.getElementById("np-type").innerHTML=Object.entries(TYPES).map(([k,l],i)=>`<button type="button" role="radio" aria-checked="${(document.getElementById("np-type").dataset.v||"site")===k}" data-nptype="${k}">${l}</button>`).join("");
 }
@@ -2365,6 +2385,17 @@ const STUDIO = [
   ["finance","Financiën bijhouden","Ken je marge per project.","Log uren en kosten in de stap Bouwen; het dashboard rekent je uurtarief uit."],
   ["sop","Je werkwijze op papier","Wat je niet kunt uitleggen, kun je niet opschalen.","Download je werkwijze (SOP) bij Gidsen."]
 ];
+function renderMcpDefaults(){
+  const host=document.getElementById("mcpDefaults"); if(!host) return; const d=new Set(P.settings.mcpDefaults||[]);
+  host.innerHTML=`<div class="featgrid">${Object.entries(MCP_CONF).map(([k,[name]])=>`<label class="feat"><input type="checkbox" data-mcpdef="${k}" ${d.has(k)?"checked":""}><span>${esc(T[k].n)}</span></label>`).join("")}</div>
+  <ul class="custlist">${(P.settings.mcpCustom||[]).map((x,i)=>`<li><span><b>${esc(x.name)}</b> <span class="desc">${esc(x.url||x.cmd)}${x.auth?` · key in ${esc(x.auth)}`:""}</span></span><button type="button" class="linkbtn" data-delmcp="${i}" aria-label="Verwijder ${esc(x.name)}">Verwijder</button></li>`).join("")}</ul>
+  <form class="custform" id="addMcp"><input id="mc-name" placeholder="Naam (bijv. linear)" aria-label="Naam van de MCP-server" required>
+    <select id="mc-type" aria-label="Soort"><option value="http">Remote (URL)</option><option value="stdio">Lokaal commando</option></select>
+    <input id="mc-val" placeholder="https://mcp.example.com/mcp of npx -y pakket" aria-label="URL of commando" required>
+    <input id="mc-auth" placeholder="Key-variabele (optioneel)" aria-label="Naam van de environment-variabele voor de key">
+    <button class="btn ghost" type="submit">Toevoegen</button></form>
+  <p class="hint">Keys zet je nooit hier, alleen de naam van de variabele. De waarde komt in <code>.env.local</code>.</p>`;
+}
 function renderStudio(){
   const done=STUDIO.filter(s=>P.studio[s[0]]).length;
   document.getElementById("studio").innerHTML=`<h3>Eerst voor jezelf <span class="n">${done}/10</span></h3><p class="hint">Bouw wat je aan klanten verkoopt eerst voor jezelf. Dat is de beste test of het werkt.</p>
@@ -2593,18 +2624,65 @@ const SERVICES = [
   {k:"githubmcp",n:"GitHub (voor de MCP)",link:"https://github.com/settings/personal-access-tokens/new",linkN:"Personal access token maken",env:["GITHUB_PAT"]},
   {k:"firecrawl",n:"Firecrawl",link:"https://www.firecrawl.dev",linkN:"API-key",env:["FIRECRAWL_API_KEY"]}
 ];
-function mcpJson(S){ const servers={}; Object.entries(MCP_CONF).forEach(([k,[name,conf]])=>{ if(S.has(k)) servers[name]=conf; }); return Object.keys(servers).length?JSON.stringify({mcpServers:servers},null,2)+"\n":null; }
-function envExample(S){ const pp=pubPrefix(S), L=[]; SERVICES.forEach(s=>{ if(!S.has(s.k)) return; const e=typeof s.env==="function"?s.env(pp):s.env; if(!e.length) return; L.push(`# ${s.n}: ${s.link}`, ...e.map(v=>v.includes("#")?v.replace(" #","= #"):v+"="), ""); });
+function customConf(x){ return x.type==="http"?{type:"http",url:x.url,...(x.auth?{headers:{Authorization:`Bearer \${${x.auth}}`}}:{})}:{command:x.cmd.trim().split(/\s+/)[0],args:x.cmd.trim().split(/\s+/).slice(1),...(x.auth?{env:{[x.auth]:`\${${x.auth}}`}}:{})}; }
+function mcpJson(S){ const servers={}; Object.entries(MCP_CONF).forEach(([k,[name,conf]])=>{ if(S.has(k)) servers[name]=conf; });
+  const p=proj(); ((p&&p.mcpCustom)||[]).filter(x=>x.on&&x.name&&(x.url||x.cmd)).forEach(x=>{ servers[x.name.trim().toLowerCase().replace(/[^a-z0-9-]+/g,"-")]=customConf(x); }); return Object.keys(servers).length?JSON.stringify({mcpServers:servers},null,2)+"\n":null; }
+function envExample(S){ const pp=pubPrefix(S), L=[]; const p=proj(); const cust=((p&&p.mcpCustom)||[]).filter(x=>x.on&&x.auth); if(cust.length) L.push("# Eigen MCP-servers",...cust.map(x=>x.auth+"="),""); SERVICES.forEach(s=>{ if(!S.has(s.k)) return; const e=typeof s.env==="function"?s.env(pp):s.env; if(!e.length) return; L.push(`# ${s.n}: ${s.link}`, ...e.map(v=>v.includes("#")?v.replace(" #","= #"):v+"="), ""); });
   return L.length?["# Kopieer naar .env.local en vul de waarden in. Zet .env.local nooit in git.",`# Variabelen met ${pp} zijn zichtbaar in de browser; de rest alleen op de server.`,"",...L].join("\n"):null; }
 function renderConnect(){
   const p=proj(); if(!p) return; const S=new Set(stack), host=document.getElementById("connect"); if(!host) return;
   const svc=SERVICES.filter(s=>S.has(s.k)), mcps=Object.keys(MCP_CONF).filter(k=>S.has(k)), c=(p.checks.koppel||{});
-  if(!svc.length && !mcps.length){ host.innerHTML=`<h4>Koppelingen</h4><p class="hint">Je stack heeft nog geen diensten of MCP-servers. Voeg bijvoorbeeld Vercel, Supabase of Playwright MCP toe.</p>`; return; }
+  const cust=p.mcpCustom||[];
+  const custHtml = `<details class="custmcp"${cust.length?" open":""}><summary>Eigen MCP-servers voor dit project (${cust.filter(x=>x.on).length})</summary>
+    ${cust.map((x,i)=>`<label class="feat"><input type="checkbox" data-pmcp="${i}" ${x.on?"checked":""}><span><b>${esc(x.name)}</b> <span class="desc">${esc(x.url||x.cmd)}</span></span></label>`).join("")}
+    <p class="hint">Voeg ze toe bij <a href="#dashboard" data-go="dashboard">Mijn standaard-koppelingen</a> op het dashboard. <button type="button" class="linkbtn" id="pullDefaults">Standaard-koppelingen nu aan dit project toevoegen</button></p></details>`;
+  if(!svc.length && !mcps.length && !cust.length){ host.innerHTML=`<h4>Koppelingen</h4><p class="hint">Je stack heeft nog geen diensten of MCP-servers.</p>`+custHtml; return; }
   const done=svc.filter(s=>c[s.k]).length+(c.mcpok?1:0), total=svc.length+(mcps.length?1:0);
   host.innerHTML=`<h4>Koppelingen <span class="n">${done}/${total}</span></h4>
   <p class="hint">Maak per dienst een account of project aan, zet de keys in <code>.env.local</code> en vink af. <code>.mcp.json</code> en <code>.env.example</code> zitten al in "Kopieer alles voor Claude".</p>
   <ul class="connect">${svc.map(s=>{const e=typeof s.env==="function"?s.env(pubPrefix(S)):s.env; return `<li><label><input type="checkbox" data-check="koppel|${s.k}" ${c[s.k]?"checked":""}><span><b>${s.n}</b>${e.length?` <span class="desc">${e.map(v=>`<code>${esc(v.split(" #")[0])}</code>`).join(" ")}</span>`:""}</span></label><a class="btn ghost sm" href="${s.link}" target="_blank" rel="noopener">${s.linkN} ↗</a></li>`;}).join("")}
-  ${mcps.length?`<li><label><input type="checkbox" data-check="koppel|mcpok" ${c.mcpok?"checked":""}><span><b>MCP-servers (${mcps.length})</b> <span class="desc">${mcps.map(k=>MCP_CONF[k][0]).join(", ")}: start Claude Code in je projectmap, keur de servers uit .mcp.json goed en log in met <code>/mcp</code></span></span></label><button type="button" class="btn ghost sm" data-cp="/mcp">Kopieer /mcp</button></li>`:""}</ul>`;
+  ${mcps.length||cust.some(x=>x.on)?`<li><label><input type="checkbox" data-check="koppel|mcpok" ${c.mcpok?"checked":""}><span><b>MCP-servers (${mcps.length+cust.filter(x=>x.on).length})</b> <span class="desc">${[...mcps.map(k=>MCP_CONF[k][0]),...cust.filter(x=>x.on).map(x=>x.name)].join(", ")}: start Claude Code in je projectmap, keur de servers uit .mcp.json goed en log in met <code>/mcp</code></span></span></label><button type="button" class="btn ghost sm" data-cp="/mcp">Kopieer /mcp</button></li>`:""}</ul>`+renderProjectKeys(S)+custHtml;
+}
+
+
+/* ---------- Keys-kluis: alleen in deze browser, apart van projecten en back-ups ---------- */
+const VAULT = Object.assign({}, ls.get("portal-vault", {}));
+const saveVault = () => ls._raw("portal-vault", VAULT);
+const ACCOUNT_KEYS = [
+  ["GITHUB_PAT","GitHub personal access token (voor de GitHub MCP)","https://github.com/settings/personal-access-tokens/new"],
+  ["ANTHROPIC_API_KEY","Claude API-key (AI-functies in apps)","https://console.anthropic.com"],
+  ["RESEND_API_KEY","Resend (e-mail)","https://resend.com/api-keys"],
+  ["STRIPE_SECRET_KEY","Stripe secret key (testmodus)","https://dashboard.stripe.com/test/apikeys"],
+  ["STRIPE_PUBLISHABLE_KEY","Stripe publishable key (testmodus)","https://dashboard.stripe.com/test/apikeys"],
+  ["UPLOADTHING_TOKEN","UploadThing","https://uploadthing.com/dashboard"],
+  ["FIRECRAWL_API_KEY","Firecrawl","https://www.firecrawl.dev"]
+];
+const baseVar = v => v.replace(/^(NEXT_PUBLIC_|EXPO_PUBLIC_|PUBLIC_|VITE_)/,"");
+function projectEnvVars(S){ const pp=pubPrefix(S), out=[], p=proj();
+  SERVICES.forEach(s=>{ if(!S.has(s.k)) return; (typeof s.env==="function"?s.env(pp):s.env).forEach(v=>{ const name=v.split(" #")[0].trim(); out.push({name,svc:s.n,server:/#/.test(v)}); }); });
+  ((p&&p.mcpCustom)||[]).filter(x=>x.on&&x.auth).forEach(x=>out.push({name:x.auth,svc:x.name+" (MCP)"}));
+  const seen=new Set(); return out.filter(x=>!seen.has(x.name)&&seen.add(x.name)); }
+const vaultVal = (pid,name) => VAULT[pid+":"+name] ?? VAULT[baseVar(name)] ?? VAULT[name] ?? "";
+function envLocal(S){ const p=proj(); const vars=projectEnvVars(S); if(!vars.length||!p) return null;
+  return ["# .env.local voor "+p.name+" (gegenereerd door de Ideeënbieb). NOOIT in git zetten.","",...vars.map(v=>`${v.name}=${vaultVal(p.id,v.name)}`)].join("\n")+"\n"; }
+function renderVault(){
+  const host=document.getElementById("vault"); if(!host) return;
+  const custom=(P.settings.mcpCustom||[]).filter(x=>x.auth).map(x=>[x.auth,x.name+" (eigen MCP)",""]);
+  const extra=Object.keys(VAULT).filter(k=>!k.includes(":")&&!ACCOUNT_KEYS.some(a=>a[0]===k)&&!custom.some(c=>c[0]===k)).map(k=>[k,"Eigen key",""]);
+  const rows=[...ACCOUNT_KEYS,...custom,...extra], filled=rows.filter(r=>VAULT[r[0]]).length;
+  host.innerHTML=`<p class="hint">Keys die je in elk project hergebruikt. Ze staan alleen in deze browser, apart van je projecten, en gaan nooit mee in "Kopieer alles voor Claude". ${filled}/${rows.length} ingevuld.</p>
+  <div class="vault">${rows.map(([k,n,u])=>`<div class="vrow"><label for="v-${k}"><code>${k}</code> <span class="desc">${esc(n)}${u?` · <a href="${u}" target="_blank" rel="noopener">key maken ↗</a>`:""}</span></label><input id="v-${k}" type="password" autocomplete="off" spellcheck="false" data-vault="${k}" value="${esc(VAULT[k]||"")}" placeholder="niet ingevuld"></div>`).join("")}</div>
+  <form class="custform k2" id="addKey"><input id="vk-name" placeholder="Eigen key, bijv. LINEAR_API_KEY" aria-label="Naam van een eigen key" required><button class="btn ghost" type="submit">Key toevoegen</button></form>
+  <div class="npacts"><button type="button" class="btn ghost" id="toggleVault">Toon keys</button><button type="button" class="btn ghost" id="copyShell">Kopieer voor je shell-profiel</button></div>
+  <p class="hint">Eén keer instellen voor alle projecten: plak de regels uit "Kopieer voor je shell-profiel" in <code>~/.zshrc</code> (Mac) of <code>~/.bashrc</code> en open een nieuwe terminal. Daarna vullen alle <code>.mcp.json</code>-bestanden hun <code>\${KEY}</code> vanzelf in.</p>`;
+}
+function renderProjectKeys(S){
+  const p=proj(); const vars=projectEnvVars(S); if(!vars.length) return "";
+  const filled=vars.filter(v=>vaultVal(p.id,v.name)).length;
+  return `<details class="pkeys"${filled<vars.length?" open":""}><summary>Keys voor dit project (${filled}/${vars.length} ingevuld)</summary>
+  <p class="hint">Keys uit je kluis staan er al in. Vul de rest in en download <code>.env.local</code>. Dit bestand gaat niet naar Claude en niet in git.</p>
+  <div class="vault">${vars.map(v=>{const own=VAULT[p.id+":"+v.name]!=null&&VAULT[p.id+":"+v.name]!==""; const fromVault=!own&&vaultVal(p.id,v.name); return `<div class="vrow"><label for="pk-${v.name}"><code>${v.name}</code> <span class="desc">${esc(v.svc)}${v.server?" · alleen server":""}${fromVault?" · uit je kluis":""}</span></label><input id="pk-${v.name}" type="password" autocomplete="off" spellcheck="false" data-pkey="${v.name}" value="${esc(own?VAULT[p.id+":"+v.name]:"")}" placeholder="${fromVault?"•••••• (uit kluis)":"niet ingevuld"}"></div>`;}).join("")}</div>
+  <div class="npacts"><button type="button" class="btn" id="dlEnv">Download .env.local</button><button type="button" class="btn ghost" id="cpEnv">Kopieer inhoud</button></div><p class="hint">Je browser haalt bij downloaden de punt voor de naam weg. Hernoem het bestand naar <code>.env.local</code> en zet het in de root van je project.</p></details>`;
 }
 
 /* ---------- Projectsectie in CLAUDE.md ---------- */
@@ -2637,25 +2715,35 @@ document.addEventListener("click",e=>{
   if(b.dataset.pick){ const [k,vi]=b.dataset.pick.split("|"); if(p.design.picks[k]===+vi) delete p.design.picks[k]; else p.design.picks[k]=+vi; touch(); renderProject(); renderFiles(); document.querySelector(`[data-pick="${b.dataset.pick}"]`)?.focus(); return; }
   if(b.dataset.cp!=null){ const old=b.textContent; const ok=()=>{b.textContent="✓ Gekopieerd";setTimeout(()=>b.textContent=old,1600);}; try{navigator.clipboard.writeText(b.dataset.cp).then(ok,()=>b.textContent="Kopiëren lukt niet");}catch(err){b.textContent="Kopiëren lukt niet";} return; }
   if(b.id==="applyIntake"){ setUndo(`Stack voorgesteld voor "${p.name}"`); stack=suggestStack(p); ls.set("bieb-stack",stack); suggestPatterns(p).forEach(k=>{ if(p.design.picks[k]==null && k!=="hero"){} }); renderAll(); p.step="offerte"; touch(); renderProject(); toast("Stack voorgesteld. Bekijk hem bij Stack & bestanden."); return; }
+  if(b.dataset.delmcp!=null){ P.settings.mcpCustom.splice(+b.dataset.delmcp,1); ls._raw("portal-settings",P.settings); renderMcpDefaults(); renderVault(); return; }
+  if(b.id==="pullDefaults"){ (P.settings.mcpDefaults||[]).forEach(k=>{ if(!stack.includes(k)) stack.push(k); }); const have=new Set((p.mcpCustom||[]).map(x=>x.name)); p.mcpCustom=[...(p.mcpCustom||[]),...(P.settings.mcpCustom||[]).filter(x=>!have.has(x.name)).map(x=>({...x,on:true}))]; ls.set("bieb-stack",stack); renderAll(); renderConnect(); toast("Standaard-koppelingen toegevoegd"); return; }
+  if(b.id==="toggleVault"){ const show=b.textContent==="Toon keys"; document.querySelectorAll("[data-vault]").forEach(i=>i.type=show?"text":"password"); b.textContent=show?"Verberg keys":"Toon keys"; return; }
+  if(b.id==="copyShell"){ const lines=Object.entries(VAULT).filter(([k,v])=>!k.includes(":")&&v).map(([k,v])=>`export ${k}="${String(v).replace(/(["\\$`])/g,"\\$1")}"`); if(!lines.length){toast("Vul eerst een key in");return;} const txt="# Ideeënbieb keys (alleen op je eigen computer)\n"+lines.join("\n"); try{navigator.clipboard.writeText(txt).then(()=>{b.textContent="✓ Gekopieerd";setTimeout(()=>b.textContent="Kopieer voor je shell-profiel",1800);});}catch(err){} return; }
+  if(b.id==="cpEnv"){ const t=envLocal(new Set(stack)); try{navigator.clipboard.writeText(t).then(()=>{b.textContent="✓ Gekopieerd";setTimeout(()=>b.textContent="Kopieer inhoud",1600);});}catch(err){} return; }
+  if(b.id==="dlEnv"){ const t=envLocal(new Set(stack)); if(t) saveFile(".env.local",t); return; }
   if(b.id==="resetHours"){ p.offer.over={}; touch(); renderOffer(); return; }
   if(b.id==="copyOffer"){ const t=offerMd(p); try{navigator.clipboard.writeText(t).then(()=>{b.textContent="✓ Gekopieerd";setTimeout(()=>b.textContent="Kopieer offerte",1600);});}catch(err){} return; }
   if(b.id==="dlOffer"){ saveFile(`offerte-${slug(p.name)}.md`, offerMd(p)); return; }
   if(b.id==="prevStep"||b.id==="nextStep"){ const i=STEPS.findIndex(s=>s[0]===p.step)+(b.id==="nextStep"?1:-1); if(STEPS[i]){p.step=STEPS[i][0]; touch(); renderProject(); document.getElementById("stepper").scrollIntoView({block:"start"});} return; }
   if(b.id==="newProjBtn"){ const f=document.getElementById("newProj"); f.hidden=!f.hidden; if(!f.hidden) document.getElementById("np-name").focus(); return; }
   if(b.id==="np-cancel"){ document.getElementById("newProj").hidden=true; return; }
-  if(b.id==="exportBtn"){ saveFile(`ideeenbieb-backup-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify({version:1,exported:Date.now(),projects:P.projects,settings:P.settings,studio:P.studio},null,2)); document.getElementById("backupMsg").textContent="Back-up gemaakt."; return; }
+  if(b.id==="exportBtn"){ saveFile(`ideeenbieb-backup-${new Date().toISOString().slice(0,10)}.json`, JSON.stringify({version:1,exported:Date.now(),projects:P.projects,settings:P.settings,studio:P.studio,...(document.getElementById("bkKeys").checked?{vault:VAULT}:{})},null,2)); document.getElementById("backupMsg").textContent="Back-up gemaakt."; return; }
 },true);
 const slug = s => (s||"project").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"project";
 let saveFileImpl = null;
-function saveFile(name,data){ if(saveFileImpl) return saveFileImpl({name,data}).then(()=>toast("Gedownload")).catch(()=>{}); const blob=new Blob([data],{type:name.endsWith(".json")?"application/json":"text/markdown"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); }
+function saveFile(name,data){ if(name.startsWith(".")) setTimeout(()=>toast(`Hernoem het bestand naar ${name} (je browser haalt de punt weg)`),300); if(saveFileImpl) return saveFileImpl({name,data}).then(()=>toast("Gedownload")).catch(()=>{}); const blob=new Blob([data],{type:name.endsWith(".json")?"application/json":name.startsWith(".env")?"text/plain":"text/markdown"}); const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); }
 document.addEventListener("submit",e=>{
   const p=proj();
   if(e.target.id==="newProj"){ e.preventDefault(); const t=document.getElementById("np-type").dataset.v||"site"; createProject(val("np-name").trim(),val("np-client").trim(),t); e.target.reset(); e.target.hidden=true; return; }
+  if(e.target.id==="addMcp"){ e.preventDefault(); const type=val("mc-type"), v=val("mc-val").trim(); P.settings.mcpCustom=[...(P.settings.mcpCustom||[]),{name:val("mc-name").trim(),type,url:type==="http"?v:"",cmd:type==="stdio"?v:"",auth:val("mc-auth").trim().toUpperCase().replace(/[^A-Z0-9_]/g,"_")}]; ls._raw("portal-settings",P.settings); renderMcpDefaults(); renderVault(); toast("Koppeling toegevoegd. Nieuwe projecten krijgen hem automatisch."); return; }
+  if(e.target.id==="addKey"){ e.preventDefault(); const k=val("vk-name").trim().toUpperCase().replace(/[^A-Z0-9_]/g,"_"); if(k&&VAULT[k]==null){VAULT[k]=""; saveVault();} renderVault(); document.getElementById("v-"+k)?.focus(); return; }
   if(e.target.id==="logHours"){ e.preventDefault(); p.hours.push({d:Date.now(),h:+val("lh-h"),n:val("lh-n").trim()}); if(p.status==="akkoord") p.status="bouw"; touch(); renderBuild(); return; }
   if(e.target.id==="logCost"){ e.preventDefault(); p.costs.push({d:Date.now(),a:+val("lc-a"),n:val("lc-n").trim()}); touch(); renderBuild(); return; }
 });
 document.addEventListener("input",e=>{
   const t=e.target, p=proj();
+  if(t.dataset.vault){ VAULT[t.dataset.vault]=t.value; saveVault(); return; }
+  if(t.dataset.pkey && p){ VAULT[p.id+":"+t.dataset.pkey]=t.value; saveVault(); const sm=t.closest("details")?.querySelector("summary"); if(sm){const vars=projectEnvVars(new Set(stack)); sm.textContent=`Keys voor dit project (${vars.filter(v=>vaultVal(p.id,v.name)).length}/${vars.length} ingevuld)`;} return; }
   if(t.dataset.set){ P.settings[t.dataset.set]= t.type==="number"?+t.value:t.value; ls._raw("portal-settings",P.settings); return; }
   if(!p) return;
   if(t.dataset.in){ const k=t.dataset.in.replace("in-","").replace("ds-","");
@@ -2669,8 +2757,10 @@ document.addEventListener("input",e=>{
 });
 document.addEventListener("change",e=>{
   const t=e.target, p=proj();
+  if(t.dataset.mcpdef){ const d=new Set(P.settings.mcpDefaults||[]); t.checked?d.add(t.dataset.mcpdef):d.delete(t.dataset.mcpdef); P.settings.mcpDefaults=[...d]; ls._raw("portal-settings",P.settings); return; }
+  if(t.dataset.pmcp!=null && p){ p.mcpCustom[+t.dataset.pmcp].on=t.checked; touch(); renderFiles(); return; }
   if(t.dataset.studio){ P.studio[t.dataset.studio]=t.checked; ls._raw("portal-studio",P.studio); renderStudio(); return; }
-  if(t.id==="importFile"){ const f=t.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!Array.isArray(d.projects)) throw 0; const ids=new Set(P.projects.map(x=>x.id)); d.projects.forEach(x=>{ if(!ids.has(x.id)) P.projects.push(x); }); Object.assign(P.settings,d.settings||{}); Object.assign(P.studio,d.studio||{}); saveP(); ls._raw("portal-settings",P.settings); ls._raw("portal-studio",P.studio); document.getElementById("backupMsg").textContent=`${d.projects.length} project(en) teruggezet. Bestaande projecten zijn niet overschreven.`; renderDashboard(); }catch(err){ document.getElementById("backupMsg").textContent="Dit bestand is geen geldige back-up van de Ideeënbieb."; } }; r.readAsText(f); t.value=""; return; }
+  if(t.id==="importFile"){ const f=t.files[0]; if(!f) return; const r=new FileReader(); r.onload=()=>{ try{ const d=JSON.parse(r.result); if(!Array.isArray(d.projects)) throw 0; const ids=new Set(P.projects.map(x=>x.id)); d.projects.forEach(x=>{ if(!ids.has(x.id)) P.projects.push(x); }); Object.assign(P.settings,d.settings||{}); Object.assign(P.studio,d.studio||{}); if(d.vault){Object.assign(VAULT,d.vault); saveVault();} saveP(); ls._raw("portal-settings",P.settings); ls._raw("portal-studio",P.studio); document.getElementById("backupMsg").textContent=`${d.projects.length} project(en) teruggezet. Bestaande projecten zijn niet overschreven.`; renderDashboard(); }catch(err){ document.getElementById("backupMsg").textContent="Dit bestand is geen geldige back-up van de Ideeënbieb."; } }; r.readAsText(f); t.value=""; return; }
   if(!p) return;
   if(t.id==="p-status"){ p.status=t.value; touch(); return; }
   if(t.dataset.feat){ const s=new Set(p.intake.features); t.checked?s.add(t.dataset.feat):s.delete(t.dataset.feat); p.intake.features=[...s]; touch(); return; }
