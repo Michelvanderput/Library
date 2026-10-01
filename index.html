@@ -18,27 +18,30 @@
 <title>Frontend Ideeënbieb</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: dark-first product site in the vein of shadcn / Magic UI / Vercel: grid + spotlight hero, glass cards with a cursor glow, floating stack bar. */
+/* Layout: studio-portaal van Michel van der Put. Warm Maastrichts (mergel, Maas, vlaai), druk maar gezellig: kinetische type, stickers, marquee. */
 :root{
-  --paper:#09090b; --card:#0e0e11; --card-2:#141418; --ink:#fafafa; --muted:#a1a1aa; --line:#27272a; --line-2:#3f3f46;
-  --accent:#a5b4fc; --accent-soft:rgba(129,140,248,.14); --stamp:#fb7185; --stamp-soft:rgba(251,113,133,.13); --ok:#34d399; --ok-soft:rgba(52,211,153,.13);
-  --glow1:#6366f1; --glow2:#22d3ee; --glow3:#e879f9; --grid:rgba(255,255,255,.055); --spot:rgba(165,180,252,.10); --glass:rgba(9,9,11,.86);
-  --display:"Geist", "Inter var", system-ui, -apple-system, sans-serif;
-  --body:"Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --mono:"Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --serif:"Instrument Serif", Georgia, "Times New Roman", serif;
-  color-scheme:dark;
+  --paper:#f3ead8; --card:#fbf5e9; --card-2:#fffaf0; --ink:#121733; --muted:#56536a; --line:#e2d4b6; --line-2:#c9b48c;
+  --accent:#2e3df0; --accent-soft:rgba(46,61,240,.10); --stamp:#c0262d; --stamp-soft:#fbe3df; --ok:#17734a; --ok-soft:#e1f2e6;
+  --sun:#ffcf3a; --cherry:#c81e3a; --maas:#121733;
+  --glow1:#2e3df0; --glow2:#e3304a; --glow3:#ffcf3a; --grid:rgba(18,23,51,.07); --spot:rgba(46,61,240,.08); --glass:rgba(243,234,216,.86);
+  --display:"Bricolage Grotesque", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body:"Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --serif:var(--display);
+  color-scheme:light;
 }
-@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
-  --paper:#fafafa; --card:#ffffff; --card-2:#f4f4f5; --ink:#09090b; --muted:#71717a; --line:#e4e4e7; --line-2:#d4d4d8;
-  --accent:#4f46e5; --accent-soft:#eef2ff; --stamp:#be123c; --stamp-soft:#fff1f2; --ok:#047857; --ok-soft:#ecfdf5;
-  --glow1:#818cf8; --glow2:#22d3ee; --glow3:#f0abfc; --grid:rgba(9,9,11,.06); --spot:rgba(79,70,229,.07); --glass:rgba(250,250,250,.88); color-scheme:light}}
-:root[data-theme="light"]{
-  --paper:#fafafa; --card:#ffffff; --card-2:#f4f4f5; --ink:#09090b; --muted:#71717a; --line:#e4e4e7; --line-2:#d4d4d8;
-  --accent:#4f46e5; --accent-soft:#eef2ff; --stamp:#be123c; --stamp-soft:#fff1f2; --ok:#047857; --ok-soft:#ecfdf5;
-  --glow1:#818cf8; --glow2:#22d3ee; --glow3:#f0abfc; --grid:rgba(9,9,11,.06); --spot:rgba(79,70,229,.07); --glass:rgba(250,250,250,.88); color-scheme:light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0b0e1d; --card:#11152a; --card-2:#161b35; --ink:#f6eedd; --muted:#aaa6bd; --line:#252b4b; --line-2:#3a416e;
+  --accent:#8d98ff; --accent-soft:rgba(141,152,255,.15); --stamp:#ff7a72; --stamp-soft:rgba(255,122,114,.14); --ok:#5ee09a; --ok-soft:rgba(94,224,154,.13);
+  --sun:#ffd65a; --cherry:#ff5a70; --maas:#0b0e1d;
+  --glow1:#5b68ff; --glow2:#ff5a70; --glow3:#ffd65a; --grid:rgba(246,238,221,.06); --spot:rgba(141,152,255,.12); --glass:rgba(11,14,29,.84); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0b0e1d; --card:#11152a; --card-2:#161b35; --ink:#f6eedd; --muted:#aaa6bd; --line:#252b4b; --line-2:#3a416e;
+  --accent:#8d98ff; --accent-soft:rgba(141,152,255,.15); --stamp:#ff7a72; --stamp-soft:rgba(255,122,114,.14); --ok:#5ee09a; --ok-soft:rgba(94,224,154,.13);
+  --sun:#ffd65a; --cherry:#ff5a70; --maas:#0b0e1d;
+  --glow1:#5b68ff; --glow2:#ff5a70; --glow3:#ffd65a; --grid:rgba(246,238,221,.06); --spot:rgba(141,152,255,.12); --glass:rgba(11,14,29,.84); color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
 .wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:40px 64px}
@@ -547,6 +550,107 @@ ul.custlist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px} ul.cu
 @media (max-width:600px){.vrow{grid-template-columns:1fr}}
 .custform.k2{grid-template-columns:1fr auto}
 .pkeys summary{cursor:pointer;font-size:14px;color:var(--accent);margin-top:6px} .pkeys{display:grid;gap:8px}
+
+/* ===== brand layer: Michel van der Put · Mestreech ===== */
+body{font-family:var(--body);font-variation-settings:"opsz" 14;letter-spacing:0}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.38 0 0 0 0 0.25 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body::before{mix-blend-mode:screen;opacity:.12}}
+:root[data-theme="dark"] body::before{mix-blend-mode:screen;opacity:.12}
+.wrap{position:relative;z-index:1;max-width:1240px}
+h1,h2,h3,h4,.dtitle,.blockhead h2,.stephead h3{font-family:var(--display);font-variation-settings:"opsz" 96}
+.dtitle,.blockhead h2,.guide h2{font-weight:800;letter-spacing:-.045em;font-stretch:80%}
+/* floating dock */
+.appbar{top:calc(10px + env(safe-area-inset-top,0px));margin:10px 0 0;padding:8px 8px 8px 10px;border:1.5px solid var(--ink);border-radius:999px;background:var(--glass);box-shadow:0 4px 0 var(--ink)}
+.brand{font-weight:800;font-stretch:85%;font-size:17px;letter-spacing:-.03em;gap:10px}
+.brand .logo{width:30px;height:30px;border-radius:50%;background:var(--cherry);display:grid;place-items:center;position:relative;box-shadow:inset 0 0 0 3px var(--sun)}
+.brand .logo::after{content:"M";font-weight:800;font-size:15px;color:#fff;font-family:var(--display)}
+.appbar .tabs a{border-radius:999px;font-weight:600}
+.appbar .tabs a[aria-selected="true"]{background:var(--ink);color:var(--paper);box-shadow:none}
+.pchip{border:1.5px solid var(--ink)}
+.pchip .dot{background:var(--cherry);box-shadow:0 0 0 3px var(--sun)}
+/* buttons: chunky, playful */
+.btn{font-family:var(--display);font-weight:700;letter-spacing:-.01em;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);box-shadow:0 3px 0 var(--accent);transition:transform .18s cubic-bezier(.3,1.6,.5,1),box-shadow .18s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 5px 0 var(--accent);opacity:1}
+.btn:active{transform:translateY(1px);box-shadow:0 1px 0 var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink);box-shadow:0 3px 0 var(--line-2)}
+.btn.big{font-size:17px;padding:14px 22px;background:var(--cherry);border-color:var(--ink);color:#fff;box-shadow:0 4px 0 var(--ink)}
+.btn.big:hover{box-shadow:0 7px 0 var(--ink)}
+/* surfaces: paper cards with ink outlines */
+.card,.proj,.mustcol,.combo,.howcard,.bpanel,.file,.rules,.panel,.kpi,.pcol{background:var(--card);border:1.5px solid var(--line-2);border-radius:20px}
+.card:hover,.proj:hover,.mustcol:hover,.howcard:hover{border-color:var(--ink);transform:translateY(-3px) rotate(-.25deg)}
+.kpi{position:relative;overflow:hidden}
+.kpi:nth-child(1){background:var(--sun);border-color:var(--ink);color:#121733}
+.kpi:nth-child(1) .klabel,.kpi:nth-child(1) .ksub{color:#3b3550}
+.kval{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:2.2rem}
+.pcard{border-radius:14px;border:1.5px solid var(--line-2);transition:transform .2s cubic-bezier(.3,1.6,.5,1)}
+.pcard:hover{transform:rotate(-1.2deg) scale(1.02);border-color:var(--ink)}
+.pc-bar span,.pc-bar{border-radius:99px} .pc-bar span{background:linear-gradient(90deg,var(--accent),var(--cherry),var(--sun))}
+.callno{border-radius:999px;border-color:var(--ink);color:var(--ink);font-weight:600}
+.chip{border-color:var(--line-2)} .chip.for{background:var(--sun);border-color:var(--ink);color:#121733}
+.eyebrow{color:var(--cherry);font-weight:600}
+.stepper button{border-radius:999px;border:1.5px solid var(--line-2)}
+.stepper li.on button{background:var(--accent);border-color:var(--ink);color:#fff;box-shadow:0 3px 0 var(--ink)}
+.stepper li.done .sn{background:var(--ok);color:#fff}
+.stepper .phase{color:var(--cherry)}
+.dir.on,.pick.on{border-color:var(--ink);box-shadow:0 4px 0 var(--accent)}
+.feat:has(input:checked){border-color:var(--ink);background:var(--sun);color:#121733}
+.feat:has(input:checked) .fh{color:#121733}
+.check{border-radius:14px}
+/* dashboard greeting */
+.hello{position:relative;padding:44px 0 8px;display:grid;gap:14px}
+.hello .dtitle{font-size:clamp(2.6rem,7.6vw,6.2rem);line-height:.92;max-width:13ch;margin:0}
+.hello .dtitle .hl{color:var(--accent);font-style:italic;font-stretch:75%}
+.hello .lede-s{font-size:clamp(1rem,1.4vw,1.2rem);max-width:56ch;color:var(--ink)}
+.hello .lede-s b{background:linear-gradient(transparent 60%,var(--sun) 60%);font-weight:700}
+.stickers{position:absolute;inset:0;pointer-events:none}
+.sticker{position:absolute;font-family:var(--display);font-weight:800;font-size:clamp(12px,1.2vw,15px);padding:8px 14px;border-radius:999px;border:1.5px solid var(--ink);box-shadow:0 3px 0 var(--ink);white-space:nowrap;pointer-events:auto;cursor:grab;user-select:none}
+.sticker.s1{right:2%;top:110px;background:var(--cherry);color:#fff;transform:rotate(8deg)}
+.sticker.s2{right:27%;top:300px;background:var(--sun);color:#121733;transform:rotate(-6deg)}
+.sticker.s3{right:5%;top:360px;background:var(--accent);color:#fff;transform:rotate(4deg)}
+.sticker.s4{right:26%;top:96px;background:var(--card-2);color:var(--ink);transform:rotate(-10deg)}
+@media (max-width:900px){.stickers{position:relative;inset:auto;display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}.sticker{position:static}}
+.dashhead{align-items:center}
+/* marquee band */
+.band{margin:22px -20px 26px;border-block:1.5px solid var(--ink);background:var(--ink);color:var(--paper);overflow:hidden;transform:rotate(-1.2deg)}
+.band .track2{display:flex;gap:28px;width:max-content;padding:12px 0;font-family:var(--display);font-weight:800;font-stretch:78%;font-size:clamp(1.6rem,3.6vw,2.8rem);letter-spacing:-.03em;white-space:nowrap}
+.band .track2 span{display:inline-flex;align-items:center;gap:28px}
+.band .track2 span::after{content:"✶";color:var(--sun);font-size:.7em}
+.band .track2 span:nth-child(3n+2){color:transparent;-webkit-text-stroke:1.5px var(--paper)}
+.band .track2 span:nth-child(3n){color:var(--sun)}
+/* toolbox hero personality */
+header.top::after{background:radial-gradient(ellipse 45% 55% at 30% 40%,color-mix(in srgb,var(--sun) 40%,transparent),transparent 70%),radial-gradient(ellipse 40% 50% at 70% 35%,color-mix(in srgb,var(--cherry) 22%,transparent),transparent 70%)}
+h1{font-weight:800;font-stretch:78%;letter-spacing:-.05em}
+h1 em{background:linear-gradient(100deg,var(--accent),var(--cherry) 55%,#f59e0b);-webkit-background-clip:text;background-clip:text}
+/* cursor blob */
+.blob{position:fixed;left:0;top:0;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:var(--cherry);pointer-events:none;z-index:100;mix-blend-mode:multiply;opacity:0;transition:width .25s,height .25s,margin .25s,opacity .3s}
+.blob.big{width:56px;height:56px;margin:-28px 0 0 -28px;background:var(--sun)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .blob{mix-blend-mode:screen}}
+@media (pointer:coarse),(prefers-reduced-motion:reduce){.blob{display:none}}
+/* confetti */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:200;overflow:hidden}
+.confetti i{position:absolute;width:10px;height:14px;border-radius:3px}
+footer .made{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:1.3rem;color:var(--ink);letter-spacing:-.03em}
+footer .made b{color:var(--cherry)}
+@media (max-width:700px){.appbar{border-radius:18px}.band{margin-inline:-16px}}
+.seal{position:absolute;right:9%;top:150px;width:clamp(150px,16vw,210px);height:auto;animation:sealspin 22s linear infinite}
+.seal-bg{fill:var(--card);stroke:var(--ink);stroke-width:2}
+.seal-t{font-family:var(--mono);font-size:13.5px;text-transform:uppercase;fill:var(--ink);font-weight:600}
+.seal-in{fill:var(--cherry);stroke:var(--sun);stroke-width:6}
+.seal-m{font-family:var(--display);font-weight:800;font-size:52px;fill:#fff}
+@keyframes sealspin{to{transform:rotate(360deg)}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) :is(.sticker.s1,.sticker.s3,.btn.big,.stepper li.on button){color:#121733}}
+:root[data-theme="dark"] :is(.sticker.s1,.sticker.s3,.btn.big,.stepper li.on button){color:#121733}
+
+@media (prefers-reduced-motion:reduce){.seal{animation:none}}
+@media (max-width:900px){.seal{display:none}}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hello .lede-s b{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--sun) 40%,transparent) 62%)}:root:not([data-theme="light"]) .band{background:var(--cherry);color:#fff;border-color:var(--cherry)}:root:not([data-theme="light"]) .band .track2 span:nth-child(3n+2){-webkit-text-stroke-color:#fff}:root:not([data-theme="light"]) .band .track2 span::after{color:#121733}:root:not([data-theme="light"]) .band .track2 span:nth-child(3n){color:#121733}}
+:root[data-theme="dark"] .hello .lede-s b{background:linear-gradient(transparent 62%,color-mix(in srgb,var(--sun) 40%,transparent) 62%)}
+:root[data-theme="dark"] .band{background:var(--cherry);color:#fff;border-color:var(--cherry)}
+:root[data-theme="dark"] .band .track2 span:nth-child(3n+2){-webkit-text-stroke-color:#fff}
+:root[data-theme="dark"] .band .track2 span::after{color:#121733}
+:root[data-theme="dark"] .band .track2 span:nth-child(3n){color:#121733}
+
 </style>
 </head>
 <body>
@@ -567,14 +671,14 @@ ul.custlist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px} ul.cu
 
   <main id="main">
   <section class="view" data-view="dashboard" id="view-dashboard">
-    <div class="dashhead">
-      <div>
-        <span class="eyebrow">Projectportaal</span>
-        <h2 class="dtitle">Waar begin je vandaag aan?</h2>
-        <p class="lede-s">Elk klantproject loopt hier door dezelfde stappen: intake, offerte, richting, stack, bouwen, lanceren en overdracht. Alles wordt per project bewaard in deze browser.</p>
-      </div>
-      <button type="button" class="btn big" id="newProjBtn">+ Nieuw project</button>
+    <div class="hello">
+      <span class="eyebrow">Ideeënbieb · studio van Michel van der Put</span>
+      <h2 class="dtitle" id="hello-title">Hoi Michel, waar <span class="hl">beginnen</span> we vandaag aan?</h2>
+      <p class="lede-s" id="hello-sub">Kop koffie erbij, stuk vlaai ernaast.</p>
+      <div class="dashhead"><button type="button" class="btn big" id="newProjBtn">+ Nieuw project</button><span class="hint">Elk project: intake → offerte → richting → stack → bouwen → lanceren → overdracht.</span></div>
+      <div class="stickers" aria-hidden="true"><span class="sticker s1">Mestreech ✶</span><span class="sticker s2">Frontender, 26</span><span class="sticker s3">Gezellig druk</span><span class="sticker s4">Vlaai &amp; code</span><svg class="seal" viewBox="0 0 200 200"><defs><path id="seal-c" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><circle cx="100" cy="100" r="98" class="seal-bg"/><text class="seal-t"><textPath href="#seal-c" textLength="486" lengthAdjust="spacing">Michel van der Put ✶ Frontender ✶ Mestreech ✶</textPath></text><circle cx="100" cy="100" r="44" class="seal-in"/><text x="100" y="118" text-anchor="middle" class="seal-m">M</text></svg></div>
     </div>
+    <div class="band" aria-hidden="true"><div class="track2" id="band-track"></div></div>
     <form class="newproj" id="newProj" hidden>
       <div class="field"><label for="np-name">Projectnaam</label><input id="np-name" required placeholder="Bijv. Website Bakkerij De Korenaar"></div>
       <div class="field"><label for="np-client">Klant</label><input id="np-client" placeholder="Bedrijfsnaam"></div>
@@ -795,10 +899,14 @@ ul.custlist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px} ul.cu
 
   </main>
 
-  <footer>Links gaan naar de officiële site of GitHub-repo. Je stack, projectnaam en "geprobeerd"-vinkjes worden alleen in deze browser bewaard.<br><br>Deze site volgt zijn eigen best practices. Laatste test (30 september 2026): Lighthouse mobiel 92 snelheid · 100 toegankelijkheid · 100 SEO, desktop 100 snelheid; axe: 0 toegankelijkheidsfouten in licht en donker thema. Security headers, Open Graph en favicon staan aan.</footer>
+  <footer><p class="made">Gemaakt met koffie, vlaai en Claude in <b>Mestreech</b>.</p><p>Michel van der Put · Frontender · Maastricht. Alles wat je hier invult blijft in deze browser. Links gaan naar de officiële site of GitHub-repo.</p><p id="selfaudit">Gebouwd met tools uit de eigen toolbox: GSAP, ScrollTrigger, SplitText, Lenis en Bricolage Grotesque. Werkt ook zonder die libraries en respecteert “minder beweging”. Getest met axe (0 fouten, light en dark) en een volledige klantreis.</p></footer>
 </div>
 <aside class="tray" id="tray" aria-label="Mijn stack" hidden><div class="in" aria-live="polite"></div></aside>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
 <script>
 /* ---------- Tool registry: one entry per tool, used by cards, projects, combos and the builder ---------- */
 const REACT = ["nextjs","vite","astro","reactrouter","tsstart"];
@@ -885,6 +993,7 @@ const T = {
   coolors:{n:"Coolors",u:"https://coolors.co",d:"kleurenpaletten genereren",r:"color"},
   realtime:{n:"Realtime Colors",u:"https://www.realtimecolors.com",d:"kleuren en fonts live op een voorbeeldsite testen",r:"color"},
   uicolors:{n:"UI Colors",u:"https://uicolors.app",d:"Tailwind-kleurschalen uit één kleur",r:"color"},
+  radixcolors:{n:"Radix Colors",u:"https://www.radix-ui.com/colors",d:"12-staps kleurschalen met light en dark mode, contrast al uitgerekend",r:"color"},
   haikei:{n:"Haikei",u:"https://haikei.app",d:"SVG-vormen, golven en blobs",r:"color"},
   fffuel:{n:"fffuel",u:"https://www.fffuel.co",d:"gratis SVG-generators voor achtergronden",r:"color"},
   patterncraft:{n:"Pattern Craft",u:"https://patterncraft.fun",d:"achtergrondpatronen voor Tailwind",r:"color"},
@@ -1429,7 +1538,7 @@ const IDEAS = [
   {id:"DcZLVTQR4S5",cat:"logo",title:"Mascottelogo's",text:"Een mascotte geeft je app persoonlijkheid en een premium gevoel. De skill maakt platte, schattige karakterlogo's en heeft een bibliotheek die gratis commercieel te gebruiken is.",tools:["iplogo"],tags:["logo","mascotte"]},
   {id:"Dd1dJi9j-vq",cat:"logo",title:"Logo Design Skill voor Claude",text:"Maakt van Claude een logo-ontwerper: van briefing en concepten tot SVG-bestanden, testsheets, favicon-set en brand guidelines.",tools:["logoskill","svgl"],tags:["logo","svg"]},
   {id:"insp-gal",cat:"sites",title:"Inspiratiegalerijen",text:"Verzamel drie voorbeelden die je mooi vindt en geef ze als screenshot aan Claude.",tools:["godly","awwwards","landbook","siteinspire","minimal","lapa","refero"],tags:["inspiratie","galerij"]},
-  {id:"insp-color",cat:"sites",title:"Kleur, achtergronden en schaduw",text:"Kies eerst een toegankelijk palet, maak daarna vormen en patronen in die kleuren.",tools:["randoma11y","realtime","coolors","uicolors","haikei","fffuel","patterncraft","cssgradient","shadows"],tags:["kleuren","svg","gradients"]},
+  {id:"insp-color",cat:"sites",title:"Kleur, achtergronden en schaduw",text:"Kies eerst een toegankelijk palet, maak daarna vormen en patronen in die kleuren.",tools:["randoma11y","realtime","coolors","uicolors","radixcolors","haikei","fffuel","patterncraft","cssgradient","shadows"],tags:["kleuren","svg","gradients"]},
   {id:"tb-build",cat:"sites",title:"AI-builders en content",text:"Snel een eerste versie of promo-materiaal. Kies één builder als startpunt en werk daarna verder in Claude Code.",tools:["v0","bolt","lovable","manus"],tags:["ai tools","prototype","mockups"]},
   {id:"as-icons",cat:"assets",title:"Iconen",text:"Kies één iconenset per project, dan blijft je UI consistent. Iconify en SVGL zijn handig voor losse extra's.",tools:["lucide","phosphor","tabler","heroicons","iconify","svgl"],tags:["iconen","svg"]},
   {id:"as-fonts",cat:"assets",title:"Fonts en typografie",text:"Maximaal twee families: één voor koppen, één voor tekst.",tools:["fontshare","uncut","gfonts","fontpair","typescale"],tags:["fonts","typografie"]},
@@ -2766,18 +2875,77 @@ document.addEventListener("change",e=>{
   if(t.dataset.feat){ const s=new Set(p.intake.features); t.checked?s.add(t.dataset.feat):s.delete(t.dataset.feat); p.intake.features=[...s]; touch(); return; }
   if(t.dataset.content){ const s=new Set(p.intake.content); t.checked?s.add(t.dataset.content):s.delete(t.dataset.content); p.intake.content=[...s]; touch(); return; }
   if(t.dataset.check){ const [k,id]=t.dataset.check.split("|"); p.checks[k]=p.checks[k]||{}; p.checks[k][id]=t.checked; touch();
-    if(k==="lanceren"&&checklist(p,k).every(x=>p.checks[k][x.id])&&["bouw","akkoord"].includes(p.status)){p.status="live"; toast("Alles afgevinkt: status staat nu op Live");}
+    if(k==="lanceren"&&checklist(p,k).every(x=>p.checks[k][x.id])&&["bouw","akkoord"].includes(p.status)){p.status="live"; toast("Alles afgevinkt: status staat nu op Live"); if(typeof confetti==="function") confetti();}
     const li=t.closest("li"); if(li&&li.parentNode.classList.contains("milestones")) li.classList.toggle("done",t.checked);
     const cnt=document.querySelector(`#step-${k} .stephead .n`); if(cnt){const L=checklist(p,k); cnt.textContent=`${L.filter(x=>p.checks[k][x.id]).length}/${L.length}`;}
     if(k==="koppel"){ renderConnect(); document.querySelector(`[data-check="koppel|${id}"]`)?.focus(); }
     renderProjectHead(); return; }
-  if(t.id==="offerOk"){ if(t.checked){ p.offer.sent=true; if(["lead","offerte"].includes(p.status)) p.status="akkoord"; toast("Status: Akkoord. Tijd om te bouwen!"); } else if(p.status==="akkoord") p.status="offerte"; touch(); renderProject(); return; }
+  if(t.id==="offerOk"){ if(t.checked){ p.offer.sent=true; if(["lead","offerte"].includes(p.status)) p.status="akkoord"; toast("Status: Akkoord. Tijd om te bouwen!"); if(typeof confetti==="function") confetti(); } else if(p.status==="akkoord") p.status="offerte"; touch(); renderProject(); return; }
   if(t.id==="offerSent"){ p.offer.sent=t.checked; if(t.checked&&p.status==="lead") p.status="offerte"; touch(); renderProject(); return; }
   if(t.dataset.in && t.tagName==="SELECT"){ p.intake[t.dataset.in.replace("in-","")]=t.value; touch(); return; }
 });
 
 (()=>{const p=proj(); document.getElementById("pname").value=p?p.name:""; document.getElementById("pdesc").value=p?(p.desc||""):"";})();
 renderAll();
+
+/* ---------- Brand motion: GSAP + ScrollTrigger + SplitText + Lenis (uit de eigen toolbox) ---------- */
+const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HAS_GSAP = typeof window.gsap!=="undefined";
+let lenis=null;
+function greet(){
+  const h=new Date().getHours(), hi=h<6?"Nachtbraker":h<12?"Goeiemorgen":h<18?"Goeiemiddag":"Goeienavond";
+  const ps=P.projects, bouw=ps.filter(p=>["akkoord","bouw"].includes(p.status)).length, open=ps.filter(p=>["lead","offerte"].includes(p.status)).length;
+  const el=document.getElementById("hello-title"); if(el) el.innerHTML=`${hi} Michel, waar <span class="hl">beginnen</span> we vandaag aan?`;
+  const sub=document.getElementById("hello-sub"); if(sub) sub.innerHTML = ps.length
+    ? `Kop koffie erbij, stuk vlaai ernaast. Je hebt <b>${bouw} project${bouw==1?"":"en"} in aanbouw</b> en <b>${open} lead${open==1?"":"s"} of offerte${open==1?"":"s"}</b> open.`
+    : `Kop koffie erbij, stuk vlaai ernaast. Nog geen projecten: <b>start er één</b>, het liefst eerst voor jezelf.`;
+}
+function animateIn(scope){
+  if(!HAS_GSAP||RM||!scope) return;
+  const items=[...scope.querySelectorAll(":scope > *")].filter(e=>!e.hidden).slice(0,8);
+  gsap.from(items,{y:24,opacity:0,duration:.6,ease:"power3.out",stagger:.06,clearProps:"transform,opacity"});
+  scope.querySelectorAll(".dtitle").forEach(t=>{ if(typeof SplitText==="undefined"||t.dataset.split) return; t.dataset.split="1";
+    const sp=SplitText.create(t,{type:"words,chars",mask:"chars"}); gsap.from(sp.chars,{yPercent:110,rotate:6,duration:.7,ease:"back.out(1.6)",stagger:.012,onComplete:()=>{sp.revert();delete t.dataset.split;}}); });
+}
+function confetti(){
+  if(RM) return; const box=document.createElement("div"); box.className="confetti"; document.body.appendChild(box);
+  const cols=["var(--cherry)","var(--sun)","var(--accent)","var(--ok)"];
+  for(let i=0;i<90;i++){ const c=document.createElement("i"); c.style.background=cols[i%4]; c.style.left=(40+Math.random()*20)+"%"; c.style.top="60%"; box.appendChild(c);
+    if(HAS_GSAP) gsap.to(c,{x:(Math.random()-.5)*900,y:-(200+Math.random()*500),rotate:Math.random()*720,duration:1.1+Math.random()*.6,ease:"power2.out",onComplete:()=>gsap.to(c,{y:"+=700",opacity:0,duration:1.4,ease:"power1.in"})}); }
+  setTimeout(()=>box.remove(),3600);
+}
+(()=>{
+  // greeting + marquee words
+  const words=["Gezellig","Modern","Animatie","Easygoing","Flexibel","Druk","Mestreech","Frontend","Vlaai & code","Claude"];
+  const t=document.getElementById("band-track"); if(t){ const h=words.map(w=>`<span>${w}</span>`).join(""); t.innerHTML=h+h+h; }
+  greet();
+  if(!HAS_GSAP) return;
+  if(typeof ScrollTrigger!=="undefined") gsap.registerPlugin(ScrollTrigger);
+  if(typeof SplitText!=="undefined") gsap.registerPlugin(SplitText);
+  // smooth scroll
+  if(!RM && typeof window.Lenis!=="undefined"){ lenis=new Lenis({lerp:.12,smoothWheel:true}); lenis.on("scroll",()=>window.ScrollTrigger&&ScrollTrigger.update()); gsap.ticker.add(t=>lenis.raf(t*1000)); gsap.ticker.lagSmoothing(0); }
+  // marquee speeds up with scroll velocity
+  if(t && !RM){ const loop=gsap.to(t,{xPercent:-33.333,duration:28,ease:"none",repeat:-1});
+    if(window.ScrollTrigger) ScrollTrigger.create({onUpdate:self=>{ const v=Math.min(4,1+Math.abs(self.getVelocity())/600); gsap.to(loop,{timeScale:self.direction*v,duration:.3,overwrite:true}); gsap.to(loop,{timeScale:self.direction,duration:1.2,delay:.3}); }}); }
+  // stickers: draggable-ish wobble
+  document.querySelectorAll(".sticker").forEach((s,i)=>{ if(RM) return; gsap.from(s,{scale:0,rotate:-30,duration:.8,ease:"back.out(2)",delay:.3+i*.08});
+    s.addEventListener("pointerenter",()=>gsap.to(s,{rotate:(Math.random()-.5)*24,scale:1.08,duration:.4,ease:"back.out(3)"}));
+    s.addEventListener("pointerleave",()=>gsap.to(s,{scale:1,duration:.4})); });
+  // magnetic buttons
+  if(!RM && matchMedia("(pointer:fine)").matches){
+    document.addEventListener("pointermove",e=>{ const b=e.target.closest&&e.target.closest(".btn.big,.appbar .brand"); document.querySelectorAll(".mag").forEach(m=>{ if(m!==b){ m.classList.remove("mag"); gsap.to(m,{x:0,y:0,duration:.5,ease:"elastic.out(1,.4)"});} });
+      if(b){ b.classList.add("mag"); const r=b.getBoundingClientRect(); gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.25,y:(e.clientY-r.top-r.height/2)*.35,duration:.3}); } },{passive:true});
+    // cursor blob
+    const blob=document.createElement("div"); blob.className="blob"; document.body.appendChild(blob);
+    const qx=gsap.quickTo(blob,"x",{duration:.35,ease:"power3"}), qy=gsap.quickTo(blob,"y",{duration:.35,ease:"power3"});
+    document.addEventListener("pointermove",e=>{ blob.style.opacity=".9"; qx(e.clientX); qy(e.clientY); blob.classList.toggle("big",!!(e.target.closest&&e.target.closest("a,button,label,select,input,.pcard,.pick,.dir"))); },{passive:true});
+    document.addEventListener("pointerleave",()=>blob.style.opacity="0");
+  }
+})();
+// hook into the router: animate each view on entry
+const _show = show;
+show = function(v){ _show(v); if(lenis) lenis.scrollTo(0,{immediate:true}); if(v==="dashboard") greet(); animateIn(document.querySelector(`.view[data-view="${view}"]`)||document.querySelector("#main")); };
+
 show((location.hash||"#dashboard").slice(1));
 (()=>{const pick=["gsap","motion","shadcn","magicui","aceternity","tailwind","nextjs","supabase","vercel","context7","pwmcp","figmamcp","fedesign","taste","lenis","threejs","rive","spline","lucide","fontshare","refero","stripe","zod","biome","reactbits","kokonut","sonner","astro","posthog","ponytail"];
   const h=pick.map(k=>`<span>${esc(T[k].n)}</span>`).join(""); document.getElementById("marq").innerHTML=h+h;})();
