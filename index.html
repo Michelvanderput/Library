@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
-/* Portfolio van Michel van der Put. Mestreech: mergel, Maas, vlaai. Gezellig, modern, druk. */
+/* Portfolio van Michel van der Put, Maastricht. Gezellig, modern, druk. */
 :root{
   --paper:#f3ead8; --card:#fbf5e9; --ink:#121733; --muted:#56536a; --line:#c9b48c;
   --accent:#2e3df0; --cherry:#c81e3a; --sun:#ffcf3a; --ok:#17734a;
@@ -63,7 +63,8 @@ body.loading #loader{display:grid}
 .dock nav{display:flex;gap:2px}
 .dock nav a{text-decoration:none;font-weight:600;font-size:15px;padding:8px 14px;border-radius:999px;transition:background .2s,color .2s}
 .dock nav a:hover{background:var(--ink);color:var(--paper)}
-.dock .portal{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:700;font-size:14px;padding:8px 14px;border-radius:999px;border:1.5px solid var(--ink);background:var(--sun);color:#121733}
+.dock .portal{display:inline-grid;place-items:center;width:38px;height:38px;text-decoration:none;font-size:15px;border-radius:50%;border:1.5px solid var(--ink);background:transparent;opacity:.75;transition:opacity .2s}
+.dock .portal:hover{opacity:1}
 .clock{font-family:var(--mono);font-size:12px;color:var(--muted);padding:0 10px;white-space:nowrap}
 .menu-btn{display:none;align-items:center;gap:8px;font:700 15px var(--display);padding:9px 14px;border-radius:999px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
 .menu-btn .bars{display:grid;gap:4px;width:16px}
@@ -89,6 +90,7 @@ body.loading #loader{display:grid}
 .hero-foot{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:end;margin-top:34px}
 .tag{font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.3;max-width:30ch;margin:0;font-weight:500}
 .tag b{font-weight:800;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--sun) 75%,transparent) 62%)}
+.pitchwrap{display:grid;gap:22px;justify-items:start}
 .cue{justify-self:end;display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:700}
 .cue i{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font-style:normal;font-size:20px;animation:bob 2.2s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(6px)}}
@@ -158,7 +160,7 @@ body.loading #loader{display:grid}
 .chips span{font-family:var(--mono);font-size:11.5px;padding:4px 10px;border:1.5px solid var(--line);border-radius:99px}
 .case .no{color:var(--ink);position:absolute;top:16px;left:18px;z-index:2;font-family:var(--mono);font-size:12px;background:var(--paper);border:1.5px solid var(--ink);border-radius:99px;padding:3px 10px}
 @media (max-width:899px),(prefers-reduced-motion:reduce){.htrack{flex-direction:column;width:auto;padding-inline:20px}.case{width:100%}}
-/* case art: Groundwork mini dashboard */
+/* case art: mini website */
 .a1{background:var(--accent);padding:9% 7% 0}
 .a1 .win{background:#f3ead8;border-radius:16px 16px 0 0;height:100%;padding:5%;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto auto 1fr;gap:4%}
 .a1 .t{grid-column:1/-1;height:18%;min-height:18px;background:#121733;border-radius:6px;width:62%}
@@ -211,6 +213,7 @@ body.loading #loader{display:grid}
 .contact .mono{color:var(--cherry)}
 .hey{text-wrap:balance;margin:18px 0 34px;font-weight:800;font-stretch:86%;font-size:clamp(3.4rem,12vw,11.5rem);line-height:.86;letter-spacing:-.03em}
 .hey em{color:var(--accent);font-style:italic}
+.pitch{font-size:clamp(1.1rem,1.8vw,1.4rem);max-width:44ch;margin:-10px 0 30px;font-weight:500}
 .ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:clamp(1.1rem,2vw,1.4rem);padding:18px 30px;border-radius:999px;border:1.5px solid var(--ink);background:var(--cherry);color:var(--on-cherry);text-decoration:none;box-shadow:0 5px 0 var(--ink);transition:box-shadow .2s,translate .2s cubic-bezier(.3,1.6,.5,1)}
 .btn:hover{translate:0 -3px;box-shadow:0 8px 0 var(--ink)}
@@ -228,6 +231,21 @@ footer{padding:70px 0 34px}
 .blob.big span{opacity:1}
 @media (pointer:coarse),(prefers-reduced-motion:reduce){.blob{display:none}}
 @media (prefers-reduced-motion:reduce){.seal svg,.cue i,.track.anim,.trow.anim{animation:none}}
+/* dienst-art: webshop en webapp */
+.a4{background:var(--sun);display:grid;align-content:center;gap:16px;padding:0 7%}
+.a4 .shop{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.a4 .shop span{background:#fbf5e9;border:1.5px solid #121733;border-radius:16px;padding:10px;display:grid;gap:4px;color:#121733;box-shadow:0 3px 0 #121733}
+.a4 .shop i{aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 50%,#c81e3a 0 38%,#f0c27a 39% 62%,#d9a35a 63%);border:1.5px solid #121733}
+.a4 .shop span:nth-child(2) i{background:radial-gradient(circle,#fff6dd 0 55%,#d9a35a 56%)}
+.a4 .shop span:nth-child(3) i{background:radial-gradient(circle,#ffae3b 0 50%,#d9a35a 51%)}
+.a4 .shop b{font-size:clamp(.8rem,1.3vw,1rem)}.a4 .shop em{font-style:normal;font-family:var(--mono);font-size:12px}
+.a4 .pay{justify-self:end;font-weight:800;background:#121733;color:#ffcf3a;border-radius:99px;padding:10px 18px}
+.a5{background:#121733;display:grid;grid-template-columns:1fr auto;align-items:end;gap:6%;padding:9% 8% 8%}
+.a5 .chart{height:100%;display:flex;align-items:end;gap:6%;border-bottom:1.5px solid #f6eedd}
+.a5 .chart i{flex:1;height:var(--h);border-radius:10px 10px 0 0;background:#f6eedd;transform-origin:bottom}
+.a5 .chart i:last-child{background:#ffcf3a}
+.a5 .kpi{color:#f6eedd;display:grid}.a5 .kpi b{font-size:clamp(2rem,4vw,3.4rem);font-weight:800;line-height:1;color:#ffcf3a}.a5 .kpi span{font-family:var(--mono);font-size:12px}
+
 /* ===== Lab: live demo's ===== */
 .lab{padding:30px 0 90px}
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
@@ -364,28 +382,28 @@ footer{padding:70px 0 34px}
 <body>
 
 <script>try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches&&!sessionStorage.getItem("seen"))document.body.classList.add("loading");setTimeout(()=>document.body.classList.remove("loading"),3200)}catch(e){}</script>
-<div id="loader" aria-hidden="true"><div><div class="lw" id="lw">Koffie zetten…</div><div class="count" id="count">0</div></div></div>
+<div id="loader" aria-hidden="true"><div><div class="lw" id="lw">Opstarten…</div><div class="count" id="count">0</div></div></div>
 <a class="skip" href="#over">Naar de inhoud</a>
 
 <header class="dock">
   <a class="me" href="#top" aria-label="Michel van der Put, naar boven"><span class="logo" aria-hidden="true">M</span><span>Michel</span></a>
   <span class="clock" id="clock" aria-label="Lokale tijd in Maastricht"></span>
-  <nav aria-label="Hoofdmenu"><a href="#over">Over</a><a href="#lab">Lab</a><a href="#werk">Werk</a><a href="#aanpak">Aanpak</a><a href="#contact">Contact</a></nav>
-  <a class="portal" href="portal/" aria-label="Portal, alleen voor Michel">🔒 Portal</a>
+  <nav aria-label="Hoofdmenu"><a href="#over">Over</a><a href="#diensten">Diensten</a><a href="#lab">Lab</a><a href="#aanpak">Aanpak</a><a href="#contact">Contact</a></nav>
+  <a class="portal" href="portal/" aria-label="Inloggen">🔒</a>
   <button type="button" class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mnav"><span class="bars" aria-hidden="true"><i></i><i></i></span>Menu</button>
 </header>
 <div class="mnav" id="mnav" hidden>
-  <nav aria-label="Mobiel menu"><a href="#over">Over</a><a href="#lab">Lab</a><a href="#werk">Werk</a><a href="#aanpak">Aanpak</a><a href="#contact">Contact</a></nav>
-  <div class="mfoot"><a class="portal" href="portal/">🔒 Portal</a><span class="mono" id="mclock"></span></div>
+  <nav aria-label="Mobiel menu"><a href="#over">Over</a><a href="#diensten">Diensten</a><a href="#lab">Lab</a><a href="#aanpak">Aanpak</a><a href="#contact">Contact</a></nav>
+  <div class="mfoot"><a class="portal" href="portal/" aria-label="Inloggen">🔒</a><span class="mono" id="mclock"></span></div>
 </div>
 
 <main id="top">
 <section class="hero" aria-labelledby="name">
   <div class="play" id="play" aria-hidden="true">
-    <div class="seal"><svg viewBox="0 0 200 200"><defs><path id="sc" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><circle cx="100" cy="100" r="98" class="seal-bg"/><text class="seal-t"><textPath href="#sc" textLength="486" lengthAdjust="spacing">Michel van der Put ✶ Frontender ✶ Mestreech ✶</textPath></text><circle cx="100" cy="100" r="44" class="seal-in"/><text x="100" y="118" text-anchor="middle" class="seal-m">M</text></svg></div>
+    <div class="seal"><svg viewBox="0 0 200 200"><defs><path id="sc" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs><circle cx="100" cy="100" r="98" class="seal-bg"/><text class="seal-t"><textPath href="#sc" textLength="486" lengthAdjust="spacing">Michel van der Put ✶ Frontender ✶ Maastricht ✶</textPath></text><circle cx="100" cy="100" r="44" class="seal-in"/><text x="100" y="118" text-anchor="middle" class="seal-m">M</text></svg></div>
     <span class="sticker k1">Mestreech ✶</span>
     <span class="sticker k2">Gezellig druk</span>
-    <span class="sticker k3">Vlaai &amp; code</span>
+    <span class="sticker k3">Design &amp; code</span>
     <span class="sticker k4">Easygoing</span>
     <span class="sticker k5">sleep mij ↗</span>
   </div>
@@ -393,27 +411,58 @@ footer{padding:70px 0 34px}
     <p class="eyebrow mono"><span>Frontender</span><span>Maastricht, NL</span><span>26 jaar</span></p>
     <h1 class="name" id="name"><span class="l">Michel</span><span class="l l2">van der <em>Put</em></span></h1>
     <div class="hero-foot">
-      <p class="tag">Ik bouw websites en webapps die <b>gezellig voelen</b>, strak werken en net iets meer bewegen dan je verwacht.</p>
+      <div class="pitchwrap"><p class="tag">Ik bouw websites en webapps die <b>gezellig voelen</b>, strak werken en net iets meer bewegen dan je verwacht.</p><a class="btn" href="#contact">Plan een kennismaking →</a></div>
       <a class="cue" href="#over"><i aria-hidden="true">↓</i>Scroll maar door</a>
     </div>
   </div>
-  <div class="band" aria-hidden="true"><div class="track anim" data-words="Gezellig|Modern|Animatie|Easygoing|Flexibel|Druk|Mestreech|Frontend"></div></div>
-  <div class="band b2" aria-hidden="true"><div class="track anim" data-words="Websites|Webapps|Interactie|Motion|Design systems|Claude Code|Vlaai"></div></div>
+  <div class="band" aria-hidden="true"><div class="track anim" data-words="Modern|Animatie|Easygoing|Flexibel|Snel|Toegankelijk|Frontend|Op maat"></div></div>
+  <div class="band b2" aria-hidden="true"><div class="track anim" data-words="Websites|Webshops|Webapps|Interactie|Animatie|Redesigns|Landingspagina's"></div></div>
 </section>
 
 <section class="over in" id="over" aria-labelledby="over-h">
   <span class="mono">(01) Over mij</span>
   <h2 class="sr-only" id="over-h">Over mij</h2>
-  <p class="big" id="bigtext">Hoi, ik ben Michel <span class="pill">26</span>, frontender uit <span class="hi">Mestreech</span>. Ik hou van gezelligheid, van moderne interfaces en van animatie die iets toevoegt. Easygoing in de samenwerking, flexibel in de aanpak, en het mag best een beetje druk zijn.</p>
+  <p class="big" id="bigtext">Hoi, ik ben Michel <span class="pill">26</span>, frontender uit <span class="hi">Maastricht</span>. Ik hou van moderne interfaces en van animatie die iets toevoegt. Easygoing in de samenwerking, flexibel in de aanpak, en het mag best een beetje druk zijn.</p>
   <div class="facts">
     <div class="fact"><b data-count="26">26</b><span>jaar, en nog steeds verbaasd wat een browser kan</span></div>
     <div class="fact"><b data-count="7">7</b><span>vaste stappen per project, van intake tot overdracht</span></div>
-    <div class="fact"><b data-count="340" data-suffix="+">340+</b><span>tools in mijn eigen toolbox</span></div>
+    <div class="fact"><b data-count="1">1</b><span>vast aanspreekpunt, van kennismaking tot livegang</span></div>
   </div>
 </section>
 
+<section class="werk" id="diensten" aria-labelledby="werk-h">
+  <div class="in head"><h2 id="werk-h">Diensten<sup>(04)</sup></h2><p>Van een eerste website tot een webapp voor je hele team. Altijd op maat, altijd met één vast aanspreekpunt: ik.</p></div>
+  <div class="hwrap"><div class="htrack" id="htrack">
+    <a class="case" href="#contact" data-cursor="Vraag aan">
+      <span class="no">01</span>
+      <div class="art a1" aria-hidden="true"><div class="win"><span class="t"></span><span class="k"></span><span class="k"></span><span class="k"></span><div class="rows"><i></i><i></i><i></i></div></div></div>
+      <div class="meta"><h3>Website op maat</h3><p>Een site die past bij jouw zaak: snel, goed vindbaar en net een stapje beter dan die van de concurrent. Teksten pas je daarna gewoon zelf aan.</p><div class="chips"><span>Ontwerp</span><span>Bouw</span><span>Vindbaar in Google</span><span>Zelf beheren</span></div></div>
+    </a>
+    <a class="case" href="#contact" data-cursor="Vraag aan">
+      <span class="no">02</span>
+      <div class="art a4" aria-hidden="true"><div class="shop"><span><i></i><b>Sneaker</b><em>€ 89,95</em></span><span><i></i><b>Hoodie</b><em>€ 59,00</em></span><span><i></i><b>Pet</b><em>€ 24,50</em></span></div><div class="pay">Afrekenen met iDEAL →</div></div>
+      <div class="meta"><h3>Webshop</h3><p>Verkopen zonder gedoe: een overzichtelijk aanbod, een soepele checkout en betalen met iDEAL. Gebouwd om te groeien.</p><div class="chips"><span>iDEAL</span><span>Voorraad</span><span>Mobiel eerst</span></div></div>
+    </a>
+    <a class="case" href="#contact" data-cursor="Vraag aan">
+      <span class="no">03</span>
+      <div class="art a5" aria-hidden="true"><div class="chart"><i style="--h:42%"></i><i style="--h:64%"></i><i style="--h:51%"></i><i style="--h:80%"></i><i style="--h:68%"></i><i style="--h:92%"></i></div><div class="kpi"><b>12</b><span>boekingen vandaag</span></div></div>
+      <div class="meta"><h3>Webapp of dashboard</h3><p>Online boeken, een klantportaal of een interne tool. Software die je team en je klanten graag gebruiken.</p><div class="chips"><span>Inloggen</span><span>Database</span><span>Dashboards</span></div></div>
+    </a>
+    <a class="case" href="#contact" data-cursor="Vraag aan">
+      <span class="no">04</span>
+      <div class="art a2" aria-hidden="true"><span class="M">M</span><span class="s">Speels</span><span class="s">Snel</span><span class="s">Modern</span></div>
+      <div class="meta"><h3>Animatie en interactie</h3><p>Je huidige site laten opvallen met beweging die iets toevoegt, zonder dat hij traag wordt. Kijk maar eens rond op deze pagina.</p><div class="chips"><span>Scroll-animaties</span><span>Micro-interacties</span><span>Snel blijven</span></div></div>
+    </a>
+    <a class="case cta" href="#contact" data-cursor="Zeg hoi">
+      <span class="no">05 · jouw beurt</span>
+      <div class="art a3" aria-hidden="true"><span class="q">?</span></div>
+      <div class="meta"><h3>Iets anders in gedachten?</h3><p>Vertel wat je wilt bouwen. Binnen een paar dagen heb je een heldere offerte, zonder kleine lettertjes.</p><div class="chips"><span>Redesign</span><span>Landingspagina</span><span>Onderhoud</span></div></div>
+    </a>
+  </div></div>
+</section>
+
 <section class="lab in" id="lab" aria-labelledby="lab-h">
-  <div class="head"><h2 id="lab-h">Lab<sup>(16)</sup></h2><p>Nog geen klantwerk om te laten zien, wel alles wat ik voor je kan maken. Elk blokje hieronder is echt en werkt: klik, sleep, hover en speel.</p></div>
+  <div class="head"><h2 id="lab-h">Lab<sup>(16)</sup></h2><p>Een greep uit wat ik in jouw site kan bouwen. Elk blokje werkt echt: klik, sleep, hover en speel. Zie je iets wat je leuk vindt? Dan bouwen we het in.</p></div>
   <div class="filters" role="group" aria-label="Filter het lab">
     <button type="button" data-f="all" aria-pressed="true">Alles<span class="n">16</span></button>
     <button type="button" data-f="hero" aria-pressed="false">Hero's<span class="n">4</span></button>
@@ -423,7 +472,7 @@ footer{padding:70px 0 34px}
   <div class="lab-grid" id="labGrid">
 
     <article class="tile wide" data-cat="hero">
-      <div class="demo h-kin"><div class="frame"><div class="bar"><i></i><i></i><i></i></div><div class="body"><span class="small">Studio uit Mestreech</span><p class="ttl">Wij bouwen <span class="kw"><span id="kinWord">gezellige</span></span><br>websites.</p><span class="pill">Plan een bakkie →</span></div></div></div>
+      <div class="demo h-kin"><div class="frame"><div class="bar"><i></i><i></i><i></i></div><div class="body"><span class="small">Digitale studio</span><p class="ttl">Wij bouwen <span class="kw"><span id="kinWord">snelle</span></span><br>websites.</p><span class="pill">Start je project →</span></div></div></div>
       <div class="info"><span class="cat">Hero</span><h3>Kinetische typografie</h3><p>Eén woord in de kop wisselt steeds. Voelt levendig zonder dat de boodschap verdwijnt.</p><div class="chips"><span>GSAP</span><span>SplitText</span></div></div>
     </article>
 
@@ -433,12 +482,12 @@ footer{padding:70px 0 34px}
     </article>
 
     <article class="tile" data-cat="anim">
-      <div class="demo"><button type="button" class="scr" id="scr" data-text="MESTREECH">MESTREECH</button></div>
+      <div class="demo"><button type="button" class="scr" id="scr" data-text="FRONTEND">FRONTEND</button></div>
       <div class="info"><span class="cat">Animatie</span><h3>Tekst-scramble</h3><p>Hover of klik: de letters husselen en vallen op hun plek. Mooi voor labels en menu's.</p><div class="chips"><span>Vanilla JS</span><span>rAF</span></div></div>
     </article>
 
     <article class="tile" data-cat="anim">
-      <div class="demo tilt-wrap" id="tiltDemo"><div class="tilt" id="tilt"><small>Vlaai van de week</small><b>Kersen&shy;vlaai met room</b><span class="gl"></span></div></div>
+      <div class="demo tilt-wrap" id="tiltDemo"><div class="tilt" id="tilt"><small>Nieuwe collectie</small><b>Zomer&shy;drop 2026</b><span class="gl"></span></div></div>
       <div class="info"><span class="cat">Animatie</span><h3>3D-tilt met glans</h3><p>Kaarten die meekantelen met je muis, met een lichtreflectie erover.</p><div class="chips"><span>CSS 3D</span><span>Custom properties</span></div></div>
     </article>
 
@@ -448,7 +497,7 @@ footer{padding:70px 0 34px}
     </article>
 
     <article class="tile" data-cat="ui">
-      <div class="demo"><div class="tabsd" id="tabsd"><div role="tablist" aria-label="Demo-tabs"><span class="ind" aria-hidden="true"></span><button role="tab" id="tb1" aria-selected="true" aria-controls="tp" tabindex="0">Vlaai</button><button role="tab" id="tb2" aria-selected="false" aria-controls="tp" tabindex="-1">Koffie</button><button role="tab" id="tb3" aria-selected="false" aria-controls="tp" tabindex="-1">Code</button></div><div role="tabpanel" id="tp" aria-labelledby="tb1" tabindex="0">Kers, abrikoos of rijstevlaai?</div></div></div>
+      <div class="demo"><div class="tabsd" id="tabsd"><div role="tablist" aria-label="Demo-tabs"><span class="ind" aria-hidden="true"></span><button role="tab" id="tb1" aria-selected="true" aria-controls="tp" tabindex="0">Ontwerp</button><button role="tab" id="tb2" aria-selected="false" aria-controls="tp" tabindex="-1">Bouw</button><button role="tab" id="tb3" aria-selected="false" aria-controls="tp" tabindex="-1">Livegang</button></div><div role="tabpanel" id="tp" aria-labelledby="tb1" tabindex="0">Samen bepalen we stijl, kleuren en sfeer.</div></div></div>
       <div class="info"><span class="cat">UI</span><h3>Tabs met glijder</h3><p>Een indicator die meeveert naar de actieve tab. Werkt met pijltjestoetsen.</p><div class="chips"><span>ARIA tabs</span><span>CSS transitions</span></div></div>
     </article>
 
@@ -458,12 +507,12 @@ footer{padding:70px 0 34px}
     </article>
 
     <article class="tile" data-cat="ui">
-      <div class="demo sw-demo" id="swDemo"><button type="button" class="sw" role="switch" aria-checked="false" id="sw"><span class="trk" aria-hidden="true"><span class="kn"></span></span>Gezelligheidsmodus</button><span class="pop" aria-hidden="true">Vlaai!</span><span class="pop" aria-hidden="true">Koffie ☕</span><span class="pop" aria-hidden="true">Alaaf</span></div>
+      <div class="demo sw-demo" id="swDemo"><button type="button" class="sw" role="switch" aria-checked="false" id="sw"><span class="trk" aria-hidden="true"><span class="kn"></span></span>Feestmodus</button><span class="pop" aria-hidden="true">Aan!</span><span class="pop" aria-hidden="true">✨ Extra</span><span class="pop" aria-hidden="true">Yes</span></div>
       <div class="info"><span class="cat">UI</span><h3>Verende schakelaar</h3><p>Een switch met een veer erin, en iets leuks als hij aangaat.</p><div class="chips"><span>role="switch"</span><span>Spring easing</span></div></div>
     </article>
 
     <article class="tile wide" data-cat="hero">
-      <div class="demo h-split" id="splitDemo"><div class="frame"><div class="bar"><i></i><i></i><i></i></div><div class="body"><div class="txt"><b>Vlaai &amp; Code</b><span class="ln"></span><span class="ln s"></span><span class="cta">Bekijk menu</span></div><div class="vis"><i data-d="30"></i><i data-d="-45"></i><i data-d="60"></i></div></div></div></div>
+      <div class="demo h-split" id="splitDemo"><div class="frame"><div class="bar"><i></i><i></i><i></i></div><div class="body"><div class="txt"><b>Studio Noord</b><span class="ln"></span><span class="ln s"></span><span class="cta">Bekijk menu</span></div><div class="vis"><i data-d="30"></i><i data-d="-45"></i><i data-d="60"></i></div></div></div></div>
       <div class="info"><span class="cat">Hero</span><h3>Split-hero met parallax</h3><p>Tekst links, beeld rechts, en lagen die op verschillende diepte meebewegen.</p><div class="chips"><span>Parallax</span><span>CSS transforms</span></div></div>
     </article>
 
@@ -473,7 +522,7 @@ footer{padding:70px 0 34px}
     </article>
 
     <article class="tile" data-cat="ui">
-      <div class="demo"><button type="button" class="dbtn" id="toastBtn">Bestel vlaai</button><div class="toasts" id="toasts" role="status" aria-live="polite"></div></div>
+      <div class="demo"><button type="button" class="dbtn" id="toastBtn">Opslaan</button><div class="toasts" id="toasts" role="status" aria-live="polite"></div></div>
       <div class="info"><span class="cat">UI</span><h3>Toast-meldingen</h3><p>Korte bevestigingen die binnenveren en vanzelf weer gaan. Screenreaders lezen ze voor.</p><div class="chips"><span>aria-live</span><span>CSS keyframes</span></div></div>
     </article>
 
@@ -488,7 +537,7 @@ footer{padding:70px 0 34px}
     </article>
 
     <article class="tile" data-cat="ui">
-      <div class="demo"><div class="acc"><details open><summary>Hoe snel ben je?</summary><p>Een landingspagina staat meestal binnen twee weken.</p></details><details><summary>Werk je met CMS?</summary><p>Ja, bijvoorbeeld Sanity, zodat je zelf teksten aanpast.</p></details><details><summary>Kan het gezellig?</summary><p>Altijd. Met koffie en vlaai.</p></details></div></div>
+      <div class="demo"><div class="acc"><details open><summary>Hoe snel ben je?</summary><p>Een landingspagina staat vaak binnen een paar weken.</p></details><details><summary>Werk je met CMS?</summary><p>Ja, bijvoorbeeld Sanity, zodat je zelf teksten aanpast.</p></details><details><summary>Doe je ook onderhoud?</summary><p>Ja, ook na de livegang blijf ik bereikbaar.</p></details></div></div>
       <div class="info"><span class="cat">UI</span><h3>Vloeiende accordion</h3><p>Echte &lt;details&gt; die soepel openschuiven, zonder JavaScript.</p><div class="chips"><span>interpolate-size</span><span>::details-content</span></div></div>
     </article>
 
@@ -499,40 +548,21 @@ footer{padding:70px 0 34px}
 
     <article class="tile" data-cat="ui">
       <div class="demo"><button type="button" class="like" id="like" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-9.2-8.6C1.3 8.4 3 5 6.3 5c2 0 3.2 1.1 3.9 2.2h3.6C14.5 6.1 15.7 5 17.7 5 21 5 22.7 8.4 21.2 11.4 19 15.6 12 20 12 20z"/></svg><span id="likeN">26</span><span class="sr-only">keer leuk gevonden</span></button></div>
-      <div class="info"><span class="cat">UI</span><h3>Like met confetti</h3><p>Een kleine beloning bij een klik. Micro-interacties maken een site gezellig.</p><div class="chips"><span>Web Animations API</span><span>aria-pressed</span></div></div>
+      <div class="info"><span class="cat">UI</span><h3>Like met confetti</h3><p>Een kleine beloning bij een klik. Micro-interacties maken een site levendig.</p><div class="chips"><span>Web Animations API</span><span>aria-pressed</span></div></div>
     </article>
 
   </div>
 </section>
 
-<section class="werk" id="werk" aria-labelledby="werk-h">
-  <div class="in head"><h2 id="werk-h">Werk<sup>(03)</sup></h2><p>Wat ik voor mezelf bouwde. Het volgende vak is voor jouw project.</p></div>
-  <div class="hwrap"><div class="htrack" id="htrack">
-    <article class="case" data-cursor="Privé">
-      <span class="no">01 · 2026</span>
-      <div class="art a1" aria-hidden="true"><div class="win"><span class="t"></span><span class="k"></span><span class="k"></span><span class="k"></span><div class="rows"><i></i><i></i><i></i></div></div></div>
-      <div class="meta"><h3>Groundwork</h3><p>Mijn eigen startportaal. Elk klantproject begint hier: intake, offerte, stijlrichting, stack, CLAUDE.md, MCP-koppelingen, launch-checklist en overdracht in één flow.</p><div class="chips"><span>Vanilla JS</span><span>GSAP</span><span>Lenis</span><span>Claude Code</span><span>Toegankelijk</span></div></div>
-    </article>
-    <article class="case" data-cursor="Je zit erin">
-      <span class="no">02 · 2026</span>
-      <div class="art a2" aria-hidden="true"><span class="M">M</span><span class="s">Gezellig</span><span class="s">Druk</span><span class="s">Modern</span></div>
-      <div class="meta"><h3>Dit portfolio</h3><p>Kinetische typografie, stickers die je kunt slepen, een horizontale werk-rail en een sticky stapel. Gebouwd met de tools uit mijn eigen toolbox, en het werkt ook zonder JavaScript.</p><div class="chips"><span>GSAP</span><span>ScrollTrigger</span><span>SplitText</span><span>Draggable</span><span>Lenis</span><span>Bricolage Grotesque</span></div></div>
-    </article>
-    <a class="case cta" href="#contact" data-cursor="Zeg hoi">
-      <span class="no">03 · jouw beurt</span>
-      <div class="art a3" aria-hidden="true"><span class="q">?</span></div>
-      <div class="meta"><h3>Jouw project</h3><p>Website, webshop of webapp? Vertel wat je wilt bouwen, dan zet ik het in Groundwork en krijg je binnen een paar dagen een offerte.</p><div class="chips"><span>Website</span><span>Webapp</span><span>Redesign</span></div></div>
-    </a>
-  </div></div>
-</section>
+
 
 <section class="aanpak in" id="aanpak" aria-labelledby="aanpak-h">
   <div class="head"><h2 id="aanpak-h">Aanpak<sup>(07)</sup></h2><p>Geen verrassingen. Elk project loopt door dezelfde zeven stappen, zodat jij altijd weet waar we staan.</p></div>
   <ol class="steps" role="list" style="list-style:none;padding:0;margin:0">
-    <li class="step" style="--i:0"><span class="n">01</span><div><h3>Intake</h3><p>Een bakkie koffie, en dan je doelen, doelgroep, content en wat de site moet kunnen.</p></div><span class="ph">Voorbereiden</span></li>
+    <li class="step" style="--i:0"><span class="n">01</span><div><h3>Intake</h3><p>Een goed gesprek over je doelen, doelgroep, content en wat de site moet kunnen.</p></div><span class="ph">Voorbereiden</span></li>
     <li class="step" style="--i:1"><span class="n">02</span><div><h3>Offerte</h3><p>Een heldere prijs per onderdeel, met planning en betaalmomenten. Akkoord? Dan gaan we.</p></div><span class="ph">Voorbereiden</span></li>
     <li class="step" style="--i:2"><span class="n">03</span><div><h3>Richting</h3><p>Samen kiezen we een stijl en per onderdeel een variant, van hero tot footer.</p></div><span class="ph">Ontwerpen</span></li>
-    <li class="step" style="--i:3"><span class="n">04</span><div><h3>Stack</h3><p>De juiste tools voor jouw project, getest op wat samengaat en wat ontbreekt.</p></div><span class="ph">Ontwerpen</span></li>
+    <li class="step" style="--i:3"><span class="n">04</span><div><h3>Techniek</h3><p>Ik kies de techniek die past bij jouw doel en budget, niet andersom.</p></div><span class="ph">Ontwerpen</span></li>
     <li class="step" style="--i:4"><span class="n">05</span><div><h3>Bouwen</h3><p>In mijlpalen, met tussentijdse previews, zodat je steeds ziet wat er staat.</p></div><span class="ph">Bouwen</span></li>
     <li class="step" style="--i:5"><span class="n">06</span><div><h3>Lanceren</h3><p>Snelheid, toegankelijkheid, SEO, privacy en alle Nederlandse wettelijke punten afgevinkt.</p></div><span class="ph">Opleveren</span></li>
     <li class="step" style="--i:6"><span class="n">07</span><div><h3>Overdracht</h3><p>Accounts, uitleg en documentatie, zodat de site echt van jou is.</p></div><span class="ph">Opleveren</span></li>
@@ -540,24 +570,24 @@ footer{padding:70px 0 34px}
 </section>
 
 <section class="tools" aria-labelledby="tools-h">
-  <div class="in head"><h2 id="tools-h">Toolbox<sup>(340+)</sup></h2><p>Een greep uit waar ik mee bouw. De rest staat in Groundwork.</p></div>
+  <div class="in head"><h2 id="tools-h">Techniek</h2><p>Moderne, bewezen techniek. Jij hoeft je er niet druk om te maken, ik wel.</p></div>
   <div class="trow anim" aria-hidden="true" data-words="Astro|Next.js|React|Tailwind CSS|GSAP|Motion|Lenis|Three.js|Rive|shadcn/ui|Radix|Vite"></div>
-  <div class="trow r anim" aria-hidden="true" data-words="Claude Code|Figma|Supabase|Vercel|Netlify|Sanity|Stripe|Resend|Plausible|Lighthouse|axe|Playwright"></div>
-  <p class="sr-only">Onder andere Astro, Next.js, React, Tailwind CSS, GSAP, Motion, Lenis, Three.js, Rive, shadcn/ui, Radix, Vite, Claude Code, Figma, Supabase, Vercel, Netlify, Sanity, Stripe, Resend, Plausible, Lighthouse, axe en Playwright.</p>
+  <div class="trow r anim" aria-hidden="true" data-words="Figma|Supabase|Vercel|Netlify|Sanity|Stripe|Mollie|Resend|Plausible|Lighthouse|WCAG|SEO"></div>
+  <p class="sr-only">Onder andere Astro, Next.js, React, Tailwind CSS, GSAP, Motion, Lenis, Three.js, Rive, shadcn/ui, Radix, Vite, Figma, Supabase, Vercel, Netlify, Sanity, Stripe, Mollie, Resend, Plausible, Lighthouse, WCAG en SEO.</p>
 </section>
 
 <section class="contact in" id="contact" aria-labelledby="hey">
   <span class="mono">(04) Contact</span>
   <h2 class="hey" id="hey">Zin in iets <em>gezelligs</em>?</h2>
+  <p class="pitch">Vertel kort wat je zoekt. Dan plannen we een videocall of een kop koffie in Maastricht, en krijg je binnen een paar dagen een voorstel.</p>
   <div class="ctas">
     <a class="btn" id="mailBtn" href="https://github.com/michelvanderput">Zeg hoi ↗</a>
-    <a class="btn ghost" href="https://github.com/michelvanderput">GitHub</a>
   </div>
 </section>
 </main>
 
 <footer class="in">
-  <div class="foot"><span class="made">Gemaakt met koffie, vlaai en Claude in <b>Mestreech</b>.</span><span>© <span id="yr">2026</span> Michel van der Put · <a href="portal/">Portal</a> · <a href="#top">Naar boven ↑</a></span></div>
+  <div class="foot"><span class="made">Gemaakt in <b>Maastricht</b>.</span><span>© <span id="yr">2026</span> Michel van der Put · <a href="#top">Naar boven ↑</a></span></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
@@ -580,7 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // klok in Mestreech
   const clock = $("#clock"), fmt = new Intl.DateTimeFormat("nl-NL", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Amsterdam" });
-  const tick = () => { clock.textContent = fmt.format(new Date()) + " in Mestreech"; }; tick(); setInterval(tick, 15000);
+  const tick = () => { clock.textContent = fmt.format(new Date()) + " in Maastricht"; }; tick(); setInterval(tick, 15000);
 
   // mobiel menu
   const mb = $("#menuBtn"), mn = $("#mnav");
@@ -605,13 +635,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (RM) return;
     if (window.SplitText) { const sp = SplitText.create(".name .l", { type: "chars,lines", mask: "lines" });
       gsap.from(sp.chars, { yPercent: 115, rotate: 8, duration: 1, ease: "expo.out", stagger: .028, onComplete: () => sp.revert() }); }
-    gsap.from(".hero .eyebrow span, .tag, .cue", { y: 24, opacity: 0, duration: .8, ease: "power3.out", stagger: .08, delay: .35 });
+    gsap.from(".hero .eyebrow span, .tag, .pitchwrap .btn, .cue", { y: 24, opacity: 0, duration: .8, ease: "power3.out", stagger: .08, delay: .35 });
     gsap.from(".sticker", { scale: 0, rotate: -40, duration: .9, ease: "back.out(2.2)", stagger: .07, delay: .55 });
     gsap.from(".seal", { scale: 0, rotate: -180, duration: 1.2, ease: "expo.out", delay: .4 });
   };
   const loader = $("#loader");
   if (document.body.classList.contains("loading")) {
-    const c = { v: 0 }, words = ["Koffie zetten…", "Vlaai snijden…", "Pixels schuiven…", "Gezellig maken…"];
+    const c = { v: 0 }, words = ["Opstarten…", "Pixels uitlijnen…", "Animaties laden…", "Bijna klaar…"];
     gsap.to(c, { v: 100, duration: 1.5, ease: "power2.inOut", onUpdate: () => { $("#count").textContent = Math.round(c.v); $("#lw").textContent = words[Math.min(3, Math.floor(c.v / 26))]; },
       onComplete: () => gsap.to(loader, { clipPath: "inset(0 0 100% 0)", duration: .8, ease: "expo.inOut", onComplete: () => { done(); loader.style.clipPath = ""; } }) });
     gsap.delayedCall(1.75, intro);
@@ -646,9 +676,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const mm = gsap.matchMedia();
   mm.add("(min-width: 900px)", () => {
     const track = $("#htrack"), dist = () => track.scrollWidth - innerWidth + 40;
-    gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: ".werk", start: "top top+=70", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
+    gsap.to(track, { x: () => -dist(), ease: "none", scrollTrigger: { trigger: "#diensten", start: "top top+=70", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true } });
   });
-  gsap.from(".a1 .rows i", { scaleX: 0, duration: 1.2, ease: "expo.out", stagger: .12, scrollTrigger: { trigger: ".werk", start: "top 60%" } });
+  gsap.from(".a1 .rows i, .a5 .chart i", { scaleX: 0, duration: 1.2, ease: "expo.out", stagger: .12, scrollTrigger: { trigger: "#diensten", start: "top 60%" } });
 
   // aanpak: vorige kaarten zakken iets weg
   $$(".step").forEach((s, i, all) => { if (i === all.length - 1) return;
@@ -688,7 +718,7 @@ document.addEventListener("DOMContentLoaded", () => {
     onEnter: els => gsap.from(els, { y: 50, rotate: () => gsap.utils.random(-3, 3), opacity: 0, duration: .7, ease: "back.out(1.5)", stagger: .08, clearProps: "transform,opacity" }) });
 
   // H1 kinetic word
-  const kw = $("#kinWord"), words = ["gezellige", "snelle", "drukke", "moderne", "lekkere"]; let wi = 0;
+  const kw = $("#kinWord"), words = ["snelle", "mooie", "slimme", "moderne", "eigen"]; let wi = 0;
   if (!RM) setInterval(() => { if (document.hidden) return; wi = (wi + 1) % words.length;
     if (G) gsap.to(kw, { yPercent: -110, duration: .35, ease: "power2.in", onComplete: () => { kw.textContent = words[wi]; gsap.fromTo(kw, { yPercent: 110 }, { yPercent: 0, duration: .5, ease: "back.out(1.8)" }); } });
     else kw.textContent = words[wi]; }, 2000);
@@ -725,7 +755,7 @@ document.addEventListener("DOMContentLoaded", () => {
       requestAnimationFrame(roam); }; roam(); }
 
   // U1 tabs
-  const tabs = $$("#tabsd [role=tab]"), ind = $("#tabsd .ind"), tp = $("#tp"), txt = ["Kers, abrikoos of rijstevlaai?", "Een bakkie troost, zwart graag.", "HTML, CSS, JS en een vleugje GSAP."];
+  const tabs = $$("#tabsd [role=tab]"), ind = $("#tabsd .ind"), tp = $("#tp"), txt = ["Samen bepalen we stijl, kleuren en sfeer.", "In mijlpalen, met previews tussendoor.", "Snel, vindbaar en getest op elk scherm."];
   const sel = (i, focus) => { tabs.forEach((t, j) => { t.setAttribute("aria-selected", i === j); t.tabIndex = i === j ? 0 : -1; });
     ind.style.width = tabs[i].offsetWidth + "px"; ind.style.transform = `translateX(${tabs[i].offsetLeft - 5}px)`; tp.textContent = txt[i]; tp.setAttribute("aria-labelledby", tabs[i].id); if (focus) tabs[i].focus(); };
   tabs.forEach((t, i) => { t.addEventListener("click", () => sel(i)); t.addEventListener("keydown", e => { if (e.key === "ArrowRight") sel((i + 1) % 3, 1); if (e.key === "ArrowLeft") sel((i + 2) % 3, 1); }); });
@@ -755,7 +785,7 @@ document.addEventListener("DOMContentLoaded", () => {
   dots.forEach((d, i) => d.addEventListener("click", () => doWave(i)));
 
   // U3 toast
-  const msgs = ["Kersenvlaai is onderweg 🍒", "Koffie staat klaar ☕", "Gezelligheid +1", "Bestelling bevestigd ✓"]; let mi = 0;
+  const msgs = ["Wijzigingen opgeslagen", "Bestelling geplaatst", "Bericht verzonden", "Bestelling bevestigd ✓"]; let mi = 0;
   $("#toastBtn").addEventListener("click", () => { const t = document.createElement("div"); t.className = "toast"; t.innerHTML = `<i aria-hidden="true"></i>${msgs[mi++ % msgs.length]}`;
     const box = $("#toasts"); box.appendChild(t); while (box.children.length > 3) box.firstChild.remove();
     setTimeout(() => { t.classList.add("out"); t.addEventListener("animationend", () => t.remove(), { once: true }); }, 2600); });
