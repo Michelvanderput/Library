@@ -654,7 +654,7 @@ footer .made b{color:var(--cherry)}
 
 .appbar .lockbtn{margin-left:6px;padding:8px 14px;font-size:14px;text-decoration:none}
 .appbar .lockbtn[hidden]{display:none}
-html{overflow-x:clip}
+html{overflow-x:hidden;overflow-x:clip}
 @media (max-width:1180px){.appbar .pchip{display:none}}
 @media (max-width:1024px){.appbar .tabs a{padding:7px 10px;font-size:13.5px}.appbar .brand{font-size:15px}}
 @media (max-width:700px){
@@ -1223,6 +1223,13 @@ const T = {
   tally:{n:"Tally",u:"https://tally.so",d:"mooie gratis formulieren om te embedden",r:"formsvc"},
   sanity:{n:"Sanity",u:"https://www.sanity.io",d:"headless CMS met live samenwerken",r:"cms"},
   payload:{n:"Payload",u:"https://payloadcms.com",d:"open-source CMS dat in Next.js draait",r:"cms"},
+  keystatic:{n:"Keystatic",u:"https://keystatic.com",d:"gratis CMS dat content als bestanden in je Git-repo zet; Astro en Next.js, draait op Vercel",r:"cms",req:[["astro","nextjs"]],cmd:"npm create @keystatic@latest"},
+  decap:{n:"Decap CMS",u:"https://decapcms.org",d:"gratis open-source Git-CMS, werkt met elke statische site",r:"cms"},
+  tinacms:{n:"TinaCMS",u:"https://tina.io",d:"open-source Git-CMS met visueel bewerken op de pagina; gratis tier voor kleine teams",r:"cms"},
+  outstatic:{n:"Outstatic",u:"https://outstatic.com",d:"gratis CMS voor Next.js, content in je GitHub-repo, geen database nodig",r:"cms",req:[["nextjs"]]},
+  pagescms:{n:"Pages CMS",u:"https://pagescms.org",d:"gratis CMS bovenop je GitHub-repo, handig voor klanten die alleen tekst aanpassen",r:"cms"},
+  directus:{n:"Directus",u:"https://directus.io",d:"open-source headless CMS bovenop je eigen database (zelf hosten)",r:"cms"},
+  strapi:{n:"Strapi",u:"https://strapi.io",d:"open-source headless CMS met API, zelf hosten",r:"cms"},
   sveltekit:{n:"SvelteKit",u:"https://svelte.dev",d:"Svelte-framework: weinig code, heel snel",r:"framework",cmd:"npx sv create"},
   nuxt:{n:"Nuxt",u:"https://nuxt.com",d:"Vue-framework met routing en server-rendering",r:"framework"},
   reactrouter:{n:"React Router",u:"https://reactrouter.com",d:"React-framework (voorheen Remix)",r:"framework"},
@@ -1348,7 +1355,7 @@ const SKILL_RULES = ["vercelskills","wig"]; // skills-repos you can copy into .c
 const how = k => HOW_OVR[k] || (SKILL_RULES.includes(k)?"skill":null) || HOW_ROLE[T[k].r] || "web";
 
 /* ---------- Prijs: alles is gratis; deze hebben een gratis tier met limieten ---------- */
-const TIER = new Set(["webflow","framer","supabase","convex","clerk","resend","vercel","netlify","cfpages","render","neon","turso","upstash","firebase","appwrite","uploadthing","cloudinary","posthog","umami","sentry","formspree","tally","sanity","figma","figmamcp","relume","spline","unicorn","rive","lottie","jitter","v0","bolt","lovable","manus","elevenlabs","places","firecrawl","magicmcp","ripplix","removebg","blush","scrimba","codedex","fementor","coolors","codepen","hugeicons","shots","tinypng","flow","supamcp","vercelmcp","githubmcp","context7","c21st","liveblocks","triggerdev","inngest","ghactions","expo"]);
+const TIER = new Set(["tinacms","webflow","framer","supabase","convex","clerk","resend","vercel","netlify","cfpages","render","neon","turso","upstash","firebase","appwrite","uploadthing","cloudinary","posthog","umami","sentry","formspree","tally","sanity","figma","figmamcp","relume","spline","unicorn","rive","lottie","jitter","v0","bolt","lovable","manus","elevenlabs","places","firecrawl","magicmcp","ripplix","removebg","blush","scrimba","codedex","fementor","coolors","codepen","hugeicons","shots","tinypng","flow","supamcp","vercelmcp","githubmcp","context7","c21st","liveblocks","triggerdev","inngest","ghactions","expo"]);
 const PRICE_NOTE = {stripe:"transactiekosten",lemonsqueezy:"transactiekosten",stripemcp:"transactiekosten",remotion:"gratis voor particulieren",meilisearch:"gratis self-hosted",aisdk:"AI-model betaal je apart"};
 const priceBadge = k => PRICE_NOTE[k] ? `<span class="price" title="${esc({transactiekosten:"Gratis te gebruiken, je betaalt alleen per transactie","gratis voor particulieren":"Gratis voor particulieren, bedrijven betalen","gratis self-hosted":"Gratis als je het zelf host; de cloudversie kost geld","AI-model betaal je apart":"De library is gratis; het AI-model betaal je per gebruik bij de aanbieder"}[PRICE_NOTE[k]]||"")}">${PRICE_NOTE[k]}</span>` : TIER.has(k) ? `<span class="price" title="Gratis te gebruiken met limieten; betalen kan voor meer">gratis tier</span>` : "";
 
@@ -1430,6 +1437,7 @@ const IDEAS = [
   {id:"base-auth",cat:"base",title:"Login, betalingen en API's",text:"Kies één login-oplossing en één betaalprovider.",tools:["authjs","betterauth","stripe","lemonsqueezy","trpc","hono"],tags:["auth","betalingen","api"]},
   {id:"base-host",cat:"base",title:"Meer hosting, opslag en formulieren",text:"Van statische site tot app met database.",tools:["cfpages","render","uploadthing","cloudinary","formspree","tally"],tags:["hosting","uploads","formulieren"]},
   {id:"base-cms",cat:"base",title:"CMS en analytics",text:"Content beheren zonder code, en meten wat bezoekers doen.",tools:["sanity","payload","posthog","umami"],tags:["cms","analytics"]},
+  {id:"bp-cms",cat:"best",title:"Gratis CMS kiezen (ook op Vercel)",text:"Laat klanten zelf teksten en foto's aanpassen zonder maandkosten. Kies één CMS per project.",steps:["Kleine site, klant past alleen teksten aan: Keystatic (Astro/Next.js) of Pages CMS. Content staat in Git, dus geen database en gratis op Vercel","Statische site zonder framework-voorkeur: Decap CMS, inloggen via GitHub of Netlify Identity","Klant wil op de pagina zelf bewerken: TinaCMS","Next.js-site met blog: Outstatic","Eigen CMS op maat: Payload in je Next.js-app op Vercel, met een gratis Postgres van Neon of Supabase","Veel content, meerdere redacteuren: Sanity (gratis tier) of zelf gehost Directus/Strapi (niet op Vercel, wel op Render/Railway)"],prompt:"Zet [CMS] op in dit project. Maak collecties voor de pagina's en onderdelen die de klant zelf moet aanpassen, koppel de content aan de bestaande componenten en schrijf in docs/CMS.md hoe de klant inlogt en iets wijzigt.",tools:["keystatic","pagescms","decap","tinacms","outstatic","payload","sanity","directus","strapi"],tags:["cms","gratis","vercel","klant"]},
   {id:"base-dev",cat:"base",title:"Handige dev-tools",text:"Kleine tools die je dagelijks tijd besparen.",tools:["caniuse","bundlephobia","regex101","transform","responsively","clippy","carbon","rayso"],tags:["tools","browser"]},
   {id:"learn-more",cat:"learn",title:"Meer leren, met spelletjes",text:"Leer CSS en JavaScript op een manier die blijft hangen.",tools:["odin","scrimba","cssbattle","froggy","gridgarden","jsinfo","tshandbook","kevinpowell"],tags:["cursussen","games"]},
   {id:"bp-anim",cat:"best",title:"Animatie die goed voelt",text:"Beweging moet helpen, niet afleiden, en mag nooit haperen.",steps:["Animeer alleen transform en opacity; width, height en top laten de pagina haperen","150–300 ms voor UI-feedback, 300–500 ms voor grotere overgangen","Ease-out voor dingen die binnenkomen, ease-in voor dingen die weggaan","Respecteer prefers-reduced-motion: zet grote bewegingen dan uit","Content moet ook zonder animatie zichtbaar zijn","Eén opvallend moment per pagina werkt beter dan overal effecten"],tools:["animguide","animtier","animfps","reducedmotion","reducedsm","sdchrome","vtchrome"],tags:["animatie","performance","a11y"]},
@@ -1642,6 +1650,7 @@ const EXCL = [
   {keys:["vercel","netlify","cfpages","render"],msg:"Kies één host."},
   {keys:["supabase","convex","firebase","pocketbase","appwrite","neon","turso"],msg:"Kies één backend of database."},
   {keys:["fedesign","taste","impeccable"],msg:"Meerdere smaak-skills geven Claude tegenstrijdige designregels. Kies er één (UI UX Pro Max mag er wel naast)."},
+  {keys:["sanity","payload","keystatic","decap","tinacms","outstatic","pagescms","directus","strapi"],msg:"Kies één CMS per project, twee CMS'en naast elkaar geeft dubbel beheer."},
   {keys:["lucide","phosphor","tabler","heroicons","iconoir","remixicon","hugeicons","radixicons"],msg:"Eén iconenset houdt je UI consistent."},
   {keys:["v0","bolt","lovable"],msg:"Kies één AI-builder als startpunt en werk daarna verder in Claude Code."}
 ];
@@ -2353,7 +2362,7 @@ const FEATURES = [
   {k:"contact",n:"Contactformulier",h:3,tools:{site:["formspree"],app:["zod","resend"],mobile:["zod"]},pat:{site:["pat-contact"],app:["pat-forms"],mobile:["pat-forms"]}},
   {k:"login",n:"Inloggen en accounts",h:10,tools:["supabase","rls","supamcp","zod"],pat:["pat-auth","pat-profile"],react:1},
   {k:"pay",n:"Betalen / webshop",h:14,tools:["stripe","stripemcp","zod"],pat:{site:["pat-cards"],app:["pat-pricing","pat-billing"],mobile:["pat-billing"]},react:1},
-  {k:"cms",n:"Klant beheert zelf content",h:10,tools:["sanity"],pat:["pat-article"]},
+  {k:"cms",n:"Klant beheert zelf content",h:10,tools:["keystatic"],pat:["pat-article"]},
   {k:"i18n",n:"Meertalig",h:8,tools:["i18next"]},
   {k:"booking",n:"Afspraken / boekingen",h:14,tools:["daypicker","datefns","resend","supabase","rls"],pat:["pat-date"],react:1},
   {k:"newsletter",n:"Nieuwsbrief",h:3,tools:["resend"],pat:["pat-cta"]},

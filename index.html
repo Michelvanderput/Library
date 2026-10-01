@@ -36,8 +36,8 @@
   --paper:#0b0e1d; --card:#141933; --ink:#f6eedd; --muted:#aaa6bd; --line:#3a416e;
   --accent:#8d98ff; --cherry:#ff5a70; --sun:#ffd65a; --ok:#5ee09a; --on-cherry:#121733; --glass:rgba(11,14,29,.8); color-scheme:dark}
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.5;overflow-x:hidden}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden;overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--display);font-size:17px;line-height:1.5}
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.38 0 0 0 0 0.25 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body::before{mix-blend-mode:screen;opacity:.1}}
@@ -82,7 +82,7 @@ body.loading #loader{display:grid}
 @media (max-width:820px){.dock nav,.dock .clock,.dock > .portal{display:none}.menu-btn{display:inline-flex}}
 
 /* hero */
-.hero{min-height:100svh;display:grid;align-content:end;padding:130px 0 40px;overflow:clip}
+.hero{min-height:100svh;display:grid;align-content:end;padding:130px 0 40px;overflow:hidden;overflow:clip}
 .hero .eyebrow{color:var(--cherry);display:flex;flex-wrap:wrap;gap:6px 18px;margin-bottom:18px}
 .name{margin:0;font-weight:800;font-stretch:88%;letter-spacing:-.03em;line-height:.86;font-size:clamp(4rem,12.6vw,13rem)}
 .name .l{display:block}
@@ -267,7 +267,17 @@ footer{padding:70px 0 34px}
 .replay{position:absolute;top:10px;right:10px;z-index:5;font:600 12px var(--mono);padding:5px 10px;border-radius:99px;border:1.5px solid var(--ink);background:var(--card);color:var(--ink);cursor:pointer}
 .dbtn{font:800 15px var(--display);padding:12px 22px;border-radius:999px;border:1.5px solid var(--ink);background:var(--cherry);color:var(--on-cherry);box-shadow:0 4px 0 var(--ink);cursor:pointer}
 @media (max-width:1000px){.lab-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){.lab-grid{grid-template-columns:1fr}.tile.wide{grid-column:auto}}
+.swipe{display:none;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;color:var(--muted);margin:-8px 0 12px}
+@media (max-width:640px){
+  .filters{gap:6px}.filters button{font-size:14px;padding:8px 13px}
+  .lab-grid{display:flex;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;gap:12px;margin-inline:-20px;padding:4px 20px 14px;scroll-padding-inline:20px;scrollbar-width:none}
+  .lab-grid::-webkit-scrollbar{display:none}
+  .tile,.tile.wide{flex:0 0 84%;scroll-snap-align:start;grid-column:auto}
+  .demo{height:240px;touch-action:pan-x pan-y}
+  .swipe{display:flex}
+}
+.swipe i{font-style:normal;animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(6px)}}
 /* mini browser frame */
 .frame{position:absolute;inset:16px;border:1.5px solid var(--ink);border-radius:14px;overflow:hidden;background:var(--card);display:grid;grid-template-rows:22px 1fr}
 .frame .bar{display:flex;gap:5px;align-items:center;padding:0 9px;border-bottom:1.5px solid var(--ink);background:var(--paper)}
@@ -470,6 +480,7 @@ footer{padding:70px 0 34px}
     <button type="button" data-f="anim" aria-pressed="false">Animatie<span class="n">7</span></button>
     <button type="button" data-f="ui" aria-pressed="false">UI-elementen<span class="n">5</span></button>
   </div>
+  <p class="swipe" aria-hidden="true">Swipe voor meer <i>→</i></p>
   <div class="lab-grid" id="labGrid">
 
     <article class="tile wide" data-cat="hero">
@@ -655,8 +666,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // zegel draait mee met scroll, naam schuift uit elkaar
   gsap.to(".seal", { rotate: 220, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  if (innerWidth >= 900) {
   gsap.to(".name .l:first-child", { xPercent: -8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
   gsap.to(".name .l2", { xPercent: 8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  }
 
   // marquee versnelt met scroll
   const loops = $$(".band .track").map((t, i) => { t.classList.remove("anim"); return gsap.fromTo(t, { xPercent: i ? -50 : 0 }, { xPercent: i ? 0 : -50, duration: i ? 40 : 32, ease: "none", repeat: -1 }); });
@@ -711,7 +724,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $$(".filters button").forEach(b => b.addEventListener("click", () => {
     $$(".filters button").forEach(x => x.setAttribute("aria-pressed", x === b));
     const f = b.dataset.f;
-    $$("#labGrid .tile").forEach(t => t.hidden = !(f === "all" || t.dataset.cat === f));
+    $$("#labGrid .tile").forEach(t => t.hidden = !(f === "all" || t.dataset.cat === f)); $("#labGrid").scrollLeft = 0;
     if (G && !RM) gsap.from($$("#labGrid .tile:not([hidden])"), { y: 30, opacity: 0, duration: .5, ease: "power3.out", stagger: .05, clearProps: "all" });
     if (window.ScrollTrigger) ScrollTrigger.refresh();
   }));
