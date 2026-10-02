@@ -8,6 +8,7 @@ Je krijgt een app- of website-idee. Stel daarvoor een stack samen **uitsluitend 
 
 1. **Soort project bepalen:** website (`site`), webapp (`app`) of mobiele app (`mobile`).
 2. **Functies herkennen:** zet het idee om naar de functies uit "Functies → tools" en neem die tools over (per soort project als dat zo staat).
+   Let ook op verborgen behoeften: iets op een vast tijdstip (herinneringen, rapporten, opvolgmails) → een tool uit Achtergrondtaken (`jobs`); werkt offline of installeerbaar → PWA & offline (`pwa`); meerdere talen → Meertaligheid (`i18n`); zoeken in veel content → Zoeken (`search`); gebruikers uploaden bestanden → Opslag & media (`storage`).
 3. **Basis toevoegen:** neem de must-haves "Voor elk project" mee, plus die voor het soort project.
 4. **Per rol één keuze:** bij "Kies er één" maximaal één tool uit elke groep.
 5. **Controleren:** elke tool met "vereist één van" moet zijn vereiste in de stack hebben. Los conflicten op of benoem ze. Mobiel (Expo) alleen tools met "werkt in React Native".
