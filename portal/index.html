@@ -790,7 +790,7 @@ html{overflow-x:hidden;overflow-x:clip}
     <a class="pill" href="#bouwer"><b>Nieuw</b> Stack-bouwer met CLAUDE.md-export →</a>
     <h1>Frontend <em>Toolbox</em></h1>
     <p class="lede">Tools, repo's en werkwijzen voor bouwen met Claude en frontend. Klik op <b>+</b> bij een tool om hem aan je stack toe te voegen. De stack-bouwer laat zien wat er mist en wat niet samengaat, en maakt er een CLAUDE.md van. Alles is gratis; tools met een limiet hebben het label <b>gratis tier</b>.</p>
-    <div class="ctas"><a class="btn" href="#bouwer">Bouw je stack</a><a class="btn ghost" href="#musthaves">★ Bekijk must-haves</a></div>
+    <div class="ctas"><a class="btn" href="#bouwer">Bouw je stack</a><a class="btn ghost" href="#musthaves">★ Bekijk must-haves</a><a class="btn ghost" href="/stack/" target="_blank" rel="noopener">🤖 Agent-pagina</a><button type="button" class="btn ghost" id="copyAgent">Kopieer agent-prompt</button></div>
     <div class="stats" id="stats"></div>
     <nav class="jump" aria-label="Secties"><a href="#musthaves">Must-haves</a><a href="#ideeen">Library</a><a href="#projecten">Projectideeën</a><a href="#combinaties">Wat past bij elkaar</a><a href="#installeren">Wie installeert wat?</a><a href="#bouwer">Stack-bouwer</a><a href="#md-gids">.md-starterkit</a></nav>
     <div class="marquee" aria-hidden="true"><div class="track" id="marq"></div></div>
@@ -2973,6 +2973,10 @@ function gwToast(html,actLabel,act){
   if(act) document.getElementById("gwtoastAct").onclick=()=>{ clearTimeout(undoTimer); t.className=""; act(); };
   clearTimeout(undoTimer); undoTimer=setTimeout(()=>t.className="",act?7000:2500);
 }
+
+document.addEventListener("click",e=>{ if(e.target.id!=="copyAgent") return; const u=location.origin.startsWith("http")&&!location.origin.includes("claude")?location.origin:"https://library-beta-ruby.vercel.app";
+  const t=`Lees eerst ${u}/stack/stack.md volledig. Dat is mijn tool-library met werkwijze, regels en uitvoerformaat. Stel voor het idee hieronder een stack samen uitsluitend uit die library en volg het uitvoerformaat.\n\nMijn idee: `;
+  try{ navigator.clipboard.writeText(t).then(()=>gwToast("Agent-prompt gekopieerd. Plak hem in Claude en typ je idee erachter.")); }catch(err){ gwToast(t); } });
 /* ---------- Brand motion: GSAP + ScrollTrigger + SplitText + Lenis (uit de eigen toolbox) ---------- */
 const RM = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const HAS_GSAP = typeof window.gsap!=="undefined";
