@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02",
+ "updated": "2026-10-08",
  "source": "https://library-beta-ruby.vercel.app/stack/",
  "tools": [
   {
@@ -1327,6 +1327,22 @@
    "name": "Land-book",
    "url": "https://land-book.com",
    "what": "landingspagina-inspiratie",
+   "role": "inspiration",
+   "roleLabel": "Inspiratie",
+   "install": "web",
+   "installHow": "Geen installatie: je gebruikt de website",
+   "cmd": "",
+   "requiresOneOf": [],
+   "free": "gratis / open source",
+   "native": false,
+   "mcpConfig": null,
+   "env": []
+  },
+  {
+   "key": "dqnamo",
+   "name": "dqnamo",
+   "url": "https://www.dqnamo.com",
+   "what": "design-engineer-portfolio met losse interactie-experimenten: kaarten, knoppen, printer-animaties",
    "role": "inspiration",
    "roleLabel": "Inspiratie",
    "install": "web",

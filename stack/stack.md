@@ -1,6 +1,6 @@
 # Stack-library van Michel van der Put
 
-Bijgewerkt: 2026-10-02 · 392 tools · bron: Groundwork-portaal · machineleesbaar: https://library-beta-ruby.vercel.app/stack/stack.json
+Bijgewerkt: 2026-10-08 · 393 tools · bron: Groundwork-portaal · machineleesbaar: https://library-beta-ruby.vercel.app/stack/stack.json
 
 ## Opdracht voor de agent
 
@@ -533,6 +533,7 @@ Kolommen: key · naam · wat · installatie · prijs · vereist · extra.
 | `godly` | [Godly](https://godly.website) | galerij met opvallend webdesign | web | gratis / open source | – | – |
 | `awwwards` | [Awwwards](https://www.awwwards.com) | prijswinnende websites | web | gratis / open source | – | – |
 | `landbook` | [Land-book](https://land-book.com) | landingspagina-inspiratie | web | gratis / open source | – | – |
+| `dqnamo` | [dqnamo](https://www.dqnamo.com) | design-engineer-portfolio met losse interactie-experimenten: kaarten, knoppen, printer-animaties | web | gratis / open source | – | – |
 | `siteinspire` | [SiteInspire](https://www.siteinspire.com) | webdesign op stijl en type | web | gratis / open source | – | – |
 | `minimal` | [Minimal Gallery](https://minimal.gallery) | minimalistische websites | web | gratis / open source | – | – |
 | `supahero` | [Supahero](https://supahero.io) | alleen hero-secties | web | gratis / open source | – | – |
